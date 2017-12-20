@@ -101,7 +101,7 @@ class HaoDataset(Dataset):
         if idx == len(self) - 1:
             # Reset back to the beginning
             self.scp_file.seek(0)
-        
+
         return (feats_tensor, target_tensor)
 
 

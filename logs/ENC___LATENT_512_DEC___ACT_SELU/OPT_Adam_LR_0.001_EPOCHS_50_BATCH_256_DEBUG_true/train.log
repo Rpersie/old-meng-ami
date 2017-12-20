@@ -1,0 +1,229 @@
+Setting up environment...
+Environment set up.
+Training deep multidecoder...
+Constructing model...
+Done constructing model.
+DNNMultidecoder (
+  (activation): SELU
+  (encoder): Sequential (
+    (lin_final): Linear (80 -> 512)
+  )
+  (decoder_ihm): Sequential (
+    (lin_final): Linear (512 -> 80)
+  )
+  (decoder_sdm1): Sequential (
+    (lin_final): Linear (512 -> 80)
+  )
+)
+Setting up data...
+Setting up training datasets...
+Using 2649 training features (11 batches) for class ihm
+Using 2431 training features (10 batches) for class sdm1
+Setting up dev datasets...
+Using 57 dev features (1 batches) for class ihm
+Using 1554 dev features (7 batches) for class sdm1
+Setting up minibatch shuffling for training...
+21 total batches: {'ihm': 11, 'sdm1': 10}
+Done setting up data.
+Starting training!
+====> Epoch 1: Average train loss 0.348084
+====> Dev set loss: 0.214219
+New best dev set loss: 0.214219
+Saved checkpoint for model
+====> Epoch 2: Average train loss 0.144438
+====> Dev set loss: 0.141159
+New best dev set loss: 0.141159
+Saved checkpoint for model
+====> Epoch 3: Average train loss 0.096638
+====> Dev set loss: 0.104717
+New best dev set loss: 0.104717
+Saved checkpoint for model
+====> Epoch 4: Average train loss 0.072751
+====> Dev set loss: 0.082049
+New best dev set loss: 0.082049
+Saved checkpoint for model
+====> Epoch 5: Average train loss 0.057798
+====> Dev set loss: 0.066611
+New best dev set loss: 0.066611
+Saved checkpoint for model
+====> Epoch 6: Average train loss 0.047995
+====> Dev set loss: 0.056774
+New best dev set loss: 0.056774
+Saved checkpoint for model
+====> Epoch 7: Average train loss 0.040818
+====> Dev set loss: 0.048328
+New best dev set loss: 0.048328
+Saved checkpoint for model
+====> Epoch 8: Average train loss 0.035218
+====> Dev set loss: 0.042069
+New best dev set loss: 0.042069
+Saved checkpoint for model
+====> Epoch 9: Average train loss 0.030800
+====> Dev set loss: 0.036860
+New best dev set loss: 0.036860
+Saved checkpoint for model
+====> Epoch 10: Average train loss 0.027140
+====> Dev set loss: 0.032588
+New best dev set loss: 0.032588
+Saved checkpoint for model
+====> Epoch 11: Average train loss 0.024109
+====> Dev set loss: 0.028989
+New best dev set loss: 0.028989
+Saved checkpoint for model
+====> Epoch 12: Average train loss 0.021559
+====> Dev set loss: 0.025931
+New best dev set loss: 0.025931
+Saved checkpoint for model
+====> Epoch 13: Average train loss 0.019386
+====> Dev set loss: 0.023293
+New best dev set loss: 0.023293
+Saved checkpoint for model
+====> Epoch 14: Average train loss 0.017508
+====> Dev set loss: 0.021010
+New best dev set loss: 0.021010
+Saved checkpoint for model
+====> Epoch 15: Average train loss 0.015883
+====> Dev set loss: 0.019076
+New best dev set loss: 0.019076
+Saved checkpoint for model
+====> Epoch 16: Average train loss 0.014470
+====> Dev set loss: 0.017323
+New best dev set loss: 0.017323
+Saved checkpoint for model
+====> Epoch 17: Average train loss 0.013233
+====> Dev set loss: 0.015816
+New best dev set loss: 0.015816
+Saved checkpoint for model
+====> Epoch 18: Average train loss 0.012130
+====> Dev set loss: 0.014478
+New best dev set loss: 0.014478
+Saved checkpoint for model
+====> Epoch 19: Average train loss 0.011153
+====> Dev set loss: 0.013277
+New best dev set loss: 0.013277
+Saved checkpoint for model
+====> Epoch 20: Average train loss 0.010294
+====> Dev set loss: 0.012212
+New best dev set loss: 0.012212
+Saved checkpoint for model
+====> Epoch 21: Average train loss 0.009518
+====> Dev set loss: 0.011263
+New best dev set loss: 0.011263
+Saved checkpoint for model
+====> Epoch 22: Average train loss 0.008818
+====> Dev set loss: 0.010404
+New best dev set loss: 0.010404
+Saved checkpoint for model
+====> Epoch 23: Average train loss 0.008179
+====> Dev set loss: 0.009643
+New best dev set loss: 0.009643
+Saved checkpoint for model
+====> Epoch 24: Average train loss 0.007603
+====> Dev set loss: 0.008939
+New best dev set loss: 0.008939
+Saved checkpoint for model
+====> Epoch 25: Average train loss 0.007080
+====> Dev set loss: 0.008285
+New best dev set loss: 0.008285
+Saved checkpoint for model
+====> Epoch 26: Average train loss 0.006604
+====> Dev set loss: 0.007704
+New best dev set loss: 0.007704
+Saved checkpoint for model
+====> Epoch 27: Average train loss 0.006189
+====> Dev set loss: 0.007167
+New best dev set loss: 0.007167
+Saved checkpoint for model
+====> Epoch 28: Average train loss 0.005785
+====> Dev set loss: 0.006684
+New best dev set loss: 0.006684
+Saved checkpoint for model
+====> Epoch 29: Average train loss 0.005408
+====> Dev set loss: 0.006299
+New best dev set loss: 0.006299
+Saved checkpoint for model
+====> Epoch 30: Average train loss 0.005076
+====> Dev set loss: 0.005852
+New best dev set loss: 0.005852
+Saved checkpoint for model
+====> Epoch 31: Average train loss 0.004761
+====> Dev set loss: 0.005439
+New best dev set loss: 0.005439
+Saved checkpoint for model
+====> Epoch 32: Average train loss 0.004452
+====> Dev set loss: 0.005109
+New best dev set loss: 0.005109
+Saved checkpoint for model
+====> Epoch 33: Average train loss 0.004181
+====> Dev set loss: 0.004773
+New best dev set loss: 0.004773
+Saved checkpoint for model
+====> Epoch 34: Average train loss 0.003938
+====> Dev set loss: 0.004434
+New best dev set loss: 0.004434
+Saved checkpoint for model
+====> Epoch 35: Average train loss 0.003700
+====> Dev set loss: 0.004195
+New best dev set loss: 0.004195
+Saved checkpoint for model
+====> Epoch 36: Average train loss 0.003482
+====> Dev set loss: 0.003922
+New best dev set loss: 0.003922
+Saved checkpoint for model
+====> Epoch 37: Average train loss 0.003270
+====> Dev set loss: 0.003651
+New best dev set loss: 0.003651
+Saved checkpoint for model
+====> Epoch 38: Average train loss 0.003077
+====> Dev set loss: 0.003423
+New best dev set loss: 0.003423
+Saved checkpoint for model
+====> Epoch 39: Average train loss 0.002896
+====> Dev set loss: 0.003260
+New best dev set loss: 0.003260
+Saved checkpoint for model
+====> Epoch 40: Average train loss 0.002728
+====> Dev set loss: 0.003013
+New best dev set loss: 0.003013
+Saved checkpoint for model
+====> Epoch 41: Average train loss 0.002572
+====> Dev set loss: 0.002838
+New best dev set loss: 0.002838
+Saved checkpoint for model
+====> Epoch 42: Average train loss 0.002440
+====> Dev set loss: 0.002672
+New best dev set loss: 0.002672
+Saved checkpoint for model
+====> Epoch 43: Average train loss 0.002322
+====> Dev set loss: 0.002521
+New best dev set loss: 0.002521
+Saved checkpoint for model
+====> Epoch 44: Average train loss 0.002189
+====> Dev set loss: 0.002338
+New best dev set loss: 0.002338
+Saved checkpoint for model
+====> Epoch 45: Average train loss 0.002053
+====> Dev set loss: 0.002199
+New best dev set loss: 0.002199
+Saved checkpoint for model
+====> Epoch 46: Average train loss 0.001947
+====> Dev set loss: 0.002067
+New best dev set loss: 0.002067
+Saved checkpoint for model
+====> Epoch 47: Average train loss 0.001820
+====> Dev set loss: 0.001937
+New best dev set loss: 0.001937
+Saved checkpoint for model
+====> Epoch 48: Average train loss 0.001712
+====> Dev set loss: 0.001816
+New best dev set loss: 0.001816
+Saved checkpoint for model
+====> Epoch 49: Average train loss 0.001613
+====> Dev set loss: 0.001717
+New best dev set loss: 0.001717
+Saved checkpoint for model
+====> Epoch 50: Average train loss 0.001519
+====> Dev set loss: 0.001606
+New best dev set loss: 0.001606
+Saved checkpoint for model
+Trained deep multidecoder.

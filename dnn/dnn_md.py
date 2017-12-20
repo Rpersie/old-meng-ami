@@ -8,20 +8,19 @@ from torch.autograd import Variable
 
 # Base class -- do not use directly!
 class Multidecoder(nn.Module):
-    def main_parameters(self):
-        # Get parameters for full autoencoder using main decoder
-        decoder_parameters = self.decoders[self.main_decoder_class].parameters()
+    def model_parameters(self, decoder_class):
+        # Get parameters for just a specific decoder and the encoder
+        if decoder_class not in self.decoder_classes:
+            print("Decoder class \"%s\" not found in decoders: %s" % (decoder_class, self.decoder_classes),
+                  flush=True)
+            sys.exit(1)
+        decoder_parameters = self.decoders[decoder_class].parameters()
         for param in decoder_parameters:
             yield param
+        
         encoder_parameters = self.encoder.parameters()
         for param in encoder_parameters:
             yield param
-
-    def decoder_parameters(self, decoder_class):
-        # Get parameters for just the decoder
-        if decoder_class == self.main_decoder_class:
-            print("Warning: these are for the main decoder class. You probably want to use the secondary decoders", flush=True)
-        return self.decoders[decoder_class].parameters()
 
     def encode(self, feats):
         return self.encoder(feats)
@@ -48,7 +47,6 @@ class DNNMultidecoder(Multidecoder):
                        dec_layer_sizes=[],
                        activation="PReLU",
                        dropout=0.0,
-                       main_decoder_class="",
                        decoder_classes=[""]):
         super(DNNMultidecoder, self).__init__()
 
@@ -61,9 +59,6 @@ class DNNMultidecoder(Multidecoder):
         self.activation = getattr(nn, activation)()
         self.dropout = dropout
         self.decoder_classes = decoder_classes
-        self.main_decoder_class = main_decoder_class
-        if main_decoder_class not in decoder_classes:
-            raise Exception("Main decoder class %s not in decoder classes: %s" % (main_decoder_class, decoder_classes))
 
         # Construct encoder
         self.input_dim = (feat_dim * (sum(splicing) + 1))
