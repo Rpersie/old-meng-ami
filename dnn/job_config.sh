@@ -18,31 +18,15 @@ export DEC_LAYERS_DELIM=$(printf "_%s" "${DEC_LAYERS[@]}")
 export MAIN_DECODER_CLASS=ihm
 export DECODER_CLASSES=( ihm sdm1 )
 export DECODER_CLASSES_DELIM=$(printf "_%s" "${DECODER_CLASSES[@]}")
-export TRAIN_DIRS=( )
-export DEV_DIRS=( )
-export EVAL_DIRS=( )
 
-debug_model=false
+export DEBUG_MODEL=true
+if [ "$DEBUG_MODEL" = true ] ; then
+    export CURRENT_FEATS=$TEST_FEATS
+else
+    export CURRENT_FEATS=$FEATS
+fi
 
-for ((i=0;i<${#DECODER_CLASSES[@]};i++))
-do
-    decoder_class="${DECODER_CLASSES[i]}"
-
-    if [ "$debug_model" = true ] ; then
-        TRAIN_DIRS[$i]="${FEATS}/${decoder_class}/train-logmel-hires/data"
-        DEV_DIRS[$i]="${FEATS}/${decoder_class}/dev-logmel-hires/data"
-        EVAL_DIRS[$i]="${FEATS}/${decoder_class}/eval-logmel-hires/data"
-    else
-        TRAIN_DIRS[$i]="${TEST_FEATS}/${decoder_class}/train"
-        DEV_DIRS[$i]="${TEST_FEATS}/${decoder_class}/dev"
-        EVAL_DIRS[$i]="${TEST_FEATS}/${decoder_class}/eval"
-    fi
-done
-export TRAIN_DIRS_DELIM=$(printf " %s" "${TRAIN_DIRS[@]}")
-export DEV_DIRS_DELIM=$(printf " %s" "${DEV_DIRS[@]}")
-export EVAL_DIRS_DELIM=$(printf " %s" "${EVAL_DIRS[@]}")
-
-export EXPT_NAME="MAIN_${MAIN_DECODER_CLASS}/ENC_${ENC_LAYERS_DELIM}_LATENT_${LATENT_DIM}_DEC_${DEC_LAYERS_DELIM}_ACT_${ACTIVATION_FUNC}/OPT_${OPTIMIZER}_LR_${LEARNING_RATE}_EPOCHS_${EPOCHS}_BATCH_${BATCH_SIZE}"
+export EXPT_NAME="MAIN_${MAIN_DECODER_CLASS}/DEBUG_${DEBUG_MODEL}/ENC_${ENC_LAYERS_DELIM}_LATENT_${LATENT_DIM}_DEC_${DEC_LAYERS_DELIM}_ACT_${ACTIVATION_FUNC}/OPT_${OPTIMIZER}_LR_${LEARNING_RATE}_EPOCHS_${EPOCHS}_BATCH_${BATCH_SIZE}"
 
 # For decoding
 export CURRENT_DECODER_CLASS=ihm
