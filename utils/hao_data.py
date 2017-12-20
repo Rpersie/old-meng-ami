@@ -48,8 +48,11 @@ def write_kaldi_hao_ark(hao_ark_fd, utt_id, arr):
 # Dataset class to support loading just features from Hao files
 # Only for sequential use! Does not support random access
 class HaoDataset(Dataset):
-    def __init__(self, scp_path):
+    def __init__(self, scp_path, left_context=0, right_context=0):
         super(HaoDataset, self).__init__()
+
+        self.left_context = left_context
+        self.right_context = right_context
 
         # Load in Hao files
         self.scp_path = scp_path
@@ -83,17 +86,29 @@ class HaoDataset(Dataset):
     def __getitem__(self, idx):
         if self.current_feat_mat is None:
             scp_line = self.scp_file.readline()
-            self.current_utt_id, self.current_feat_mat, self.hao_ark_fd = read_next_utt(scp_line,
-                                                                                        hao_ark_fd=self.hao_ark_fd)
+            self.current_utt_id, feat_mat, self.hao_ark_fd = read_next_utt(scp_line,
+                                                                           hao_ark_fd=self.hao_ark_fd)
+
+            # Duplicate frames at start and end of utterance (as in Kaldi)
+            self.current_feat_mat = np.empty((feat_mat.shape[0] + self.left_context + self.right_context,
+                                              feat_mat.shape[1]))
+            self.current_feat_mat[self.left_context:self.left_context + feat_mat.shape[0], :] = feat_mat
+            for i in range(self.left_context):
+                self.current_feat_mat[i, :] = feat_mat[0, :]
+            for i in range(self.right_context):
+                self.current_feat_mat[self.left_context + feat_mat.shape[0] + i, :] = feat_mat[feat_mat.shape[0] - 1, :]
+            
             self.current_feat_idx = 0
-        feats_tensor = torch.FloatTensor(self.current_feat_mat[self.current_feat_idx, :])
+
+        feats_tensor = torch.FloatTensor(self.current_feat_mat[self.current_feat_idx:self.current_feat_idx + self.left_context + self.right_context + 1, :])
+        feats_tensor = feats_tensor.view((-1, self.left_context + self.right_context + 1))
 
         # Target is identical to feature tensor
         target_tensor = feats_tensor.clone()
 
         # Update where we are in the feature matrix
         self.current_feat_idx += 1
-        if self.current_feat_idx == len(self.current_feat_mat):
+        if self.current_feat_idx == len(self.current_feat_mat) - self.left_context - self.right_context:
             self.current_utt_id = None
             self.current_feat_mat = None
             self.current_feat_idx = 0

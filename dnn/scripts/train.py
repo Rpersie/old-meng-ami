@@ -21,9 +21,9 @@ from utils.hao_data import HaoDataset
 # Set up features
 feature_name = "fbank"
 feat_dim = int(os.environ["FEAT_DIM"])
-left_splice = int(os.environ["LEFT_SPLICE"])
-right_splice = int(os.environ["RIGHT_SPLICE"])
-input_dim = (left_splice + right_splice + 1) * feat_dim
+left_context = int(os.environ["LEFT_CONTEXT"])
+right_context = int(os.environ["RIGHT_CONTEXT"])
+input_dim = (left_context + right_context + 1) * feat_dim
 
 # Read in parameters to use for our network
 enc_layer_sizes = []
@@ -69,7 +69,7 @@ random.seed(1)
 # Construct autoencoder with our parameters
 print("Constructing model...", flush=True)
 model = DNNMultidecoder(feat_dim=feat_dim,
-                        splicing=[left_splice, right_splice], 
+                        splicing=[left_context, right_context], 
                         enc_layer_sizes=enc_layer_sizes,
                         latent_dim=latent_dim,
                         dec_layer_sizes=dec_layer_sizes,
@@ -104,7 +104,9 @@ print("Setting up training datasets...", flush=True)
 training_datasets = dict()
 training_loaders = dict()
 for decoder_class in decoder_classes:
-    current_dataset = HaoDataset(training_scps[decoder_class])
+    current_dataset = HaoDataset(training_scps[decoder_class],
+                                 left_context=left_context,
+                                 right_context=right_context)
     training_datasets[decoder_class] = current_dataset
     training_loaders[decoder_class] = DataLoader(current_dataset,
                                                  batch_size=batch_size,
@@ -119,7 +121,9 @@ print("Setting up dev datasets...", flush=True)
 dev_datasets = dict()
 dev_loaders = dict()
 for decoder_class in decoder_classes:
-    current_dataset = HaoDataset(dev_scps[decoder_class])
+    current_dataset = HaoDataset(dev_scps[decoder_class],
+                                 left_context=left_context,
+                                 right_context=right_context)
     dev_datasets[decoder_class] = current_dataset
     dev_loaders[decoder_class] = DataLoader(current_dataset,
                                             batch_size=batch_size,

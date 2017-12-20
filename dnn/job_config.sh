@@ -1,8 +1,6 @@
 export FEAT_DIM=80      # 80 log-Mel
-# export LEFT_SPLICE=5
-# export RIGHT_SPLICE=5
-export LEFT_SPLICE=0
-export RIGHT_SPLICE=0
+export LEFT_CONTEXT=5
+export RIGHT_CONTEXT=5
 
 export OPTIMIZER=Adam
 export LEARNING_RATE=0.001
