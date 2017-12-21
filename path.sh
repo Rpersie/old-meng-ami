@@ -10,13 +10,13 @@ export FEATBIN=$KALDI_ROOT/src/featbin
 
 export SCRATCH=/data/sls/scratch/atitus5/meng
 mkdir -p $SCRATCH
-export FEATS=$SCRATCH/feats
-mkdir -p $FEATS
 export LATENT=$SCRATCH/latent
 mkdir -p $LATENT
 export MODELS=$SCRATCH/models
 mkdir -p $MODELS
 
+export FEATS=$EXPT/feats_ami-0.1
+# export FEATS=/data/sls/scratch/haotang/ami/sls-data/ami-0.1
 export TEST_FEATS=$EXPT/test_feats
 export UTILS=$EXPT/utils
 
