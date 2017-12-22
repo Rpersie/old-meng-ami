@@ -10,5 +10,5 @@ echo "Environment set up."
 
 # Train a deep multidecoder
 echo "Training deep multidecoder..."
-python3 dnn/scripts/train.py
+python3 dnn/scripts/train_ae.py
 echo "Trained deep multidecoder."

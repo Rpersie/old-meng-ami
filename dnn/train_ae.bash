@@ -6,7 +6,7 @@
 #SBATCH --gres=gpu:1
 #SBATCH --mem=32768
 #SBATCH --time=48:00:00
-#SBATCH -J train_dnn_md
+#SBATCH -J train_ae_dnn_md
 
 echo "STARTING DNN TRAINING JOB"
 
@@ -19,12 +19,12 @@ source activate $TRAIN_ENV
 echo "Environment set up."
 
 mkdir -p $LOGS/$EXPT_NAME
-train_log=$LOGS/$EXPT_NAME/train.log
+train_log=$LOGS/$EXPT_NAME/train_ae.log
 if [ -f $train_log ]; then
     # Move old log
-    mv $train_log $LOGS/$EXPT_NAME/train-$(date +"%F_%T%z").log
+    mv $train_log $LOGS/$EXPT_NAME/train_ae-$(date +"%F_%T%z").log
 fi
 
-./dnn/train.sh > $train_log
+./dnn/train_ae.sh > $train_log
 
 echo "DONE DNN TRAINING JOB"
