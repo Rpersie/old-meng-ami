@@ -1,0 +1,32 @@
+Setting up environment...
+Environment set up.
+Training deep multidecoder...
+Constructing model...
+Done constructing model.
+DNNMultidecoder (
+  (activation): SELU
+  (encoder): Sequential (
+    (lin_0): Linear (880 -> 1024)
+    (SELU_0): SELU
+    (lin_1): Linear (1024 -> 1024)
+    (SELU_1): SELU
+    (lin_final): Linear (1024 -> 512)
+  )
+  (decoder_ihm): Sequential (
+    (lin_0): Linear (512 -> 1024)
+    (SELU_0): SELU
+    (lin_1): Linear (1024 -> 1024)
+    (SELU_1): SELU
+    (lin_final): Linear (1024 -> 880)
+  )
+  (decoder_sdm1): Sequential (
+    (lin_0): Linear (512 -> 1024)
+    (SELU_0): SELU
+    (lin_1): Linear (1024 -> 1024)
+    (SELU_1): SELU
+    (lin_final): Linear (1024 -> 880)
+  )
+)
+Setting up data...
+Setting up training datasets...
+Using 2407138 training features (9403 batches) for class ihm

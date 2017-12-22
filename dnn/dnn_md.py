@@ -46,7 +46,6 @@ class DNNMultidecoder(Multidecoder):
                        latent_dim=64,
                        dec_layer_sizes=[],
                        activation="PReLU",
-                       dropout=0.0,
                        decoder_classes=[""]):
         super(DNNMultidecoder, self).__init__()
 
@@ -57,7 +56,6 @@ class DNNMultidecoder(Multidecoder):
         self.latent_dim = latent_dim
         self.dec_layer_sizes = dec_layer_sizes
         self.activation = getattr(nn, activation)()
-        self.dropout = dropout
         self.decoder_classes = decoder_classes
 
         # Construct encoder
@@ -68,7 +66,6 @@ class DNNMultidecoder(Multidecoder):
             enc_layer_size = enc_layer_sizes[idx]
             self.encoder_layers["lin_%d" % idx] = nn.Linear(current_dim, enc_layer_size)
             self.encoder_layers["%s_%d" % (activation, idx)] = self.activation
-            self.encoder_layers["dropout_%d" % idx] = nn.Dropout(p=self.dropout)
             current_dim = enc_layer_size
         self.encoder_layers["lin_final"] = nn.Linear(current_dim, self.latent_dim)
         self.encoder = nn.Sequential(self.encoder_layers)
@@ -83,7 +80,6 @@ class DNNMultidecoder(Multidecoder):
                 dec_layer_size = dec_layer_sizes[idx]
                 self.decoder_layers[decoder_class]["lin_%d" % idx] = nn.Linear(current_dim, dec_layer_size)
                 self.decoder_layers[decoder_class]["%s_%d" % (activation, idx)] = self.activation
-                self.decoder_layers[decoder_class]["dropout_%d" % idx] = nn.Dropout(p=self.dropout)
                 current_dim = dec_layer_size
             self.decoder_layers[decoder_class]["lin_final"] = nn.Linear(current_dim, self.input_dim)
             self.decoders[decoder_class] = nn.Sequential(self.decoder_layers[decoder_class])

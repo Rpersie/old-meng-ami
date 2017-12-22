@@ -3,13 +3,13 @@ export LEFT_CONTEXT=5
 export RIGHT_CONTEXT=5
 
 export OPTIMIZER=Adam
-export LEARNING_RATE=0.001
-export EPOCHS=50
+export LEARNING_RATE=0.0001
+export EPOCHS=100
 export BATCH_SIZE=256
 
-export ENC_LAYERS=( )
+export ENC_LAYERS=( 1024 1024 )
 export LATENT_DIM=512
-export DEC_LAYERS=( )
+export DEC_LAYERS=( 1024 1024 )
 export ACTIVATION_FUNC=SELU
 
 export ENC_LAYERS_DELIM=$(printf "_%s" "${ENC_LAYERS[@]}")
