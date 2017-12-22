@@ -6,9 +6,9 @@
 #SBATCH --gres=gpu:1
 #SBATCH --mem=32768
 #SBATCH --time=48:00:00
-#SBATCH -J train_ae_dnn_md
+#SBATCH -J train_vae_dnn_md
 
-echo "STARTING DEEP MULTIDECODER TRAINING JOB"
+echo "STARTING DEEP VARIATIONAL MULTIDECODER TRAINING JOB"
 
 . ./path.sh
 . ./dnn/job_config.sh
@@ -19,12 +19,12 @@ source activate $TRAIN_ENV
 echo "Environment set up."
 
 mkdir -p $LOGS/$EXPT_NAME
-train_log=$LOGS/$EXPT_NAME/train_ae.log
+train_log=$LOGS/$EXPT_NAME/train_vae.log
 if [ -f $train_log ]; then
     # Move old log
-    mv $train_log $LOGS/$EXPT_NAME/train_ae-$(date +"%F_%T%z").log
+    mv $train_log $LOGS/$EXPT_NAME/train_vae-$(date +"%F_%T%z").log
 fi
 
-./dnn/train_ae.sh > $train_log
+./dnn/train_vae.sh > $train_log
 
-echo "DONE DEEP MULTIDECODER TRAINING JOB"
+echo "DONE DEEP VARIATIONAL MULTIDECODER TRAINING JOB"
