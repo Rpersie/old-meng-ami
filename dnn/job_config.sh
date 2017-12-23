@@ -7,9 +7,9 @@ export LEARNING_RATE=0.0001
 export EPOCHS=100
 export BATCH_SIZE=256
 
-export ENC_LAYERS=( 1024 1024 )
+export ENC_LAYERS=( 2048 2048 2048 )
 export LATENT_DIM=512
-export DEC_LAYERS=( 1024 1024 )
+export DEC_LAYERS=( 2048 2048 2048 )
 export ACTIVATION_FUNC=SELU
 
 export ENC_LAYERS_DELIM=$(printf "_%s" "${ENC_LAYERS[@]}")
