@@ -218,10 +218,10 @@ best_dev_loss = float('inf')
 save_best_only = True   # Set to False to always save model state, regardless of improvement
 
 def save_checkpoint(state_obj, is_best, model_dir):
-    filepath = os.path.join(model_dir, "ckpt_dnn_md_%d.pth.tar" % state_obj["epoch"])
+    filepath = os.path.join(model_dir, "ckpt_dnn_ae_md_%d.pth.tar" % state_obj["epoch"])
     torch.save(state_obj, filepath)
     if is_best:
-        shutil.copyfile(filepath, os.path.join(model_dir, "best_dnn_md.pth.tar"))
+        shutil.copyfile(filepath, os.path.join(model_dir, "best_dnn_ae_md.pth.tar"))
 
 # Regularize via patience-based early stopping
 max_patience = 3

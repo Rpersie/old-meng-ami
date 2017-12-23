@@ -7,6 +7,7 @@
 #SBATCH --mem=32768
 #SBATCH --time=48:00:00
 #SBATCH -J train_vae_dnn_md
+#SBATCH --exclude=sls-sm-[1,2,4]
 
 echo "STARTING DEEP VARIATIONAL MULTIDECODER TRAINING JOB"
 
