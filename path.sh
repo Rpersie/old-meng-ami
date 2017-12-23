@@ -1,7 +1,7 @@
 export KALDI_ROOT=/data/sls/r/u/atitus5/scratch/kaldi 
 [ -f $KALDI_ROOT/tools/env.sh ] && . $KALDI_ROOT/tools/env.sh 
-export EXPT=$PWD 
-export PATH=$EXPT/utils/:$KALDI_ROOT/tools/openfst/bin:$EXPT:$PATH 
+export MENG_ROOT=$PWD 
+export PATH=$MENG_ROOT/utils/:$KALDI_ROOT/tools/openfst/bin:$MENG_ROOT:$PATH 
 [ ! -f $KALDI_ROOT/tools/config/common_path.sh ] && echo >&2 "The standard file $KALDI_ROOT/tools/config/common_path.sh is not present -> Exit!" && exit 1 
 . $KALDI_ROOT/tools/config/common_path.sh 
 export LC_ALL=C 
@@ -15,10 +15,10 @@ mkdir -p $LATENT
 export MODELS=$SCRATCH/models
 mkdir -p $MODELS
 
-export FEATS=$EXPT/feats_ami-0.1
+export FEATS=$MENG_ROOT/feats_ami-0.1
 # export FEATS=/data/sls/scratch/haotang/ami/sls-data/ami-0.1
-export TEST_FEATS=$EXPT/test_feats
-export UTILS=$EXPT/utils
+export TEST_FEATS=$MENG_ROOT/test_feats
+export UTILS=$MENG_ROOT/utils
 
 # Change to env-cpu if running just on CPU
 export DATA_PREP_ENV=env-cpu
