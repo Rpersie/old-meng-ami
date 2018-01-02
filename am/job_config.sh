@@ -1,4 +1,4 @@
-export EPOCH=0
+export EPOCH=1
 export DEBUG_MODEL=true
 if [ "$DEBUG_MODEL" = true ] ; then
     export DATASET_NAME=debug
