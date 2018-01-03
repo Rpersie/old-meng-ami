@@ -9,7 +9,7 @@ else
     export DATASET_NAME=feats_ami-0.1
     export DATASET=$MENG_ROOT/${DATASET_NAME}
 fi
-export DOMAIN=ihm
+export DOMAIN=sdm1
 
 export EXPT_NAME="${DATASET_NAME}/${DOMAIN}/frame-tdnn-450x7-step0.05"
 

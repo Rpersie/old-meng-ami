@@ -12,7 +12,8 @@ layer = 7
 # ninput = 140
 ninput = 80
 nhidden = 450
-npred = 3984
+# npred = 3984    # IHM
+npred = 3966    # SDM1
 
 print('-1 0 1')
 print('-1 0 1')
