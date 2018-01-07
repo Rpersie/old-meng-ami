@@ -1,0 +1,48 @@
+Setting up environment...
+Environment set up.
+Training convolutional multidecoder...
+Constructing model...
+Done constructing model.
+CNN1DMultidecoder (
+  (activation): SELU
+  (encoder): Sequential (
+    (conv1d_0): Conv1d(1, 32, kernel_size=(5,), stride=(1,))
+    (bn_0): BatchNorm1d(32, eps=1e-05, momentum=0.1, affine=True)
+    (maxpool1d_0): MaxPool1d (size=5, stride=5, padding=0, dilation=1, ceil_mode=False)
+    (SELU_0): SELU
+    (lin_final): Linear (5600 -> 1024)
+  )
+  (decoder_ihm): Sequential (
+    (conv1d_0): Conv1d(1, 32, kernel_size=(5,), stride=(1,))
+    (bn_0): BatchNorm1d(32, eps=1e-05, momentum=0.1, affine=True)
+    (maxpool1d_0): MaxPool1d (size=5, stride=5, padding=0, dilation=1, ceil_mode=False)
+    (SELU_0): SELU
+    (lin_final): Linear (6528 -> 880)
+  )
+  (decoder_sdm1): Sequential (
+    (conv1d_0): Conv1d(1, 32, kernel_size=(5,), stride=(1,))
+    (bn_0): BatchNorm1d(32, eps=1e-05, momentum=0.1, affine=True)
+    (maxpool1d_0): MaxPool1d (size=5, stride=5, padding=0, dilation=1, ceil_mode=False)
+    (SELU_0): SELU
+    (lin_final): Linear (6528 -> 880)
+  )
+)
+Setting up data...
+Setting up training datasets...
+Using 2407138 training features (9403 batches) for class ihm
+Using 2407138 training features (9403 batches) for class sdm1
+Setting up dev datasets...
+Using 249565 dev features (975 batches) for class ihm
+Using 249565 dev features (975 batches) for class sdm1
+Setting up minibatch shuffling for training...
+18806 total batches: {'ihm': 9403, 'sdm1': 9403}
+Done setting up data.
+Starting training!
+Train epoch 1: [1000/18806 (5.3%)]	Loss: 0.170530
+Train epoch 1: [2000/18806 (10.6%)]	Loss: 0.128758
+Train epoch 1: [3000/18806 (16.0%)]	Loss: 0.120167
+Train epoch 1: [4000/18806 (21.3%)]	Loss: 0.110772
+Train epoch 1: [5000/18806 (26.6%)]	Loss: 0.102137
+Train epoch 1: [6000/18806 (31.9%)]	Loss: 0.094852
+Train epoch 1: [7000/18806 (37.2%)]	Loss: 0.089903
+Train epoch 1: [8000/18806 (42.5%)]	Loss: 0.090598
