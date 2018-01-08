@@ -55,7 +55,7 @@ class DNNMultidecoder(Multidecoder):
         self.enc_layer_sizes = enc_layer_sizes
         self.latent_dim = latent_dim
         self.dec_layer_sizes = dec_layer_sizes
-        self.activation = getattr(nn, activation)()
+        self.activation = activation
         self.decoder_classes = decoder_classes
 
         # Construct encoder
@@ -66,7 +66,7 @@ class DNNMultidecoder(Multidecoder):
             enc_layer_size = enc_layer_sizes[idx]
             self.encoder_layers["lin_%d" % idx] = nn.Linear(current_dim, enc_layer_size)
             self.encoder_layers["bn_%d" % idx] = nn.BatchNorm1d(enc_layer_size)
-            self.encoder_layers["%s_%d" % (activation, idx)] = self.activation
+            self.encoder_layers["%s_%d" % (self.activation, idx)] = getattr(nn, self.activation)()
             current_dim = enc_layer_size
         self.encoder_layers["lin_final"] = nn.Linear(current_dim, self.latent_dim)
         self.encoder = nn.Sequential(self.encoder_layers)
@@ -81,7 +81,7 @@ class DNNMultidecoder(Multidecoder):
                 dec_layer_size = dec_layer_sizes[idx]
                 self.decoder_layers[decoder_class]["lin_%d" % idx] = nn.Linear(current_dim, dec_layer_size)
                 self.decoder_layers["bn_%d" % idx] = nn.BatchNorm1d(dec_layer_size)
-                self.decoder_layers[decoder_class]["%s_%d" % (activation, idx)] = self.activation
+                self.decoder_layers[decoder_class]["%s_%d" % (self.activation, idx)] = getattr(nn, self.activation)()
                 current_dim = dec_layer_size
             self.decoder_layers[decoder_class]["lin_final"] = nn.Linear(current_dim, self.input_dim)
             self.decoders[decoder_class] = nn.Sequential(self.decoder_layers[decoder_class])
@@ -104,7 +104,7 @@ class DNNVariationalMultidecoder(Multidecoder):
         self.enc_layer_sizes = enc_layer_sizes
         self.latent_dim = latent_dim
         self.dec_layer_sizes = dec_layer_sizes
-        self.activation = getattr(nn, activation)()
+        self.activation = activation
         self.decoder_classes = decoder_classes
 
         # Construct encoder
@@ -115,7 +115,7 @@ class DNNVariationalMultidecoder(Multidecoder):
             enc_layer_size = enc_layer_sizes[idx]
             self.encoder_layers["lin_%d" % idx] = nn.Linear(current_dim, enc_layer_size)
             self.encoder_layers["bn_%d" % idx] = nn.BatchNorm1d(enc_layer_size)
-            self.encoder_layers["%s_%d" % (activation, idx)] = self.activation
+            self.encoder_layers["%s_%d" % (self.activation, idx)] = getattr(nn, self.activation)()
             current_dim = enc_layer_size
         self.encoder = nn.Sequential(self.encoder_layers)
 
@@ -123,13 +123,13 @@ class DNNVariationalMultidecoder(Multidecoder):
         self.latent_mu_layers = OrderedDict()
         self.latent_mu_layers["lin"] = nn.Linear(current_dim, self.latent_dim)
         self.latent_mu_layers["bn"] = nn.BatchNorm1d(self.latent_dim)
-        self.latent_mu_layers["%s" % activation] = self.activation
+        self.latent_mu_layers["%s" % self.activation] = getattr(nn, self.activation)()
         self.latent_mu = nn.Sequential(self.latent_mu_layers)
         
         self.latent_logvar_layers = OrderedDict()
         self.latent_logvar_layers["lin"] = nn.Linear(current_dim, self.latent_dim)
         self.latent_logvar_layers["bn"] = nn.BatchNorm1d(self.latent_dim)
-        self.latent_logvar_layers["%s" % activation] = self.activation
+        self.latent_logvar_layers["%s" % self.activation] = getattr(nn, self.activation)()
         self.latent_logvar = nn.Sequential(self.latent_logvar_layers)
 
         # Construct decoders
@@ -142,7 +142,7 @@ class DNNVariationalMultidecoder(Multidecoder):
                 dec_layer_size = dec_layer_sizes[idx]
                 self.decoder_layers[decoder_class]["lin_%d" % idx] = nn.Linear(current_dim, dec_layer_size)
                 self.decoder_layers["bn_%d" % idx] = nn.BatchNorm1d(dec_layer_size)
-                self.decoder_layers[decoder_class]["%s_%d" % (activation, idx)] = self.activation
+                self.decoder_layers[decoder_class]["%s_%d" % (self.activation, idx)] = getattr(nn, self.activation)()
                 current_dim = dec_layer_size
             self.decoder_layers[decoder_class]["lin_final"] = nn.Linear(current_dim, self.input_dim)
             self.decoders[decoder_class] = nn.Sequential(self.decoder_layers[decoder_class])

@@ -13,7 +13,7 @@ from torch.utils.data import DataLoader
 
 sys.path.append("./")
 sys.path.append("./cnn")
-from cnn_md import CNN1DMultidecoder
+from cnn_md import CNNMultidecoder
 from utils.hao_data import HaoDataset
 
 # Uses some structure from https://github.com/pytorch/examples/blob/master/vae/main.py
@@ -23,7 +23,9 @@ feature_name = "fbank"
 feat_dim = int(os.environ["FEAT_DIM"])
 left_context = int(os.environ["LEFT_CONTEXT"])
 right_context = int(os.environ["RIGHT_CONTEXT"])
-input_dim = (left_context + right_context + 1) * feat_dim
+
+freq_dim = feat_dim
+time_dim = (left_context + right_context + 1)
 
 # Read in parameters to use for our network
 enc_channel_sizes = []
@@ -34,13 +36,23 @@ enc_kernel_sizes = []
 for res_str in os.environ["ENC_KERNELS_DELIM"].split("_"):
     if len(res_str) > 0:
         enc_kernel_sizes.append(int(res_str))
+'''
 enc_pool_sizes = []
 for res_str in os.environ["ENC_POOLS_DELIM"].split("_"):
     if len(res_str) > 0:
         enc_pool_sizes.append(int(res_str))
+'''
+enc_fc_sizes = []
+for res_str in os.environ["ENC_FC_DELIM"].split("_"):
+    if len(res_str) > 0:
+        enc_fc_sizes.append(int(res_str))
 
 latent_dim = int(os.environ["LATENT_DIM"])
 
+dec_fc_sizes = []
+for res_str in os.environ["DEC_FC_DELIM"].split("_"):
+    if len(res_str) > 0:
+        dec_fc_sizes.append(int(res_str))
 dec_channel_sizes = []
 for res_str in os.environ["DEC_CHANNELS_DELIM"].split("_"):
     if len(res_str) > 0:
@@ -49,10 +61,12 @@ dec_kernel_sizes = []
 for res_str in os.environ["DEC_KERNELS_DELIM"].split("_"):
     if len(res_str) > 0:
         dec_kernel_sizes.append(int(res_str))
+'''
 dec_pool_sizes = []
 for res_str in os.environ["DEC_POOLS_DELIM"].split("_"):
     if len(res_str) > 0:
         dec_pool_sizes.append(int(res_str))
+'''
 
 activation = os.environ["ACTIVATION_FUNC"]
 decoder_classes = []
@@ -87,15 +101,15 @@ random.seed(1)
 
 # Construct autoencoder with our parameters
 print("Constructing model...", flush=True)
-model = CNN1DMultidecoder(feat_dim=feat_dim,
+model = CNNMultidecoder(freq_dim=freq_dim,
                         splicing=[left_context, right_context], 
                         enc_channel_sizes=enc_channel_sizes,
                         enc_kernel_sizes=enc_kernel_sizes,
-                        enc_pool_sizes=enc_pool_sizes,
+                        enc_fc_sizes=enc_fc_sizes,
                         latent_dim=latent_dim,
+                        dec_fc_sizes=dec_fc_sizes,
                         dec_channel_sizes=dec_channel_sizes,
                         dec_kernel_sizes=dec_kernel_sizes,
-                        dec_pool_sizes=dec_pool_sizes,
                         activation=activation,
                         decoder_classes=decoder_classes)
 if on_gpu:
@@ -105,7 +119,7 @@ print(model, flush=True)
 
 # Set up loss function
 def reconstruction_loss(recon_x, x):
-    MSE = nn.MSELoss()(recon_x, x.view(-1, input_dim))
+    MSE = nn.MSELoss()(recon_x, x.view(-1, time_dim, freq_dim))
     return MSE
 
 
