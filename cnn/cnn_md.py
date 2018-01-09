@@ -198,31 +198,23 @@ class CNNMultidecoder(nn.Module):
     
     def encode(self, feats):
         # Need to go layer-by-layer to get pooling indices
-        print("ENCODING", flush=True)
         pooling_indices = []    
         unpool_sizes = []
         conv_encoded = feats
-        print(conv_encoded.size(), flush=True)
         for i, (encoder_conv_layer_name, encoder_conv_layer) in enumerate(self.encoder_conv_layers.items()):
             if "maxpool2d" in encoder_conv_layer_name:
                 unpool_sizes.append(conv_encoded.size())
-                print("Using unpool size %s" % str(conv_encoded.size()), flush=True)
                 conv_encoded, new_pooling_indices = encoder_conv_layer(conv_encoded)
-                print("Using indices %s" % str(new_pooling_indices.size()), flush=True)
                 pooling_indices.append(new_pooling_indices)
             else:
                 conv_encoded = encoder_conv_layer(conv_encoded)
-            print(conv_encoded.size(), flush=True)
         fc_input_size = conv_encoded.size()
         conv_encoded_vec = conv_encoded.view(conv_encoded.size()[0], -1)
         return (self.encoder_fc(conv_encoded_vec), fc_input_size, unpool_sizes, pooling_indices)
 
     def decode(self, z, decoder_class, fc_input_size, unpool_sizes, pooling_indices):
-        print("DECODING", flush=True)
         fc_decoded = self.decoder_fc[decoder_class](z)
-        print(fc_decoded.size(), flush=True)
         fc_decoded_mat = fc_decoded.view(fc_input_size) 
-        print(fc_decoded_mat.size(), flush=True)
 
         # Need to go layer-by-layer to insert pooling indices into unpooling layers
         output = fc_decoded_mat
@@ -230,14 +222,11 @@ class CNNMultidecoder(nn.Module):
             if "maxunpool2d" in decoder_deconv_layer_name:
                 current_pooling_indices = pooling_indices.pop()
                 current_unpool_size = unpool_sizes.pop()
-                print("Using unpool size %s" % str(current_unpool_size), flush=True)
-                print("Using indices %s" % str(current_pooling_indices.size()), flush=True)
                 output = decoder_deconv_layer(output,
                                               current_pooling_indices,
                                               output_size=current_unpool_size)
             else:
                 output = decoder_deconv_layer(output)
-            print(output.size(), flush=True)
 
         return output
     
