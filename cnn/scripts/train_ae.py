@@ -36,12 +36,10 @@ enc_kernel_sizes = []
 for res_str in os.environ["ENC_KERNELS_DELIM"].split("_"):
     if len(res_str) > 0:
         enc_kernel_sizes.append(int(res_str))
-'''
 enc_pool_sizes = []
 for res_str in os.environ["ENC_POOLS_DELIM"].split("_"):
     if len(res_str) > 0:
         enc_pool_sizes.append(int(res_str))
-'''
 enc_fc_sizes = []
 for res_str in os.environ["ENC_FC_DELIM"].split("_"):
     if len(res_str) > 0:
@@ -61,12 +59,10 @@ dec_kernel_sizes = []
 for res_str in os.environ["DEC_KERNELS_DELIM"].split("_"):
     if len(res_str) > 0:
         dec_kernel_sizes.append(int(res_str))
-'''
 dec_pool_sizes = []
 for res_str in os.environ["DEC_POOLS_DELIM"].split("_"):
     if len(res_str) > 0:
         dec_pool_sizes.append(int(res_str))
-'''
 
 activation = os.environ["ACTIVATION_FUNC"]
 decoder_classes = []
@@ -105,11 +101,13 @@ model = CNNMultidecoder(freq_dim=freq_dim,
                         splicing=[left_context, right_context], 
                         enc_channel_sizes=enc_channel_sizes,
                         enc_kernel_sizes=enc_kernel_sizes,
+                        enc_pool_sizes=enc_pool_sizes,
                         enc_fc_sizes=enc_fc_sizes,
                         latent_dim=latent_dim,
                         dec_fc_sizes=dec_fc_sizes,
                         dec_channel_sizes=dec_channel_sizes,
                         dec_kernel_sizes=dec_kernel_sizes,
+                        dec_pool_sizes=dec_pool_sizes,
                         activation=activation,
                         decoder_classes=decoder_classes)
 if on_gpu:
