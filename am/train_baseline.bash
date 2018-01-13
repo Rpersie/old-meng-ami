@@ -46,3 +46,5 @@ OMP_NUM_THREADS=1 /data/sls/scratch/haotang/ami/dist/nn-20171210-5b69f7f/nnbin/f
     --clip 5 \
     > $train_log
 echo "Trained TDNN."
+
+echo "DONE BASELINE ACOUSTIC MODEL TRAINING JOB"
