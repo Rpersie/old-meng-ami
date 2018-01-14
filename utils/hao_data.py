@@ -45,6 +45,19 @@ def write_kaldi_hao_ark(hao_ark_fd, utt_id, arr):
         hao_ark_fd.write(row_str + '\n')
     hao_ark_fd.write(".\n")
 
+def write_kaldi_hao_scp(hao_scp_fd, hao_ark_filepath):
+    with open(hao_ark_filepath, 'r') as ark_fd:
+        last_line = ".\n"
+        last_pos = 0
+        
+        for line in ark_fd:
+            if last_line == ".\n":
+                utt_id = line.rstrip('\n')
+                hao_scp_fd.write("%s %s:%d\n" % (utt_id, hao_ark_filepath, last_pos))
+
+            last_line = line
+            last_pos += len(str.encode(line))   # Python 3 tell() doesn't work in text mode...
+
 # Dataset class to support loading just features from Hao files
 # Only for sequential use! Does not support random access
 class HaoDataset(Dataset):

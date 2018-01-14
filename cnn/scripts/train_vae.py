@@ -112,6 +112,8 @@ model = CNNVariationalMultidecoder(freq_dim=freq_dim,
                         decoder_classes=decoder_classes)
 if on_gpu:
     model.cuda()
+model_dir = os.environ["MODEL_DIR"]
+checkpoint_path = os.path.join(model_dir, "best_cnn_vae_md.pth.tar")
 print("Done constructing model.", flush=True)
 print(model, flush=True)
 
@@ -306,7 +308,7 @@ for epoch in range(1, epochs + 1):
             "dev_loss": dev_loss,
             "optimizers": {decoder_class: optimizers[decoder_class].state_dict() for decoder_class in decoder_classes},
         }
-        save_checkpoint(state_obj, is_best, os.environ["MODEL_DIR"])
+        save_checkpoint(state_obj, is_best, model_dir)
         print("Saved checkpoint for model", flush=True)
     else:
         print("Not saving checkpoint; no improvement made", flush=True)
@@ -315,7 +317,6 @@ for epoch in range(1, epochs + 1):
 print("Computing reconstruction loss...", flush=True)
 
 # Load checkpoint (potentially trained on GPU) into CPU memory (hence the map_location)
-checkpoint_path = os.path.join(os.environ["MODEL_DIR"], "best_cnn_vae_md.pth.tar")
 checkpoint = torch.load(checkpoint_path, map_location=lambda storage,loc: storage)
 
 # Set up model state and set to eval mode (i.e. disable batch norm)

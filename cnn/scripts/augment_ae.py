@@ -14,7 +14,7 @@ from torch.utils.data import DataLoader
 sys.path.append("./")
 sys.path.append("./cnn")
 from cnn_md import CNNMultidecoder
-from utils.hao_data import HaoDataset
+from utils.hao_data import HaoEvalDataset, write_kaldi_hao_ark, write_kaldi_hao_scp
 
 # Uses some structure from https://github.com/pytorch/examples/blob/master/vae/main.py
 
@@ -71,7 +71,7 @@ for res_str in os.environ["DECODER_CLASSES_DELIM"].split("_"):
         decoder_classes.append(res_str)
 
 on_gpu = torch.cuda.is_available()
-log_interval = 1000   # Log results once for this many batches during training
+log_interval = 100   # Log results once for this many batches during training
 
 # Set up input files and output directory
 training_scps = dict()
@@ -135,12 +135,10 @@ print("Setting up training datasets...", flush=True)
 training_datasets = dict()
 training_loaders = dict()
 for decoder_class in decoder_classes:
-    current_dataset = HaoDataset(training_scps[decoder_class],
-                                 left_context=left_context,
-                                 right_context=right_context)
+    current_dataset = HaoEvalDataset(training_scps[decoder_class])
     training_datasets[decoder_class] = current_dataset
     training_loaders[decoder_class] = DataLoader(current_dataset,
-                                                 batch_size=batch_size,
+                                                 batch_size=1,
                                                  shuffle=False,
                                                  **loader_kwargs)
     print("Using %d training features (%d batches) for class %s" % (len(current_dataset),
@@ -152,12 +150,10 @@ print("Setting up dev datasets...", flush=True)
 dev_datasets = dict()
 dev_loaders = dict()
 for decoder_class in decoder_classes:
-    current_dataset = HaoDataset(dev_scps[decoder_class],
-                                 left_context=left_context,
-                                 right_context=right_context)
+    current_dataset = HaoEvalDataset(dev_scps[decoder_class])
     dev_datasets[decoder_class] = current_dataset
     dev_loaders[decoder_class] = DataLoader(current_dataset,
-                                            batch_size=batch_size,
+                                            batch_size=1,
                                             shuffle=False,
                                             **loader_kwargs)
     print("Using %d dev features (%d batches) for class %s" % (len(current_dataset),
@@ -165,20 +161,7 @@ for decoder_class in decoder_classes:
                                                                decoder_class),
           flush=True)
 
-print("Done setting up data.", utt_ids, flush=True)
-
-def write_feats(ark_filepath, batch):
-    with open(ark_filepath, 'w') as ark_file:
-        # Un-splice batch to get just the center frame
-        batch_numpy = batch.data.numpy()
-        center_batch = batch_numpy[:, left_splice:left_splice + 1, :]
-
-        for frame_idx in range(center_batch.shape[0]):
-            utt_id = utt_ids[frame_idx]
-            frame_vec = center_batch[frame_idx, :, :].reshape((-1))
-            write_hao_ark(ark_file, utt_id, frame_vec)
-
-    # TODO: write corresponding SCP file (see Hao email)
+print("Done setting up data.", flush=True)
 
 def augment(source_class, target_class):
     model.eval()
@@ -187,49 +170,44 @@ def augment(source_class, target_class):
     print("=> Processing training data...", flush=True)
     batches_processed = 0
     total_batches = len(training_loaders[source_class])
-    for batch_idx, (feats, targets) in enumerate(training_loaders[source_class]):
-        feats = Variable(feats)
-        targets = Variable(targets)
-        if on_gpu:
-            feats = feats.cuda()
-            targets = targets.cuda()
+    with open(os.path.join(output_dir, "train-src_%s-tar_%s.ark" % (source_class, target_class)), 'w') as ark_fd:
+        for batch_idx, (feats, targets, utt_ids) in enumerate(training_loaders[source_class]):
+            utt_id = utt_ids[0]     # Batch size 1; only one utterance
 
-        # Run batch through target decoder
-        recon_batch = model.forward_decoder(feats, target_class)
+            # Run batch through target decoder
+            feats_numpy = feats.numpy().reshape((-1, freq_dim))
+            num_frames = feats_numpy.shape[0]
+            decoded_feats = np.empty((num_frames, freq_dim))
+            for i in range(num_frames):
+                frame_spliced = np.zeros((time_dim, freq_dim))
+                frame_spliced[left_context - min(i, left_context):left_context, :] = feats_numpy[i - min(i, left_context):i, :]
+                frame_spliced[left_context, :] = feats_numpy[i, :]
+                frame_spliced[left_context + 1:left_context + 1 + min(num_frames - i - 1, right_context), :] = feats_numpy[i + 1:i + 1 + min(num_frames - i - 1, right_context), :]
+                frame_tensor = Variable(torch.FloatTensor(frame_spliced))
+                if on_gpu:
+                    frame_tensor = frame_tensor.cuda()
 
-        # Write to output file
-        write_feats(os.path.join(output_dir, "train-src_%s-tar_%s.ark" % (source_class, target_class)), recon_batch)
+                recon_frames = model.forward_decoder(frame_tensor, target_class)
+                recon_frames_numpy = recon_frames.cpu().data.numpy().reshape((-1, freq_dim))
+                decoded_feats[i, :] = recon_frames_numpy[left_context:left_context + 1, :]
 
-        batches_processed += 1
-        if batches_processed % log_interval == 0:
-            print("===> Augmented %d/%d batches (%.1f%%)]" % (batches_processed,
-                                                              total_batches,
-                                                              100.0 * batches_processed / total_batches),
-                  flush=True)
+            # Write to output file
+            write_kaldi_hao_ark(ark_fd, utt_id, decoded_feats)
 
-    # Process dev dataset
-    print("=> Processing dev data...", flush=True)
-    batches_processed = 0
-    total_batches = len(dev_loaders[source_class])
-    for batch_idx, (feats, targets) in enumerate(dev_loaders[source_class]):
-        feats = Variable(feats)
-        targets = Variable(targets)
-        if on_gpu:
-            feats = feats.cuda()
-            targets = targets.cuda()
+            batches_processed += 1
+            if batches_processed % log_interval == 0:
+                print("===> Augmented %d/%d batches (%.1f%%)]" % (batches_processed,
+                                                                  total_batches,
+                                                                  100.0 * batches_processed / total_batches),
+                      flush=True)
 
-        # Run batch through target decoder
-        recon_batch = model.forward_decoder(feats, target_class)
+    # Create corresponding SCP file
+    print("===> Writing SCP...", flush=True)
+    with open(os.path.join(output_dir, "train-src_%s-tar_%s.scp" % (source_class, target_class)), 'w') as scp_fd:
+        write_kaldi_hao_scp(scp_fd, os.path.join(output_dir, "train-src_%s-tar_%s.ark" % (source_class, target_class)))
+    print("=> Done with training data", flush=True)
 
-        # Write to output file
-        write_feats(os.path.join(output_dir, "dev-src_%s-tar_%s.ark" % (source_class, target_class)), recon_batch)
-
-        batches_processed += 1
-        if batches_processed % log_interval == 0:
-            print("===> Augmented %d/%d batches (%.1f%%)]" % (batches_processed,
-                                                              total_batches,
-                                                              100.0 * batches_processed / total_batches),
-                  flush=True)
+    # TODO: dev data
 
 
 # Go through each combo of source and target class
