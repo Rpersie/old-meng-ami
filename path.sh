@@ -21,9 +21,8 @@ export TEST_FEATS=$MENG_ROOT/test_feats
 export UTILS=$MENG_ROOT/utils
 
 # Change to env-cpu if running just on CPU
-export DATA_PREP_ENV=env-cpu
 export TRAIN_ENV=env-gpu     
-export LATENT_ENV=env-cpu
+export AUGMENT_ENV=env-gpu
 
 export PATH=$PATH:$FEATBIN
 
