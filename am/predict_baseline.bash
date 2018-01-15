@@ -11,7 +11,7 @@
 echo "STARTING BASELINE ACOUSTIC MODEL PREDICTION JOB"
 
 . ./path.sh
-. $MENG_ROOT/am/job_config.sh
+. $MENG_ROOT/am/baseline_config.sh
 . $MENG_ROOT/am/path-opt.sh
 
 mkdir -p $LOGS/$EXPT_NAME

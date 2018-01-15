@@ -50,5 +50,5 @@ export LOGS=${MENG_ROOT}/cnn/logs
 mkdir -p $LOGS
 
 # For data augmentation
-export AUGMENTED_DATA_DIR=${SCRATCH}/augmented_data/cnn
+export AUGMENTED_DATA_DIR=${SCRATCH}/augmented_data/cnn/$EXPT_NAME
 mkdir -p $AUGMENTED_DATA_DIR
