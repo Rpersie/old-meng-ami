@@ -99,9 +99,10 @@ class CNNMultidecoder(nn.Module):
             enc_fc_size = enc_fc_sizes[idx]
             
             self.encoder_fc_layers["lin_%d" % idx] = nn.Linear(current_fc_dim, enc_fc_size)
-            self.encoder_fc_layers["%s_%d" % (self.activation, idx)] = getattr(nn, self.activation)()
-            
             current_fc_dim = enc_fc_size
+
+            self.encoder_fc_layers["batchnorm1d_%d" % idx] = nn.BatchNorm1d(current_fc_dim)
+            self.encoder_fc_layers["%s_%d" % (self.activation, idx)] = getattr(nn, self.activation)()            
 
         self.encoder_fc_layers["lin_final"] = nn.Linear(current_fc_dim, self.latent_dim)
         self.encoder_fc_layers["%s_final" % self.activation] = getattr(nn, self.activation)()
@@ -129,9 +130,11 @@ class CNNMultidecoder(nn.Module):
                 dec_fc_size = dec_fc_sizes[idx]
 
                 self.decoder_fc_layers[decoder_class]["lin_%d" % idx] = nn.Linear(current_fc_dim, dec_fc_size)
+                current_fc_dim = dec_fc_size
+
+                self.decoder_fc_layers[decoder_class]["batchnorm1d_%d" % idx] = nn.BatchNorm1d(current_fc_dim)
                 self.decoder_fc_layers[decoder_class]["%s_%d" % (self.activation, idx)] = getattr(nn, self.activation)()
 
-                current_fc_dim = dec_fc_size
         
             self.decoder_fc_layers[decoder_class]["lin_final"] = nn.Linear(current_fc_dim,
                                                                            input_channels * input_height * input_width)
@@ -329,9 +332,10 @@ class CNNVariationalMultidecoder(nn.Module):
             enc_fc_size = enc_fc_sizes[idx]
             
             self.encoder_fc_layers["lin_%d" % idx] = nn.Linear(current_fc_dim, enc_fc_size)
-            self.encoder_fc_layers["%s_%d" % (self.activation, idx)] = getattr(nn, self.activation)()
-            
             current_fc_dim = enc_fc_size
+
+            self.encoder_fc_layers["batchnorm1d_%d" % idx] = nn.BatchNorm1d(current_fc_dim)
+            self.encoder_fc_layers["%s_%d" % (self.activation, idx)] = getattr(nn, self.activation)()
 
         self.encoder_fc = nn.Sequential(self.encoder_fc_layers)
 
@@ -371,9 +375,10 @@ class CNNVariationalMultidecoder(nn.Module):
                 dec_fc_size = dec_fc_sizes[idx]
 
                 self.decoder_fc_layers[decoder_class]["lin_%d" % idx] = nn.Linear(current_fc_dim, dec_fc_size)
-                self.decoder_fc_layers[decoder_class]["%s_%d" % (self.activation, idx)] = getattr(nn, self.activation)()
-
                 current_fc_dim = dec_fc_size
+
+                self.decoder_fc_layers[decoder_class]["batchnorm1d_%d" % idx] = nn.BatchNorm1d(current_fc_dim)
+                self.decoder_fc_layers[decoder_class]["%s_%d" % (self.activation, idx)] = getattr(nn, self.activation)()
         
             self.decoder_fc_layers[decoder_class]["lin_final"] = nn.Linear(current_fc_dim,
                                                                            input_channels * input_height * input_width)

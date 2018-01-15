@@ -20,7 +20,7 @@ predict_log=$LOGS/$EXPT_NAME/predict_baseline.log
 echo "Predicting using TDNN..."
 OPENBLAS_CORETYPE=Sandybridge OMP_NUM_THREADS=4 /data/sls/scratch/haotang/ami/dist/nn-20171210-4c6c341-openblas/nnbin/frame-tdnn-predict \
     --frame-scp $DATASET/${DOMAIN}-dev-norm.blogmel.scp \
-    --param $MODEL_DIR/param-$EPOCH \
+    --param $MODEL_DIR/param-$MODEL_EPOCH \
     --label $DATASET/${DOMAIN}-pdfids.txt \
     > $predict_log
 echo "Done predicting using TDNN."

@@ -1,4 +1,10 @@
-export EPOCH=1
+# For training
+export START_EPOCH=1
+export END_EPOCH=20
+
+# For prediction
+export MODEL_EPOCH=20
+
 export DEBUG_MODEL=false
 if [ "$DEBUG_MODEL" = true ] ; then
     export DATASET_NAME=debug
