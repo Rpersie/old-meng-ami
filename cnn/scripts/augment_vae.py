@@ -13,7 +13,7 @@ from torch.utils.data import DataLoader
 
 sys.path.append("./")
 sys.path.append("./cnn")
-from cnn_md import CNNMultidecoder
+from cnn_md import CNNVariationalMultidecoder
 from utils.hao_data import HaoEvalDataset, write_kaldi_hao_ark, write_kaldi_hao_scp
 
 # Uses some structure from https://github.com/pytorch/examples/blob/master/vae/main.py
@@ -84,7 +84,7 @@ for decoder_class in decoder_classes:
     dev_scp_name = os.path.join(os.environ["CURRENT_FEATS"], "%s-dev-norm.blogmel.scp" % decoder_class)
     dev_scps[decoder_class] = dev_scp_name
 
-output_dir = os.path.join(os.environ["AUGMENTED_DATA_DIR"], "ae")
+output_dir = os.path.join(os.environ["AUGMENTED_DATA_DIR"], "vae")
 
 # Fix random seed for debugging
 torch.manual_seed(1)
@@ -94,7 +94,7 @@ random.seed(1)
 
 # Construct autoencoder with our parameters
 print("Constructing model...", flush=True)
-model = CNNMultidecoder(freq_dim=freq_dim,
+model = CNNVariationalMultidecoder(freq_dim=freq_dim,
                         splicing=[left_context, right_context], 
                         enc_channel_sizes=enc_channel_sizes,
                         enc_kernel_sizes=enc_kernel_sizes,
@@ -114,7 +114,7 @@ print(model, flush=True)
 
 # Load checkpoint (potentially trained on GPU) into CPU memory (hence the map_location)
 print("Loading checkpoint...")
-checkpoint_path = os.path.join(os.environ["MODEL_DIR"], "best_cnn_ae_md.pth.tar")
+checkpoint_path = os.path.join(os.environ["MODEL_DIR"], "best_cnn_vae_md.pth.tar")
 checkpoint = torch.load(checkpoint_path, map_location=lambda storage,loc: storage)
 
 # Set up model state and set to eval mode (i.e. disable batch norm)
@@ -187,7 +187,7 @@ def augment(source_class, target_class):
                 if on_gpu:
                     frame_tensor = frame_tensor.cuda()
 
-                recon_frames = model.forward_decoder(frame_tensor, target_class)
+                recon_frames, mu, logvar = model.forward_decoder(frame_tensor, target_class)
                 recon_frames_numpy = recon_frames.cpu().data.numpy().reshape((-1, freq_dim))
                 decoded_feats[i, :] = recon_frames_numpy[left_context:left_context + 1, :]
 
@@ -228,7 +228,7 @@ def augment(source_class, target_class):
                 if on_gpu:
                     frame_tensor = frame_tensor.cuda()
 
-                recon_frames = model.forward_decoder(frame_tensor, target_class)
+                recon_frames, mu, logvar = model.forward_decoder(frame_tensor, target_class)
                 recon_frames_numpy = recon_frames.cpu().data.numpy().reshape((-1, freq_dim))
                 decoded_feats[i, :] = recon_frames_numpy[left_context:left_context + 1, :]
 
