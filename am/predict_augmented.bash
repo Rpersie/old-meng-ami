@@ -6,12 +6,12 @@
 #SBATCH --gres=gpu:1
 #SBATCH --mem=32768
 #SBATCH --time=48:00:00
-#SBATCH -J predict_baseline
+#SBATCH -J predict_augmented
 
-echo "STARTING BASELINE ACOUSTIC MODEL PREDICTION JOB"
+echo "STARTING AUGMENTED ACOUSTIC MODEL PREDICTION JOB"
 
 . ./path.sh
-. $MENG_ROOT/am/baseline_config.sh
+. $MENG_ROOT/am/augmented_config.sh
 . $MENG_ROOT/am/path-opt.sh
 
 mkdir -p $LOGS/$EXPT_NAME/predict_${PREDICT_DOMAIN}
@@ -26,6 +26,6 @@ OPENBLAS_CORETYPE=Sandybridge OMP_NUM_THREADS=4 /data/sls/scratch/haotang/ami/di
 echo "Done predicting using TDNN."
 
 # Get FER for run
-python $predict_log $GOLD_DIR/${PREDICT_DOMAIN}-dev-tri3.bali
+python $predict_log $GOLD_DIR/${TAR_DOMAIN}-dev-tri3.bali
 
-echo "DONE BASELINE ACOUSTIC MODEL PREDICTION JOB"
+echo "DONE AUGMENTED ACOUSTIC MODEL PREDICTION JOB"

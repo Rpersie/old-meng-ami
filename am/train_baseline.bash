@@ -35,13 +35,13 @@ for epoch in $(seq $START_EPOCH $END_EPOCH); do
     fi
 
     OMP_NUM_THREADS=1 /data/sls/scratch/haotang/ami/dist/nn-20171210-5b69f7f/nnbin/frame-tdnn-learn-gpu \
-        --frame-scp $DATASET/${DOMAIN}-train-norm.blogmel.scp \
-        --label-scp $DATASET/${DOMAIN}-train-tri3.bali.scp \
+        --frame-scp $DATASET/${TRAIN_DOMAIN}-train-norm.blogmel.scp \
+        --label-scp $DATASET/${TRAIN_DOMAIN}-train-tri3.bali.scp \
         --param $MODEL_DIR/param-$((epoch-1)) \
         --opt-data $MODEL_DIR/opt-data-$((epoch-1)) \
         --output-param $MODEL_DIR/param-$epoch \
         --output-opt-data $MODEL_DIR/opt-data-$epoch \
-        --label $DATASET/${DOMAIN}-pdfids.txt \
+        --label $DATASET/${TRAIN_DOMAIN}-pdfids.txt \
         --seed $epoch \
         --shuffle \
         --opt const-step \

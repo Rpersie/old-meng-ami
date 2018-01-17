@@ -12,12 +12,15 @@ if [ "$DEBUG_MODEL" = true ] ; then
 else
     # export DATASET_NAME=ami-0.1
     # export DATASET=/data/sls/scratch/haotang/ami/sls-data/${DATASET_NAME}
-    export DATASET_NAME=feats_ami-0.1
+    export DATASET_NAME=ami-0.1
     export DATASET=$MENG_ROOT/${DATASET_NAME}
 fi
-export DOMAIN=sdm1
 
-export EXPT_NAME="${DATASET_NAME}/${DOMAIN}/frame-tdnn-450x7-step0.05"
+export TRAIN_DOMAIN=ihm
+export PREDICT_DOMAIN=ihm
+export GOLD_DIR=/data/sls/scratch/haotang/ami/sls-data/${DATASET_NAME}
+
+export EXPT_NAME="${DATASET_NAME}/train_${TRAIN_DOMAIN}/baseline/frame-tdnn-450x7-step0.05"
 
 export MODEL_DIR=$MODELS/am/$EXPT_NAME
 mkdir -p $MODEL_DIR

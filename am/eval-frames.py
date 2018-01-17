@@ -10,6 +10,9 @@ nutt = 0
 
 area = 'head'
 
+# Skip first line added to output by Hao script, so that we only read predictions
+pred.readline()
+
 for ell1, ell2 in zip(pred, gold):
     if area == 'head':
         area = 'body'
