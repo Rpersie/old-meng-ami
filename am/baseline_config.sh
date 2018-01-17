@@ -16,9 +16,16 @@ else
     export DATASET=$MENG_ROOT/${DATASET_NAME}
 fi
 
-export TRAIN_DOMAIN=ihm
+export TRAIN_DOMAIN=sdm1
 export PREDICT_DOMAIN=ihm
 export GOLD_DIR=/data/sls/scratch/haotang/ami/sls-data/${DATASET_NAME}
+
+if [ "$TRAIN_DOMAIN" = ihm ] ; then
+    export NPRED=3984
+else
+    # SDM1
+    export NPRED=3966
+fi
 
 export EXPT_NAME="${DATASET_NAME}/train_${TRAIN_DOMAIN}/baseline/frame-tdnn-450x7-step0.05"
 

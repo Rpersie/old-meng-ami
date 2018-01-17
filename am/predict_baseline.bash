@@ -17,6 +17,8 @@ echo "STARTING BASELINE ACOUSTIC MODEL PREDICTION JOB"
 mkdir -p $LOGS/$EXPT_NAME/predict_${PREDICT_DOMAIN}
 predict_log=$LOGS/$EXPT_NAME/predict_${PREDICT_DOMAIN}/predictions.log
 
+echo "Train domain ${TRAIN_DOMAIN}, predict domain ${PREDICT_DOMAIN}"
+
 echo "Predicting using TDNN..."
 OPENBLAS_CORETYPE=Sandybridge OMP_NUM_THREADS=4 /data/sls/scratch/haotang/ami/dist/nn-20171210-4c6c341-openblas/nnbin/frame-tdnn-predict \
     --frame-scp $DATASET/${PREDICT_DOMAIN}-dev-norm.blogmel.scp \
@@ -26,6 +28,6 @@ OPENBLAS_CORETYPE=Sandybridge OMP_NUM_THREADS=4 /data/sls/scratch/haotang/ami/di
 echo "Done predicting using TDNN."
 
 # Get FER for run
-python $predict_log $GOLD_DIR/${PREDICT_DOMAIN}-dev-tri3.bali
+python $MENG_ROOT/am/eval-frames.py $predict_log $GOLD_DIR/${PREDICT_DOMAIN}-dev-tri3.bali
 
 echo "DONE BASELINE ACOUSTIC MODEL PREDICTION JOB"

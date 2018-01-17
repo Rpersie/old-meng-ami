@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import os
 import random
 import sys
 import json
@@ -12,8 +13,7 @@ layer = 7
 # ninput = 140
 ninput = 80
 nhidden = 450
-# npred = 3984    # IHM
-npred = 3966    # SDM1
+npred = int(os.environ["NPRED"])
 
 print('-1 0 1')
 print('-1 0 1')
