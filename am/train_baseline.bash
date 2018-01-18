@@ -17,6 +17,8 @@ echo "STARTING BASELINE ACOUSTIC MODEL TRAINING JOB"
 
 mkdir -p $LOGS/$EXPT_NAME
 
+echo "Train domain ${TRAIN_DOMAIN}"
+
 for epoch in $(seq $START_EPOCH $END_EPOCH); do
     echo "========== EPOCH $epoch =========="
 
@@ -37,7 +39,7 @@ for epoch in $(seq $START_EPOCH $END_EPOCH); do
     # Always use IHM pdfids, even for SDM1 (data are parallel -- see Hao email from 1/17/18)
     OMP_NUM_THREADS=1 /data/sls/scratch/haotang/ami/dist/nn-20171210-5b69f7f/nnbin/frame-tdnn-learn-gpu \
         --frame-scp $DATASET/${TRAIN_DOMAIN}-train-norm.blogmel.scp \
-        --label-scp $DATASET/${TRAIN_DOMAIN}-train-tri3.bali.scp \
+        --label-scp $DATASET/ihm-train-tri3.bali.scp \
         --param $MODEL_DIR/param-$((epoch-1)) \
         --opt-data $MODEL_DIR/opt-data-$((epoch-1)) \
         --output-param $MODEL_DIR/param-$epoch \

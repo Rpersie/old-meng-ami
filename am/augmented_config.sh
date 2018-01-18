@@ -12,8 +12,8 @@ export CNN_NAME=ENC_C_256_256_128_K_3_3_3_P_3_3_0_F_1024_1024/LATENT_1024/DEC_F_
 export AUGMENTED_DATA_DIR=${SCRATCH}/augmented_data/cnn/$CNN_NAME
 
 export SOURCE_DOMAIN=sdm1
-export TARGET_DOMAIN=ihm
-export PREDICT_DOMAIN=ihm
+export TARGET_DOMAIN=sdm1
+export PREDICT_DOMAIN=sdm1
 export GOLD_DIR=/data/sls/scratch/haotang/ami/sls-data/${DATASET_NAME}
 
 # if [ "$TRAIN_DOMAIN" = ihm ] ; then

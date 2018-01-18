@@ -17,6 +17,8 @@ echo "STARTING AUGMENTED ACOUSTIC MODEL TRAINING JOB"
 
 mkdir -p $LOGS/$EXPT_NAME
 
+echo "Source domain ${SOURCE_DOMAIN}, target domain ${TARGET_DOMAIN}"
+
 for epoch in $(seq $START_EPOCH $END_EPOCH); do
     echo "========== EPOCH $epoch =========="
 
@@ -37,7 +39,7 @@ for epoch in $(seq $START_EPOCH $END_EPOCH); do
     # Always use IHM pdfids, even for SDM1 (data are parallel -- see Hao email from 1/17/18)
     OMP_NUM_THREADS=1 /data/sls/scratch/haotang/ami/dist/nn-20171210-5b69f7f/nnbin/frame-tdnn-learn-gpu \
         --frame-scp $AUGMENTED_DATA_DIR/train-src_${SOURCE_DOMAIN}-tar_${TARGET_DOMAIN}.scp \
-        --label-scp $DATASET/${TARGET_DOMAIN}-train-tri3.bali.scp \
+        --label-scp $DATASET/ihm-train-tri3.bali.scp \
         --param $MODEL_DIR/param-$((epoch-1)) \
         --opt-data $MODEL_DIR/opt-data-$((epoch-1)) \
         --output-param $MODEL_DIR/param-$epoch \

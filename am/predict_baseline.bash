@@ -29,6 +29,6 @@ OPENBLAS_CORETYPE=Sandybridge OMP_NUM_THREADS=4 /data/sls/scratch/haotang/ami/di
 echo "Done predicting using TDNN."
 
 # Get FER for run
-python $MENG_ROOT/am/eval-frames.py $predict_log $GOLD_DIR/${PREDICT_DOMAIN}-dev-tri3.bali
+python $MENG_ROOT/am/eval-frames.py $predict_log $GOLD_DIR/ihm-dev-tri3.bali
 
 echo "DONE BASELINE ACOUSTIC MODEL PREDICTION JOB"
