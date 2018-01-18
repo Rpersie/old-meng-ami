@@ -1,0 +1,343 @@
+Setting up environment...
+Environment set up.
+Training convolutional multidecoder...
+Constructing model...
+Done constructing model.
+CNNMultidecoder (
+  (encoder_conv): Sequential (
+    (conv2d_0): Conv2d(1, 64, kernel_size=(7, 7), stride=(1, 1))
+    (batchnorm2d_0): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True)
+    (SELU_0): SELU
+    (maxpool2d_0): MaxPool2d (size=(1, 3), stride=(1, 3), dilation=(1, 1))
+    (conv2d_1): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1))
+    (batchnorm2d_1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True)
+    (SELU_1): SELU
+    (maxpool2d_1): MaxPool2d (size=(1, 3), stride=(1, 3), dilation=(1, 1))
+  )
+  (encoder_fc): Sequential (
+    (lin_0): Linear (2688 -> 4096)
+    (batchnorm1d_0): BatchNorm1d(4096, eps=1e-05, momentum=0.1, affine=True)
+    (SELU_0): SELU
+    (lin_1): Linear (4096 -> 4096)
+    (batchnorm1d_1): BatchNorm1d(4096, eps=1e-05, momentum=0.1, affine=True)
+    (SELU_1): SELU
+    (lin_final): Linear (4096 -> 1024)
+    (SELU_final): SELU
+  )
+  (decoder_fc_ihm): Sequential (
+    (lin_0): Linear (1024 -> 4096)
+    (batchnorm1d_0): BatchNorm1d(4096, eps=1e-05, momentum=0.1, affine=True)
+    (SELU_0): SELU
+    (lin_1): Linear (4096 -> 4096)
+    (batchnorm1d_1): BatchNorm1d(4096, eps=1e-05, momentum=0.1, affine=True)
+    (SELU_1): SELU
+    (lin_final): Linear (4096 -> 2688)
+    (SELU_final): SELU
+  )
+  (decoder_deconv_ihm): Sequential (
+    (maxunpool2d_0): MaxUnpool2d (size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_0): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (batchnorm2d_0): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True)
+    (SELU_0): SELU
+    (maxunpool2d_1): MaxUnpool2d (size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_1): Conv2d(64, 1, kernel_size=(7, 7), stride=(1, 1), padding=(6, 6))
+    (batchnorm2d_1): BatchNorm2d(1, eps=1e-05, momentum=0.1, affine=True)
+    (SELU_1): SELU
+  )
+  (decoder_fc_sdm1): Sequential (
+    (lin_0): Linear (1024 -> 4096)
+    (batchnorm1d_0): BatchNorm1d(4096, eps=1e-05, momentum=0.1, affine=True)
+    (SELU_0): SELU
+    (lin_1): Linear (4096 -> 4096)
+    (batchnorm1d_1): BatchNorm1d(4096, eps=1e-05, momentum=0.1, affine=True)
+    (SELU_1): SELU
+    (lin_final): Linear (4096 -> 2688)
+    (SELU_final): SELU
+  )
+  (decoder_deconv_sdm1): Sequential (
+    (maxunpool2d_0): MaxUnpool2d (size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_0): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (batchnorm2d_0): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True)
+    (SELU_0): SELU
+    (maxunpool2d_1): MaxUnpool2d (size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_1): Conv2d(64, 1, kernel_size=(7, 7), stride=(1, 1), padding=(6, 6))
+    (batchnorm2d_1): BatchNorm2d(1, eps=1e-05, momentum=0.1, affine=True)
+    (SELU_1): SELU
+  )
+)
+Setting up data...
+Setting up training datasets...
+Using 2407138 training features (9403 batches) for class ihm
+Using 2407138 training features (9403 batches) for class sdm1
+Setting up dev datasets...
+Using 249565 dev features (975 batches) for class ihm
+Using 249565 dev features (975 batches) for class sdm1
+Setting up minibatch shuffling for training...
+18806 total batches: {'ihm': 9403, 'sdm1': 9403}
+Done setting up data.
+Starting training!
+Train epoch 1: [1000/18806 (5.3%)]	Loss: 0.600102
+Train epoch 1: [2000/18806 (10.6%)]	Loss: 0.494636
+Train epoch 1: [3000/18806 (16.0%)]	Loss: 0.431047
+Train epoch 1: [4000/18806 (21.3%)]	Loss: 0.386014
+Train epoch 1: [5000/18806 (26.6%)]	Loss: 0.346144
+Train epoch 1: [6000/18806 (31.9%)]	Loss: 0.314448
+Train epoch 1: [7000/18806 (37.2%)]	Loss: 0.287783
+Train epoch 1: [8000/18806 (42.5%)]	Loss: 0.270214
+Train epoch 1: [9000/18806 (47.9%)]	Loss: 0.264975
+Train epoch 1: [10000/18806 (53.2%)]	Loss: 0.276050
+Train epoch 1: [11000/18806 (58.5%)]	Loss: 0.322544
+Train epoch 1: [12000/18806 (63.8%)]	Loss: 0.356160
+Train epoch 1: [13000/18806 (69.1%)]	Loss: 0.388908
+Train epoch 1: [14000/18806 (74.4%)]	Loss: 0.415118
+Train epoch 1: [15000/18806 (79.8%)]	Loss: 0.438191
+Train epoch 1: [16000/18806 (85.1%)]	Loss: 0.459876
+Train epoch 1: [17000/18806 (90.4%)]	Loss: 0.449342
+Train epoch 1: [18000/18806 (95.7%)]	Loss: 0.437403
+====> Epoch 1: Average train loss 0.425798
+====> Dev set loss: 0.147452
+New best dev set loss: 0.147452
+Saved checkpoint for model
+Train epoch 2: [1000/18806 (5.3%)]	Loss: 0.557330
+Train epoch 2: [2000/18806 (10.6%)]	Loss: 0.488803
+Train epoch 2: [3000/18806 (16.0%)]	Loss: 0.427844
+Train epoch 2: [4000/18806 (21.3%)]	Loss: 0.384846
+Train epoch 2: [5000/18806 (26.6%)]	Loss: 0.343117
+Train epoch 2: [6000/18806 (31.9%)]	Loss: 0.310828
+Train epoch 2: [7000/18806 (37.2%)]	Loss: 0.282387
+Train epoch 2: [8000/18806 (42.5%)]	Loss: 0.263948
+Train epoch 2: [9000/18806 (47.9%)]	Loss: 0.258018
+Train epoch 2: [10000/18806 (53.2%)]	Loss: 0.263953
+Train epoch 2: [11000/18806 (58.5%)]	Loss: 0.300778
+Train epoch 2: [12000/18806 (63.8%)]	Loss: 0.326751
+Train epoch 2: [13000/18806 (69.1%)]	Loss: 0.352959
+Train epoch 2: [14000/18806 (74.4%)]	Loss: 0.376050
+Train epoch 2: [15000/18806 (79.8%)]	Loss: 0.393887
+Train epoch 2: [16000/18806 (85.1%)]	Loss: 0.412699
+Train epoch 2: [17000/18806 (90.4%)]	Loss: 0.404589
+Train epoch 2: [18000/18806 (95.7%)]	Loss: 0.394533
+====> Epoch 2: Average train loss 0.384281
+====> Dev set loss: 0.150292
+No improvement in 1 epochs (best dev set loss: 0.147452)
+Not saving checkpoint; no improvement made
+Train epoch 3: [1000/18806 (5.3%)]	Loss: 0.548947
+Train epoch 3: [2000/18806 (10.6%)]	Loss: 0.476470
+Train epoch 3: [3000/18806 (16.0%)]	Loss: 0.416079
+Train epoch 3: [4000/18806 (21.3%)]	Loss: 0.372909
+Train epoch 3: [5000/18806 (26.6%)]	Loss: 0.332151
+Train epoch 3: [6000/18806 (31.9%)]	Loss: 0.299834
+Train epoch 3: [7000/18806 (37.2%)]	Loss: 0.271940
+Train epoch 3: [8000/18806 (42.5%)]	Loss: 0.253453
+Train epoch 3: [9000/18806 (47.9%)]	Loss: 0.247511
+Train epoch 3: [10000/18806 (53.2%)]	Loss: 0.251739
+Train epoch 3: [11000/18806 (58.5%)]	Loss: 0.281430
+Train epoch 3: [12000/18806 (63.8%)]	Loss: 0.302890
+Train epoch 3: [13000/18806 (69.1%)]	Loss: 0.325478
+Train epoch 3: [14000/18806 (74.4%)]	Loss: 0.345140
+Train epoch 3: [15000/18806 (79.8%)]	Loss: 0.361978
+Train epoch 3: [16000/18806 (85.1%)]	Loss: 0.378026
+Train epoch 3: [17000/18806 (90.4%)]	Loss: 0.370774
+Train epoch 3: [18000/18806 (95.7%)]	Loss: 0.361742
+====> Epoch 3: Average train loss 0.352468
+====> Dev set loss: 0.143552
+New best dev set loss: 0.143552
+Saved checkpoint for model
+Train epoch 4: [1000/18806 (5.3%)]	Loss: 0.504948
+Train epoch 4: [2000/18806 (10.6%)]	Loss: 0.439902
+Train epoch 4: [3000/18806 (16.0%)]	Loss: 0.380974
+Train epoch 4: [4000/18806 (21.3%)]	Loss: 0.342724
+Train epoch 4: [5000/18806 (26.6%)]	Loss: 0.305278
+Train epoch 4: [6000/18806 (31.9%)]	Loss: 0.275310
+Train epoch 4: [7000/18806 (37.2%)]	Loss: 0.249450
+Train epoch 4: [8000/18806 (42.5%)]	Loss: 0.232841
+Train epoch 4: [9000/18806 (47.9%)]	Loss: 0.227462
+Train epoch 4: [10000/18806 (53.2%)]	Loss: 0.230638
+Train epoch 4: [11000/18806 (58.5%)]	Loss: 0.256697
+Train epoch 4: [12000/18806 (63.8%)]	Loss: 0.274900
+Train epoch 4: [13000/18806 (69.1%)]	Loss: 0.294728
+Train epoch 4: [14000/18806 (74.4%)]	Loss: 0.311977
+Train epoch 4: [15000/18806 (79.8%)]	Loss: 0.327610
+Train epoch 4: [16000/18806 (85.1%)]	Loss: 0.342672
+Train epoch 4: [17000/18806 (90.4%)]	Loss: 0.336596
+Train epoch 4: [18000/18806 (95.7%)]	Loss: 0.327805
+====> Epoch 4: Average train loss 0.319485
+====> Dev set loss: 0.143318
+New best dev set loss: 0.143318
+Saved checkpoint for model
+Train epoch 5: [1000/18806 (5.3%)]	Loss: 0.460645
+Train epoch 5: [2000/18806 (10.6%)]	Loss: 0.399369
+Train epoch 5: [3000/18806 (16.0%)]	Loss: 0.346621
+Train epoch 5: [4000/18806 (21.3%)]	Loss: 0.311825
+Train epoch 5: [5000/18806 (26.6%)]	Loss: 0.276981
+Train epoch 5: [6000/18806 (31.9%)]	Loss: 0.250368
+Train epoch 5: [7000/18806 (37.2%)]	Loss: 0.226840
+Train epoch 5: [8000/18806 (42.5%)]	Loss: 0.212108
+Train epoch 5: [9000/18806 (47.9%)]	Loss: 0.207318
+Train epoch 5: [10000/18806 (53.2%)]	Loss: 0.210584
+Train epoch 5: [11000/18806 (58.5%)]	Loss: 0.233549
+Train epoch 5: [12000/18806 (63.8%)]	Loss: 0.248779
+Train epoch 5: [13000/18806 (69.1%)]	Loss: 0.266546
+Train epoch 5: [14000/18806 (74.4%)]	Loss: 0.282108
+Train epoch 5: [15000/18806 (79.8%)]	Loss: 0.295754
+Train epoch 5: [16000/18806 (85.1%)]	Loss: 0.310300
+Train epoch 5: [17000/18806 (90.4%)]	Loss: 0.304637
+Train epoch 5: [18000/18806 (95.7%)]	Loss: 0.297189
+====> Epoch 5: Average train loss 0.289924
+====> Dev set loss: 0.137227
+New best dev set loss: 0.137227
+Saved checkpoint for model
+Train epoch 6: [1000/18806 (5.3%)]	Loss: 0.415602
+Train epoch 6: [2000/18806 (10.6%)]	Loss: 0.358710
+Train epoch 6: [3000/18806 (16.0%)]	Loss: 0.314460
+Train epoch 6: [4000/18806 (21.3%)]	Loss: 0.280943
+Train epoch 6: [5000/18806 (26.6%)]	Loss: 0.249830
+Train epoch 6: [6000/18806 (31.9%)]	Loss: 0.225416
+Train epoch 6: [7000/18806 (37.2%)]	Loss: 0.204605
+Train epoch 6: [8000/18806 (42.5%)]	Loss: 0.191614
+Train epoch 6: [9000/18806 (47.9%)]	Loss: 0.187354
+Train epoch 6: [10000/18806 (53.2%)]	Loss: 0.190468
+Train epoch 6: [11000/18806 (58.5%)]	Loss: 0.209538
+Train epoch 6: [12000/18806 (63.8%)]	Loss: 0.224296
+Train epoch 6: [13000/18806 (69.1%)]	Loss: 0.240374
+Train epoch 6: [14000/18806 (74.4%)]	Loss: 0.254836
+Train epoch 6: [15000/18806 (79.8%)]	Loss: 0.268388
+Train epoch 6: [16000/18806 (85.1%)]	Loss: 0.281184
+Train epoch 6: [17000/18806 (90.4%)]	Loss: 0.276311
+Train epoch 6: [18000/18806 (95.7%)]	Loss: 0.269419
+====> Epoch 6: Average train loss 0.263043
+====> Dev set loss: 0.129594
+New best dev set loss: 0.129594
+Saved checkpoint for model
+Train epoch 7: [1000/18806 (5.3%)]	Loss: 0.379578
+Train epoch 7: [2000/18806 (10.6%)]	Loss: 0.324471
+Train epoch 7: [3000/18806 (16.0%)]	Loss: 0.284193
+Train epoch 7: [4000/18806 (21.3%)]	Loss: 0.253215
+Train epoch 7: [5000/18806 (26.6%)]	Loss: 0.225333
+Train epoch 7: [6000/18806 (31.9%)]	Loss: 0.203642
+Train epoch 7: [7000/18806 (37.2%)]	Loss: 0.185000
+Train epoch 7: [8000/18806 (42.5%)]	Loss: 0.173580
+Train epoch 7: [9000/18806 (47.9%)]	Loss: 0.170400
+Train epoch 7: [10000/18806 (53.2%)]	Loss: 0.173205
+Train epoch 7: [11000/18806 (58.5%)]	Loss: 0.190674
+Train epoch 7: [12000/18806 (63.8%)]	Loss: 0.202818
+Train epoch 7: [13000/18806 (69.1%)]	Loss: 0.217879
+Train epoch 7: [14000/18806 (74.4%)]	Loss: 0.230705
+Train epoch 7: [15000/18806 (79.8%)]	Loss: 0.242658
+Train epoch 7: [16000/18806 (85.1%)]	Loss: 0.255758
+Train epoch 7: [17000/18806 (90.4%)]	Loss: 0.251501
+Train epoch 7: [18000/18806 (95.7%)]	Loss: 0.245598
+====> Epoch 7: Average train loss 0.240072
+====> Dev set loss: 0.135851
+No improvement in 1 epochs (best dev set loss: 0.129594)
+Not saving checkpoint; no improvement made
+Train epoch 8: [1000/18806 (5.3%)]	Loss: 0.341280
+Train epoch 8: [2000/18806 (10.6%)]	Loss: 0.292553
+Train epoch 8: [3000/18806 (16.0%)]	Loss: 0.256718
+Train epoch 8: [4000/18806 (21.3%)]	Loss: 0.229523
+Train epoch 8: [5000/18806 (26.6%)]	Loss: 0.204299
+Train epoch 8: [6000/18806 (31.9%)]	Loss: 0.184615
+Train epoch 8: [7000/18806 (37.2%)]	Loss: 0.168012
+Train epoch 8: [8000/18806 (42.5%)]	Loss: 0.157977
+Train epoch 8: [9000/18806 (47.9%)]	Loss: 0.155933
+Train epoch 8: [10000/18806 (53.2%)]	Loss: 0.159605
+Train epoch 8: [11000/18806 (58.5%)]	Loss: 0.175593
+Train epoch 8: [12000/18806 (63.8%)]	Loss: 0.186468
+Train epoch 8: [13000/18806 (69.1%)]	Loss: 0.199851
+Train epoch 8: [14000/18806 (74.4%)]	Loss: 0.211622
+Train epoch 8: [15000/18806 (79.8%)]	Loss: 0.222737
+Train epoch 8: [16000/18806 (85.1%)]	Loss: 0.235016
+Train epoch 8: [17000/18806 (90.4%)]	Loss: 0.231122
+Train epoch 8: [18000/18806 (95.7%)]	Loss: 0.225723
+====> Epoch 8: Average train loss 0.220905
+====> Dev set loss: 0.129475
+New best dev set loss: 0.129475
+Saved checkpoint for model
+Train epoch 9: [1000/18806 (5.3%)]	Loss: 0.310235
+Train epoch 9: [2000/18806 (10.6%)]	Loss: 0.264139
+Train epoch 9: [3000/18806 (16.0%)]	Loss: 0.232619
+Train epoch 9: [4000/18806 (21.3%)]	Loss: 0.208071
+Train epoch 9: [5000/18806 (26.6%)]	Loss: 0.185438
+Train epoch 9: [6000/18806 (31.9%)]	Loss: 0.167859
+Train epoch 9: [7000/18806 (37.2%)]	Loss: 0.153237
+Train epoch 9: [8000/18806 (42.5%)]	Loss: 0.144623
+Train epoch 9: [9000/18806 (47.9%)]	Loss: 0.143046
+Train epoch 9: [10000/18806 (53.2%)]	Loss: 0.146444
+Train epoch 9: [11000/18806 (58.5%)]	Loss: 0.160416
+Train epoch 9: [12000/18806 (63.8%)]	Loss: 0.170092
+Train epoch 9: [13000/18806 (69.1%)]	Loss: 0.182617
+Train epoch 9: [14000/18806 (74.4%)]	Loss: 0.194064
+Train epoch 9: [15000/18806 (79.8%)]	Loss: 0.205033
+Train epoch 9: [16000/18806 (85.1%)]	Loss: 0.215985
+Train epoch 9: [17000/18806 (90.4%)]	Loss: 0.212346
+Train epoch 9: [18000/18806 (95.7%)]	Loss: 0.207412
+====> Epoch 9: Average train loss 0.203117
+====> Dev set loss: 0.125843
+New best dev set loss: 0.125843
+Saved checkpoint for model
+Train epoch 10: [1000/18806 (5.3%)]	Loss: 0.282415
+Train epoch 10: [2000/18806 (10.6%)]	Loss: 0.239089
+Train epoch 10: [3000/18806 (16.0%)]	Loss: 0.211617
+Train epoch 10: [4000/18806 (21.3%)]	Loss: 0.189122
+Train epoch 10: [5000/18806 (26.6%)]	Loss: 0.168939
+Train epoch 10: [6000/18806 (31.9%)]	Loss: 0.153213
+Train epoch 10: [7000/18806 (37.2%)]	Loss: 0.140146
+Train epoch 10: [8000/18806 (42.5%)]	Loss: 0.132634
+Train epoch 10: [9000/18806 (47.9%)]	Loss: 0.131071
+Train epoch 10: [10000/18806 (53.2%)]	Loss: 0.134535
+Train epoch 10: [11000/18806 (58.5%)]	Loss: 0.147766
+Train epoch 10: [12000/18806 (63.8%)]	Loss: 0.157559
+Train epoch 10: [13000/18806 (69.1%)]	Loss: 0.168977
+Train epoch 10: [14000/18806 (74.4%)]	Loss: 0.179735
+Train epoch 10: [15000/18806 (79.8%)]	Loss: 0.190177
+Train epoch 10: [16000/18806 (85.1%)]	Loss: 0.200657
+Train epoch 10: [17000/18806 (90.4%)]	Loss: 0.197086
+Train epoch 10: [18000/18806 (95.7%)]	Loss: 0.192511
+====> Epoch 10: Average train loss 0.188670
+====> Dev set loss: 0.132324
+No improvement in 1 epochs (best dev set loss: 0.125843)
+Not saving checkpoint; no improvement made
+Train epoch 11: [1000/18806 (5.3%)]	Loss: 0.256297
+Train epoch 11: [2000/18806 (10.6%)]	Loss: 0.218160
+Train epoch 11: [3000/18806 (16.0%)]	Loss: 0.192970
+Train epoch 11: [4000/18806 (21.3%)]	Loss: 0.174226
+Train epoch 11: [5000/18806 (26.6%)]	Loss: 0.155602
+Train epoch 11: [6000/18806 (31.9%)]	Loss: 0.141341
+Train epoch 11: [7000/18806 (37.2%)]	Loss: 0.129500
+Train epoch 11: [8000/18806 (42.5%)]	Loss: 0.122910
+Train epoch 11: [9000/18806 (47.9%)]	Loss: 0.122241
+Train epoch 11: [10000/18806 (53.2%)]	Loss: 0.125497
+Train epoch 11: [11000/18806 (58.5%)]	Loss: 0.137500
+Train epoch 11: [12000/18806 (63.8%)]	Loss: 0.146110
+Train epoch 11: [13000/18806 (69.1%)]	Loss: 0.156914
+Train epoch 11: [14000/18806 (74.4%)]	Loss: 0.166863
+Train epoch 11: [15000/18806 (79.8%)]	Loss: 0.176225
+Train epoch 11: [16000/18806 (85.1%)]	Loss: 0.186509
+Train epoch 11: [17000/18806 (90.4%)]	Loss: 0.183446
+Train epoch 11: [18000/18806 (95.7%)]	Loss: 0.179313
+====> Epoch 11: Average train loss 0.175914
+====> Dev set loss: 0.131846
+No improvement in 2 epochs (best dev set loss: 0.125843)
+Not saving checkpoint; no improvement made
+Train epoch 12: [1000/18806 (5.3%)]	Loss: 0.235346
+Train epoch 12: [2000/18806 (10.6%)]	Loss: 0.199882
+Train epoch 12: [3000/18806 (16.0%)]	Loss: 0.178430
+Train epoch 12: [4000/18806 (21.3%)]	Loss: 0.160479
+Train epoch 12: [5000/18806 (26.6%)]	Loss: 0.143560
+Train epoch 12: [6000/18806 (31.9%)]	Loss: 0.130959
+Train epoch 12: [7000/18806 (37.2%)]	Loss: 0.120340
+Train epoch 12: [8000/18806 (42.5%)]	Loss: 0.114565
+Train epoch 12: [9000/18806 (47.9%)]	Loss: 0.114290
+Train epoch 12: [10000/18806 (53.2%)]	Loss: 0.117666
+Train epoch 12: [11000/18806 (58.5%)]	Loss: 0.129323
+Train epoch 12: [12000/18806 (63.8%)]	Loss: 0.137154
+Train epoch 12: [13000/18806 (69.1%)]	Loss: 0.147183
+Train epoch 12: [14000/18806 (74.4%)]	Loss: 0.156725
+Train epoch 12: [15000/18806 (79.8%)]	Loss: 0.165611
+Train epoch 12: [16000/18806 (85.1%)]	Loss: 0.175345
+Train epoch 12: [17000/18806 (90.4%)]	Loss: 0.172477
+Train epoch 12: [18000/18806 (95.7%)]	Loss: 0.168707
+====> Epoch 12: Average train loss 0.165662
+====> Dev set loss: 0.128583
+No improvement in 3 epochs (best dev set loss: 0.125843)
+STOPPING EARLY
+Trained convolutional multidecoder.

@@ -34,6 +34,7 @@ for epoch in $(seq $START_EPOCH $END_EPOCH); do
         fi
     fi
 
+    # Always use IHM pdfids, even for SDM1 (data are parallel -- see Hao email from 1/17/18)
     OMP_NUM_THREADS=1 /data/sls/scratch/haotang/ami/dist/nn-20171210-5b69f7f/nnbin/frame-tdnn-learn-gpu \
         --frame-scp $AUGMENTED_DATA_DIR/train-src_${SOURCE_DOMAIN}-tar_${TARGET_DOMAIN}.scp \
         --label-scp $DATASET/${TARGET_DOMAIN}-train-tri3.bali.scp \
@@ -41,7 +42,7 @@ for epoch in $(seq $START_EPOCH $END_EPOCH); do
         --opt-data $MODEL_DIR/opt-data-$((epoch-1)) \
         --output-param $MODEL_DIR/param-$epoch \
         --output-opt-data $MODEL_DIR/opt-data-$epoch \
-        --label $DATASET/${TARGET_DOMAIN}-pdfids.txt \
+        --label $DATASET/ihm-pdfids.txt \
         --seed $epoch \
         --shuffle \
         --opt const-step \
