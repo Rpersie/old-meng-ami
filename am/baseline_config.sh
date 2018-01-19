@@ -17,7 +17,7 @@ else
 fi
 
 export TRAIN_DOMAIN=sdm1
-export PREDICT_DOMAIN=sdm1
+export PREDICT_DOMAIN=ihm
 export GOLD_DIR=/data/sls/scratch/haotang/ami/sls-data/${DATASET_NAME}
 
 

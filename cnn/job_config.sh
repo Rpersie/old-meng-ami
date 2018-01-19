@@ -7,19 +7,20 @@ export LEARNING_RATE=0.0001
 export EPOCHS=100
 export BATCH_SIZE=256
 
-export ENC_CHANNELS=( )
-export ENC_KERNELS=( )        # Assume square kernels (AxA)
-export ENC_POOLS=( )          # Pool only in frequency; no overlap. Use 0 to indicate no pooling
-export ENC_FC=( )     # Fully-connected layers following conv layers
+export ENC_CHANNELS=( 128 128 )
+export ENC_KERNELS=( 3 3 )        # Assume square kernels (AxA)
+export ENC_POOLS=( 3 3 )          # Pool only in frequency; no overlap. Use 0 to indicate no pooling
+export ENC_FC=( 2048 2048 )     # Fully-connected layers following conv layers
 
 export LATENT_DIM=1024
 
-export DEC_FC=( )     # Fully-connected layers before conv layers
-export DEC_CHANNELS=( )
-export DEC_KERNELS=( )        # Assume square kernels (AxA)
-export DEC_POOLS=( )          # Pool only in frequency; no overlap. Use 0 to indicate no pooling
+export DEC_FC=( 2048 2048 )     # Fully-connected layers before conv layers
+export DEC_CHANNELS=( 128 128 )
+export DEC_KERNELS=( 3 3 )        # Assume square kernels (AxA)
+export DEC_POOLS=( 3 3 )          # Pool only in frequency; no overlap. Use 0 to indicate no pooling
 
-export ACTIVATION_FUNC=SELU
+export USE_BATCH_NORM=false
+export ACTIVATION_FUNC=ReLU
 
 export ENC_CHANNELS_DELIM=$(printf "_%s" "${ENC_CHANNELS[@]}")
 export ENC_KERNELS_DELIM=$(printf "_%s" "${ENC_KERNELS[@]}")
@@ -41,7 +42,11 @@ else
     export CURRENT_FEATS=$FEATS
 fi
 
-export EXPT_NAME="ENC_C${ENC_CHANNELS_DELIM}_K${ENC_KERNELS_DELIM}_P${ENC_POOLS_DELIM}_F${ENC_FC_DELIM}/LATENT_${LATENT_DIM}/DEC_F${DEC_FC_DELIM}_C${DEC_CHANNELS_DELIM}_K${DEC_KERNELS_DELIM}_P${DEC_POOLS_DELIM}/ACT_${ACTIVATION_FUNC}/OPT_${OPTIMIZER}_LR_${LEARNING_RATE}_EPOCHS_${EPOCHS}_BATCH_${BATCH_SIZE}_DEBUG_${DEBUG_MODEL}"
+if [ "$USE_BATCH_NORM" = true ] ; then
+    export EXPT_NAME="ENC_C${ENC_CHANNELS_DELIM}_K${ENC_KERNELS_DELIM}_P${ENC_POOLS_DELIM}_F${ENC_FC_DELIM}/LATENT_${LATENT_DIM}/DEC_F${DEC_FC_DELIM}_C${DEC_CHANNELS_DELIM}_K${DEC_KERNELS_DELIM}_P${DEC_POOLS_DELIM}/ACT_${ACTIVATION_FUNC}/OPT_${OPTIMIZER}_LR_${LEARNING_RATE}_EPOCHS_${EPOCHS}_BATCH_${BATCH_SIZE}_DEBUG_${DEBUG_MODEL}"
+else
+    export EXPT_NAME="ENC_C${ENC_CHANNELS_DELIM}_K${ENC_KERNELS_DELIM}_P${ENC_POOLS_DELIM}_F${ENC_FC_DELIM}/LATENT_${LATENT_DIM}/DEC_F${DEC_FC_DELIM}_C${DEC_CHANNELS_DELIM}_K${DEC_KERNELS_DELIM}_P${DEC_POOLS_DELIM}/ACT_${ACTIVATION_FUNC}_NO_BN/OPT_${OPTIMIZER}_LR_${LEARNING_RATE}_EPOCHS_${EPOCHS}_BATCH_${BATCH_SIZE}_DEBUG_${DEBUG_MODEL}"
+fi
 
 export MODEL_DIR=${MODELS}/cnn/$EXPT_NAME
 mkdir -p $MODEL_DIR
