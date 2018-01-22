@@ -70,6 +70,7 @@ for res_str in os.environ["DECODER_CLASSES_DELIM"].split("_"):
     if len(res_str) > 0:
         decoder_classes.append(res_str)
 use_batch_norm = True if os.environ["USE_BATCH_NORM"] == "true" else False
+weight_init = os.environ["WEIGHT_INIT"]
 
 # Set up training parameters
 batch_size = int(os.environ["BATCH_SIZE"])
@@ -111,7 +112,8 @@ model = CNNMultidecoder(freq_dim=freq_dim,
                         dec_pool_sizes=dec_pool_sizes,
                         activation=activation,
                         use_batch_norm=use_batch_norm,
-                        decoder_classes=decoder_classes)
+                        decoder_classes=decoder_classes,
+                        weight_init=weight_init)
 if on_gpu:
     model.cuda()
 print("Done constructing model.", flush=True)

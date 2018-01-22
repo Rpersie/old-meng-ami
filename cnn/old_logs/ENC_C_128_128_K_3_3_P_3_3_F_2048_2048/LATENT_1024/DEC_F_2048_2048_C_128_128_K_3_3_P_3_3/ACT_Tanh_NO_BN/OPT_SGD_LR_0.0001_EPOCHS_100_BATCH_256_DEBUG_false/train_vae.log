@@ -1,0 +1,111 @@
+Setting up environment...
+Environment set up.
+Training convolutional variational multidecoder...
+Constructing model...
+Done constructing model.
+CNNVariationalMultidecoder (
+  (encoder_conv): Sequential (
+    (conv2d_0): Conv2d(1, 128, kernel_size=(3, 3), stride=(1, 1))
+    (Tanh_0): Tanh ()
+    (maxpool2d_0): MaxPool2d (size=(1, 3), stride=(1, 3), dilation=(1, 1))
+    (conv2d_1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1))
+    (Tanh_1): Tanh ()
+    (maxpool2d_1): MaxPool2d (size=(1, 3), stride=(1, 3), dilation=(1, 1))
+  )
+  (encoder_fc): Sequential (
+    (lin_0): Linear (7168 -> 2048)
+    (Tanh_0): Tanh ()
+    (lin_1): Linear (2048 -> 2048)
+    (Tanh_1): Tanh ()
+  )
+  (latent_mu): Sequential (
+    (lin): Linear (2048 -> 1024)
+    (Tanh): Tanh ()
+  )
+  (latent_logvar): Sequential (
+    (lin): Linear (2048 -> 1024)
+    (Tanh): Tanh ()
+  )
+  (decoder_fc_ihm): Sequential (
+    (lin_0): Linear (1024 -> 2048)
+    (Tanh_0): Tanh ()
+    (lin_1): Linear (2048 -> 2048)
+    (Tanh_1): Tanh ()
+    (lin_final): Linear (2048 -> 7168)
+    (Tanh_final): Tanh ()
+  )
+  (decoder_deconv_ihm): Sequential (
+    (maxunpool2d_0): MaxUnpool2d (size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (Tanh_0): Tanh ()
+    (maxunpool2d_1): MaxUnpool2d (size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_1): Conv2d(128, 1, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (Tanh_1): Tanh ()
+  )
+  (decoder_fc_sdm1): Sequential (
+    (lin_0): Linear (1024 -> 2048)
+    (Tanh_0): Tanh ()
+    (lin_1): Linear (2048 -> 2048)
+    (Tanh_1): Tanh ()
+    (lin_final): Linear (2048 -> 7168)
+    (Tanh_final): Tanh ()
+  )
+  (decoder_deconv_sdm1): Sequential (
+    (maxunpool2d_0): MaxUnpool2d (size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (Tanh_0): Tanh ()
+    (maxunpool2d_1): MaxUnpool2d (size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_1): Conv2d(128, 1, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (Tanh_1): Tanh ()
+  )
+)
+Setting up data...
+Setting up training datasets...
+Using 2407138 training features (9403 batches) for class ihm
+Using 2407138 training features (9403 batches) for class sdm1
+Setting up dev datasets...
+Using 249565 dev features (975 batches) for class ihm
+Using 249565 dev features (975 batches) for class sdm1
+Setting up minibatch shuffling for training...
+18806 total batches: {'ihm': 9403, 'sdm1': 9403}
+Done setting up data.
+Starting training!
+Train epoch 1: [1000/18806 (5.3%)]	Loss: 1.007920
+Train epoch 1: [2000/18806 (10.6%)]	Loss: 0.937001
+Train epoch 1: [3000/18806 (16.0%)]	Loss: 0.937375
+Train epoch 1: [4000/18806 (21.3%)]	Loss: 0.905273
+Train epoch 1: [5000/18806 (26.6%)]	Loss: 0.876067
+Train epoch 1: [6000/18806 (31.9%)]	Loss: 0.846142
+Train epoch 1: [7000/18806 (37.2%)]	Loss: 0.827419
+Train epoch 1: [8000/18806 (42.5%)]	Loss: 0.808294
+Train epoch 1: [9000/18806 (47.9%)]	Loss: 0.798272
+Train epoch 1: [10000/18806 (53.2%)]	Loss: 0.805481
+Train epoch 1: [11000/18806 (58.5%)]	Loss: 0.855127
+Train epoch 1: [12000/18806 (63.8%)]	Loss: 0.896659
+Train epoch 1: [13000/18806 (69.1%)]	Loss: 0.921372
+Train epoch 1: [14000/18806 (74.4%)]	Loss: 0.938297
+Train epoch 1: [15000/18806 (79.8%)]	Loss: 0.954471
+Train epoch 1: [16000/18806 (85.1%)]	Loss: 0.971226
+Train epoch 1: [17000/18806 (90.4%)]	Loss: 0.965584
+Train epoch 1: [18000/18806 (95.7%)]	Loss: 0.956632
+====> Epoch 1: Average train loss 0.950629
+====> Dev set loss: 0.962934
+New best dev set loss: 0.962934
+Saved checkpoint for model
+Train epoch 2: [1000/18806 (5.3%)]	Loss: 1.158480
+Train epoch 2: [2000/18806 (10.6%)]	Loss: 1.072668
+Train epoch 2: [3000/18806 (16.0%)]	Loss: 1.050627
+Train epoch 2: [4000/18806 (21.3%)]	Loss: 1.003883
+Train epoch 2: [5000/18806 (26.6%)]	Loss: 0.960611
+Train epoch 2: [6000/18806 (31.9%)]	Loss: 0.920698
+Train epoch 2: [7000/18806 (37.2%)]	Loss: 0.892553
+Train epoch 2: [8000/18806 (42.5%)]	Loss: 0.866455
+Train epoch 2: [9000/18806 (47.9%)]	Loss: 0.852048
+Train epoch 2: [10000/18806 (53.2%)]	Loss: 0.850715
+Train epoch 2: [11000/18806 (58.5%)]	Loss: 0.890221
+Train epoch 2: [12000/18806 (63.8%)]	Loss: 0.924020
+Train epoch 2: [13000/18806 (69.1%)]	Loss: 0.941291
+Train epoch 2: [14000/18806 (74.4%)]	Loss: 0.955486
+Train epoch 2: [15000/18806 (79.8%)]	Loss: 0.966186
+Train epoch 2: [16000/18806 (85.1%)]	Loss: 0.980051
+Train epoch 2: [17000/18806 (90.4%)]	Loss: 0.974662
