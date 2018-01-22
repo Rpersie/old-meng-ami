@@ -36,7 +36,7 @@ export DEC_POOLS_DELIM=$(printf "_%s" "${DEC_POOLS[@]}")
 export DECODER_CLASSES=( ihm sdm1 )
 export DECODER_CLASSES_DELIM=$(printf "_%s" "${DECODER_CLASSES[@]}")
 
-export DEBUG_MODEL=true
+export DEBUG_MODEL=false
 if [ "$DEBUG_MODEL" = true ] ; then
     export CURRENT_FEATS=$TEST_FEATS
 else

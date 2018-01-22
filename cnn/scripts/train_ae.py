@@ -116,6 +116,8 @@ model = CNNMultidecoder(freq_dim=freq_dim,
                         weight_init=weight_init)
 if on_gpu:
     model.cuda()
+model_dir = os.environ["MODEL_DIR"]
+checkpoint_path = os.path.join(model_dir, "best_cnn_ae_md.pth.tar")
 print("Done constructing model.", flush=True)
 print(model, flush=True)
 
@@ -235,13 +237,13 @@ def train(epoch):
     train_loss /= total_batches
     return train_loss
 
-def test(epoch):
+def test(epoch, loaders):
     model.eval()
     test_loss = 0.0
 
     batches_processed = 0
     for decoder_class in decoder_classes:
-        for feats, targets in dev_loaders[decoder_class]:
+        for feats, targets in loaders[decoder_class]:
             # Set to volatile so history isn't saved (i.e., not training time)
             feats = Variable(feats, volatile=True)
             targets = Variable(targets, volatile=True)
@@ -276,7 +278,7 @@ for epoch in range(1, epochs + 1):
     train_loss = train(epoch)
     print("====> Epoch %d: Average train loss %.6f" % (epoch, train_loss),
           flush=True)
-    dev_loss = test(epoch)
+    dev_loss = test(epoch, dev_loaders)
     print("====> Dev set loss: %.6f" % dev_loss, flush=True)
     
     is_best = (dev_loss <= best_dev_loss)
@@ -302,7 +304,23 @@ for epoch in range(1, epochs + 1):
             "decoder_optimizers": {decoder_class: decoder_optimizers[decoder_class].state_dict() for decoder_class in decoder_classes},
             "encoder_optimizer": encoder_optimizer.state_dict(),
         }
-        save_checkpoint(state_obj, is_best, os.environ["MODEL_DIR"])
+        save_checkpoint(state_obj, is_best, model_dir)
         print("Saved checkpoint for model", flush=True)
     else:
         print("Not saving checkpoint; no improvement made", flush=True)
+
+# Once done, load best checkpoint and determine reconstruction loss alone
+print("Computing reconstruction loss...", flush=True)
+
+# Load checkpoint (potentially trained on GPU) into CPU memory (hence the map_location)
+checkpoint = torch.load(checkpoint_path, map_location=lambda storage,loc: storage)
+
+# Set up model state and set to eval mode (i.e. disable batch norm)
+model.load_state_dict(checkpoint["state_dict"])
+model.eval()
+print("Loaded checkpoint; best model ready now.")
+
+train_loss = test(epoch, training_loaders)
+print("====> Training set reconstruction loss: %.6f" % train_loss, flush=True)
+dev_loss = test(epoch, dev_loaders)
+print("====> Dev set reconstruction loss: %.6f" % dev_loss, flush=True)
