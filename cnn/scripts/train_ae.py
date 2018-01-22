@@ -130,11 +130,13 @@ def reconstruction_loss(recon_x, x):
 
 
 
-# Set up optimizers
-optimizers = dict()
+# Set up optimizers for each decoder, as well as a shared encoder optimizer
+decoder_optimizers = dict()
 for decoder_class in decoder_classes:
-    optimizers[decoder_class] = getattr(optim, optimizer_name)(model.model_parameters(decoder_class),
+    decoder_optimizers[decoder_class] = getattr(optim, optimizer_name)(model.decoder_parameters(decoder_class),
                                                                lr=learning_rate)
+encoder_optimizer = getattr(optim, optimizer_name)(model.encoder_parameters(),
+                                                   lr=learning_rate)
 
 print("Setting up data...", flush=True)
 loader_kwargs = {"num_workers": 1, "pin_memory": True} if on_gpu else {}
@@ -212,12 +214,14 @@ def train(epoch):
             targets = targets.cuda()
 
         # Backprop
-        optimizers[decoder_class].zero_grad()
+        encoder_optimizer.zero_grad()
+        decoder_optimizers[decoder_class].zero_grad()
         recon_batch = model.forward_decoder(feats, decoder_class)
         loss = reconstruction_loss(recon_batch, targets)
         loss.backward()
         train_loss += loss.data[0]
-        optimizers[decoder_class].step()
+        decoder_optimizers[decoder_class].step()
+        encoder_optimizer.step()
 
         batches_processed += 1
         if batches_processed % log_interval == 0:
@@ -295,7 +299,8 @@ for epoch in range(1, epochs + 1):
             "state_dict": model.state_dict(),
             "best_dev_loss": best_dev_loss,
             "dev_loss": dev_loss,
-            "optimizers": {decoder_class: optimizers[decoder_class].state_dict() for decoder_class in decoder_classes},
+            "decoder_optimizers": {decoder_class: decoder_optimizers[decoder_class].state_dict() for decoder_class in decoder_classes},
+            "encoder_optimizer": encoder_optimizer.state_dict(),
         }
         save_checkpoint(state_obj, is_best, os.environ["MODEL_DIR"])
         print("Saved checkpoint for model", flush=True)
