@@ -59,9 +59,9 @@ def write_kaldi_hao_scp(hao_scp_fd, hao_ark_filepath):
             last_pos += len(str.encode(line))   # Python 3 tell() doesn't work in text mode...
 
 # Dataset class to support loading just features from Hao files
-# Only for sequential use! Does not support random access
+# Do not use Pytorch's built-in shuffle in DataLoader -- use the optional arguments here instead
 class HaoDataset(Dataset):
-    def __init__(self, scp_path, left_context=0, right_context=0):
+    def __init__(self, scp_path, left_context=0, right_context=0, shuffle_utts=False, shuffle_feats=False):
         super(HaoDataset, self).__init__()
 
         self.left_context = left_context
@@ -75,21 +75,32 @@ class HaoDataset(Dataset):
         self.num_utts = 0
         self.num_feats = 0
         self.hao_ark_fd = None
+        self.scp_lines = []
         for scp_line in self.scp_file:
             self.num_utts += 1
             utt_id, feats, self.hao_ark_fd = read_next_utt(scp_line, hao_ark_fd=self.hao_ark_fd)
             self.num_feats += feats.shape[0]
+            self.scp_lines.append(scp_line)
+        self.scp_file.close()
         self.hao_ark_fd.close()
         self.hao_ark_fd = None
+        
+        # Set up shuffling of utterances within SCP (if enabled)
+        self.shuffle_utts = shuffle_utts
+        if self.shuffle_utts:
+            # Shuffle SCP list in place
+            np.random.shuffle(self.scp_lines)
+
+        # Set up shuffling of frames within utterance (if enabled)
+        self.shuffle_feats = shuffle_feats
 
         # Track where we are with respect to feature index
-        self.scp_file.seek(0)
         self.current_utt_id = None
         self.current_feat_mat = None
+        self.current_utt_idx = 0
         self.current_feat_idx = 0
 
     def __del__(self):
-        self.scp_file.close()
         if self.hao_ark_fd is not None:
             self.hao_ark_fd.close()
         
@@ -98,7 +109,7 @@ class HaoDataset(Dataset):
 
     def __getitem__(self, idx):
         if self.current_feat_mat is None:
-            scp_line = self.scp_file.readline()
+            scp_line = self.scp_lines[self.current_utt_idx]
             self.current_utt_id, feat_mat, self.hao_ark_fd = read_next_utt(scp_line,
                                                                            hao_ark_fd=self.hao_ark_fd)
 
@@ -110,6 +121,10 @@ class HaoDataset(Dataset):
                 self.current_feat_mat[i, :] = feat_mat[0, :]
             for i in range(self.right_context):
                 self.current_feat_mat[self.left_context + feat_mat.shape[0] + i, :] = feat_mat[feat_mat.shape[0] - 1, :]
+
+            # Shuffle features if enabled
+            if self.shuffle_feats:
+                np.random.shuffle(self.current_feat_mat)
             
             self.current_feat_idx = 0
 
@@ -125,10 +140,12 @@ class HaoDataset(Dataset):
             self.current_utt_id = None
             self.current_feat_mat = None
             self.current_feat_idx = 0
+            self.current_utt_idx += 1
 
         if idx == len(self) - 1:
-            # Reset back to the beginning
-            self.scp_file.seek(0)
+            # We've seen all of the data (i.e. one epoch) -- shuffle SCP list in place
+            np.random.shuffle(self.scp_lines)
+            self.current_utt_idx = 0
 
         return (feats_tensor, target_tensor)
 
@@ -136,8 +153,9 @@ class HaoDataset(Dataset):
 
 # Utterance-by-utterance loading of Hao files
 # Includes utterance ID data data for evaluation and decoding
+# Do not use Pytorch's built-in shuffle in DataLoader -- use the optional arguments here instead
 class HaoEvalDataset(Dataset):
-    def __init__(self, scp_path):
+    def __init__(self, scp_path, shuffle_utts=False, shuffle_feats=False):
         super(HaoEvalDataset, self).__init__()
 
         # Load in Hao files
@@ -145,49 +163,44 @@ class HaoEvalDataset(Dataset):
         self.scp_file = open(self.scp_path, 'r')
 
         # Determine how many utterances are included
-        self.utt_ids = []
-        for scp_line in self.scp_file:
-            utt_id, path_pos = scp_line.replace('\n','').split(' ')
-            self.utt_ids.append(utt_id)
-        self.num_utts = len(self.utt_ids)
+        # Also sets up shuffling of utterances within SCP if desired
+        self.scp_lines = self.scp_file.readlines()
+        self.shuffle_utts = shuffle_utts
+        if self.shuffle_utts:
+            # Shuffle SCP list in place
+            np.random.shuffle(self.scp_lines)
+
+        # Set up shuffling of feats within utterance
+        self.shuffle_feats = shuffle_feats
 
         # Reset files
         self.scp_file.seek(0)
 
     # Utterance-level
     def __len__(self):
-        return self.num_utts
+        return len(self.scp_lines)
 
     def utt_id(self, utt_idx):
         assert(utt_idx < len(self))
-        return self.utt_ids[utt_idx]
+        utt_id, path_pos = self.scp_lines[utt_idx].replace('\n', '').split(' ')
+        return utt_id
     
     # Full utterance, not one frame
     def __getitem__(self, idx):
         # Get next utt from SCP file
-        scp_line = self.scp_file.readline()
+        scp_line = self.scp_lines[idx]
         utt_id, feat_mat, hao_ark_fd = read_next_utt(scp_line)
+        if self.shuffle_feats:
+            # Shuffle features in-place
+            np.random.shuffle(feat_mat)
         feats_tensor = torch.FloatTensor(feat_mat)
         
         # Target is identical to feature tensor
         target_tensor = feats_tensor.clone()
 
-        if idx == len(self) - 1:
-            # Reset back to the beginning
-            self.scp_file.seek(0)
+        if idx == len(self) - 1 and self.shuffle_utts:
+            # We've seen all of the data (i.e. one epoch) -- shuffle SCP list in place
+            np.random.shuffle(self.scp_lines)
         
         # Return utterance ID info as well
         return (feats_tensor, target_tensor, utt_id)
-
-
-
-# Concat version of HaoEvalDataset
-class HaoEvalConcatDataset(ConcatDataset):
-    def utt_id(self, utt_idx):
-        assert(utt_idx < len(self))
-        dataset_idx = bisect.bisect_right(self.cummulative_sizes, utt_idx)
-        if dataset_idx == 0:
-            sample_idx = utt_idx
-        else:
-            sample_idx = utt_idx - self.cummulative_sizes[dataset_idx - 1]
-        return self.datasets[dataset_idx].utt_id(sample_idx)

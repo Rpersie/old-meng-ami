@@ -162,7 +162,9 @@ training_loaders = dict()
 for decoder_class in decoder_classes:
     current_dataset = HaoDataset(training_scps[decoder_class],
                                  left_context=left_context,
-                                 right_context=right_context)
+                                 right_context=right_context,
+                                 shuffle_utts=True,
+                                 shuffle_feats=True)
     training_datasets[decoder_class] = current_dataset
     training_loaders[decoder_class] = DataLoader(current_dataset,
                                                  batch_size=batch_size,
@@ -179,7 +181,9 @@ dev_loaders = dict()
 for decoder_class in decoder_classes:
     current_dataset = HaoDataset(dev_scps[decoder_class],
                                  left_context=left_context,
-                                 right_context=right_context)
+                                 right_context=right_context,
+                                 shuffle_utts=True,
+                                 shuffle_feats=True)
     dev_datasets[decoder_class] = current_dataset
     dev_loaders[decoder_class] = DataLoader(current_dataset,
                                             batch_size=batch_size,
