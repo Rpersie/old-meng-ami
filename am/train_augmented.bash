@@ -7,7 +7,7 @@
 #SBATCH --mem=32768
 #SBATCH --time=48:00:00
 #SBATCH -J train_augmented
-#SBATCH --exclude=sls-sm-[1,2,4]
+#SBATCH --exclude=sls-sm-[5]
 
 echo "STARTING AUGMENTED ACOUSTIC MODEL TRAINING JOB"
 

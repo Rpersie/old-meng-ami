@@ -342,7 +342,11 @@ model.load_state_dict(checkpoint["state_dict"])
 model.eval()
 print("Loaded checkpoint; best model ready now.")
 
-train_loss = test(epoch, training_loaders)
-print("====> Training set reconstruction loss: %.6f" % train_loss, flush=True)
-dev_loss = test(epoch, dev_loaders)
-print("====> Dev set reconstruction loss: %.6f" % dev_loss, flush=True)
+train_loss, decoder_class_losses = test(epoch, training_loaders)
+print("====> Training set reconstruction loss: %.6f (%s)" % (train_loss,
+                                                             str(["%s: %.6f" % (dc, decoder_class_losses[dc]) for dc in decoder_classes])),
+      flush=True)
+dev_loss, decoder_class_losses = test(epoch, dev_loaders)
+print("====> Dev set reconstruction loss: %.6f (%s)" % (dev_loss,
+                                                        str(["%s: %.6f" % (dc, decoder_class_losses[dc]) for dc in decoder_classes])),
+      flush=True)

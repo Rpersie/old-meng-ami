@@ -1,10 +1,10 @@
 ===========================================
 ===========================================
-Current best training set recon loss: 0.136586
-Model: ENC_C_256_256_K_3_3_P_3_3_F_2048_2048/LATENT_1024/DEC_F_2048_2048_C_256_256_K_3_3_P_3_3/ACT_Tanh_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_100_BATCH_256_DEBUG_false/train_ae.log
+Current best training set recon loss: 0.135804
+Model: ENC_C_256_256_K_3_3_P_3_3_F_2048_2048/LATENT_2048/DEC_F_2048_2048_C_256_256_K_3_3_P_3_3/ACT_Tanh_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_100_BATCH_256_DEBUG_false/train_ae.log
 
-Current best dev set recon loss: 0.133773
-Model: ENC_C_256_256_K_3_3_P_3_3_F_2048_2048/LATENT_1024/DEC_F_2048_2048_C_256_256_K_3_3_P_3_3/ACT_Tanh_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_100_BATCH_256_DEBUG_false/train_ae.log
+Current best dev set recon loss: 0.132976
+Model: ENC_C_256_256_K_3_3_P_3_3_F_2048_2048/LATENT_2048/DEC_F_2048_2048_C_256_256_K_3_3_P_3_3/ACT_Tanh_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_100_BATCH_256_DEBUG_false/train_ae.log
 
 ===========================================
 ===========================================
@@ -87,5 +87,9 @@ JANUARY 25TH
 ===========================================
 
 ENC_C_256_256_K_3_3_P_3_3_F_2048_2048/LATENT_2048/DEC_F_2048_2048_C_256_256_K_3_3_P_3_3/ACT_Tanh_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_100_BATCH_256_DEBUG_false/train_ae.log
+====> Training set reconstruction loss: 0.135804
+====> Dev set reconstruction loss: 0.132976
 
 ENC_C_256_256_256_K_3_3_3_P_3_3_3_F_2048_2048/LATENT_1024/DEC_F_2048_2048_C_256_256_256_K_3_3_3_P_3_3_3/ACT_Tanh_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_100_BATCH_256_DEBUG_false/train_ae.log
+====> Training set reconstruction loss: 0.137140
+====> Dev set reconstruction loss: 0.134422
