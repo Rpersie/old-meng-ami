@@ -7,7 +7,7 @@
 #SBATCH --mem=32768
 #SBATCH --time=48:00:00
 #SBATCH -J train_vae_cnn_md
-#SBATCH --exclude=sls-sm-[1,2,4]
+#SBATCH --exclude=sls-sm-[5,6,7]
 
 echo "STARTING CONVOLUTIONAL VARIATIONAL MULTIDECODER TRAINING JOB"
 

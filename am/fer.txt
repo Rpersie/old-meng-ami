@@ -1,0 +1,23 @@
+AM Error rates:
+
+Baseline:
+- Src IHM:
+    - IHM dev FER: 0.5771454810000995
+    - SDM1 dev FER: 0.860041843301705
+- Src SDM1:
+    - SDM1 dev FER: 0.8047768447009975
+    - IHM dev FER: 0.7732134823050868
+
+ENC_C_256_256_128_K_3_3_3_P_3_3_0_F_1024_1024/LATENT_1024/DEC_F_1024_1024_C_128_256_256_K_3_3_3_P_0_3_3/ACT_SELU/OPT_Adam_LR_0.0001_EPOCHS_100_BATCH_256_DEBUG_false/ae/
+- Src IHM/Tar IHM (simply reconstruction):
+    - IHM dev FER: 0.5931332016040727 (2.8% relative WORSE than IHM baseline)
+    - SDM1 dev FER: 0.869107956549244 (1.1% relative WORSE than IHM baseline)
+- Src SDM1/Tar SDM1 (simply reconstruction):
+    - SDM1 dev FER: 0.8098909385737065 (0.6% relative WORSE than SDM1 baseline)
+    - IHM dev FER: 0.7864909490384366 (1.7% relative WORSE than SDM1 baseline)
+- Src IHM/Tar SDM1 (augmentation):
+    - SDM1 dev FER: 0.8640676168639946 (0.5% relative WORSE than IHM baseline)
+    - IHM dev FER: 0.6207066157043865 (19.7% relative WORSE than IHM baseline)
+- Src SDM1/Tar IHM (augmentation):
+    - IHM dev FER: 0.7765463503573475 (0.4% relative WORSE than SDM1 baseline)
+    - SDM1 dev FER: 0.8129734955958207 (1.0% relative WORSE than SDM1 baseline)

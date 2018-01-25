@@ -183,30 +183,34 @@ for decoder_class in decoder_classes:
 
 # Set up minibatch shuffling (for training only) by decoder class
 print("Setting up minibatch shuffling for training...", flush=True)
-batch_counts = dict()
+train_batch_counts = dict()
 total_batches = 0
+dev_batch_counts = dict()
 for decoder_class in decoder_classes:
-    batch_counts[decoder_class] = len(training_loaders[decoder_class])
-    total_batches += batch_counts[decoder_class]
-print("%d total batches: %s" % (total_batches, str(batch_counts)), flush=True)
+    train_batch_counts[decoder_class] = len(training_loaders[decoder_class])
+    total_batches += train_batch_counts[decoder_class]
+    
+    dev_batch_counts[decoder_class] = len(dev_loaders[decoder_class])
+print("%d total batches: %s" % (total_batches, str(train_batch_counts)), flush=True)
 
 print("Done setting up data.", flush=True)
 
 def train(epoch):
     model.train()
     train_loss = 0.0
+    decoder_class_losses = {decoder_class: 0.0 for decoder_class in decoder_classes}
 
     batches_processed = 0
-    current_batch_counts = batch_counts.copy()
+    current_train_batch_counts = train_batch_counts.copy()
     training_iterators = {decoder_class: iter(training_loaders[decoder_class]) for decoder_class in decoder_classes}
 
     while batches_processed < total_batches:
         # Pick a decoder class
         batch_idx = random.randint(0, total_batches - batches_processed - 1)
         for decoder_class in decoder_classes:
-            current_count = current_batch_counts[decoder_class]
+            current_count = current_train_batch_counts[decoder_class]
             if batch_idx < current_count:
-                current_batch_counts[decoder_class] -= 1
+                current_train_batch_counts[decoder_class] -= 1
                 break
             else:
                 batch_idx -= current_count
@@ -226,6 +230,7 @@ def train(epoch):
         loss = reconstruction_loss(recon_batch, targets)
         loss.backward()
         train_loss += loss.data[0]
+        decoder_class_losses[decoder_class] += loss.data[0]
         decoder_optimizers[decoder_class].step()
         encoder_optimizer.step()
 
@@ -239,11 +244,15 @@ def train(epoch):
                   flush=True)
 
     train_loss /= total_batches
-    return train_loss
+    for decoder_class in decoder_classes:
+        decoder_class_losses[decoder_class] /= train_batch_counts[decoder_class]
+
+    return (train_loss, decoder_class_losses)
 
 def test(epoch, loaders):
     model.eval()
     test_loss = 0.0
+    decoder_class_losses = {decoder_class: 0.0 for decoder_class in decoder_classes}
 
     batches_processed = 0
     for decoder_class in decoder_classes:
@@ -256,11 +265,16 @@ def test(epoch, loaders):
                 targets = targets.cuda()
 
             recon_batch = model.forward_decoder(feats, decoder_class)
-            test_loss += reconstruction_loss(recon_batch, targets).data[0]
+            loss = reconstruction_loss(recon_batch, targets)
+            test_loss += loss.data[0]
+            decoder_class_losses[decoder_class] += loss.data[0]
             batches_processed += 1
 
     test_loss /= batches_processed
-    return test_loss
+    for decoder_class in decoder_classes:
+        decoder_class_losses[decoder_class] /= dev_batch_counts[decoder_class]
+
+    return (test_loss, decoder_class_losses)
 
 # Save model with best dev set loss thus far
 best_dev_loss = float('inf')
@@ -279,11 +293,15 @@ epochs_since_improvement = 0
 # 1-indexed for pretty printing
 print("Starting training!", flush=True)
 for epoch in range(1, epochs + 1):
-    train_loss = train(epoch)
-    print("====> Epoch %d: Average train loss %.6f" % (epoch, train_loss),
+    (train_loss, decoder_class_losses) = train(epoch)
+    print("====> Epoch %d: Average train loss %.6f (%s)" % (epoch,
+                                                            train_loss,
+                                                            str(["%s: %.6f" % (dc, decoder_class_losses[dc]) for dc in decoder_classes])),
           flush=True)
-    dev_loss = test(epoch, dev_loaders)
-    print("====> Dev set loss: %.6f" % dev_loss, flush=True)
+    (dev_loss, decoder_class_losses) = test(epoch, dev_loaders)
+    print("====> Dev set loss: %.6f (%s)" % (dev_loss,
+                                             str(["%s: %.6f" % (dc, decoder_class_losses[dc]) for dc in decoder_classes])), 
+          flush=True)
     
     is_best = (dev_loss <= best_dev_loss)
     if is_best:
