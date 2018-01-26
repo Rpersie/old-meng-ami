@@ -272,7 +272,8 @@ def test(epoch, loaders):
 
     test_loss /= batches_processed
     for decoder_class in decoder_classes:
-        decoder_class_losses[decoder_class] /= dev_batch_counts[decoder_class]
+        batch_counts = dev_batch_counts if loaders == dev_loaders else train_batch_counts
+        decoder_class_losses[decoder_class] /= batch_counts[decoder_class]
 
     return (test_loss, decoder_class_losses)
 
@@ -281,10 +282,14 @@ best_dev_loss = float('inf')
 save_best_only = True   # Set to False to always save model state, regardless of improvement
 
 def save_checkpoint(state_obj, is_best, model_dir):
-    filepath = os.path.join(model_dir, "ckpt_cnn_ae_md_%d.pth.tar" % state_obj["epoch"])
-    torch.save(state_obj, filepath)
-    if is_best:
-        shutil.copyfile(filepath, os.path.join(model_dir, "best_cnn_ae_md.pth.tar"))
+    if not save_best_only:
+        filepath = os.path.join(model_dir, "ckpt_cnn_ae_md_%d.pth.tar" % state_obj["epoch"])
+        torch.save(state_obj, filepath)
+        if is_best:
+            shutil.copyfile(filepath, os.path.join(model_dir, "best_cnn_ae_md.pth.tar"))
+    else:
+        filepath = os.path.join(model_dir, "best_cnn_ae_md.pth.tar")
+        torch.save(state_obj, filepath)
 
 # Regularize via patience-based early stopping
 max_patience = 3
@@ -316,7 +321,7 @@ for epoch in range(1, epochs + 1):
             print("STOPPING EARLY", flush=True)
             break
 
-    if not (save_best_only and not is_best):
+    if not save_best_only or (save_best_only and is_best):
         # Save a checkpoint for our model!
         state_obj = {
             "epoch": epoch,

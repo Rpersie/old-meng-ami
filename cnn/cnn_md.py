@@ -71,11 +71,7 @@ class CNNMultidecoder(nn.Module):
             self.encoder_conv_layers["conv2d_%d" % idx] = nn.Conv2d(current_channels,
                                                                     enc_channel_size,
                                                                     enc_kernel_size)
-            if "xavier" in self.weight_init:
-                gain = nn.init.calculate_gain("conv2d")
-                getattr(nn.init, self.weight_init)(self.encoder_conv_layers["conv2d_%d" % idx].weight, gain=gain)
-            else:
-                getattr(nn.init, self.weight_init)(self.encoder_conv_layers["conv2d_%d" % idx].weight)
+            self.init_weights(self.encoder_conv_layers["conv2d_%d" % idx], "conv2d")
             current_channels = enc_channel_size
 
             # Formula from http://pytorch.org/docs/master/nn.html#conv2d
@@ -109,11 +105,7 @@ class CNNMultidecoder(nn.Module):
             enc_fc_size = enc_fc_sizes[idx]
             
             self.encoder_fc_layers["lin_%d" % idx] = nn.Linear(current_fc_dim, enc_fc_size)
-            if "xavier" in self.weight_init:
-                gain = nn.init.calculate_gain(self.activation.lower())
-                getattr(nn.init, self.weight_init)(self.encoder_fc_layers["lin_%d" % idx].weight, gain=gain)
-            else:
-                getattr(nn.init, self.weight_init)(self.encoder_fc_layers["lin_%d" % idx].weight)
+            self.init_weights(self.encoder_fc_layers["lin_%d" % idx], self.activation)
             current_fc_dim = enc_fc_size
 
             if self.use_batch_norm:
@@ -121,11 +113,7 @@ class CNNMultidecoder(nn.Module):
             self.encoder_fc_layers["%s_%d" % (self.activation, idx)] = getattr(nn, self.activation)()            
 
         self.encoder_fc_layers["lin_final"] = nn.Linear(current_fc_dim, self.latent_dim)
-        if "xavier" in self.weight_init:
-            gain = nn.init.calculate_gain(self.activation.lower())
-            getattr(nn.init, self.weight_init)(self.encoder_fc_layers["lin_final"].weight, gain=gain)
-        else:
-            getattr(nn.init, self.weight_init)(self.encoder_fc_layers["lin_final"].weight)
+        self.init_weights(self.encoder_fc_layers["lin_final"], self.activation)
         self.encoder_fc_layers["%s_final" % self.activation] = getattr(nn, self.activation)()
         self.encoder_fc = nn.Sequential(self.encoder_fc_layers)
 
@@ -151,11 +139,7 @@ class CNNMultidecoder(nn.Module):
                 dec_fc_size = dec_fc_sizes[idx]
 
                 self.decoder_fc_layers[decoder_class]["lin_%d" % idx] = nn.Linear(current_fc_dim, dec_fc_size)
-                if "xavier" in self.weight_init:
-                    gain = nn.init.calculate_gain(self.activation.lower())
-                    getattr(nn.init, self.weight_init)(self.decoder_fc_layers[decoder_class]["lin_%d" % idx].weight, gain=gain)
-                else:
-                    getattr(nn.init, self.weight_init)(self.decoder_fc_layers[decoder_class]["lin_%d" % idx].weight)
+                self.init_weights(self.decoder_fc_layers[decoder_class]["lin_%d" % idx], self.activation)
                 current_fc_dim = dec_fc_size
 
                 if self.use_batch_norm:
@@ -165,11 +149,7 @@ class CNNMultidecoder(nn.Module):
         
             self.decoder_fc_layers[decoder_class]["lin_final"] = nn.Linear(current_fc_dim,
                                                                            input_channels * input_height * input_width)
-            if "xavier" in self.weight_init:
-                gain = nn.init.calculate_gain(self.activation.lower())
-                getattr(nn.init, self.weight_init)(self.decoder_fc_layers[decoder_class]["lin_final"].weight, gain=gain)
-            else:
-                getattr(nn.init, self.weight_init)(self.decoder_fc_layers[decoder_class]["lin_final"].weight)
+            self.init_weights(self.decoder_fc_layers[decoder_class]["lin_final"], self.activation)
             self.decoder_fc_layers[decoder_class]["%s_final" % self.activation] = getattr(nn, self.activation)()
             self.decoder_fc[decoder_class] = nn.Sequential(self.decoder_fc_layers[decoder_class])
             self.add_module("decoder_fc_%s" % decoder_class, self.decoder_fc[decoder_class])
@@ -201,11 +181,7 @@ class CNNMultidecoder(nn.Module):
                                                                         output_channels,
                                                                         dec_kernel_size,
                                                                         padding=padding)
-                if "xavier" in self.weight_init:
-                    gain = nn.init.calculate_gain("conv2d")
-                    getattr(nn.init, self.weight_init)(self.decoder_deconv_layers[decoder_class]["conv2d_%d" % idx].weight, gain=gain)
-                else:
-                    getattr(nn.init, self.weight_init)(self.decoder_deconv_layers[decoder_class]["conv2d_%d" % idx].weight)
+                self.init_weights(self.decoder_deconv_layers[decoder_class]["conv2d_%d" % idx], "conv2d")
 
                 # Formula for length from http://pytorch.org/docs/master/nn.html#conv2d
                 # Assumes stride = 1, dilation = 1
@@ -218,6 +194,17 @@ class CNNMultidecoder(nn.Module):
 
             self.decoder_deconv[decoder_class] = nn.Sequential(self.decoder_deconv_layers[decoder_class])
             self.add_module("decoder_deconv_%s" % decoder_class, self.decoder_deconv[decoder_class])
+
+    def init_weights(self, layer, layer_name):
+        if "xavier" in self.weight_init:
+            try:
+                gain = nn.init.calculate_gain(layer_name.lower())
+                getattr(nn.init, self.weight_init)(layer.weight, gain=gain)
+            except ValueError:
+                # Happens if layer type isn't supported yet -- just use default gain
+                getattr(nn.init, self.weight_init)(layer.weight)
+        else:
+            getattr(nn.init, self.weight_init)(layer.weight)
     
     def decoder_parameters(self, decoder_class):
         # Get parameters for just a specific decoder
@@ -331,21 +318,13 @@ class CNNVariationalMultidecoder(CNNMultidecoder):
 
         self.latent_mu_layers = OrderedDict()
         self.latent_mu_layers["lin"] = nn.Linear(current_fc_dim, self.latent_dim)
-        if "xavier" in self.weight_init:
-            gain = nn.init.calculate_gain("linear")
-            getattr(nn.init, self.weight_init)(self.latent_mu_layers["lin"].weight, gain=gain)
-        else:
-            getattr(nn.init, self.weight_init)(self.latent_mu_layers["lin"].weight)
+        self.init_weights(self.latent_mu_layers["lin"], "linear")
         self.latent_mu_layers["%s" % self.activation] = getattr(nn, self.activation)()
         self.latent_mu = nn.Sequential(self.latent_mu_layers)
         
         self.latent_logvar_layers = OrderedDict()
         self.latent_logvar_layers["lin"] = nn.Linear(current_fc_dim, self.latent_dim)
-        if "xavier" in self.weight_init:
-            gain = nn.init.calculate_gain("linear")
-            getattr(nn.init, self.weight_init)(self.latent_logvar_layers["lin"].weight, gain=gain)
-        else:
-            getattr(nn.init, self.weight_init)(self.latent_logvar_layers["lin"].weight)
+        self.init_weights(self.latent_logvar_layers["lin"], "linear")
         self.latent_logvar_layers["%s" % self.activation] = getattr(nn, self.activation)()
         self.latent_logvar = nn.Sequential(self.latent_logvar_layers)
 
