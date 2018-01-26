@@ -187,3 +187,33 @@ Train epoch 6: [16000/18806 (85.1%)]	Loss: 0.014143
 Train epoch 6: [17000/18806 (90.4%)]	Loss: 0.014147
 Train epoch 6: [18000/18806 (95.7%)]	Loss: 0.014102
 ====> Epoch 6: Average train loss 0.014065 (['ihm: 0.013230', 'sdm1: 0.014900'])
+====> Dev set loss: 0.017826 (['ihm: 0.016154', 'sdm1: 0.019499'])
+No improvement in 2 epochs (best dev set loss: 0.013580)
+Not saving checkpoint; no improvement made
+Train epoch 7: [1000/18806 (5.3%)]	Loss: 0.013426
+Train epoch 7: [2000/18806 (10.6%)]	Loss: 0.013551
+Train epoch 7: [3000/18806 (16.0%)]	Loss: 0.013092
+Train epoch 7: [4000/18806 (21.3%)]	Loss: 0.013143
+Train epoch 7: [5000/18806 (26.6%)]	Loss: 0.013465
+Train epoch 7: [6000/18806 (31.9%)]	Loss: 0.013471
+Train epoch 7: [7000/18806 (37.2%)]	Loss: 0.013861
+Train epoch 7: [8000/18806 (42.5%)]	Loss: 0.013808
+Train epoch 7: [9000/18806 (47.9%)]	Loss: 0.013837
+Train epoch 7: [10000/18806 (53.2%)]	Loss: 0.013674
+Train epoch 7: [11000/18806 (58.5%)]	Loss: 0.013559
+Train epoch 7: [12000/18806 (63.8%)]	Loss: 0.013580
+Train epoch 7: [13000/18806 (69.1%)]	Loss: 0.013500
+Train epoch 7: [14000/18806 (74.4%)]	Loss: 0.013428
+Train epoch 7: [15000/18806 (79.8%)]	Loss: 0.013543
+Train epoch 7: [16000/18806 (85.1%)]	Loss: 0.013460
+Train epoch 7: [17000/18806 (90.4%)]	Loss: 0.013576
+Train epoch 7: [18000/18806 (95.7%)]	Loss: 0.013626
+====> Epoch 7: Average train loss 0.013564 (['ihm: 0.012697', 'sdm1: 0.014431'])
+====> Dev set loss: 0.014206 (['ihm: 0.012432', 'sdm1: 0.015981'])
+No improvement in 3 epochs (best dev set loss: 0.013580)
+STOPPING EARLY
+Computing reconstruction loss...
+Loaded checkpoint; best model ready now.
+====> Training set reconstruction loss: 0.013745 (['ihm: 0.120508', 'sdm1: 0.144615'])
+====> Dev set reconstruction loss: 0.013580 (['ihm: 0.012552', 'sdm1: 0.014609'])
+Trained convolutional multidecoder.
