@@ -101,11 +101,17 @@ JANUARY 26TH
 ===========================================
 
 ENC_C_256_256_K_3_3_P_3_3_F_2048/LATENT_1024/DEC_F_2048_C_256_256_K_3_3_P_3_3/ACT_ELU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_100_BATCH_256_DEBUG_false/train_ae.log
+====> Training set reconstruction loss: 0.041181 (['ihm: 0.493701', 'sdm1: 0.300607'])
+====> Dev set reconstruction loss: 0.036149 (['ihm: 0.043646', 'sdm1: 0.028652'])
 
 ENC_C_256_256_K_3_3_P_3_3_F_2048/LATENT_1024/DEC_F_2048_C_256_256_K_3_3_P_3_3/ACT_ELU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_100_BATCH_256_DEBUG_false/train_vae.log
+====> Training set reconstruction loss: 0.263183 (['ihm: 0.278607', 'sdm1: 0.247760'])
+====> Dev set reconstruction loss: 0.259857 (['ihm: 0.280246', 'sdm1: 0.239468'])
 
 ENC_C_256_256_K_3_3_P_3_3_F_2048/LATENT_1024/DEC_F_2048_C_256_256_K_3_3_P_3_3/ACT_SELU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_100_BATCH_256_DEBUG_false/train_ae.log
 ====> Training set reconstruction loss: 0.013745 (['ihm: 0.120508', 'sdm1: 0.144615'])
 ====> Dev set reconstruction loss: 0.013580 (['ihm: 0.012552', 'sdm1: 0.014609'])
 
 ENC_C_256_256_K_3_3_P_3_3_F_2048/LATENT_1024/DEC_F_2048_C_256_256_K_3_3_P_3_3/ACT_SELU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_100_BATCH_256_DEBUG_false/train_vae.log
+====> Training set reconstruction loss: 0.256562 (['ihm: 0.261040', 'sdm1: 0.252084'])
+====> Dev set reconstruction loss: 0.254586 (['ihm: 0.264230', 'sdm1: 0.244942'])

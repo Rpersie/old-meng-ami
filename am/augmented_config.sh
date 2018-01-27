@@ -9,12 +9,12 @@ export DATASET_NAME=ami-0.1
 export DATASET=$MENG_ROOT/${DATASET_NAME}
 
 export MODEL_TYPE=ae
-export CNN_NAME=ENC_C_256_256_K_3_3_P_3_3_F_2048_2048/LATENT_1024/DEC_F_2048_2048_C_256_256_K_3_3_P_3_3/ACT_Tanh_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_100_BATCH_256_DEBUG_false/${MODEL_TYPE}
-export AUGMENTED_DATA_DIR=${SCRATCH}/augmented_data/cnn/$CNN_NAME
+export CNN_NAME=ENC_C_256_256_K_3_3_P_3_3_F_2048/LATENT_1024/DEC_F_2048_C_256_256_K_3_3_P_3_3/ACT_SELU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_100_BATCH_256_DEBUG_false
+export AUGMENTED_DATA_DIR=${SCRATCH}/augmented_data/cnn/$CNN_NAME/$MODEL_TYPE
 
 export SOURCE_DOMAIN=sdm1
-export TARGET_DOMAIN=sdm1
-export PREDICT_DOMAIN=ihm
+export TARGET_DOMAIN=ihm
+export PREDICT_DOMAIN=sdm1
 export GOLD_DIR=/data/sls/scratch/haotang/ami/sls-data/${DATASET_NAME}
 
 # if [ "$TRAIN_DOMAIN" = ihm ] ; then

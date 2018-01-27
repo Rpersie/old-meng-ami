@@ -35,3 +35,18 @@ ENC_C_256_256_K_3_3_P_3_3_F_2048_2048/LATENT_1024/DEC_F_2048_2048_C_256_256_K_3_
 - Src SDM1/Tar IHM (augmentation):
     - IHM dev FER: 0.804643357792065 (4.1% relative WORSE than SDM1 baseline)
     - SDM1 dev FER: 0.8329981524288633 (3.5% relative WORSE than SDM1 baseline)
+
+ENC_C_256_256_K_3_3_P_3_3_F_2048/LATENT_1024/DEC_F_2048_C_256_256_K_3_3_P_3_3/ACT_SELU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_100_BATCH_256_DEBUG_false/ae/
+- Src IHM/Tar IHM (simply reconstruction):
+    - IHM dev FER: 0.5849009845585065 (1.3% relative WORSE than IHM baseline)
+    - SDM1 dev FER: 0.8646850042703328 (0.5% relative WORSE than IHM baseline)
+- Src SDM1/Tar SDM1 (simply reconstruction):
+    - SDM1 dev FER: 0.8057147813204257 (0.1% relative WORSE than SDM1 baseline)
+    - IHM dev FER: 0.7826587336020672 (1.2% relative WORSE than SDM1 baseline)
+- Src IHM/Tar SDM1 (augmentation):
+    - SDM1 dev FER: 0.863610069528225 (0.4% relative WORSE than IHM baseline)
+    - IHM dev FER: 0.5846343367661667 (1.3% relative WORSE than IHM baseline)
+- Src SDM1/Tar IHM (augmentation):
+    - IHM dev FER: 0.7751270719873136 (0.2% relative WORSE than SDM1 baseline)
+    - SDM1 dev FER: 0.809717694004748 (0.6% relative WORSE than SDM1 baseline)
+
