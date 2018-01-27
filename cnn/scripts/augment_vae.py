@@ -196,7 +196,8 @@ def augment(source_class, target_class):
                 decoded_feats[i, :] = recon_frames_numpy[left_context:left_context + 1, :]
 
             # Write to output file
-            write_kaldi_hao_ark(ark_fd, utt_id, decoded_feats)
+            aug_utt_id = "src_%s_tar_%s_%s" % (source_class, target_class, utt_id)
+            write_kaldi_hao_ark(ark_fd, aug_utt_id, decoded_feats)
 
             batches_processed += 1
             if batches_processed % log_interval == 0:
@@ -237,7 +238,8 @@ def augment(source_class, target_class):
                 decoded_feats[i, :] = recon_frames_numpy[left_context:left_context + 1, :]
 
             # Write to output file
-            write_kaldi_hao_ark(ark_fd, utt_id, decoded_feats)
+            aug_utt_id = "src_%s_tar_%s_%s" % (source_class, target_class, utt_id)
+            write_kaldi_hao_ark(ark_fd, aug_utt_id, decoded_feats)
 
             batches_processed += 1
             if batches_processed % log_interval == 0:
