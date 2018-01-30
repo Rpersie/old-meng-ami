@@ -18,8 +18,9 @@ echo "STARTING BASELINE + AUGMENTED ACOUSTIC MODEL TRAINING JOB"
 mkdir -p $LOGS/$EXPT_NAME
 
 # Create combined SCP file for IHM baseline + SDM1 augmented
-cat $DATASET/ihm-train-norm.blogmel.scp $AUGMENTED_DATA_DIR/train-src_ihm-tar_sdm1.scp > $AUGMENTED_DATA_DIR/combined.blogmel.scp
-cat $DATASET/ihm-train-tri3.bali.scp $DATASET/ihm-train-tri3.bali.scp > $AUGMENTED_DATA_DIR/combined-tri3.bali.scp
+cat $DATASET/ihm-train-norm.blogmel.scp $AUGMENTED_DATA_DIR/train-src_ihm-tar_sdm1.scp > $AUGMENTED_DATA_DIR/train-combined.blogmel.scp
+sed -e 's/^/src_ihm_tar_sdm1_/' $DATASET/ihm-train-tri3.bali.scp > $AUGMENTED_DATA_DIR/src_ihm_tar_sdm1-train-tri3.bali.scp
+cat $DATASET/ihm-train-tri3.bali.scp $AUGMENTED_DATA_DIR/src_ihm_tar_sdm1-train-tri3.bali.scp > $AUGMENTED_DATA_DIR/combined-train-tri3.bali.scp
 
 for epoch in $(seq $START_EPOCH $END_EPOCH); do
     echo "========== EPOCH $epoch =========="
@@ -40,8 +41,8 @@ for epoch in $(seq $START_EPOCH $END_EPOCH); do
 
     # Always use IHM pdfids, even for SDM1 (data are parallel -- see Hao email from 1/17/18)
     OMP_NUM_THREADS=1 /data/sls/scratch/haotang/ami/dist/nn-20171210-5b69f7f/nnbin/frame-tdnn-learn-gpu \
-        --frame-scp $AUGMENTED_DATA_DIR/combined.blogmel.scp \
-        --label-scp $AUGMENTED_DATA_DIR/combined-tri3.bali.scp \
+        --frame-scp $AUGMENTED_DATA_DIR/train-combined.blogmel.scp \
+        --label-scp $AUGMENTED_DATA_DIR/combined-train-tri3.bali.scp \
         --param $MODEL_DIR/param-$((epoch-1)) \
         --opt-data $MODEL_DIR/opt-data-$((epoch-1)) \
         --output-param $MODEL_DIR/param-$epoch \

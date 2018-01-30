@@ -54,3 +54,14 @@ mkdir -p $LOGS
 # For data augmentation
 export AUGMENTED_DATA_DIR=${SCRATCH}/augmented_data/cnn/$EXPT_NAME
 mkdir -p $AUGMENTED_DATA_DIR
+
+# For viewing activations on dev set
+export TOP_COUNT=100    # Only the average of images with top responses logged
+export ACTIVATIONS_DIR=${SCRATCH}/activations/cnn/top_${TOP_COUNT}/$EXPT_NAME
+mkdir -p $ACTIVATIONS_DIR
+
+# Denoising autoencoder parameters; uses input "destruction" as described in
+# "Extracting and Composing Robust Features with Denoising Autoencoders", Vincent et. al.
+# http://www.iro.umontreal.ca/~lisa/publications2/index.php/attachments/single/176
+# Basically sets (NOISE_RATIO * 100)% of input features to 0 at random
+export NOISE_RATIO=0.5

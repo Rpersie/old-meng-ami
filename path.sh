@@ -23,6 +23,7 @@ export UTILS=$MENG_ROOT/utils
 # Change to env-cpu if running just on CPU
 export TRAIN_ENV=env-gpu     
 export AUGMENT_ENV=env-gpu
+export ACTIVATIONS_ENV=env-gpu
 
 export PATH=$PATH:$FEATBIN
 
