@@ -10,5 +10,5 @@ echo "Environment set up."
 
 # Train a convolutional denoising multidecoder
 echo "Training convolutional denoising multidecoder..."
-python3 cnn/scripts/train_dae.py
+python3 cnn/scripts/train.py dae
 echo "Trained convolutional denoising multidecoder."

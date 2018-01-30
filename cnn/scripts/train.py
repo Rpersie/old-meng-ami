@@ -13,8 +13,19 @@ from torch.utils.data import DataLoader
 
 sys.path.append("./")
 sys.path.append("./cnn")
-from cnn_md import CNNVariationalMultidecoder
+from cnn_md import CNNMultidecoder, CNNVariationalMultidecoder
 from utils.hao_data import HaoDataset
+
+# Parse command line args
+train_mode = "ae"
+if len(sys.argv) == 2:
+    train_mode = sys.argv[1]
+print("Running training with mode %s" % train_mode, flush=True)
+
+if train_mode in ["dae", "dvae"]:
+    # Set up noising
+    noise_ratio = float(os.environ["NOISE_RATIO"])
+    print("Noising %.3f%% of input features" % (noise_ratio * 100.0), flush=True)
 
 # Uses some structure from https://github.com/pytorch/examples/blob/master/vae/main.py
 
@@ -99,45 +110,69 @@ random.seed(1)
 
 # Construct autoencoder with our parameters
 print("Constructing model...", flush=True)
-model = CNNVariationalMultidecoder(freq_dim=freq_dim,
-                        splicing=[left_context, right_context], 
-                        enc_channel_sizes=enc_channel_sizes,
-                        enc_kernel_sizes=enc_kernel_sizes,
-                        enc_pool_sizes=enc_pool_sizes,
-                        enc_fc_sizes=enc_fc_sizes,
-                        latent_dim=latent_dim,
-                        dec_fc_sizes=dec_fc_sizes,
-                        dec_channel_sizes=dec_channel_sizes,
-                        dec_kernel_sizes=dec_kernel_sizes,
-                        dec_pool_sizes=dec_pool_sizes,
-                        activation=activation,
-                        decoder_classes=decoder_classes,
-                        use_batch_norm=use_batch_norm,
-                        weight_init=weight_init)
+if train_mode in ["ae", "dae"]:
+    model = CNNMultidecoder(freq_dim=freq_dim,
+                            splicing=[left_context, right_context], 
+                            enc_channel_sizes=enc_channel_sizes,
+                            enc_kernel_sizes=enc_kernel_sizes,
+                            enc_pool_sizes=enc_pool_sizes,
+                            enc_fc_sizes=enc_fc_sizes,
+                            latent_dim=latent_dim,
+                            dec_fc_sizes=dec_fc_sizes,
+                            dec_channel_sizes=dec_channel_sizes,
+                            dec_kernel_sizes=dec_kernel_sizes,
+                            dec_pool_sizes=dec_pool_sizes,
+                            activation=activation,
+                            use_batch_norm=use_batch_norm,
+                            decoder_classes=decoder_classes,
+                            weight_init=weight_init)
+elif train_mode in ["vae", "dvae"]:
+    model = CNNVariationalMultidecoder(freq_dim=freq_dim,
+                            splicing=[left_context, right_context], 
+                            enc_channel_sizes=enc_channel_sizes,
+                            enc_kernel_sizes=enc_kernel_sizes,
+                            enc_pool_sizes=enc_pool_sizes,
+                            enc_fc_sizes=enc_fc_sizes,
+                            latent_dim=latent_dim,
+                            dec_fc_sizes=dec_fc_sizes,
+                            dec_channel_sizes=dec_channel_sizes,
+                            dec_kernel_sizes=dec_kernel_sizes,
+                            dec_pool_sizes=dec_pool_sizes,
+                            activation=activation,
+                            use_batch_norm=use_batch_norm,
+                            decoder_classes=decoder_classes,
+                            weight_init=weight_init)
+else:
+    print("Unknown train mode %s" % train_mode, flush=True)
+    sys.exit(1)
+
 if on_gpu:
     model.cuda()
 model_dir = os.environ["MODEL_DIR"]
-checkpoint_path = os.path.join(model_dir, "best_cnn_vae_md.pth.tar")
+if train_mode in ["dae", "dvae"]:
+    best_ckpt_path = os.path.join(model_dir, "best_cnn_%s_ratio%s_md.pth.tar" % (train_mode, str(noise_ratio)))
+else:
+    best_ckpt_path = os.path.join(model_dir, "best_cnn_%s_md.pth.tar" % train_mode)
 print("Done constructing model.", flush=True)
 print(model, flush=True)
 
-# Set up loss function
-def vae_loss(recon_x, x, mu, logvar, recon_only=False):
-    MSE = nn.MSELoss()(recon_x.view(-1, time_dim, freq_dim),
-                       x.view(-1, time_dim, freq_dim))
+# Set up loss functions
+def reconstruction_loss(recon_x, x):
+    MSE = nn.MSELoss()(recon_x, x.view(-1, time_dim, freq_dim))
+    return MSE
 
-    if not recon_only:
-        # see Appendix B from VAE paper:
-        # Kingma and Welling. Auto-Encoding Variational Bayes. ICLR, 2014
-        # https://arxiv.org/abs/1312.6114
-        # 0.5 * sum(1 + log(sigma^2) - mu^2 - sigma^2)
-        KLD = -0.5 * torch.sum(1 + logvar - mu.pow(2) - logvar.exp())
-        # Normalise by same number of elements as in reconstruction
-        KLD /= x.size()[0] * feat_dim
+def vae_loss(recon_x, x, mu, logvar):
+    MSE = reconstruction_loss(recon_x, x)
 
-        return MSE + KLD
-    else:
-        return MSE
+    # see Appendix B from VAE paper:
+    # Kingma and Welling. Auto-Encoding Variational Bayes. ICLR, 2014
+    # https://arxiv.org/abs/1312.6114
+    # 0.5 * sum(1 + log(sigma^2) - mu^2 - sigma^2)
+    KLD = -0.5 * torch.sum(1 + logvar - mu.pow(2) - logvar.exp())
+    # Normalise by same number of elements as in reconstruction
+    KLD /= x.size()[0] * feat_dim
+
+    return MSE + KLD
 
 
 
@@ -204,6 +239,7 @@ for decoder_class in decoder_classes:
     total_batches += train_batch_counts[decoder_class]
     
     dev_batch_counts[decoder_class] = len(dev_loaders[decoder_class])
+print("%d total batches: %s" % (total_batches, str(train_batch_counts)), flush=True)
 
 print("Done setting up data.", flush=True)
 
@@ -234,12 +270,39 @@ def train(epoch):
         if on_gpu:
             feats = feats.cuda()
             targets = targets.cuda()
+        
+        # Set up noising, if needed
+        if train_mode in ["dae", "dvae"]:
+            # Add noise to signal; randomly drop out % of elements
+            noise_matrix = torch.FloatTensor(np.random.binomial(1, 1.0 - noise_ratio, size=feats.size()).astype(float))
+            noise_matrix = Variable(noise_matrix)
+            if on_gpu:
+                noise_matrix = noise_matrix.cuda()
+            noised_feats = torch.mul(feats, noise_matrix)
 
         # Backprop
         encoder_optimizer.zero_grad()
         decoder_optimizers[decoder_class].zero_grad()
-        recon_batch, mu, logvar = model.forward_decoder(feats, decoder_class)
-        loss = vae_loss(recon_batch, targets, mu, logvar)
+        if train_mode == "ae":
+            recon_batch = model.forward_decoder(feats, decoder_class)
+        elif train_mode = "dae":
+            recon_batch = model.forward_decoder(noised_feats, decoder_class)
+        elif train_mode = "vae":
+            recon_batch, mu, logvar = model.forward_decoder(feats, decoder_class)
+        elif train_mode = "dvae":
+            recon_batch, mu, logvar = model.forward_decoder(noised_feats, decoder_class)
+        else:
+            print("Unknown train mode %s" % train_mode, flush=True)
+            sys.exit(1)
+
+        if train_mode in ["ae", "dae"]:
+            loss = reconstruction_loss(recon_batch, targets)
+        elif train_mode in ["vae", "dvae"]:
+            loss = vae_loss(recon_batch, targets, mu, logvar)
+        else:
+            print("Unknown train mode %s" % train_mode, flush=True)
+            sys.exit(1)
+
         loss.backward()
         train_loss += loss.data[0]
         decoder_class_losses[decoder_class] += loss.data[0]
@@ -275,9 +338,40 @@ def test(epoch, loaders, recon_only=False):
             if on_gpu:
                 feats = feats.cuda()
                 targets = targets.cuda()
+        
+            # Set up noising, if needed
+            if train_mode in ["dae", "dvae"]:
+                # Add noise to signal; randomly drop out % of elements
+                noise_matrix = torch.FloatTensor(np.random.binomial(1, 1.0 - noise_ratio, size=feats.size()).astype(float))
+                noise_matrix = Variable(noise_matrix, volatile=True)
+                if on_gpu:
+                    noise_matrix = noise_matrix.cuda()
+                noised_feats = torch.mul(feats, noise_matrix)
 
-            recon_batch, mu, logvar = model.forward_decoder(feats, decoder_class)
-            loss = vae_loss(recon_batch, targets, mu, logvar, recon_only=recon_only)
+            # Backprop
+            if train_mode == "ae":
+                recon_batch = model.forward_decoder(feats, decoder_class)
+            elif train_mode = "dae":
+                recon_batch = model.forward_decoder(noised_feats, decoder_class)
+            elif train_mode = "vae":
+                recon_batch, mu, logvar = model.forward_decoder(feats, decoder_class)
+            elif train_mode = "dvae":
+                recon_batch, mu, logvar = model.forward_decoder(noised_feats, decoder_class)
+            else:
+                print("Unknown train mode %s" % train_mode, flush=True)
+                sys.exit(1)
+
+            if train_mode in ["ae", "dae"]:
+                loss = reconstruction_loss(recon_batch, targets)
+            elif train_mode in ["vae", "dvae"]:
+                if recon_only:
+                    loss = reconstruction_loss(recon_batch, targets)
+                else:
+                    loss = vae_loss(recon_batch, targets, mu, logvar)
+            else:
+                print("Unknown train mode %s" % train_mode, flush=True)
+                sys.exit(1)
+
             test_loss += loss.data[0]
             decoder_class_losses[decoder_class] += loss.data[0]
             batches_processed += 1
@@ -295,13 +389,16 @@ save_best_only = True   # Set to False to always save model state, regardless of
 
 def save_checkpoint(state_obj, is_best, model_dir):
     if not save_best_only:
-        filepath = os.path.join(model_dir, "ckpt_cnn_vae_md_%d.pth.tar" % state_obj["epoch"])
-        torch.save(state_obj, filepath)
+        ckpt_path = os.path.join(model_dir, "ckpt_cnn_ae_md_%d.pth.tar" % state_obj["epoch"])
+        if train_mode in ["dae", "dvae"]:
+            ckpt_path = os.path.join(model_dir, "ckpt_cnn_%s_ratio%s_md_%d.pth.tar" % (train_mode, str(noise_ratio), state_obj["epoch"]))
+        else:
+            ckpt_path = os.path.join(model_dir, "ckpt_cnn_%s_md_%d.pth.tar" % (train_mode, state_obj["epoch"]))
+        torch.save(state_obj, ckpt_path)
         if is_best:
-            shutil.copyfile(filepath, os.path.join(model_dir, "best_cnn_vae_md.pth.tar"))
+            shutil.copyfile(ckpt_path, best_ckpt_path)
     else:
-        filepath = os.path.join(model_dir, "best_cnn_vae_md.pth.tar")
-        torch.save(state_obj, filepath)
+        torch.save(state_obj, best_ckpt_path)
 
 # Regularize via patience-based early stopping
 max_patience = 3
@@ -352,18 +449,18 @@ for epoch in range(1, epochs + 1):
 print("Computing reconstruction loss...", flush=True)
 
 # Load checkpoint (potentially trained on GPU) into CPU memory (hence the map_location)
-checkpoint = torch.load(checkpoint_path, map_location=lambda storage,loc: storage)
+checkpoint = torch.load(best_ckpt_path, map_location=lambda storage,loc: storage)
 
 # Set up model state and set to eval mode (i.e. disable batch norm)
 model.load_state_dict(checkpoint["state_dict"])
 model.eval()
 print("Loaded checkpoint; best model ready now.")
 
-train_loss, decoder_class_losses = test(epoch, training_loaders)
+train_loss, decoder_class_losses = test(epoch, training_loaders, recon_only=True)
 print("====> Training set reconstruction loss: %.6f (%s)" % (train_loss,
                                                              str(["%s: %.6f" % (dc, decoder_class_losses[dc]) for dc in decoder_classes])),
       flush=True)
-dev_loss, decoder_class_losses = test(epoch, dev_loaders)
+dev_loss, decoder_class_losses = test(epoch, dev_loaders, recon_only=True)
 print("====> Dev set reconstruction loss: %.6f (%s)" % (dev_loss,
                                                         str(["%s: %.6f" % (dc, decoder_class_losses[dc]) for dc in decoder_classes])),
       flush=True)

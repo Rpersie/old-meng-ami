@@ -10,5 +10,5 @@ echo "Environment set up."
 
 # Train a convolutional variational multidecoder
 echo "Training convolutional variational multidecoder..."
-python3 cnn/scripts/train_vae.py
+python3 cnn/scripts/train.py vae
 echo "Trained convolutional variational multidecoder."

@@ -8,7 +8,7 @@ export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64:/data/sls/u/meng/skanda/cuda/li
 source activate $TRAIN_ENV
 echo "Environment set up."
 
-# Train a convolutional multidecoder
-echo "Training convolutional multidecoder..."
-python3 cnn/scripts/train.py ae
-echo "Trained convolutional multidecoder."
+# Train a convolutional denoising variational multidecoder
+echo "Training convolutional denoising variational multidecoder..."
+python3 cnn/scripts/train.py dvae
+echo "Trained convolutional denoising variational multidecoder."
