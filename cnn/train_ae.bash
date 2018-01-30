@@ -26,6 +26,6 @@ if [ -f $train_log ]; then
     mv $train_log $LOGS/$EXPT_NAME/train_ae-$(date +"%F_%T%z").log
 fi
 
-./cnn/train_ae.sh > $train_log
+python3 cnn/scripts/train.py ae > $train_log
 
 echo "DONE CONVOLUTIONAL MULTIDECODER TRAINING JOB"

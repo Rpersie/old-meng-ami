@@ -2,6 +2,7 @@ import os
 import random
 import shutil
 import sys
+import time
 
 import numpy as np
 import torch
@@ -15,6 +16,8 @@ sys.path.append("./")
 sys.path.append("./cnn")
 from cnn_md import CNNMultidecoder, CNNVariationalMultidecoder
 from utils.hao_data import HaoDataset
+
+run_start_t = time.clock()
 
 # Parse command line args
 train_mode = "ae"
@@ -161,9 +164,7 @@ def reconstruction_loss(recon_x, x):
     MSE = nn.MSELoss()(recon_x, x.view(-1, time_dim, freq_dim))
     return MSE
 
-def vae_loss(recon_x, x, mu, logvar):
-    MSE = reconstruction_loss(recon_x, x)
-
+def kld_loss(recon_x, x, mu, logvar):
     # see Appendix B from VAE paper:
     # Kingma and Welling. Auto-Encoding Variational Bayes. ICLR, 2014
     # https://arxiv.org/abs/1312.6114
@@ -172,7 +173,7 @@ def vae_loss(recon_x, x, mu, logvar):
     # Normalise by same number of elements as in reconstruction
     KLD /= x.size()[0] * feat_dim
 
-    return MSE + KLD
+    return KLD
 
 
 
@@ -247,6 +248,10 @@ def train(epoch):
     model.train()
     train_loss = 0.0
     decoder_class_losses = {decoder_class: 0.0 for decoder_class in decoder_classes}
+    if train_mode in ["vae", "dvae"]:
+        # Track reconstruction loss and KL divergence separately
+        train_r_loss = 0.0
+        train_k_loss = 0.0
 
     batches_processed = 0
     current_train_batch_counts = train_batch_counts.copy()
@@ -285,11 +290,11 @@ def train(epoch):
         decoder_optimizers[decoder_class].zero_grad()
         if train_mode == "ae":
             recon_batch = model.forward_decoder(feats, decoder_class)
-        elif train_mode = "dae":
+        elif train_mode == "dae":
             recon_batch = model.forward_decoder(noised_feats, decoder_class)
-        elif train_mode = "vae":
+        elif train_mode == "vae":
             recon_batch, mu, logvar = model.forward_decoder(feats, decoder_class)
-        elif train_mode = "dvae":
+        elif train_mode == "dvae":
             recon_batch, mu, logvar = model.forward_decoder(noised_feats, decoder_class)
         else:
             print("Unknown train mode %s" % train_mode, flush=True)
@@ -298,7 +303,9 @@ def train(epoch):
         if train_mode in ["ae", "dae"]:
             loss = reconstruction_loss(recon_batch, targets)
         elif train_mode in ["vae", "dvae"]:
-            loss = vae_loss(recon_batch, targets, mu, logvar)
+            r_loss = reconstruction_loss(recon_batch, targets)
+            k_loss = kld_loss(recon_batch, targets, mu, logvar)
+            loss = r_loss + k_loss
         else:
             print("Unknown train mode %s" % train_mode, flush=True)
             sys.exit(1)
@@ -306,28 +313,54 @@ def train(epoch):
         loss.backward()
         train_loss += loss.data[0]
         decoder_class_losses[decoder_class] += loss.data[0]
+        if train_mode in ["vae", "dvae"]:
+            train_r_loss += r_loss.data[0]
+            train_k_loss += k_loss.data[0]
         decoder_optimizers[decoder_class].step()
         encoder_optimizer.step()
 
         batches_processed += 1
         if batches_processed % log_interval == 0:
-            print("Train epoch %d: [%d/%d (%.1f%%)]\tLoss: %.6f" % (epoch,
-                                                                    batches_processed,
-                                                                    total_batches,
-                                                                    100.0 * batches_processed / total_batches,
-                                                                    train_loss / batches_processed),
-                  flush=True)
+            if train_mode in ["ae", "dae"]:
+                print("Train epoch %d: [%d/%d (%.1f%%)]\tLoss: %.6f" % (epoch,
+                                                                        batches_processed,
+                                                                        total_batches,
+                                                                        100.0 * batches_processed / total_batches,
+                                                                        train_loss / batches_processed),
+                      flush=True)
+            elif train_mode in ["vae", "dvae"]:
+                print("Train epoch %d: [%d/%d (%.1f%%)]\tRL: %.6f, KL: %.6f (total %.6f)" % (epoch,
+                                                                        batches_processed,
+                                                                        total_batches,
+                                                                        100.0 * batches_processed / total_batches,
+                                                                        train_r_loss / batches_processed,
+                                                                        train_k_loss / batches_processed,
+                                                                        train_loss / batches_processed),
+                      flush=True)
+            else:
+                print("Unknown train mode %s" % train_mode, flush=True)
+                sys.exit(1)
 
-    train_loss /= total_batches
+    train_loss /= batches_processed
     for decoder_class in decoder_classes:
         decoder_class_losses[decoder_class] /= train_batch_counts[decoder_class]
+    if train_mode in ["vae", "dvae"]:
+        train_r_loss /= batches_processed
+        train_k_loss /= batches_processed
 
-    return (train_loss, decoder_class_losses)
+    if train_mode in ["ae", "dae"]:
+        return (train_loss, decoder_class_losses)
+    elif train_mode in ["vae", "dvae"]:
+        return (train_loss, decoder_class_losses, train_r_loss, train_k_loss)
 
-def test(epoch, loaders, recon_only=False):
+def test(epoch, loaders, recon_only=False, noised=True):
     model.eval()
     test_loss = 0.0
     decoder_class_losses = {decoder_class: 0.0 for decoder_class in decoder_classes}
+    if train_mode in ["vae", "dvae"] and not recon_only:
+        # Track reconstruction loss and KL divergence separately
+        test_r_loss = 0.0
+        test_k_loss = 0.0
 
     batches_processed = 0
     for decoder_class in decoder_classes:
@@ -340,7 +373,7 @@ def test(epoch, loaders, recon_only=False):
                 targets = targets.cuda()
         
             # Set up noising, if needed
-            if train_mode in ["dae", "dvae"]:
+            if train_mode in ["dae", "dvae"] and noised:
                 # Add noise to signal; randomly drop out % of elements
                 noise_matrix = torch.FloatTensor(np.random.binomial(1, 1.0 - noise_ratio, size=feats.size()).astype(float))
                 noise_matrix = Variable(noise_matrix, volatile=True)
@@ -348,40 +381,50 @@ def test(epoch, loaders, recon_only=False):
                     noise_matrix = noise_matrix.cuda()
                 noised_feats = torch.mul(feats, noise_matrix)
 
-            # Backprop
-            if train_mode == "ae":
-                recon_batch = model.forward_decoder(feats, decoder_class)
-            elif train_mode = "dae":
-                recon_batch = model.forward_decoder(noised_feats, decoder_class)
-            elif train_mode = "vae":
-                recon_batch, mu, logvar = model.forward_decoder(feats, decoder_class)
-            elif train_mode = "dvae":
-                recon_batch, mu, logvar = model.forward_decoder(noised_feats, decoder_class)
+            # Compute loss
+            if train_mode in ["ae", "dae"]:
+                if train_mode == "ae" or not noised:
+                    recon_batch = model.forward_decoder(feats, decoder_class)
+                else:
+                    recon_batch = model.forward_decoder(noised_feats, decoder_class)
+            elif train_mode in ["vae", "dvae"]:
+                if train_mode == "vae" or not noised:
+                    recon_batch, mu, logvar = model.forward_decoder(feats, decoder_class)
+                else:
+                    recon_batch, mu, logvar = model.forward_decoder(noised_feats, decoder_class)
             else:
                 print("Unknown train mode %s" % train_mode, flush=True)
                 sys.exit(1)
 
-            if train_mode in ["ae", "dae"]:
+            if train_mode in ["ae", "dae"] or recon_only:
                 loss = reconstruction_loss(recon_batch, targets)
             elif train_mode in ["vae", "dvae"]:
-                if recon_only:
-                    loss = reconstruction_loss(recon_batch, targets)
-                else:
-                    loss = vae_loss(recon_batch, targets, mu, logvar)
+                r_loss = reconstruction_loss(recon_batch, targets)
+                k_loss = kld_loss(recon_batch, targets, mu, logvar)
+                loss = r_loss + k_loss
             else:
                 print("Unknown train mode %s" % train_mode, flush=True)
                 sys.exit(1)
 
             test_loss += loss.data[0]
             decoder_class_losses[decoder_class] += loss.data[0]
+            if train_mode in ["vae", "dvae"] and not recon_only:
+                test_r_loss += r_loss.data[0]
+                test_k_loss += k_loss.data[0]
             batches_processed += 1
 
     test_loss /= batches_processed
     for decoder_class in decoder_classes:
         batch_counts = dev_batch_counts if loaders == dev_loaders else train_batch_counts
         decoder_class_losses[decoder_class] /= batch_counts[decoder_class]
+    if train_mode in ["vae", "dvae"] and not recon_only:
+        test_r_loss /= batches_processed
+        test_k_loss /= batches_processed
 
-    return (test_loss, decoder_class_losses)
+    if train_mode in ["ae", "dae"] or recon_only:
+        return (test_loss, decoder_class_losses)
+    elif train_mode in ["vae", "dvae"]:
+        return (test_loss, decoder_class_losses, test_r_loss, test_k_loss)
 
 # Save model with best dev set loss thus far
 best_dev_loss = float('inf')
@@ -404,18 +447,54 @@ def save_checkpoint(state_obj, is_best, model_dir):
 max_patience = 3
 epochs_since_improvement = 0
 
+setup_end_t = time.clock()
+print("Completed setup in %.3f seconds" % (setup_end_t - run_start_t), flush=True)
+
 # 1-indexed for pretty printing
 print("Starting training!", flush=True)
 for epoch in range(1, epochs + 1):
-    (train_loss, decoder_class_losses) = train(epoch)
-    print("====> Epoch %d: Average train loss %.6f (%s)" % (epoch,
-                                                            train_loss,
-                                                            str(["%s: %.6f" % (dc, decoder_class_losses[dc]) for dc in decoder_classes])),
-          flush=True)
-    (dev_loss, decoder_class_losses) = test(epoch, dev_loaders)
-    print("====> Dev set loss: %.6f (%s)" % (dev_loss,
-                                             str(["%s: %.6f" % (dc, decoder_class_losses[dc]) for dc in decoder_classes])), 
-          flush=True)
+    if train_mode in ["ae", "dae"]:
+        train_start_t = time.clock()
+        (train_loss, decoder_class_losses) = train(epoch)
+        train_end_t = time.clock()
+        print("====> Epoch %d (%.3fs): Average train loss %.6f (%s)" % (epoch,
+                                                                train_end_t - train_start_t,
+                                                                train_loss,
+                                                                str(["%s: %.6f" % (dc, decoder_class_losses[dc]) for dc in decoder_classes])),
+              flush=True)
+        
+        dev_start_t = time.clock()
+        (dev_loss, decoder_class_losses) = test(epoch, dev_loaders)
+        dev_end_t = time.clock()
+        print("====> Dev set loss (%.3fs): %.6f (%s)" % (dev_end_t - dev_start_t,
+                                                 dev_loss,
+                                                 str(["%s: %.6f" % (dc, decoder_class_losses[dc]) for dc in decoder_classes])), 
+              flush=True)
+    elif train_mode in ["vae", "dvae"]:
+        train_start_t = time.clock()
+        (train_loss, decoder_class_losses, train_r_loss, train_k_loss) = train(epoch)
+        train_end_t = time.clock()
+        print("====> Epoch %d (%.3fs): Average train RL %.3f, KL %.3f (total %.3f) (%s)" % (epoch,
+                                                                train_end_t - train_start_t,
+                                                                train_r_loss,
+                                                                train_k_loss,
+                                                                train_loss,
+                                                                str(["%s: %.3f" % (dc, decoder_class_losses[dc]) for dc in decoder_classes])),
+              flush=True)
+        
+        dev_start_t = time.clock()
+        (dev_loss, decoder_class_losses, dev_r_loss, dev_k_loss) = test(epoch, dev_loaders)
+        dev_end_t = time.clock()
+        print("====> Dev set (%.3fs) RL %.3f, KL %.3f (total %.3f) (%s)" % (dev_end_t - dev_start_t,
+                                                 dev_r_loss,
+                                                 dev_k_loss,
+                                                 dev_loss,
+                                                 str(["%s: %.3f" % (dc, decoder_class_losses[dc]) for dc in decoder_classes])), 
+              flush=True)
+    else:
+        print("Unknown train mode %s" % train_mode, flush=True)
+        sys.exit(1)
+
     
     is_best = (dev_loss <= best_dev_loss)
     if is_best:
@@ -456,11 +535,14 @@ model.load_state_dict(checkpoint["state_dict"])
 model.eval()
 print("Loaded checkpoint; best model ready now.")
 
-train_loss, decoder_class_losses = test(epoch, training_loaders, recon_only=True)
+train_loss, decoder_class_losses = test(epoch, training_loaders, recon_only=True, noised=False)
 print("====> Training set reconstruction loss: %.6f (%s)" % (train_loss,
                                                              str(["%s: %.6f" % (dc, decoder_class_losses[dc]) for dc in decoder_classes])),
       flush=True)
-dev_loss, decoder_class_losses = test(epoch, dev_loaders, recon_only=True)
+dev_loss, decoder_class_losses = test(epoch, dev_loaders, recon_only=True, noised=False)
 print("====> Dev set reconstruction loss: %.6f (%s)" % (dev_loss,
                                                         str(["%s: %.6f" % (dc, decoder_class_losses[dc]) for dc in decoder_classes])),
       flush=True)
+
+run_end_t = time.clock()
+print("Completed training run in %.3f seconds" % (run_end_t - run_start_t), flush=True)

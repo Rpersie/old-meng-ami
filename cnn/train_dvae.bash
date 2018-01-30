@@ -9,7 +9,7 @@
 #SBATCH -J train_dvae_cnn_md
 #SBATCH --exclude=sls-sm-[5,6,7]
 
-echo "STARTING CONVOLUTIONAL DENOISING MULTIDECODER TRAINING JOB"
+echo "STARTING CONVOLUTIONAL DENOISING VARIATIONAL MULTIDECODER TRAINING JOB"
 
 . ./path.sh
 . ./cnn/job_config.sh
@@ -26,6 +26,6 @@ if [ -f $train_log ]; then
     mv $train_log $LOGS/$EXPT_NAME/train_dvae_ratio${NOISE_RATIO}-$(date +"%F_%T%z").log
 fi
 
-./cnn/train_dvae.sh > $train_log
+python3 cnn/scripts/train.py dvae > $train_log
 
-echo "DONE CONVOLUTIONAL DENOISING MULTIDECODER TRAINING JOB"
+echo "DONE CONVOLUTIONAL DENOISING VARIATIONAL MULTIDECODER TRAINING JOB"

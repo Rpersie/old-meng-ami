@@ -1,0 +1,91 @@
+Running training with mode dvae
+Noising 50.000% of input features
+Constructing model...
+Done constructing model.
+CNNVariationalMultidecoder (
+  (encoder_conv): Sequential (
+    (conv2d_0): Conv2d(1, 256, kernel_size=(3, 3), stride=(1, 1))
+    (SELU_0): SELU
+    (maxpool2d_0): MaxPool2d (size=(1, 3), stride=(1, 3), dilation=(1, 1))
+    (conv2d_1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1))
+    (SELU_1): SELU
+    (maxpool2d_1): MaxPool2d (size=(1, 3), stride=(1, 3), dilation=(1, 1))
+  )
+  (encoder_fc): Sequential (
+    (lin_0): Linear (14336 -> 2048)
+    (SELU_0): SELU
+  )
+  (decoder_fc_ihm): Sequential (
+    (lin_0): Linear (1024 -> 2048)
+    (SELU_0): SELU
+    (lin_final): Linear (2048 -> 14336)
+    (SELU_final): SELU
+  )
+  (decoder_deconv_ihm): Sequential (
+    (maxunpool2d_0): MaxUnpool2d (size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_0): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (SELU_0): SELU
+    (maxunpool2d_1): MaxUnpool2d (size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_1): Conv2d(256, 1, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (SELU_1): SELU
+  )
+  (decoder_fc_sdm1): Sequential (
+    (lin_0): Linear (1024 -> 2048)
+    (SELU_0): SELU
+    (lin_final): Linear (2048 -> 14336)
+    (SELU_final): SELU
+  )
+  (decoder_deconv_sdm1): Sequential (
+    (maxunpool2d_0): MaxUnpool2d (size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_0): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (SELU_0): SELU
+    (maxunpool2d_1): MaxUnpool2d (size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_1): Conv2d(256, 1, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (SELU_1): SELU
+  )
+  (latent_mu): Sequential (
+    (lin): Linear (2048 -> 1024)
+    (SELU): SELU
+  )
+  (latent_logvar): Sequential (
+    (lin): Linear (2048 -> 1024)
+    (SELU): SELU
+  )
+)
+Setting up data...
+Setting up training datasets...
+Using 2649 training features (11 batches) for class ihm
+Using 2431 training features (10 batches) for class sdm1
+Setting up dev datasets...
+Using 57 dev features (1 batches) for class ihm
+Using 1554 dev features (7 batches) for class sdm1
+Setting up minibatch shuffling for training...
+21 total batches: {'ihm': 11, 'sdm1': 10}
+Done setting up data.
+Completed setup in 10.595 seconds
+Starting training!
+====> Epoch 1 (4.468s): Average train RL 0.799, KL 0.693 (total 1.492) (['ihm: 1.677', 'sdm1: 1.288'])
+====> Dev set (0.495s) RL 0.560, KL 0.215 (total 0.775) (['ihm: 0.690', 'sdm1: 0.788'])
+New best dev set loss: 0.775456
+Saved checkpoint for model
+====> Epoch 2 (3.662s): Average train RL 0.608, KL 0.162 (total 0.770) (['ihm: 0.840', 'sdm1: 0.692'])
+====> Dev set (0.537s) RL 0.510, KL 0.166 (total 0.676) (['ihm: 0.622', 'sdm1: 0.684'])
+New best dev set loss: 0.675903
+Saved checkpoint for model
+====> Epoch 3 (3.616s): Average train RL 0.567, KL 0.112 (total 0.679) (['ihm: 0.744', 'sdm1: 0.607'])
+====> Dev set (0.556s) RL 0.447, KL 0.098 (total 0.545) (['ihm: 0.581', 'sdm1: 0.540'])
+New best dev set loss: 0.544959
+Saved checkpoint for model
+====> Epoch 4 (3.582s): Average train RL 0.534, KL 0.089 (total 0.623) (['ihm: 0.697', 'sdm1: 0.541'])
+====> Dev set (0.570s) RL 0.429, KL 0.085 (total 0.514) (['ihm: 0.588', 'sdm1: 0.504'])
+New best dev set loss: 0.514114
+Saved checkpoint for model
+====> Epoch 5 (3.549s): Average train RL 0.510, KL 0.080 (total 0.591) (['ihm: 0.666', 'sdm1: 0.508'])
+====> Dev set (0.571s) RL 0.390, KL 0.088 (total 0.477) (['ihm: 0.501', 'sdm1: 0.474'])
+New best dev set loss: 0.477334
+Saved checkpoint for model
+Computing reconstruction loss...
+Loaded checkpoint; best model ready now.
+====> Training set reconstruction loss: 0.399017 (['ihm: 0.439869', 'sdm1: 0.354080'])
+====> Dev set reconstruction loss: 0.373893 (['ihm: 0.396599', 'sdm1: 0.370650'])
+Completed training run in 50.763 seconds
