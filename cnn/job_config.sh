@@ -20,7 +20,8 @@ export DEC_KERNELS=( 3 3 )        # Assume square kernels (AxA)
 export DEC_POOLS=( 3 3 )          # Pool only in frequency; no overlap. Use 0 to indicate no pooling
 
 export USE_BATCH_NORM=false
-export ACTIVATION_FUNC=SELU
+# export ACTIVATION_FUNC=SELU
+export ACTIVATION_FUNC=ReLU
 export WEIGHT_INIT=xavier_uniform
 
 export ENC_CHANNELS_DELIM=$(printf "_%s" "${ENC_CHANNELS[@]}")
@@ -55,7 +56,8 @@ mkdir -p $LOGS
 export AUGMENTED_DATA_DIR=${SCRATCH}/augmented_data/cnn/$EXPT_NAME
 mkdir -p $AUGMENTED_DATA_DIR
 
-# For viewing activations on dev set export TOP_COUNT=100    # Only the average of images with top responses logged
+# For viewing activations on dev set
+export TOP_COUNT=100    # Only the average of images with top responses logged
 export ACTIVATIONS_DIR=${SCRATCH}/activations/cnn/top_${TOP_COUNT}/$EXPT_NAME
 mkdir -p $ACTIVATIONS_DIR
 

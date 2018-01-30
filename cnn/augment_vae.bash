@@ -16,7 +16,7 @@ echo "STARTING CONVOLUTIONAL VARIATIONAL MULTIDECODER DATA AUGMENTATION JOB"
 
 echo "Setting up environment..."
 export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64:/data/sls/u/meng/skanda/cuda/lib64:$LD_LIBRARY_PATH
-source activate $TRAIN_ENV
+source activate $AUGMENT_ENV
 echo "Environment set up."
 
 mkdir -p $LOGS/$EXPT_NAME
@@ -28,6 +28,6 @@ fi
 
 mkdir -p $AUGMENTED_DATA_DIR/vae
 
-./cnn/augment_vae.sh > $augment_log
+python3 cnn/scripts/augment.py vae > $augment_log
 
 echo "DONE CONVOLUTIONAL VARIATIONAL MULTIDECODER DATA AUGMENTATION JOB"

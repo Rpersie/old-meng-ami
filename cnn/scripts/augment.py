@@ -2,6 +2,7 @@ import os
 import random
 import shutil
 import sys
+import time
 
 import numpy as np
 import torch
@@ -13,8 +14,21 @@ from torch.utils.data import DataLoader
 
 sys.path.append("./")
 sys.path.append("./cnn")
-from cnn_md import CNNVariationalMultidecoder
+from cnn_md import CNNMultidecoder, CNNVariationalMultidecoder
 from utils.hao_data import HaoEvalDataset, write_kaldi_hao_ark, write_kaldi_hao_scp
+
+run_start_t = time.clock()
+
+# Parse command line args
+run_mode = "ae"
+if len(sys.argv) == 2:
+    run_mode = sys.argv[1]
+print("Running augmentation with mode %s" % run_mode, flush=True)
+
+if run_mode in ["dae", "dvae"]:
+    # Set up noising
+    noise_ratio = float(os.environ["NOISE_RATIO"])
+    print("Noise ratio: %.3f%% of input features" % (noise_ratio * 100.0), flush=True)
 
 # Uses some structure from https://github.com/pytorch/examples/blob/master/vae/main.py
 
@@ -86,7 +100,10 @@ for decoder_class in decoder_classes:
     dev_scp_name = os.path.join(os.environ["CURRENT_FEATS"], "%s-dev-norm.blogmel.scp" % decoder_class)
     dev_scps[decoder_class] = dev_scp_name
 
-output_dir = os.path.join(os.environ["AUGMENTED_DATA_DIR"], "vae")
+if run_mode in ["dae", "dvae"]:
+    output_dir = os.path.join(os.environ["AUGMENTED_DATA_DIR"], "%s_ratio%s" % (run_mode, noise_ratio))
+else:
+    output_dir = os.path.join(os.environ["AUGMENTED_DATA_DIR"], run_mode)
 
 # Fix random seed for debugging
 torch.manual_seed(1)
@@ -96,21 +113,42 @@ random.seed(1)
 
 # Construct autoencoder with our parameters
 print("Constructing model...", flush=True)
-model = CNNVariationalMultidecoder(freq_dim=freq_dim,
-                        splicing=[left_context, right_context], 
-                        enc_channel_sizes=enc_channel_sizes,
-                        enc_kernel_sizes=enc_kernel_sizes,
-                        enc_pool_sizes=enc_pool_sizes,
-                        enc_fc_sizes=enc_fc_sizes,
-                        latent_dim=latent_dim,
-                        dec_fc_sizes=dec_fc_sizes,
-                        dec_channel_sizes=dec_channel_sizes,
-                        dec_kernel_sizes=dec_kernel_sizes,
-                        dec_pool_sizes=dec_pool_sizes,
-                        activation=activation,
-                        decoder_classes=decoder_classes,
-                        use_batch_norm=use_batch_norm,
-                        weight_init=weight_init)
+if run_mode in ["ae", "dae"]:
+    model = CNNMultidecoder(freq_dim=freq_dim,
+                            splicing=[left_context, right_context], 
+                            enc_channel_sizes=enc_channel_sizes,
+                            enc_kernel_sizes=enc_kernel_sizes,
+                            enc_pool_sizes=enc_pool_sizes,
+                            enc_fc_sizes=enc_fc_sizes,
+                            latent_dim=latent_dim,
+                            dec_fc_sizes=dec_fc_sizes,
+                            dec_channel_sizes=dec_channel_sizes,
+                            dec_kernel_sizes=dec_kernel_sizes,
+                            dec_pool_sizes=dec_pool_sizes,
+                            activation=activation,
+                            decoder_classes=decoder_classes,
+                            use_batch_norm=use_batch_norm,
+                            weight_init=weight_init)
+elif run_mode in ["vae", "dvae"]:
+    model = CNNVariationalMultidecoder(freq_dim=freq_dim,
+                            splicing=[left_context, right_context], 
+                            enc_channel_sizes=enc_channel_sizes,
+                            enc_kernel_sizes=enc_kernel_sizes,
+                            enc_pool_sizes=enc_pool_sizes,
+                            enc_fc_sizes=enc_fc_sizes,
+                            latent_dim=latent_dim,
+                            dec_fc_sizes=dec_fc_sizes,
+                            dec_channel_sizes=dec_channel_sizes,
+                            dec_kernel_sizes=dec_kernel_sizes,
+                            dec_pool_sizes=dec_pool_sizes,
+                            activation=activation,
+                            decoder_classes=decoder_classes,
+                            use_batch_norm=use_batch_norm,
+                            weight_init=weight_init)
+else:
+    print("Unknown augment mode %s" % run_mode, flush=True)
+    sys.exit(1)
+
 if on_gpu:
     model.cuda()
 print("Done constructing model.", flush=True)
@@ -118,8 +156,12 @@ print(model, flush=True)
 
 # Load checkpoint (potentially trained on GPU) into CPU memory (hence the map_location)
 print("Loading checkpoint...")
-checkpoint_path = os.path.join(os.environ["MODEL_DIR"], "best_cnn_vae_md.pth.tar")
-checkpoint = torch.load(checkpoint_path, map_location=lambda storage,loc: storage)
+model_dir = os.environ["MODEL_DIR"]
+if run_mode in ["dae", "dvae"]:
+    best_ckpt_path = os.path.join(model_dir, "best_cnn_%s_ratio%s_md.pth.tar" % (run_mode, str(noise_ratio)))
+else:
+    best_ckpt_path = os.path.join(model_dir, "best_cnn_%s_md.pth.tar" % run_mode)
+checkpoint = torch.load(best_ckpt_path, map_location=lambda storage,loc: storage)
 
 # Set up model state and set to eval mode (i.e. disable batch norm)
 model.load_state_dict(checkpoint["state_dict"])
@@ -191,7 +233,7 @@ def augment(source_class, target_class):
                 if on_gpu:
                     frame_tensor = frame_tensor.cuda()
 
-                recon_frames, mu, logvar = model.forward_decoder(frame_tensor, target_class)
+                recon_frames = model.forward_decoder(frame_tensor, target_class)
                 recon_frames_numpy = recon_frames.cpu().data.numpy().reshape((-1, freq_dim))
                 decoded_feats[i, :] = recon_frames_numpy[left_context:left_context + 1, :]
 
@@ -233,7 +275,14 @@ def augment(source_class, target_class):
                 if on_gpu:
                     frame_tensor = frame_tensor.cuda()
 
-                recon_frames, mu, logvar = model.forward_decoder(frame_tensor, target_class)
+                if run_mode in ["ae", "dae"]:
+                    recon_frames = model.forward_decoder(frame_tensor, target_class)
+                elif run_mode in ["vae", "dvae"]:
+                    recon_frames, mu, logvar = model.forward_decoder(frame_tensor, target_class)
+                else:
+                    print("Unknown augment mode %s" % run_mode, flush=True)
+                    sys.exit(1)
+
                 recon_frames_numpy = recon_frames.cpu().data.numpy().reshape((-1, freq_dim))
                 decoded_feats[i, :] = recon_frames_numpy[left_context:left_context + 1, :]
 
@@ -254,11 +303,17 @@ def augment(source_class, target_class):
         write_kaldi_hao_scp(scp_fd, os.path.join(output_dir, "dev-src_%s-tar_%s.ark" % (source_class, target_class)))
     print("=> Done with dev data", flush=True)
 
-
+setup_end_t = time.clock()
+print("Completed setup in %.3f seconds" % (setup_end_t - run_start_t), flush=True)
 
 # Go through each combo of source and target class
 for source_class in decoder_classes:
     for target_class in decoder_classes:
+        process_start_t = time.clock()
         print("PROCESSING SOURCE %s, TARGET %s" % (source_class, target_class), flush=True)
         augment(source_class, target_class)
-print("Done data augmentation!", flush=True)
+        process_end_t = time.clock()
+        print("PROCESSED SOURCE %s, TARGET %s IN %.3f SECONDS" % (source_class, target_class, process_end_t - process_start_t), flush=True)
+
+run_end_t = time.clock()
+print("Completed data augmentation run in %.3f seconds" % (run_end_t - run_start_t), flush=True)

@@ -7,7 +7,7 @@
 #SBATCH --mem=32768
 #SBATCH --time=48:00:00
 #SBATCH -J train_dae_cnn_md
-#SBATCH --exclude=sls-sm-[5,6,7]
+#SBATCH --exclude=sls-sm-[5]
 
 echo "STARTING CONVOLUTIONAL DENOISING MULTIDECODER TRAINING JOB"
 

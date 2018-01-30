@@ -205,6 +205,12 @@ class CNNMultidecoder(nn.Module):
                 getattr(nn.init, self.weight_init)(layer.weight)
         else:
             getattr(nn.init, self.weight_init)(layer.weight)
+
+    def activation_layers(self):
+        # TODO
+
+    def get_activations(self):
+        # TODO
     
     def decoder_parameters(self, decoder_class):
         # Get parameters for just a specific decoder
