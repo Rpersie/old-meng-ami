@@ -386,7 +386,8 @@ def train(epoch):
         if batches_processed % log_interval == 0:
             print("Train epoch %d: [%d/%d (%.1f%%)]" % (epoch,
                                                         batches_processed,
-                                                        total_batches),
+                                                        total_batches,
+                                                        batches_processed / total_batches * 100.0),
                   flush=True)
             print_loss_dict(decoder_class_losses, class_batches_processed)
 
