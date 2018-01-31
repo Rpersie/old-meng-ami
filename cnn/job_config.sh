@@ -4,8 +4,7 @@ export RIGHT_CONTEXT=5
 
 export OPTIMIZER=Adam
 export LEARNING_RATE=0.0001
-# export EPOCHS=100
-export EPOCHS=3
+export EPOCHS=25
 export BATCH_SIZE=256
 
 export ENC_CHANNELS=( 256 256 )
@@ -37,7 +36,7 @@ export DEC_POOLS_DELIM=$(printf "_%s" "${DEC_POOLS[@]}")
 export DECODER_CLASSES=( ihm sdm1 )
 export DECODER_CLASSES_DELIM=$(printf "_%s" "${DECODER_CLASSES[@]}")
 
-export DEBUG_MODEL=true
+export DEBUG_MODEL=false
 if [ "$DEBUG_MODEL" = true ] ; then
     export CURRENT_FEATS=$TEST_FEATS
 else

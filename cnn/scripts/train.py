@@ -284,6 +284,7 @@ def train(epoch):
     while batches_processed < total_batches:
         # Pick a decoder class
         batch_idx = random.randint(0, total_batches - batches_processed - 1)
+        other_decoder_class = decoder_classes[1]
         for decoder_class in decoder_classes:
             current_count = current_train_batch_counts[decoder_class]
             if batch_idx < current_count:
@@ -291,6 +292,7 @@ def train(epoch):
                 break
             else:
                 batch_idx -= current_count
+                other_decoder_class = decoder_class
 
         # Get data for this decoder class
         feats, targets = training_iterators[decoder_class].next()
@@ -338,8 +340,47 @@ def train(epoch):
         encoder_optimizer.step()
         
         # PHASE 2: Backtranslation
-        # TODO
 
+        # Run (unnoised) features through other decoder in eval mode
+        model.eval()
+        if run_mode == "ae":
+            translated_feats = model.forward_decoder(feats, other_decoder_class)
+        elif run_mode == "vae":
+            translated_feats, translated_mu, translated_logvar = model.forward_decoder(feats, other_decoder_class)
+        else:
+            print("Unknown train mode %s" % run_mode, flush=True)
+            sys.exit(1)
+        
+        # Run translated features back through original decoder
+        model.train()
+        encoder_optimizer.zero_grad()
+        decoder_optimizers[decoder_class].zero_grad()
+        if run_mode == "ae":
+            recon_batch = model.forward_decoder(translated_feats, decoder_class)
+        elif run_mode == "vae":
+            recon_batch, mu, logvar = model.forward_decoder(translated_feats, decoder_class)
+        else:
+            print("Unknown train mode %s" % run_mode, flush=True)
+            sys.exit(1)
+
+        if run_mode == "ae":
+            r_loss = reconstruction_loss(recon_batch, targets)
+            r_loss.backward()
+        elif run_mode == "vae":
+            r_loss = reconstruction_loss(recon_batch, targets)
+            k_loss = kld_loss(recon_batch, targets, mu, logvar)
+            vae_loss = r_loss + k_loss
+            vae_loss.backward()
+        else:
+            print("Unknown train mode %s" % run_mode, flush=True)
+            sys.exit(1)
+        
+        decoder_class_losses[decoder_class]["backtranslation_recon_loss"] += r_loss.data[0]
+        if run_mode == "vae":
+            decoder_class_losses[decoder_class]["backtranslation_kld"] += k_loss.data[0]
+        decoder_optimizers[decoder_class].step()
+        encoder_optimizer.step()
+        
         batches_processed += 1
         class_batches_processed[decoder_class] += 1
         if batches_processed % log_interval == 0:
@@ -363,6 +404,7 @@ def test(epoch, loaders, recon_only=False, noised=True):
             decoder_class_losses[decoder_class]["autoencoding_kld"] = 0.0
             decoder_class_losses[decoder_class]["backtranslation_kld"] = 0.0
 
+    other_decoder_class = decoder_classes[1]
     for decoder_class in decoder_classes:
         for feats, targets in loaders[decoder_class]:
             # Set to volatile so history isn't saved (i.e., not training time)
@@ -412,7 +454,42 @@ def test(epoch, loaders, recon_only=False, noised=True):
                 decoder_class_losses[decoder_class]["autoencoding_kld"] += k_loss.data[0]
 
             # PHASE 2: Backtranslation
-            # TODO
+
+            # Run (unnoised) features through other decoder
+            model.eval()
+            if run_mode == "ae":
+                translated_feats = model.forward_decoder(feats, other_decoder_class)
+            elif run_mode == "vae":
+                translated_feats, translated_mu, translated_logvar = model.forward_decoder(feats, other_decoder_class)
+            else:
+                print("Unknown train mode %s" % run_mode, flush=True)
+                sys.exit(1)
+            
+            # Run translated features back through original decoder
+            model.eval()
+            if run_mode == "ae":
+                recon_batch = model.forward_decoder(translated_feats, decoder_class)
+            elif run_mode == "vae":
+                recon_batch, mu, logvar = model.forward_decoder(translated_feats, decoder_class)
+            else:
+                print("Unknown train mode %s" % run_mode, flush=True)
+                sys.exit(1)
+
+            if run_mode == "ae" or recon_only:
+                r_loss = reconstruction_loss(recon_batch, targets)
+            elif run_mode == "vae":
+                r_loss = reconstruction_loss(recon_batch, targets)
+                k_loss = kld_loss(recon_batch, targets, mu, logvar)
+                vae_loss = r_loss + k_loss
+            else:
+                print("Unknown train mode %s" % run_mode, flush=True)
+                sys.exit(1)
+            
+            decoder_class_losses[decoder_class]["backtranslation_recon_loss"] += r_loss.data[0]
+            if run_mode == "vae" and not recon_only:
+                decoder_class_losses[decoder_class]["backtranslation_kld"] += k_loss.data[0]
+
+        other_decoder_class = decoder_class
         
     return decoder_class_losses
 
