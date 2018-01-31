@@ -206,13 +206,17 @@ class CNNMultidecoder(nn.Module):
         else:
             getattr(nn.init, self.weight_init)(layer.weight)
 
-    def activation_layers(self):
-        # TODO
-        pass
+    def encoder_conv_activation_layers(self):
+        return list(filter(lambda layer_name: self.activation in layer_name, self.encoder_conv_layers.keys()))
 
-    def get_activations(self):
-        # TODO
-        pass
+    def get_encoder_conv_activations(self, feats):
+        conv_encoded = feats
+        activations = {}
+        for i, (encoder_conv_layer_name, encoder_conv_layer) in enumerate(self.encoder_conv_layers.items()):
+            conv_encoded, new_pooling_indices = encoder_conv_layer(conv_encoded)
+            if self.activation in encoder_conv_layer_name:
+                activations[encoder_conv_layer_name] = conv_encoded
+        return activations
     
     def decoder_parameters(self, decoder_class):
         # Get parameters for just a specific decoder
