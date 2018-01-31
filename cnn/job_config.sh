@@ -4,7 +4,8 @@ export RIGHT_CONTEXT=5
 
 export OPTIMIZER=Adam
 export LEARNING_RATE=0.0001
-export EPOCHS=100
+# export EPOCHS=100
+export EPOCHS=3
 export BATCH_SIZE=256
 
 export ENC_CHANNELS=( 256 256 )
@@ -20,8 +21,7 @@ export DEC_KERNELS=( 3 3 )        # Assume square kernels (AxA)
 export DEC_POOLS=( 3 3 )          # Pool only in frequency; no overlap. Use 0 to indicate no pooling
 
 export USE_BATCH_NORM=false
-# export ACTIVATION_FUNC=SELU
-export ACTIVATION_FUNC=ReLU
+export ACTIVATION_FUNC=SELU
 export WEIGHT_INIT=xavier_uniform
 
 export ENC_CHANNELS_DELIM=$(printf "_%s" "${ENC_CHANNELS[@]}")
@@ -37,7 +37,7 @@ export DEC_POOLS_DELIM=$(printf "_%s" "${DEC_POOLS[@]}")
 export DECODER_CLASSES=( ihm sdm1 )
 export DECODER_CLASSES_DELIM=$(printf "_%s" "${DECODER_CLASSES[@]}")
 
-export DEBUG_MODEL=false
+export DEBUG_MODEL=true
 if [ "$DEBUG_MODEL" = true ] ; then
     export CURRENT_FEATS=$TEST_FEATS
 else

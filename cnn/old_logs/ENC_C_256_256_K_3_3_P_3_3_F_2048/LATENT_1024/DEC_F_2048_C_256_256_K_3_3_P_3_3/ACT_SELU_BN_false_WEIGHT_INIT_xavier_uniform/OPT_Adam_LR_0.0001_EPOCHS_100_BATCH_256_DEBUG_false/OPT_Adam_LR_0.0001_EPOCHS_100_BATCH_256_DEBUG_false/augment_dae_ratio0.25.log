@@ -1,0 +1,225 @@
+Running augmentation with mode dae
+Noise ratio: 25.000% of input features
+Constructing model...
+Done constructing model.
+CNNMultidecoder (
+  (encoder_conv): Sequential (
+    (conv2d_0): Conv2d(1, 256, kernel_size=(3, 3), stride=(1, 1))
+    (SELU_0): SELU
+    (maxpool2d_0): MaxPool2d (size=(1, 3), stride=(1, 3), dilation=(1, 1))
+    (conv2d_1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1))
+    (SELU_1): SELU
+    (maxpool2d_1): MaxPool2d (size=(1, 3), stride=(1, 3), dilation=(1, 1))
+  )
+  (encoder_fc): Sequential (
+    (lin_0): Linear (14336 -> 2048)
+    (SELU_0): SELU
+    (lin_final): Linear (2048 -> 1024)
+    (SELU_final): SELU
+  )
+  (decoder_fc_ihm): Sequential (
+    (lin_0): Linear (1024 -> 2048)
+    (SELU_0): SELU
+    (lin_final): Linear (2048 -> 14336)
+    (SELU_final): SELU
+  )
+  (decoder_deconv_ihm): Sequential (
+    (maxunpool2d_0): MaxUnpool2d (size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_0): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (SELU_0): SELU
+    (maxunpool2d_1): MaxUnpool2d (size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_1): Conv2d(256, 1, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (SELU_1): SELU
+  )
+  (decoder_fc_sdm1): Sequential (
+    (lin_0): Linear (1024 -> 2048)
+    (SELU_0): SELU
+    (lin_final): Linear (2048 -> 14336)
+    (SELU_final): SELU
+  )
+  (decoder_deconv_sdm1): Sequential (
+    (maxunpool2d_0): MaxUnpool2d (size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_0): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (SELU_0): SELU
+    (maxunpool2d_1): MaxUnpool2d (size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_1): Conv2d(256, 1, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (SELU_1): SELU
+  )
+)
+Loading checkpoint...
+Loaded checkpoint; best model ready now.
+Setting up data...
+Setting up training datasets...
+Using 10000 training features (10000 batches) for class ihm
+Using 10000 training features (10000 batches) for class sdm1
+Setting up dev datasets...
+Using 1000 dev features (1000 batches) for class ihm
+Using 1000 dev features (1000 batches) for class sdm1
+Done setting up data.
+Completed setup in 7.188 seconds
+PROCESSING SOURCE ihm, TARGET ihm
+=> Processing training data...
+===> Augmented 100/10000 batches (1.0%)]
+===> Augmented 200/10000 batches (2.0%)]
+===> Augmented 300/10000 batches (3.0%)]
+===> Augmented 400/10000 batches (4.0%)]
+===> Augmented 500/10000 batches (5.0%)]
+===> Augmented 600/10000 batches (6.0%)]
+===> Augmented 700/10000 batches (7.0%)]
+===> Augmented 800/10000 batches (8.0%)]
+===> Augmented 900/10000 batches (9.0%)]
+===> Augmented 1000/10000 batches (10.0%)]
+===> Augmented 1100/10000 batches (11.0%)]
+===> Augmented 1200/10000 batches (12.0%)]
+===> Augmented 1300/10000 batches (13.0%)]
+===> Augmented 1400/10000 batches (14.0%)]
+===> Augmented 1500/10000 batches (15.0%)]
+===> Augmented 1600/10000 batches (16.0%)]
+===> Augmented 1700/10000 batches (17.0%)]
+===> Augmented 1800/10000 batches (18.0%)]
+===> Augmented 1900/10000 batches (19.0%)]
+===> Augmented 2000/10000 batches (20.0%)]
+===> Augmented 2100/10000 batches (21.0%)]
+===> Augmented 2200/10000 batches (22.0%)]
+===> Augmented 2300/10000 batches (23.0%)]
+===> Augmented 2400/10000 batches (24.0%)]
+===> Augmented 2500/10000 batches (25.0%)]
+===> Augmented 2600/10000 batches (26.0%)]
+===> Augmented 2700/10000 batches (27.0%)]
+===> Augmented 2800/10000 batches (28.0%)]
+===> Augmented 2900/10000 batches (29.0%)]
+===> Augmented 3000/10000 batches (30.0%)]
+===> Augmented 3100/10000 batches (31.0%)]
+===> Augmented 3200/10000 batches (32.0%)]
+===> Augmented 3300/10000 batches (33.0%)]
+===> Augmented 3400/10000 batches (34.0%)]
+===> Augmented 3500/10000 batches (35.0%)]
+===> Augmented 3600/10000 batches (36.0%)]
+===> Augmented 3700/10000 batches (37.0%)]
+===> Augmented 3800/10000 batches (38.0%)]
+===> Augmented 3900/10000 batches (39.0%)]
+===> Augmented 4000/10000 batches (40.0%)]
+===> Augmented 4100/10000 batches (41.0%)]
+===> Augmented 4200/10000 batches (42.0%)]
+===> Augmented 4300/10000 batches (43.0%)]
+===> Augmented 4400/10000 batches (44.0%)]
+===> Augmented 4500/10000 batches (45.0%)]
+===> Augmented 4600/10000 batches (46.0%)]
+===> Augmented 4700/10000 batches (47.0%)]
+===> Augmented 4800/10000 batches (48.0%)]
+===> Augmented 4900/10000 batches (49.0%)]
+===> Augmented 5000/10000 batches (50.0%)]
+===> Augmented 5100/10000 batches (51.0%)]
+===> Augmented 5200/10000 batches (52.0%)]
+===> Augmented 5300/10000 batches (53.0%)]
+===> Augmented 5400/10000 batches (54.0%)]
+===> Augmented 5500/10000 batches (55.0%)]
+===> Augmented 5600/10000 batches (56.0%)]
+===> Augmented 5700/10000 batches (57.0%)]
+===> Augmented 5800/10000 batches (58.0%)]
+===> Augmented 5900/10000 batches (59.0%)]
+===> Augmented 6000/10000 batches (60.0%)]
+===> Augmented 6100/10000 batches (61.0%)]
+===> Augmented 6200/10000 batches (62.0%)]
+===> Augmented 6300/10000 batches (63.0%)]
+===> Augmented 6400/10000 batches (64.0%)]
+===> Augmented 6500/10000 batches (65.0%)]
+===> Augmented 6600/10000 batches (66.0%)]
+===> Augmented 6700/10000 batches (67.0%)]
+===> Augmented 6800/10000 batches (68.0%)]
+===> Augmented 6900/10000 batches (69.0%)]
+===> Augmented 7000/10000 batches (70.0%)]
+===> Augmented 7100/10000 batches (71.0%)]
+===> Augmented 7200/10000 batches (72.0%)]
+===> Augmented 7300/10000 batches (73.0%)]
+===> Augmented 7400/10000 batches (74.0%)]
+===> Augmented 7500/10000 batches (75.0%)]
+===> Augmented 7600/10000 batches (76.0%)]
+===> Augmented 7700/10000 batches (77.0%)]
+===> Augmented 7800/10000 batches (78.0%)]
+===> Augmented 7900/10000 batches (79.0%)]
+===> Augmented 8000/10000 batches (80.0%)]
+===> Augmented 8100/10000 batches (81.0%)]
+===> Augmented 8200/10000 batches (82.0%)]
+===> Augmented 8300/10000 batches (83.0%)]
+===> Augmented 8400/10000 batches (84.0%)]
+===> Augmented 8500/10000 batches (85.0%)]
+===> Augmented 8600/10000 batches (86.0%)]
+===> Augmented 8700/10000 batches (87.0%)]
+===> Augmented 8800/10000 batches (88.0%)]
+===> Augmented 8900/10000 batches (89.0%)]
+===> Augmented 9000/10000 batches (90.0%)]
+===> Augmented 9100/10000 batches (91.0%)]
+===> Augmented 9200/10000 batches (92.0%)]
+===> Augmented 9300/10000 batches (93.0%)]
+===> Augmented 9400/10000 batches (94.0%)]
+===> Augmented 9500/10000 batches (95.0%)]
+===> Augmented 9600/10000 batches (96.0%)]
+===> Augmented 9700/10000 batches (97.0%)]
+===> Augmented 9800/10000 batches (98.0%)]
+===> Augmented 9900/10000 batches (99.0%)]
+===> Augmented 10000/10000 batches (100.0%)]
+===> Writing SCP...
+=> Done with training data
+=> Processing dev data...
+===> Augmented 100/1000 batches (10.0%)]
+===> Augmented 200/1000 batches (20.0%)]
+===> Augmented 300/1000 batches (30.0%)]
+===> Augmented 400/1000 batches (40.0%)]
+===> Augmented 500/1000 batches (50.0%)]
+===> Augmented 600/1000 batches (60.0%)]
+===> Augmented 700/1000 batches (70.0%)]
+===> Augmented 800/1000 batches (80.0%)]
+===> Augmented 900/1000 batches (90.0%)]
+===> Augmented 1000/1000 batches (100.0%)]
+===> Writing SCP...
+=> Done with dev data
+PROCESSED SOURCE ihm, TARGET ihm IN 4885.176 SECONDS
+PROCESSING SOURCE ihm, TARGET sdm1
+=> Processing training data...
+===> Augmented 100/10000 batches (1.0%)]
+===> Augmented 200/10000 batches (2.0%)]
+===> Augmented 300/10000 batches (3.0%)]
+===> Augmented 400/10000 batches (4.0%)]
+===> Augmented 500/10000 batches (5.0%)]
+===> Augmented 600/10000 batches (6.0%)]
+===> Augmented 700/10000 batches (7.0%)]
+===> Augmented 800/10000 batches (8.0%)]
+===> Augmented 900/10000 batches (9.0%)]
+===> Augmented 1000/10000 batches (10.0%)]
+===> Augmented 1100/10000 batches (11.0%)]
+===> Augmented 1200/10000 batches (12.0%)]
+===> Augmented 1300/10000 batches (13.0%)]
+===> Augmented 1400/10000 batches (14.0%)]
+===> Augmented 1500/10000 batches (15.0%)]
+===> Augmented 1600/10000 batches (16.0%)]
+===> Augmented 1700/10000 batches (17.0%)]
+===> Augmented 1800/10000 batches (18.0%)]
+===> Augmented 1900/10000 batches (19.0%)]
+===> Augmented 2000/10000 batches (20.0%)]
+===> Augmented 2100/10000 batches (21.0%)]
+===> Augmented 2200/10000 batches (22.0%)]
+===> Augmented 2300/10000 batches (23.0%)]
+===> Augmented 2400/10000 batches (24.0%)]
+===> Augmented 2500/10000 batches (25.0%)]
+===> Augmented 2600/10000 batches (26.0%)]
+===> Augmented 2700/10000 batches (27.0%)]
+===> Augmented 2800/10000 batches (28.0%)]
+===> Augmented 2900/10000 batches (29.0%)]
+===> Augmented 3000/10000 batches (30.0%)]
+===> Augmented 3100/10000 batches (31.0%)]
+===> Augmented 3200/10000 batches (32.0%)]
+===> Augmented 3300/10000 batches (33.0%)]
+===> Augmented 3400/10000 batches (34.0%)]
+===> Augmented 3500/10000 batches (35.0%)]
+===> Augmented 3600/10000 batches (36.0%)]
+===> Augmented 3700/10000 batches (37.0%)]
+===> Augmented 3800/10000 batches (38.0%)]
+===> Augmented 3900/10000 batches (39.0%)]
+===> Augmented 4000/10000 batches (40.0%)]
+===> Augmented 4100/10000 batches (41.0%)]
+===> Augmented 4200/10000 batches (42.0%)]
+===> Augmented 4300/10000 batches (43.0%)]
+===> Augmented 4400/10000 batches (44.0%)]
+===> Augmented 4500/10000 batches (45.0%)]
+===> Augmented 4600/10000 batches (46.0%)]
