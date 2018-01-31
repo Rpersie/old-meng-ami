@@ -208,9 +208,11 @@ class CNNMultidecoder(nn.Module):
 
     def activation_layers(self):
         # TODO
+        pass
 
     def get_activations(self):
         # TODO
+        pass
     
     def decoder_parameters(self, decoder_class):
         # Get parameters for just a specific decoder
