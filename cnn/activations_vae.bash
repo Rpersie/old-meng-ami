@@ -26,7 +26,7 @@ if [ -f $activations_log ]; then
     mv $activations_log $LOGS/$EXPT_NAME/activations_top${TOP_COUNT}_vae-$(date +"%F_%T%z").log
 fi
 
-mkdir -p $ACTIVATIONS_DIR/vae
+mkdir -p $ACTIVATIONS_DIR/vae_ratio${NOISE_RATIO}
 
 python3 cnn/scripts/activations.py vae > $activations_log
 

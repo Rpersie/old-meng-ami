@@ -213,7 +213,11 @@ class CNNMultidecoder(nn.Module):
         conv_encoded = feats
         activations = {}
         for i, (encoder_conv_layer_name, encoder_conv_layer) in enumerate(self.encoder_conv_layers.items()):
-            conv_encoded, new_pooling_indices = encoder_conv_layer(conv_encoded)
+            if "maxpool2d" in encoder_conv_layer_name:
+                conv_encoded, new_pooling_indices = encoder_conv_layer(conv_encoded)
+            else:
+                conv_encoded = encoder_conv_layer(conv_encoded)
+
             if self.activation in encoder_conv_layer_name:
                 activations[encoder_conv_layer_name] = conv_encoded
         return activations

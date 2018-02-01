@@ -26,7 +26,7 @@ if [ -f $augment_log ]; then
     mv $augment_log $LOGS/$EXPT_NAME/augment_vae-$(date +"%F_%T%z").log
 fi
 
-mkdir -p $AUGMENTED_DATA_DIR/vae
+mkdir -p $AUGMENTED_DATA_DIR/vae_ratio${NOISE_RATIO}
 
 python3 cnn/scripts/augment.py vae > $augment_log
 

@@ -87,18 +87,15 @@ use_batch_norm = True if os.environ["USE_BATCH_NORM"] == "true" else False
 weight_init = os.environ["WEIGHT_INIT"]
 
 on_gpu = torch.cuda.is_available()
-log_interval = 100   # Log results once for this many batches during training
+log_interval = 10   # Log results once for this many batches during training
 
 # Set up input files and output directory
-dev_scps = dict()
+activations_holdout_scps = dict()
 for decoder_class in decoder_classes:
-    dev_scp_name = os.path.join(os.environ["CURRENT_FEATS"], "%s-dev-norm.blogmel.scp" % decoder_class)
-    dev_scps[decoder_class] = dev_scp_name
+    activations_holdout_scp_name = os.path.join(os.environ["CURRENT_FEATS"], "%s-activations_holdout-norm.blogmel.scp" % decoder_class)
+    activations_holdout_scps[decoder_class] = activations_holdout_scp_name
 
-if run_mode in ["dae", "dvae"]:
-    output_dir = os.path.join(os.environ["ACTIVATIONS_DIR"], "%s_ratio%s" % (run_mode, noise_ratio))
-else:
-    output_dir = os.path.join(os.environ["ACTIVATIONS_DIR"], run_mode)
+output_dir = os.path.join(os.environ["ACTIVATIONS_DIR"], "%s_ratio%s" % (run_mode, noise_ratio))
 
 # Fix random seed for debugging
 torch.manual_seed(1)
@@ -171,18 +168,18 @@ top_count = int(os.environ["TOP_COUNT"])
 print("Setting up data...", flush=True)
 loader_kwargs = {"num_workers": 1, "pin_memory": True} if on_gpu else {}
 
-print("Setting up dev datasets...", flush=True)
-dev_datasets = dict()
-dev_loaders = dict()
+print("Setting up activations holdout datasets...", flush=True)
+activations_holdout_datasets = dict()
+activations_holdout_loaders = dict()
 for decoder_class in decoder_classes:
-    current_dataset = HaoEvalDataset(dev_scps[decoder_class])
-    dev_datasets[decoder_class] = current_dataset
-    dev_loaders[decoder_class] = DataLoader(current_dataset,
+    current_dataset = HaoEvalDataset(activations_holdout_scps[decoder_class])
+    activations_holdout_datasets[decoder_class] = current_dataset
+    activations_holdout_loaders[decoder_class] = DataLoader(current_dataset,
                                             batch_size=1,
                                             shuffle=False,
                                             **loader_kwargs)
-    print("Using %d dev features (%d batches) for class %s" % (len(current_dataset),
-                                                               len(dev_loaders[decoder_class]),
+    print("Using %d activations holdout features (%d batches) for class %s" % (len(current_dataset),
+                                                               len(activations_holdout_loaders[decoder_class]),
                                                                decoder_class),
           flush=True)
 
@@ -191,19 +188,22 @@ print("Done setting up data.", flush=True)
 setup_end_t = time.clock()
 print("Completed setup in %.3f seconds" % (setup_end_t - run_start_t), flush=True)
 
-# Process dev dataset
+# Process activations holdout dataset
 model.eval()
-print("=> Processing dev data...", flush=True)
+print("=> Processing activations holdout data...", flush=True)
 for decoder_class in decoder_classes:
     process_start_t = time.clock()
 
     print("===> Processing class %s..." % decoder_class, flush=True)
+    batches_processed = 0
+    total_batches = len(activations_holdout_loaders[decoder_class])
+        
+    activations_dict = ActivationDict(layer_names=model.encoder_conv_activation_layers(),
+                                      unit_counts=enc_channel_sizes,
+                                      top_count=top_count)
 
-    for batch_idx, (feats, targets, utt_ids) in enumerate(dev_loaders[decoder_class]):
+    for batch_idx, (feats, targets, utt_ids) in enumerate(activations_holdout_loaders[decoder_class]):
         utt_id = utt_ids[0]     # Batch size 1; only one utterance
-
-        activations_dict = ActivationDict(layer_names=model.encoder_conv_activation_layers(),
-                                          top_count=top_count)
 
         # Run batch through target decoder
         feats_numpy = feats.numpy().reshape((-1, freq_dim))
@@ -214,43 +214,39 @@ for decoder_class in decoder_classes:
             frame_spliced[left_context - min(i, left_context):left_context, :] = feats_numpy[i - min(i, left_context):i, :]
             frame_spliced[left_context, :] = feats_numpy[i, :]
             frame_spliced[left_context + 1:left_context + 1 + min(num_frames - i - 1, right_context), :] = feats_numpy[i + 1:i + 1 + min(num_frames - i - 1, right_context), :]
-            frame_tensor = Variable(torch.FloatTensor(frame_spliced))
+            frame_tensor = Variable(torch.FloatTensor(frame_spliced).view((1, 1, time_dim, freq_dim)))
             if on_gpu:
                 frame_tensor = frame_tensor.cuda()
 
-            layer_activations = model.get_encoder_conv_activations(frame_tensor, target_class)
+            layer_activations = model.get_encoder_conv_activations(frame_tensor)
             for layer_key in layer_activations:
-                layer_activation_numpy = layer_activations[layer_key].cpu().data.numpy().reshape((num_frames, -1)) 
-                activations_dict.update_top(layer_key, layer_activation_numpy)
+                layer_activation_numpy = layer_activations[layer_key].cpu().data.numpy()
+                for unit_idx in range(activations_dict.unit_counts[layer_key]):
+                    avg_activation = np.average(layer_activation_numpy[0, unit_idx, :, :].reshape((-1)))
+                    name = "%s_frame%d_%s" % (decoder_class, i, utt_id)
+                    activations_dict.update_top(layer_key, unit_idx, avg_activation, name, frame_spliced)
 
         batches_processed += 1
         if batches_processed % log_interval == 0:
-            print("===> Logged activations for %d/%d batches (%.1f%%)]" % (batches_processed,
-                                                              total_batches,
-                                                              100.0 * batches_processed / total_batches),
+            print("=====> Logged activations for %d/%d batches (%.1f%%)]" % (batches_processed,
+                                                                             total_batches,
+                                                                             100.0 * batches_processed / total_batches),
                   flush=True)
 
-    # Write features with top activations to output files
-    activation_ark_fds = {open(os.path.join(output_dir, "dev-%s-%s.ark" % (decoder_class, layer_key)), 'w') for layer_key in model.encoder_conv_activation_layers()}
+    # Write average of features with top activations to output files
+    print("Writing average of top activations to file...", flush=True)
     for layer_key in activations_dict.layer_names:
-        top_activations = activations_dict.top_ordered(layer_key)  
-        ark_fd = activation_ark_fds[layer_key]
-        for (activation_name, feats) in top_activations:
-            write_kaldi_hao_ark(ark_fd, activations_name, feats)
-        ark_fd.close()
-
-    # Create corresponding SCP files
-    print("===> Writing SCPs...", flush=True)
-    activation_scp_fds = {open(os.path.join(output_dir, "dev-%s-%s.scp" % (decoder_class, layer_key)), 'w') for layer_key in model.encoder_conv_activation_layers()}
-    for layer_key in model.encoder_conv_activation_layers():
-        scp_fd = activation_scp_fds[layer_key]
-        write_kaldi_hao_scp(scp_fd, os.path.join(output_dir, "dev-%s-%s.ark" % (decoder_class, layer_key)))
-        scp_fd.close()
+        with open(os.path.join(output_dir, "activations_holdout-%s-%s.ark" % (decoder_class, layer_key)), 'w') as ark_fd:
+            for unit_idx in range(activations_dict.unit_counts[layer_key]):
+                avg_feats = activations_dict.avg_feats(layer_key, unit_idx)
+                write_kaldi_hao_ark(ark_fd, str(unit_idx), avg_feats)
+        with open(os.path.join(output_dir, "activations_holdout-%s-%s.scp" % (decoder_class, layer_key)), 'w') as scp_fd:
+            write_kaldi_hao_scp(scp_fd, os.path.join(output_dir, "activations_holdout-%s-%s.ark" % (decoder_class, layer_key)))
 
     process_end_t = time.clock()
     print("===> Processed class %s in %.3f seconds" % (decoder_class, process_end_t - process_start_t), flush=True)
 
-print("=> Done with dev data", flush=True)
+print("=> Done with activations holdout data", flush=True)
 
 run_end_t = time.clock()
 print("Completed activations logging run in %.3f seconds" % (run_end_t - run_start_t), flush=True)

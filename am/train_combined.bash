@@ -40,7 +40,7 @@ for epoch in $(seq $START_EPOCH $END_EPOCH); do
     fi
 
     # Always use IHM pdfids, even for SDM1 (data are parallel -- see Hao email from 1/17/18)
-    OMP_NUM_THREADS=1 /data/sls/scratch/haotang/ami/dist/nn-20171210-5b69f7f/nnbin/frame-tdnn-learn-gpu \
+    OMP_NUM_THREADS=1 /data/sls/scratch/haotang/ami/dist/nn-20171213-4c6c341/nnbin/frame-tdnn-learn-gpu \
         --frame-scp $AUGMENTED_DATA_DIR/train-combined.blogmel.scp \
         --label-scp $AUGMENTED_DATA_DIR/combined-train-tri3.bali.scp \
         --param $MODEL_DIR/param-$((epoch-1)) \
