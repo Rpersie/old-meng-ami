@@ -15,7 +15,7 @@ export AUGMENTED_DATA_DIR=${SCRATCH}/augmented_data/cnn/$CNN_NAME/${MODEL_TYPE}_
 
 export SOURCE_DOMAIN=ihm
 export TARGET_DOMAIN=ihm
-export PREDICT_DOMAIN=ihm
+export PREDICT_DOMAIN=sdm1
 export GOLD_DIR=/data/sls/scratch/haotang/ami/sls-data/${DATASET_NAME}
 
 # if [ "$TRAIN_DOMAIN" = ihm ] ; then
