@@ -115,3 +115,128 @@ ENC_C_256_256_K_3_3_P_3_3_F_2048/LATENT_1024/DEC_F_2048_C_256_256_K_3_3_P_3_3/AC
 ENC_C_256_256_K_3_3_P_3_3_F_2048/LATENT_1024/DEC_F_2048_C_256_256_K_3_3_P_3_3/ACT_SELU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_100_BATCH_256_DEBUG_false/train_vae.log
 ====> Training set reconstruction loss: 0.256562 (['ihm: 0.261040', 'sdm1: 0.252084'])
 ====> Dev set reconstruction loss: 0.254586 (['ihm: 0.264230', 'sdm1: 0.244942'])
+
+
+
+===========================================
+FEBRUARY 2ND
+===========================================
+
+ENC_C_256_256_K_3_3_P_3_3_F_2048/LATENT_1024/DEC_F_2048_C_256_256_K_3_3_P_3_3/ACT_SELU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_ae.log
+
+~1.75 hours per training epoch
+
+EPOCH 13 TRAIN (6046.827s)
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.031
+===> backtranslation_recon_loss: 0.020
+===> Total for class ihm: 0.052
+=> Class sdm1
+===> autoencoding_recon_loss: 0.053
+===> backtranslation_recon_loss: 0.032
+===> Total for class sdm1: 0.085
+TOTAL: 0.136
+
+EPOCH 13 DEV (216.340s)
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.030
+===> backtranslation_recon_loss: 0.018
+===> Total for class ihm: 0.048
+=> Class sdm1
+===> autoencoding_recon_loss: 0.050
+===> backtranslation_recon_loss: 0.029
+===> Total for class sdm1: 0.079
+TOTAL: 0.127
+
+
+ENC_C_256_256_K_3_3_P_3_3_F_2048/LATENT_1024/DEC_F_2048_C_256_256_K_3_3_P_3_3/ACT_SELU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_vae.log
+
+~1.75 hours per training epoch
+
+TRAINING SET
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.199
+===> backtranslation_recon_loss: 0.298
+===> Total for class ihm: 0.497
+=> Class sdm1
+===> autoencoding_recon_loss: 0.187
+===> backtranslation_recon_loss: 0.293
+===> Total for class sdm1: 0.480
+TOTAL: 0.976
+
+DEV SET
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.203
+===> backtranslation_recon_loss: 0.304
+===> Total for class ihm: 0.508
+=> Class sdm1
+===> autoencoding_recon_loss: 0.181
+===> backtranslation_recon_loss: 0.283
+===> Total for class sdm1: 0.464
+TOTAL: 0.972
+
+
+
+===========================================
+FEBRUARY 2ND
+===========================================
+
+ENC_C_64_64_K_5_5_P_3_3_F_2048/LATENT_1024/DEC_F_2048_C_64_64_K_5_5_P_3_3/ACT_SELU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_ae.log
+
+~36 minutes per training epoch
+
+TRAINING SET
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.058
+===> backtranslation_recon_loss: 0.057
+===> Total for class ihm: 0.115
+=> Class sdm1
+===> autoencoding_recon_loss: 0.059
+===> backtranslation_recon_loss: 0.087
+===> Total for class sdm1: 0.146
+TOTAL: 0.261
+
+DEV SET
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.058
+===> backtranslation_recon_loss: 0.059
+===> Total for class ihm: 0.118
+=> Class sdm1
+===> autoencoding_recon_loss: 0.058
+===> backtranslation_recon_loss: 0.086
+===> Total for class sdm1: 0.144
+TOTAL: 0.261
+
+
+ENC_C_64_64_64_64_K_3_3_3_3_P_2_2_2_2_F_2048/LATENT_1024/DEC_F_2048_C_64_64_64_64_K_3_3_3_3_P_2_2_2_2/ACT_SELU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_ae.log
+~36 minutes per training epoch
+
+TRAINING SET
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.068
+===> backtranslation_recon_loss: 0.068
+===> Total for class ihm: 0.136
+=> Class sdm1
+===> autoencoding_recon_loss: 0.078
+===> backtranslation_recon_loss: 0.096
+===> Total for class sdm1: 0.174
+TOTAL: 0.310
+
+DEV SET
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.070
+===> backtranslation_recon_loss: 0.071
+===> Total for class ihm: 0.141
+=> Class sdm1
+===> autoencoding_recon_loss: 0.076
+===> backtranslation_recon_loss: 0.095
+===> Total for class sdm1: 0.171
+TOTAL: 0.312
