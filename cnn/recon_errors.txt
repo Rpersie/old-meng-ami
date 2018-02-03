@@ -124,6 +124,7 @@ FEBRUARY 2ND
 
 ENC_C_256_256_K_3_3_P_3_3_F_2048/LATENT_1024/DEC_F_2048_C_256_256_K_3_3_P_3_3/ACT_SELU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_ae.log
 
+Param count: 96,185,090
 ~1.75 hours per training epoch
 
 EPOCH 13 TRAIN (6046.827s)
@@ -153,6 +154,7 @@ TOTAL: 0.127
 
 ENC_C_256_256_K_3_3_P_3_3_F_2048/LATENT_1024/DEC_F_2048_C_256_256_K_3_3_P_3_3/ACT_SELU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_vae.log
 
+Param count: 98,283,266 
 ~1.75 hours per training epoch
 
 TRAINING SET
@@ -187,6 +189,7 @@ FEBRUARY 2ND
 
 ENC_C_64_64_K_5_5_P_3_3_F_2048/LATENT_1024/DEC_F_2048_C_64_64_K_5_5_P_3_3/ACT_SELU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_ae.log
 
+Param count: 14,871,106
 ~36 minutes per training epoch
 
 TRAINING SET
@@ -215,6 +218,8 @@ TOTAL: 0.261
 
 
 ENC_C_64_64_64_64_K_3_3_3_3_P_2_2_2_2_F_2048/LATENT_1024/DEC_F_2048_C_64_64_64_64_K_3_3_3_3_P_2_2_2_2/ACT_SELU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_ae.log
+
+Param count: 10,172,866
 ~36 minutes per training epoch
 
 TRAINING SET
@@ -240,3 +245,14 @@ Losses:
 ===> backtranslation_recon_loss: 0.095
 ===> Total for class sdm1: 0.171
 TOTAL: 0.312
+
+
+
+===========================================
+FEBRUARY 3RD
+===========================================
+
+ENC_C_64_128_256_256_K_3_3_3_3_P_2_2_0_2_F_2048/LATENT_1024/DEC_F_2048_C_256_256_128_64_K_3_3_3_3_P_2_0_2_2/ACT_SELU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_ae.log
+
+Param count: 42,218,242
+Time per epoch:

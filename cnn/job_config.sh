@@ -7,17 +7,17 @@ export LEARNING_RATE=0.0001
 export EPOCHS=25
 export BATCH_SIZE=256
 
-export ENC_CHANNELS=( 256 256 64 )
-export ENC_KERNELS=( 5 3 3 )        # Assume square kernels (AxA)
-export ENC_POOLS=( 2 2 2 )          # Pool only in frequency; no overlap. Use 0 to indicate no pooling
+export ENC_CHANNELS=( 256 256 )
+export ENC_KERNELS=( 3 3 )        # Assume square kernels (AxA)
+export ENC_POOLS=( 3 3 )          # Pool only in frequency; no overlap. Use 0 to indicate no pooling
 export ENC_FC=( 2048 )     # Fully-connected layers following conv layers
 
 export LATENT_DIM=1024
 
 export DEC_FC=( 2048 )     # Fully-connected layers before conv layers
-export DEC_CHANNELS=( 64 256 256 )
-export DEC_KERNELS=( 3 3 5 )        # Assume square kernels (AxA)
-export DEC_POOLS=( 2 2 2 )          # Pool only in frequency; no overlap. Use 0 to indicate no pooling
+export DEC_CHANNELS=( 256 256 )
+export DEC_KERNELS=( 3 3 )        # Assume square kernels (AxA)
+export DEC_POOLS=( 3 3 )          # Pool only in frequency; no overlap. Use 0 to indicate no pooling
 
 export USE_BATCH_NORM=false
 export ACTIVATION_FUNC=SELU

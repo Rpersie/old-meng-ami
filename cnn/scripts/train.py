@@ -156,6 +156,11 @@ best_ckpt_path = os.path.join(model_dir, "best_cnn_%s_ratio%s_md.pth.tar" % (run
 print("Done constructing model.", flush=True)
 print(model, flush=True)
 
+# Count number of trainable parameters
+model_parameters = filter(lambda p: p.requires_grad, model.parameters())
+params = sum([np.prod(p.size()) for p in model_parameters])
+print("Model has %d trainable parameters" % params, flush=True)
+
 # Set up loss functions
 def reconstruction_loss(recon_x, x):
     MSE = nn.MSELoss()(recon_x, x.view(-1, time_dim, freq_dim))

@@ -1,0 +1,154 @@
+Running training with mode ae
+Noising 25.000% of input features
+Constructing model...
+Done constructing model.
+CNNMultidecoder (
+  (encoder_conv): Sequential (
+    (conv2d_0): Conv2d(1, 64, kernel_size=(3, 3), stride=(1, 1))
+    (SELU_0): SELU
+    (maxpool2d_0): MaxPool2d (size=(1, 2), stride=(1, 2), dilation=(1, 1))
+    (conv2d_1): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1))
+    (SELU_1): SELU
+    (maxpool2d_1): MaxPool2d (size=(1, 2), stride=(1, 2), dilation=(1, 1))
+    (conv2d_2): Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1))
+    (SELU_2): SELU
+    (conv2d_3): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1))
+    (SELU_3): SELU
+    (maxpool2d_3): MaxPool2d (size=(1, 2), stride=(1, 2), dilation=(1, 1))
+  )
+  (encoder_fc): Sequential (
+    (lin_0): Linear (5376 -> 2048)
+    (SELU_0): SELU
+    (lin_final): Linear (2048 -> 1024)
+    (SELU_final): SELU
+  )
+  (decoder_fc_ihm): Sequential (
+    (lin_0): Linear (1024 -> 2048)
+    (SELU_0): SELU
+    (lin_final): Linear (2048 -> 5376)
+    (SELU_final): SELU
+  )
+  (decoder_deconv_ihm): Sequential (
+    (maxunpool2d_0): MaxUnpool2d (size=(1, 2), stride=(1, 2), padding=(0, 0))
+    (conv2d_0): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (SELU_0): SELU
+    (conv2d_1): Conv2d(256, 128, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (SELU_1): SELU
+    (maxunpool2d_2): MaxUnpool2d (size=(1, 2), stride=(1, 2), padding=(0, 0))
+    (conv2d_2): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (SELU_2): SELU
+    (maxunpool2d_3): MaxUnpool2d (size=(1, 2), stride=(1, 2), padding=(0, 0))
+    (conv2d_3): Conv2d(64, 1, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (SELU_3): SELU
+  )
+  (decoder_fc_sdm1): Sequential (
+    (lin_0): Linear (1024 -> 2048)
+    (SELU_0): SELU
+    (lin_final): Linear (2048 -> 5376)
+    (SELU_final): SELU
+  )
+  (decoder_deconv_sdm1): Sequential (
+    (maxunpool2d_0): MaxUnpool2d (size=(1, 2), stride=(1, 2), padding=(0, 0))
+    (conv2d_0): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (SELU_0): SELU
+    (conv2d_1): Conv2d(256, 128, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (SELU_1): SELU
+    (maxunpool2d_2): MaxUnpool2d (size=(1, 2), stride=(1, 2), padding=(0, 0))
+    (conv2d_2): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (SELU_2): SELU
+    (maxunpool2d_3): MaxUnpool2d (size=(1, 2), stride=(1, 2), padding=(0, 0))
+    (conv2d_3): Conv2d(64, 1, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (SELU_3): SELU
+  )
+)
+Setting up data...
+Setting up training datasets...
+Using 2407138 training features (9403 batches) for class ihm
+Using 2407138 training features (9403 batches) for class sdm1
+Setting up dev datasets...
+Using 249565 dev features (975 batches) for class ihm
+Using 249565 dev features (975 batches) for class sdm1
+Setting up minibatch shuffling for training...
+18806 total batches: {'ihm': 9403, 'sdm1': 9403}
+Done setting up data.
+Completed setup in 143.221 seconds
+Starting training!
+
+STARTING EPOCH 1
+Train epoch 1: [1000/18806 (5.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.339
+===> backtranslation_recon_loss: 0.368
+===> Total for class ihm: 0.707
+=> Class sdm1
+===> autoencoding_recon_loss: 0.406
+===> backtranslation_recon_loss: 0.448
+===> Total for class sdm1: 0.854
+TOTAL: 1.562
+Train epoch 1: [2000/18806 (10.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.268
+===> backtranslation_recon_loss: 0.290
+===> Total for class ihm: 0.558
+=> Class sdm1
+===> autoencoding_recon_loss: 0.329
+===> backtranslation_recon_loss: 0.363
+===> Total for class sdm1: 0.692
+TOTAL: 1.250
+Train epoch 1: [3000/18806 (16.0%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.254
+===> backtranslation_recon_loss: 0.278
+===> Total for class ihm: 0.532
+=> Class sdm1
+===> autoencoding_recon_loss: 0.309
+===> backtranslation_recon_loss: 0.344
+===> Total for class sdm1: 0.653
+TOTAL: 1.185
+Train epoch 1: [4000/18806 (21.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.232
+===> backtranslation_recon_loss: 0.251
+===> Total for class ihm: 0.483
+=> Class sdm1
+===> autoencoding_recon_loss: 0.284
+===> backtranslation_recon_loss: 0.313
+===> Total for class sdm1: 0.597
+TOTAL: 1.080
+Train epoch 1: [5000/18806 (26.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.218
+===> backtranslation_recon_loss: 0.233
+===> Total for class ihm: 0.451
+=> Class sdm1
+===> autoencoding_recon_loss: 0.268
+===> backtranslation_recon_loss: 0.293
+===> Total for class sdm1: 0.561
+TOTAL: 1.012
+Train epoch 1: [6000/18806 (31.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.205
+===> backtranslation_recon_loss: 0.216
+===> Total for class ihm: 0.421
+=> Class sdm1
+===> autoencoding_recon_loss: 0.253
+===> backtranslation_recon_loss: 0.274
+===> Total for class sdm1: 0.527
+TOTAL: 0.948
+Train epoch 1: [7000/18806 (37.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.196
+===> backtranslation_recon_loss: 0.204
+===> Total for class ihm: 0.400
+=> Class sdm1
+===> autoencoding_recon_loss: 0.242
+===> backtranslation_recon_loss: 0.260
+===> Total for class sdm1: 0.503
+TOTAL: 0.903
