@@ -2,7 +2,8 @@ from collections import OrderedDict
 import sys
 
 import torch
-import torch.nn as nn
+from torch import nn
+import torch.nn.init as nn_init
 import torch.nn.functional as F
 from torch.autograd import Variable
 
@@ -198,13 +199,13 @@ class CNNMultidecoder(nn.Module):
     def init_weights(self, layer, layer_name):
         if "xavier" in self.weight_init:
             try:
-                gain = nn.init.calculate_gain(layer_name.lower())
-                getattr(nn.init, self.weight_init)(layer.weight, gain=gain)
+                gain = nn_init.calculate_gain(layer_name.lower())
+                getattr(nn_init, self.weight_init)(layer.weight, gain=gain)
             except ValueError:
                 # Happens if layer type isn't supported yet -- just use default gain
-                getattr(nn.init, self.weight_init)(layer.weight)
+                getattr(nn_init, self.weight_init)(layer.weight)
         else:
-            getattr(nn.init, self.weight_init)(layer.weight)
+            getattr(nn_init, self.weight_init)(layer.weight)
 
     def encoder_conv_activation_layers(self):
         return list(filter(lambda layer_name: self.activation in layer_name, self.encoder_conv_layers.keys()))

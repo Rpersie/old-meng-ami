@@ -26,6 +26,11 @@ if [ -f $train_log ]; then
     mv $train_log $LOGS/$EXPT_NAME/train_vae-$(date +"%F_%T%z").log
 fi
 
-python3 cnn/scripts/train.py vae > $train_log
+if [ "$PROFILE_RUN" = true ] ; then
+    python3 -m cProfile -o $LOGS/$EXPT_NAME/train_vae.prof cnn/scripts/train.py vae > $train_log
+    echo "Profiling done -- please run 'snakeviz --port=8890 --server $LOGS/$EXPT_NAME/train_vae.prof' to view the results in browser"
+else
+    python3 cnn/scripts/train.py vae > $train_log
+fi
 
 echo "DONE CONVOLUTIONAL VARIATIONAL MULTIDECODER TRAINING JOB"

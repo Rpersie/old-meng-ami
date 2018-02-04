@@ -10,8 +10,6 @@ export FEATBIN=$KALDI_ROOT/src/featbin
 
 export SCRATCH=/data/sls/scratch/atitus5/meng
 mkdir -p $SCRATCH
-export LATENT=$SCRATCH/latent
-mkdir -p $LATENT
 export MODELS=$SCRATCH/models
 mkdir -p $MODELS
 

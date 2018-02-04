@@ -5,7 +5,7 @@ import struct
 import numpy as np
 
 import torch
-from torch.utils.data import Dataset, ConcatDataset
+from torch.utils.data import Dataset
 
 def read_next_utt(scp_line, hao_ark_fd=None):
     # From https://github.com/yajiemiao/pdnn/blob/master/io_func/kaldi_feat.py
