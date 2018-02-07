@@ -8,6 +8,8 @@ Baseline:
     - SDM1 dev FER: 0.8047768447009975
     - IHM dev FER: 0.7732134823050868
 
+==> Range of improvement for SDM1 dev from IHM to SDM1: 0.0552649986 
+
 ENC_C_256_256_128_K_3_3_3_P_3_3_0_F_1024_1024/LATENT_1024/DEC_F_1024_1024_C_128_256_256_K_3_3_3_P_0_3_3/ACT_SELU/OPT_Adam_LR_0.0001_EPOCHS_100_BATCH_256_DEBUG_false/ae/
 - Src IHM/Tar IHM (simply reconstruction):
     - IHM dev FER: 0.5931332016040727 (2.8% relative WORSE than IHM baseline)
@@ -64,6 +66,7 @@ ENC_C_256_256_K_3_3_P_3_3_F_2048/LATENT_1024/DEC_F_2048_C_256_256_K_3_3_P_3_3/AC
     - IHM dev FER: 0.7962101932694728 (3.0% relative WORSE than SDM1 baseline)
 - Src IHM/Tar SDM1 (augmentation):
     - SDM1 dev FER: 0.8512811598189269 (1.0% relative BETTER than IHM baseline)
+        - 15.9% of total improvement from IHM baseline to SDM1 baseline
     - IHM dev FER: 0.5976920472828555 (3.6% relative WORSE than IHM baseline)
 - Src SDM1/Tar IHM (augmentation):
     - IHM dev FER: 0.7787815221866555 (0.7% relative WORSE than SDM1 baseline)
@@ -71,3 +74,4 @@ ENC_C_256_256_K_3_3_P_3_3_F_2048/LATENT_1024/DEC_F_2048_C_256_256_K_3_3_P_3_3/AC
 - Combined (IHM original + IHM->SDM1 augmented):
     - IHM dev FER: 0.5893683311016809 (2.1% relative WORSE than IHM baseline)
     - SDM1 dev FER: 0.8546791574437996 (0.6% relative BETTER than IHM baseline)
+        - 9.7% of total improvement from IHM baseline to SDM1 baseline

@@ -1,23 +1,22 @@
 export FEAT_DIM=80      # 80 log-Mel
 export LEFT_CONTEXT=5
-export RIGHT_CONTEXT=5
-
+export RIGHT_CONTEXT=5 
 export OPTIMIZER=Adam
 export LEARNING_RATE=0.0001
-export EPOCHS=2
-export BATCH_SIZE=256
+export EPOCHS=25
+export BATCH_SIZE=512
 
-export ENC_CHANNELS=( 256 256 64 )
-export ENC_KERNELS=( 5 3 3 )        # Assume square kernels (AxA)
-export ENC_POOLS=( 2 2 2 )          # Pool only in frequency; no overlap. Use 0 to indicate no pooling
-export ENC_FC=( 2048 )     # Fully-connected layers following conv layers
+export ENC_CHANNELS=( 256 256 )
+export ENC_KERNELS=( 3 3 )        # Assume square kernels (AxA)
+export ENC_POOLS=( 3 3 )          # Pool only in frequency; no overlap. Use 0 to indicate no pooling
+export ENC_FC=( 2048 2048 )     # Fully-connected layers following conv layers
 
 export LATENT_DIM=1024
 
-export DEC_FC=( 2048 )     # Fully-connected layers before conv layers
-export DEC_CHANNELS=( 64 256 256 )
-export DEC_KERNELS=( 3 3 5 )        # Assume square kernels (AxA)
-export DEC_POOLS=( 2 2 2 )          # Pool only in frequency; no overlap. Use 0 to indicate no pooling
+export DEC_FC=( 2048 2048 )     # Fully-connected layers before conv layers
+export DEC_CHANNELS=( 256 256 )
+export DEC_KERNELS=( 3 3 )        # Assume square kernels (AxA)
+export DEC_POOLS=( 3 3 )          # Pool only in frequency; no overlap. Use 0 to indicate no pooling
 
 export USE_BATCH_NORM=false
 export ACTIVATION_FUNC=SELU
@@ -37,28 +36,29 @@ export DECODER_CLASSES=( ihm sdm1 )
 export DECODER_CLASSES_DELIM=$(printf "_%s" "${DECODER_CLASSES[@]}")
 
 export DEBUG_MODEL=false
+export DATASET_NAME=ami-0.1
 if [ "$DEBUG_MODEL" = true ] ; then
     export CURRENT_FEATS=$TEST_FEATS
 else
-    export CURRENT_FEATS=$FEATS
+    export CURRENT_FEATS=$FEATS/$DATASET_NAME
 fi
-export PROFILE_RUN=true
+export PROFILE_RUN=false
 
 export EXPT_NAME="ENC_C${ENC_CHANNELS_DELIM}_K${ENC_KERNELS_DELIM}_P${ENC_POOLS_DELIM}_F${ENC_FC_DELIM}/LATENT_${LATENT_DIM}/DEC_F${DEC_FC_DELIM}_C${DEC_CHANNELS_DELIM}_K${DEC_KERNELS_DELIM}_P${DEC_POOLS_DELIM}/ACT_${ACTIVATION_FUNC}_BN_${USE_BATCH_NORM}_WEIGHT_INIT_${WEIGHT_INIT}/OPT_${OPTIMIZER}_LR_${LEARNING_RATE}_EPOCHS_${EPOCHS}_BATCH_${BATCH_SIZE}_DEBUG_${DEBUG_MODEL}"
 
-export MODEL_DIR=${MODELS}/cnn/$EXPT_NAME
+export MODEL_DIR=${MODELS}/cnn/$DATASET_NAME/$EXPT_NAME
 mkdir -p $MODEL_DIR
 
-export LOGS=${MENG_ROOT}/cnn/logs
+export LOGS=${MENG_ROOT}/cnn/logs/$DATASET_NAME
 mkdir -p $LOGS
 
 # For data augmentation
-export AUGMENTED_DATA_DIR=${SCRATCH}/augmented_data/cnn/$EXPT_NAME
+export AUGMENTED_DATA_DIR=${SCRATCH}/augmented_data/cnn/$DATASET_NAME/$EXPT_NAME
 mkdir -p $AUGMENTED_DATA_DIR
 
 # For viewing activations on dev set
 export TOP_COUNT=100    # Only the average of images with top responses logged
-export ACTIVATIONS_DIR=${SCRATCH}/activations/cnn/top_${TOP_COUNT}/$EXPT_NAME
+export ACTIVATIONS_DIR=${SCRATCH}/activations/cnn/$DATASET_NAME/top_${TOP_COUNT}/$EXPT_NAME
 mkdir -p $ACTIVATIONS_DIR
 
 # Denoising autoencoder parameters; uses input "destruction" as described in

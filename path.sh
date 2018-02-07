@@ -13,8 +13,7 @@ mkdir -p $SCRATCH
 export MODELS=$SCRATCH/models
 mkdir -p $MODELS
 
-export FEATS=$MENG_ROOT/ami-0.1
-# export FEATS=/data/sls/scratch/haotang/ami/sls-data/ami-0.1
+export FEATS=$MENG_ROOT
 export TEST_FEATS=$MENG_ROOT/test_feats
 export UTILS=$MENG_ROOT/utils
 

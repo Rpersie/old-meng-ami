@@ -69,19 +69,20 @@ class HaoDataset(Dataset):
 
         # Load in Hao files
         self.scp_path = scp_path
-        self.scp_file = open(self.scp_path, 'r')
 
         # Determine how many utterances and features are included
         self.num_utts = 0
         self.num_feats = 0
         self.hao_ark_fd = None
         self.scp_lines = []
-        for scp_line in self.scp_file:
-            self.num_utts += 1
-            utt_id, feats, self.hao_ark_fd = read_next_utt(scp_line, hao_ark_fd=self.hao_ark_fd)
-            self.num_feats += feats.shape[0]
-            self.scp_lines.append(scp_line)
-        self.scp_file.close()
+        self.uttid_2_scpline = dict()
+        with open(self.scp_path, 'r') as scp_file:
+            for scp_line in scp_file:
+                self.num_utts += 1
+                utt_id, feats, self.hao_ark_fd = read_next_utt(scp_line, hao_ark_fd=self.hao_ark_fd)
+                self.num_feats += feats.shape[0]
+                self.scp_lines.append(scp_line)
+                self.uttid_2_scpline[utt_id] = scp_line
         self.hao_ark_fd.close()
         self.hao_ark_fd = None
         
@@ -149,6 +150,11 @@ class HaoDataset(Dataset):
 
         return (feats_tensor, target_tensor)
 
+    # Get specific utterance 
+    def feats_for_uttid(self, utt_id):
+        utt_id, feat_mat, hao_ark_fd = read_next_utt(self.uttid_2_scpline[utt_id])
+        return feat_mat
+
 
 
 # Utterance-by-utterance loading of Hao files
@@ -160,11 +166,17 @@ class HaoEvalDataset(Dataset):
 
         # Load in Hao files
         self.scp_path = scp_path
-        self.scp_file = open(self.scp_path, 'r')
-
-        # Determine how many utterances are included
-        # Also sets up shuffling of utterances within SCP if desired
-        self.scp_lines = self.scp_file.readlines()
+        self.uttid_2_scpline = dict()
+        with open(self.scp_path, 'r') as scp_file:
+            # Determine how many utterances are included
+            # Also sets up shuffling of utterances within SCP if desired
+            self.scp_lines = list(map(lambda line: line.replace('\n', ''), scp_file.readlines()))
+            self.utt_ids = []
+            for scp_line in self.scp_lines:
+                utt_id = scp_line.split(" ")[0]
+                self.utt_ids.append(utt_id)
+                self.uttid_2_scpline[utt_id] = scp_line
+            
         self.shuffle_utts = shuffle_utts
         if self.shuffle_utts:
             # Shuffle SCP list in place
@@ -173,19 +185,15 @@ class HaoEvalDataset(Dataset):
         # Set up shuffling of feats within utterance
         self.shuffle_feats = shuffle_feats
 
-        # Reset files
-        self.scp_file.seek(0)
-
     # Utterance-level
     def __len__(self):
-        return len(self.scp_lines)
+        return len(self.utt_ids)
 
     def utt_id(self, utt_idx):
         assert(utt_idx < len(self))
-        utt_id, path_pos = self.scp_lines[utt_idx].replace('\n', '').split(' ')
-        return utt_id
+        return self.utt_ids[utt_idx]
     
-    # Full utterance, not one frame
+    # Get next utterance
     def __getitem__(self, idx):
         # Get next utt from SCP file
         scp_line = self.scp_lines[idx]
@@ -204,3 +212,8 @@ class HaoEvalDataset(Dataset):
         
         # Return utterance ID info as well
         return (feats_tensor, target_tensor, utt_id)
+
+    # Get specific utterance 
+    def feats_for_uttid(self, utt_id):
+        utt_id, feat_mat, hao_ark_fd = read_next_utt(self.uttid_2_scpline[utt_id])
+        return feat_mat
