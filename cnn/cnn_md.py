@@ -28,8 +28,8 @@ class CNNMultidecoder(nn.Module):
                        dec_pool_sizes=[],
                        activation="Tanh",
                        decoder_classes=[""],
-                       use_batch_norm=True,
-                       weight_init="uniform"):
+                       use_batch_norm=False,
+                       weight_init="xavier_uniform"):
         super(CNNMultidecoder, self).__init__()
 
         # Store initial parameters
@@ -304,8 +304,8 @@ class CNNVariationalMultidecoder(CNNMultidecoder):
                        dec_pool_sizes=[],
                        activation="Tanh",
                        decoder_classes=[""],
-                       use_batch_norm=True,
-                       weight_init="uniform"):
+                       use_batch_norm=False,
+                       weight_init="xavier_uniform"):
         super(CNNVariationalMultidecoder, self).__init__(freq_dim=freq_dim,
                                                          splicing=splicing,
                                                          enc_channel_sizes=enc_channel_sizes,
@@ -405,3 +405,128 @@ class CNNVariationalMultidecoder(CNNMultidecoder):
         return (self.decode(z, decoder_class, fc_input_size, unpool_sizes, pooling_indices),
                 mu,
                 logvar)
+
+
+
+# Includes an adversarial classifier for picking IHM vs SDM1
+class CNNAdversarialMultidecoder(CNNMultidecoder):
+    def __init__(self, freq_dim=80,
+                       splicing=[5,5],
+                       enc_channel_sizes=[],
+                       enc_kernel_sizes=[],
+                       enc_pool_sizes=[],
+                       enc_fc_sizes=[],
+                       latent_dim=512,
+                       dec_fc_sizes=[],
+                       dec_channel_sizes=[],
+                       dec_kernel_sizes=[],
+                       dec_pool_sizes=[],
+                       activation="Tanh",
+                       decoder_classes=[""],
+                       use_batch_norm=False,
+                       weight_init="xavier_uniform",
+                       adv_fc_sizes=[],
+                       adv_activation="Sigmoid"):
+        super(CNNAdversarialMultidecoder, self).__init__(freq_dim=freq_dim,
+                                                         splicing=splicing,
+                                                         enc_channel_sizes=enc_channel_sizes,
+                                                         enc_kernel_sizes=enc_kernel_sizes,
+                                                         enc_pool_sizes=enc_pool_sizes,
+                                                         enc_fc_sizes=enc_fc_sizes,
+                                                         latent_dim=latent_dim,
+                                                         dec_fc_sizes=dec_fc_sizes,
+                                                         dec_channel_sizes=dec_channel_sizes,
+                                                         dec_kernel_sizes=dec_kernel_sizes,
+                                                         dec_pool_sizes=dec_pool_sizes,
+                                                         activation=activation,
+                                                         decoder_classes=decoder_classes,
+                                                         use_batch_norm=use_batch_norm,
+                                                         weight_init=weight_init)
+        
+        self.adv_fc_sizes = adv_fc_sizes
+        self.adv_activation = adv_activation
+
+        # Construct adversary
+        # Simple linear classifier
+        self.adversary_layers = OrderedDict()
+        current_dim = self.latent_dim
+        for i in range(len(self.adv_fc_sizes)):
+            next_dim = self.adv_fc_sizes[i]
+            self.adversary_layers["lin_%d" % i] = nn.Linear(current_dim, next_dim)
+            self.adversary_layers["%s_%d" % (self.adv_activation, i)] = getattr(nn, self.adv_activation)()
+            current_dim = next_dim
+        self.adversary_layers["lin_final"] = nn.Linear(current_dim, 1)
+        self.adversary = nn.Sequential(self.adversary_layers)
+    
+    # Overwritten to include latent vector as well for input to adversary
+    def forward_decoder(self, feats, decoder_class):
+        latent, fc_input_size, unpool_sizes, pooling_indices = self.encode(feats.view(-1,
+                                                                           1,
+                                                                           self.time_dim,
+                                                                           self.freq_dim))
+        return (self.decode(latent, decoder_class, fc_input_size, unpool_sizes, pooling_indices),
+                latent)
+
+    def adversary_parameters(self):
+        # Get parameters for just the adversary
+        adversary_parameters = self.adversary.parameters()
+        for param in adversary_parameters:
+            yield param
+
+
+
+# Includes an adversarial classifier for picking IHM vs SDM1
+class CNNAdversarialVariationalMultidecoder(CNNVariationalMultidecoder):
+    def __init__(self, freq_dim=80,
+                       splicing=[5,5],
+                       enc_channel_sizes=[],
+                       enc_kernel_sizes=[],
+                       enc_pool_sizes=[],
+                       enc_fc_sizes=[],
+                       latent_dim=512,
+                       dec_fc_sizes=[],
+                       dec_channel_sizes=[],
+                       dec_kernel_sizes=[],
+                       dec_pool_sizes=[],
+                       activation="Tanh",
+                       decoder_classes=[""],
+                       use_batch_norm=False,
+                       weight_init="xavier_uniform",
+                       adv_fc_sizes=[],
+                       adv_activation="Sigmoid"):
+        super(CNNAdversarialVariationalMultidecoder, self).__init__(freq_dim=freq_dim,
+                                                         splicing=splicing,
+                                                         enc_channel_sizes=enc_channel_sizes,
+                                                         enc_kernel_sizes=enc_kernel_sizes,
+                                                         enc_pool_sizes=enc_pool_sizes,
+                                                         enc_fc_sizes=enc_fc_sizes,
+                                                         latent_dim=latent_dim,
+                                                         dec_fc_sizes=dec_fc_sizes,
+                                                         dec_channel_sizes=dec_channel_sizes,
+                                                         dec_kernel_sizes=dec_kernel_sizes,
+                                                         dec_pool_sizes=dec_pool_sizes,
+                                                         activation=activation,
+                                                         decoder_classes=decoder_classes,
+                                                         use_batch_norm=use_batch_norm,
+                                                         weight_init=weight_init)
+        
+        self.adv_fc_sizes = adv_fc_sizes
+        self.adv_activation = adv_activation
+
+        # Construct adversary
+        # Simple linear classifier w/ mu and logvar (concatenated) as input
+        self.adversary_layers = OrderedDict()
+        current_dim = 2 * self.latent_dim
+        for i in range(len(self.adv_fc_sizes)):
+            next_dim = self.adv_fc_sizes[i]
+            self.adversary_layers["lin_%d" % i] = nn.Linear(current_dim, next_dim)
+            self.adversary_layers["%s_%d" % (self.adv_activation, i)] = getattr(nn, self.adv_activation)()
+            current_dim = next_dim
+        self.adversary_layers["lin_final"] = nn.Linear(current_dim, 1)
+        self.adversary = nn.Sequential(self.adversary_layers)
+
+    def adversary_parameters(self):
+        # Get parameters for just the adversary
+        adversary_parameters = self.adversary.parameters()
+        for param in adversary_parameters:
+            yield param

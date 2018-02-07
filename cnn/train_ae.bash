@@ -28,10 +28,10 @@ fi
 
 if [ "$PROFILE_RUN" = true ] ; then
     echo "Profiling..."
-    python3 cnn/scripts/train.py ae profile > $train_log
+    python3 cnn/scripts/train_md.py ae profile > $train_log
     echo "Profiling done -- please run 'snakeviz --port=8890 --server $LOGS/$EXPT_NAME/train_ae.prof' to view the results in browser"
 else
-    python3 cnn/scripts/train.py ae > $train_log
+    python3 cnn/scripts/train_md.py ae > $train_log
 fi
 
 echo "DONE CONVOLUTIONAL MULTIDECODER TRAINING JOB"
