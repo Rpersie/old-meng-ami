@@ -457,15 +457,6 @@ class CNNAdversarialMultidecoder(CNNMultidecoder):
             current_dim = next_dim
         self.adversary_layers["lin_final"] = nn.Linear(current_dim, 1)
         self.adversary = nn.Sequential(self.adversary_layers)
-    
-    # Overwritten to include latent vector as well for input to adversary
-    def forward_decoder(self, feats, decoder_class):
-        latent, fc_input_size, unpool_sizes, pooling_indices = self.encode(feats.view(-1,
-                                                                           1,
-                                                                           self.time_dim,
-                                                                           self.freq_dim))
-        return (self.decode(latent, decoder_class, fc_input_size, unpool_sizes, pooling_indices),
-                latent)
 
     def adversary_parameters(self):
         # Get parameters for just the adversary

@@ -422,7 +422,7 @@ def run_training(run_mode):
                 print("Unknown train mode %s" % run_mode, flush=True)
                 sys.exit(1)
             
-            class_prediction = adversary.forward(latent)
+            class_prediction = model.adversary.forward(latent)
             class_truth = torch.FloatTensor(np.zeros(class_prediction.size())) if decoder_class == "ihm" else torch.FloatTensor(np.ones(class_prediction.size()))
             class_truth = Variable(class_truth)
             if on_gpu:
@@ -564,7 +564,7 @@ def run_training(run_mode):
                     print("Unknown train mode %s" % run_mode, flush=True)
                     sys.exit(1)
                 
-                class_prediction = adversary.forward(latent)
+                class_prediction = model.adversary.forward(latent)
                 class_truth = torch.FloatTensor(np.zeros(class_prediction.size())) if decoder_class == "ihm" else torch.FloatTensor(np.ones(class_prediction.size()))
                 class_truth = Variable(class_truth, volatile=True)
                 if on_gpu:
