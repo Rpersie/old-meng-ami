@@ -15,6 +15,7 @@ from torch.utils.data import DataLoader
 sys.path.append("./")
 sys.path.append("./cnn")
 from cnn_md import CNNMultidecoder, CNNVariationalMultidecoder
+from cnn_md import CNNAdversarialMultidecoder, CNNVariationalAdversarialMultidecoder
 from activation_dict import ActivationDict
 from utils.hao_data import HaoEvalDataset, write_kaldi_hao_ark, write_kaldi_hao_scp
 
@@ -22,9 +23,17 @@ run_start_t = time.clock()
 
 # Parse command line args
 run_mode = "ae"
-if len(sys.argv) == 2:
+adversarial = False
+
+if len(sys.argv) == 3:
     run_mode = sys.argv[1]
+    adversarial = True if sys.argv[2] == "true" else False
+else:
+    print("Usage: python cnn/scripts/activations_md.py <run mode> <adversarial true/false>", flush=True)
+    sys.exit(1)
 print("Running activation logging with mode %s" % run_mode, flush=True)
+if adversarial:
+    print("Using adversarial loss", flush=True)
 
 # Set up noising
 noise_ratio = float(os.environ["NOISE_RATIO"])
@@ -85,6 +94,13 @@ for res_str in os.environ["DECODER_CLASSES_DELIM"].split("_"):
         decoder_classes.append(res_str)
 use_batch_norm = True if os.environ["USE_BATCH_NORM"] == "true" else False
 weight_init = os.environ["WEIGHT_INIT"]
+    
+if adversarial:
+    adv_fc_sizes = []
+    for res_str in os.environ["ADV_FC_DELIM"].split("_"):
+        if len(res_str) > 0:
+            adv_fc_sizes.append(int(res_str))
+    adv_activation = os.environ["ADV_ACTIVATION"]
 
 on_gpu = torch.cuda.is_available()
 log_interval = 10   # Log results once for this many batches during training
@@ -95,7 +111,13 @@ for decoder_class in decoder_classes:
     activations_holdout_scp_name = os.path.join(os.environ["CURRENT_FEATS"], "%s-activations_holdout-norm.blogmel.scp" % decoder_class)
     activations_holdout_scps[decoder_class] = activations_holdout_scp_name
 
-output_dir = os.path.join(os.environ["ACTIVATIONS_DIR"], "%s_ratio%s" % (run_mode, noise_ratio))
+if adversarial:
+    output_dir = os.path.join(os.environ["ACTIVATIONS_DIR"], "adversarial_fc_%s_act_%s_%s_ratio%s" % (os.environ["ADV_FC_DELIM"],
+                                                                                             adv_activation,
+                                                                                             run_mode,
+                                                                                             str(noise_ratio)))
+else:
+    output_dir = os.path.join(os.environ["ACTIVATIONS_DIR"], "%s_ratio%s" % (run_mode, noise_ratio))
 
 # Fix random seed for debugging
 torch.manual_seed(1)
@@ -106,39 +128,77 @@ random.seed(1)
 # Construct autoencoder with our parameters
 print("Constructing model...", flush=True)
 if run_mode == "ae":
-    model = CNNMultidecoder(freq_dim=freq_dim,
-                            splicing=[left_context, right_context], 
-                            enc_channel_sizes=enc_channel_sizes,
-                            enc_kernel_sizes=enc_kernel_sizes,
-                            enc_pool_sizes=enc_pool_sizes,
-                            enc_fc_sizes=enc_fc_sizes,
-                            latent_dim=latent_dim,
-                            dec_fc_sizes=dec_fc_sizes,
-                            dec_channel_sizes=dec_channel_sizes,
-                            dec_kernel_sizes=dec_kernel_sizes,
-                            dec_pool_sizes=dec_pool_sizes,
-                            activation=activation,
-                            decoder_classes=decoder_classes,
-                            use_batch_norm=use_batch_norm,
-                            weight_init=weight_init)
+    if adversarial:
+        model = CNNAdversarialMultidecoder(freq_dim=freq_dim,
+                                splicing=[left_context, right_context], 
+                                enc_channel_sizes=enc_channel_sizes,
+                                enc_kernel_sizes=enc_kernel_sizes,
+                                enc_pool_sizes=enc_pool_sizes,
+                                enc_fc_sizes=enc_fc_sizes,
+                                latent_dim=latent_dim,
+                                dec_fc_sizes=dec_fc_sizes,
+                                dec_channel_sizes=dec_channel_sizes,
+                                dec_kernel_sizes=dec_kernel_sizes,
+                                dec_pool_sizes=dec_pool_sizes,
+                                activation=activation,
+                                use_batch_norm=use_batch_norm,
+                                decoder_classes=decoder_classes,
+                                weight_init=weight_init,
+                                adv_fc_sizes=adv_fc_sizes,
+                                adv_activation=adv_activation)
+    else:
+        model = CNNMultidecoder(freq_dim=freq_dim,
+                                splicing=[left_context, right_context], 
+                                enc_channel_sizes=enc_channel_sizes,
+                                enc_kernel_sizes=enc_kernel_sizes,
+                                enc_pool_sizes=enc_pool_sizes,
+                                enc_fc_sizes=enc_fc_sizes,
+                                latent_dim=latent_dim,
+                                dec_fc_sizes=dec_fc_sizes,
+                                dec_channel_sizes=dec_channel_sizes,
+                                dec_kernel_sizes=dec_kernel_sizes,
+                                dec_pool_sizes=dec_pool_sizes,
+                                activation=activation,
+                                use_batch_norm=use_batch_norm,
+                                decoder_classes=decoder_classes,
+                                weight_init=weight_init)
 elif run_mode == "vae":
-    model = CNNVariationalMultidecoder(freq_dim=freq_dim,
-                            splicing=[left_context, right_context], 
-                            enc_channel_sizes=enc_channel_sizes,
-                            enc_kernel_sizes=enc_kernel_sizes,
-                            enc_pool_sizes=enc_pool_sizes,
-                            enc_fc_sizes=enc_fc_sizes,
-                            latent_dim=latent_dim,
-                            dec_fc_sizes=dec_fc_sizes,
-                            dec_channel_sizes=dec_channel_sizes,
-                            dec_kernel_sizes=dec_kernel_sizes,
-                            dec_pool_sizes=dec_pool_sizes,
-                            activation=activation,
-                            decoder_classes=decoder_classes,
-                            use_batch_norm=use_batch_norm,
-                            weight_init=weight_init)
+    if adversarial:
+        model = CNNVariationalAdversarialMultidecoder(freq_dim=freq_dim,
+                                splicing=[left_context, right_context], 
+                                enc_channel_sizes=enc_channel_sizes,
+                                enc_kernel_sizes=enc_kernel_sizes,
+                                enc_pool_sizes=enc_pool_sizes,
+                                enc_fc_sizes=enc_fc_sizes,
+                                latent_dim=latent_dim,
+                                dec_fc_sizes=dec_fc_sizes,
+                                dec_channel_sizes=dec_channel_sizes,
+                                dec_kernel_sizes=dec_kernel_sizes,
+                                dec_pool_sizes=dec_pool_sizes,
+                                activation=activation,
+                                use_batch_norm=use_batch_norm,
+                                decoder_classes=decoder_classes,
+                                weight_init=weight_init,
+                                adv_fc_sizes=adv_fc_sizes,
+                                adv_activation=adv_activation)
+    else:
+        model = CNNVariationalMultidecoder(freq_dim=freq_dim,
+                                splicing=[left_context, right_context], 
+                                enc_channel_sizes=enc_channel_sizes,
+                                enc_kernel_sizes=enc_kernel_sizes,
+                                enc_pool_sizes=enc_pool_sizes,
+                                enc_fc_sizes=enc_fc_sizes,
+                                latent_dim=latent_dim,
+                                dec_fc_sizes=dec_fc_sizes,
+                                dec_channel_sizes=dec_channel_sizes,
+                                dec_kernel_sizes=dec_kernel_sizes,
+                                dec_pool_sizes=dec_pool_sizes,
+                                activation=activation,
+                                use_batch_norm=use_batch_norm,
+                                decoder_classes=decoder_classes,
+                                weight_init=weight_init)
 else:
-    print("Unknown activation logging mode %s" % run_mode, flush=True)
+    print("Unknown train mode %s" % run_mode, flush=True)
     sys.exit(1)
 
 if on_gpu:
@@ -149,7 +209,13 @@ print(model, flush=True)
 # Load checkpoint (potentially trained on GPU) into CPU memory (hence the map_location)
 print("Loading checkpoint...")
 model_dir = os.environ["MODEL_DIR"]
-best_ckpt_path = os.path.join(model_dir, "best_cnn_%s_ratio%s_md.pth.tar" % (run_mode, str(noise_ratio)))
+if adversarial:
+    best_ckpt_path = os.path.join(model_dir, "best_cnn_adversarial_fc_%s_act_%s_%s_ratio%s_md.pth.tar" % (os.environ["ADV_FC_DELIM"],
+                                                                                              adv_activation,
+                                                                                              run_mode,
+                                                                                              str(noise_ratio)))
+else:
+    best_ckpt_path = os.path.join(model_dir, "best_cnn_%s_ratio%s_md.pth.tar" % (run_mode, str(noise_ratio)))
 checkpoint = torch.load(best_ckpt_path, map_location=lambda storage,loc: storage)
 
 # Set up model state and set to eval mode (i.e. disable batch norm)

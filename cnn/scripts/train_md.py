@@ -15,10 +15,11 @@ from torch.utils.data import DataLoader
 sys.path.append("./")
 sys.path.append("./cnn")
 from cnn_md import CNNMultidecoder, CNNVariationalMultidecoder
+from cnn_md import CNNAdversarialMultidecoder, CNNVariationalAdversarialMultidecoder
 from utils.hao_data import HaoDataset
 
 # Moved to function so that cProfile has a function to call
-def run_training(run_mode):
+def run_training(run_mode, adversarial):
     run_start_t = time.clock()
 
     # Set up noising
@@ -80,6 +81,13 @@ def run_training(run_mode):
             decoder_classes.append(res_str)
     use_batch_norm = True if os.environ["USE_BATCH_NORM"] == "true" else False
     weight_init = os.environ["WEIGHT_INIT"]
+   
+    if adversarial:
+        adv_fc_sizes = []
+        for res_str in os.environ["ADV_FC_DELIM"].split("_"):
+            if len(res_str) > 0:
+                adv_fc_sizes.append(int(res_str))
+        adv_activation = os.environ["ADV_ACTIVATION"]
 
     # Set up training parameters
     batch_size = int(os.environ["BATCH_SIZE"])
@@ -109,37 +117,75 @@ def run_training(run_mode):
     # Construct autoencoder with our parameters
     print("Constructing model...", flush=True)
     if run_mode == "ae":
-        model = CNNMultidecoder(freq_dim=freq_dim,
-                                splicing=[left_context, right_context], 
-                                enc_channel_sizes=enc_channel_sizes,
-                                enc_kernel_sizes=enc_kernel_sizes,
-                                enc_pool_sizes=enc_pool_sizes,
-                                enc_fc_sizes=enc_fc_sizes,
-                                latent_dim=latent_dim,
-                                dec_fc_sizes=dec_fc_sizes,
-                                dec_channel_sizes=dec_channel_sizes,
-                                dec_kernel_sizes=dec_kernel_sizes,
-                                dec_pool_sizes=dec_pool_sizes,
-                                activation=activation,
-                                use_batch_norm=use_batch_norm,
-                                decoder_classes=decoder_classes,
-                                weight_init=weight_init)
+        if adversarial:
+            model = CNNAdversarialMultidecoder(freq_dim=freq_dim,
+                                    splicing=[left_context, right_context], 
+                                    enc_channel_sizes=enc_channel_sizes,
+                                    enc_kernel_sizes=enc_kernel_sizes,
+                                    enc_pool_sizes=enc_pool_sizes,
+                                    enc_fc_sizes=enc_fc_sizes,
+                                    latent_dim=latent_dim,
+                                    dec_fc_sizes=dec_fc_sizes,
+                                    dec_channel_sizes=dec_channel_sizes,
+                                    dec_kernel_sizes=dec_kernel_sizes,
+                                    dec_pool_sizes=dec_pool_sizes,
+                                    activation=activation,
+                                    use_batch_norm=use_batch_norm,
+                                    decoder_classes=decoder_classes,
+                                    weight_init=weight_init,
+                                    adv_fc_sizes=adv_fc_sizes,
+                                    adv_activation=adv_activation)
+        else:
+            model = CNNMultidecoder(freq_dim=freq_dim,
+                                    splicing=[left_context, right_context], 
+                                    enc_channel_sizes=enc_channel_sizes,
+                                    enc_kernel_sizes=enc_kernel_sizes,
+                                    enc_pool_sizes=enc_pool_sizes,
+                                    enc_fc_sizes=enc_fc_sizes,
+                                    latent_dim=latent_dim,
+                                    dec_fc_sizes=dec_fc_sizes,
+                                    dec_channel_sizes=dec_channel_sizes,
+                                    dec_kernel_sizes=dec_kernel_sizes,
+                                    dec_pool_sizes=dec_pool_sizes,
+                                    activation=activation,
+                                    use_batch_norm=use_batch_norm,
+                                    decoder_classes=decoder_classes,
+                                    weight_init=weight_init)
     elif run_mode == "vae":
-        model = CNNVariationalMultidecoder(freq_dim=freq_dim,
-                                splicing=[left_context, right_context], 
-                                enc_channel_sizes=enc_channel_sizes,
-                                enc_kernel_sizes=enc_kernel_sizes,
-                                enc_pool_sizes=enc_pool_sizes,
-                                enc_fc_sizes=enc_fc_sizes,
-                                latent_dim=latent_dim,
-                                dec_fc_sizes=dec_fc_sizes,
-                                dec_channel_sizes=dec_channel_sizes,
-                                dec_kernel_sizes=dec_kernel_sizes,
-                                dec_pool_sizes=dec_pool_sizes,
-                                activation=activation,
-                                use_batch_norm=use_batch_norm,
-                                decoder_classes=decoder_classes,
-                                weight_init=weight_init)
+        if adversarial:
+            model = CNNVariationalAdversarialMultidecoder(freq_dim=freq_dim,
+                                    splicing=[left_context, right_context], 
+                                    enc_channel_sizes=enc_channel_sizes,
+                                    enc_kernel_sizes=enc_kernel_sizes,
+                                    enc_pool_sizes=enc_pool_sizes,
+                                    enc_fc_sizes=enc_fc_sizes,
+                                    latent_dim=latent_dim,
+                                    dec_fc_sizes=dec_fc_sizes,
+                                    dec_channel_sizes=dec_channel_sizes,
+                                    dec_kernel_sizes=dec_kernel_sizes,
+                                    dec_pool_sizes=dec_pool_sizes,
+                                    activation=activation,
+                                    use_batch_norm=use_batch_norm,
+                                    decoder_classes=decoder_classes,
+                                    weight_init=weight_init,
+                                    adv_fc_sizes=adv_fc_sizes,
+                                    adv_activation=adv_activation)
+        else:
+            model = CNNVariationalMultidecoder(freq_dim=freq_dim,
+                                    splicing=[left_context, right_context], 
+                                    enc_channel_sizes=enc_channel_sizes,
+                                    enc_kernel_sizes=enc_kernel_sizes,
+                                    enc_pool_sizes=enc_pool_sizes,
+                                    enc_fc_sizes=enc_fc_sizes,
+                                    latent_dim=latent_dim,
+                                    dec_fc_sizes=dec_fc_sizes,
+                                    dec_channel_sizes=dec_channel_sizes,
+                                    dec_kernel_sizes=dec_kernel_sizes,
+                                    dec_pool_sizes=dec_pool_sizes,
+                                    activation=activation,
+                                    use_batch_norm=use_batch_norm,
+                                    decoder_classes=decoder_classes,
+                                    weight_init=weight_init)
     else:
         print("Unknown train mode %s" % run_mode, flush=True)
         sys.exit(1)
@@ -148,7 +194,13 @@ def run_training(run_mode):
         model.cuda()
 
     model_dir = os.environ["MODEL_DIR"]
-    best_ckpt_path = os.path.join(model_dir, "best_cnn_%s_ratio%s_md.pth.tar" % (run_mode, str(noise_ratio)))
+    if adversarial:
+        best_ckpt_path = os.path.join(model_dir, "best_cnn_adversarial_fc_%s_act_%s_%s_ratio%s_md.pth.tar" % (os.environ["ADV_FC_DELIM"],
+                                                                                                  adv_activation,
+                                                                                                  run_mode,
+                                                                                                  str(noise_ratio)))
+    else:
+        best_ckpt_path = os.path.join(model_dir, "best_cnn_%s_ratio%s_md.pth.tar" % (run_mode, str(noise_ratio)))
     print("Done constructing model.", flush=True)
     print(model, flush=True)
 
@@ -172,6 +224,9 @@ def run_training(run_mode):
         KLD /= x.size()[0] * feat_dim
 
         return KLD
+    
+    def discriminative_loss(guess_class, truth_class):
+        return nn.BCELoss()(guess_class, truth_class)
 
 
 
@@ -186,6 +241,9 @@ def run_training(run_mode):
                                                                    lr=learning_rate)
     encoder_optimizer = getattr(optim, optimizer_name)(model.encoder_parameters(),
                                                        lr=learning_rate)
+    if adversarial:
+        adversary_optimizer = getattr(optim, optimizer_name)(model.adversary_parameters(),
+                                                             lr=learning_rate)
 
     print("Setting up data...", flush=True)
     loader_kwargs = {"num_workers": 1, "pin_memory": True} if on_gpu else {}
@@ -276,6 +334,8 @@ def run_training(run_mode):
                 # Track KL divergence as well
                 decoder_class_losses[decoder_class]["autoencoding_kld"] = 0.0
                 decoder_class_losses[decoder_class]["backtranslation_kld"] = 0.0
+            if adversarial:
+                decoder_class_losses[decoder_class]["adversarial_loss"] = 0.0
 
         batches_processed = 0
         class_batches_processed = {decoder_class: 0 for decoder_class in decoder_classes}
@@ -381,7 +441,58 @@ def run_training(run_mode):
                 decoder_class_losses[decoder_class]["backtranslation_kld"] += k_loss.data[0]
             decoder_optimizers[decoder_class].step()
             encoder_optimizer.step()
+           
+            if adversarial:
+                # PHASE 3: Adversarial loss
+
+                model.train()
+                encoder_optimizer.zero_grad()
+                adversary_optimizer.zero_grad()
+                if run_mode == "ae":
+                    latent, fc_input_size, unpool_sizes, pooling_indices = model.encode(feats.view(-1,
+                                                                                                   1,
+                                                                                                   time_dim,
+                                                                                                   freq_dim))
+                elif run_mode == "vae":
+                    mu, logvar, fc_input_size, unpool_sizes, pooling_indices = model.encode(feats.view(-1,
+                                                                                                       1,
+                                                                                                       time_dim,
+                                                                                                       freq_dim))
+                    latent = torch.cat((mu, logvar), 1)
+                else:
+                    print("Unknown train mode %s" % run_mode, flush=True)
+                    sys.exit(1)
+                
+                class_prediction = model.adversary.forward(latent)
+                class_truth = torch.FloatTensor(np.zeros(class_prediction.size())) if decoder_class == "ihm" else torch.FloatTensor(np.ones(class_prediction.size()))
+                class_truth = Variable(class_truth)
+                if on_gpu:
+                    class_truth = class_truth.cuda()
+                disc_loss = discriminative_loss(class_prediction, class_truth)
+
+                # Train just discriminator
+                old_adv_weights = model.state_dict()["adversary.lin_final.weight"].cpu().numpy()
+                old_enc_weights = model.state_dict()["encoder_fc.lin_final.weight"].cpu().numpy()
+
+                adversary_optimizer.zero_grad()
+                disc_loss.backward(retain_graph=True)
+                adversary_optimizer.step()
+                new_adv_weights = model.state_dict()["adversary.lin_final.weight"].cpu().numpy()
+                new_enc_weights = model.state_dict()["encoder_fc.lin_final.weight"].cpu().numpy()
+
+                # Train just encoder, w/ negative discriminative loss
+                old_adv_weights = model.state_dict()["adversary.lin_final.weight"].cpu().numpy()
+                old_enc_weights = model.state_dict()["encoder_fc.lin_final.weight"].cpu().numpy()
+                encoder_optimizer.zero_grad()
+                adv_loss = -disc_loss
+                adv_loss.backward()
+                encoder_optimizer.step()
+                new_adv_weights = model.state_dict()["adversary.lin_final.weight"].cpu().numpy()
+                new_enc_weights = model.state_dict()["encoder_fc.lin_final.weight"].cpu().numpy()
+
+                decoder_class_losses[decoder_class]["adversarial_loss"] += adv_loss.data[0]
             
+            # Print updates, if any
             batches_processed += 1
             class_batches_processed[decoder_class] += 1
             if batches_processed % log_interval == 0:
@@ -405,6 +516,8 @@ def run_training(run_mode):
                 # Track KL divergence as well
                 decoder_class_losses[decoder_class]["autoencoding_kld"] = 0.0
                 decoder_class_losses[decoder_class]["backtranslation_kld"] = 0.0
+            if adversarial and not recon_only:
+                decoder_class_losses[decoder_class]["adversarial_loss"] = 0.0
 
         other_decoder_class = decoder_classes[1]
         for decoder_class in decoder_classes:
@@ -490,6 +603,34 @@ def run_training(run_mode):
                 decoder_class_losses[decoder_class]["backtranslation_recon_loss"] += r_loss.data[0]
                 if run_mode == "vae" and not recon_only:
                     decoder_class_losses[decoder_class]["backtranslation_kld"] += k_loss.data[0]
+               
+                if adversarial and not recon_only:
+                    # PHASE 3: Adversarial loss
+                    model.eval()
+                    if run_mode == "ae":
+                        latent, fc_input_size, unpool_sizes, pooling_indices = model.encode(feats.view(-1,
+                                                                                                       1,
+                                                                                                       time_dim,
+                                                                                                       freq_dim))
+                    elif run_mode == "vae":
+                        mu, logvar, fc_input_size, unpool_sizes, pooling_indices = model.encode(feats.view(-1,
+                                                                                                           1,
+                                                                                                           time_dim,
+                                                                                                           freq_dim))
+                        latent = torch.cat((mu, logvar), 1)
+                    else:
+                        print("Unknown train mode %s" % run_mode, flush=True)
+                        sys.exit(1)
+                    
+                    class_prediction = model.adversary.forward(latent)
+                    class_truth = torch.FloatTensor(np.zeros(class_prediction.size())) if decoder_class == "ihm" else torch.FloatTensor(np.ones(class_prediction.size()))
+                    class_truth = Variable(class_truth, volatile=True)
+                    if on_gpu:
+                        class_truth = class_truth.cuda()
+                    disc_loss = discriminative_loss(class_prediction, class_truth)
+                    adv_loss = -disc_loss
+                    
+                    decoder_class_losses[decoder_class]["adversarial_loss"] += adv_loss.data[0]
 
             other_decoder_class = decoder_class
             
@@ -501,7 +642,15 @@ def run_training(run_mode):
 
     def save_checkpoint(state_obj, is_best, model_dir):
         if not save_best_only:
-            ckpt_path = os.path.join(model_dir, "ckpt_cnn_%s_ratio%s_md_%d.pth.tar" % (run_mode, str(noise_ratio), state_obj["epoch"]))
+            if adversarial:
+                ckpt_path = os.path.join(model_dir, "ckpt_cnn_adversarial_fc_%s_act_%s_%s_ratio%s_md_%d.pth.tar" % (os.environ["ADV_FC_DELIM"],
+                                                                                                        adv_activation,
+                                                                                                        run_mode,
+                                                                                                        str(noise_ratio),
+                                                                                                        state_obj["epoch"]))
+            else:
+                ckpt_path = os.path.join(model_dir, "ckpt_cnn_%s_ratio%s_md_%d.pth.tar" % (run_mode, str(noise_ratio), state_obj["epoch"]))
+
             torch.save(state_obj, ckpt_path)
             if is_best:
                 shutil.copyfile(ckpt_path, best_ckpt_path)
@@ -560,6 +709,9 @@ def run_training(run_mode):
                 "decoder_optimizers": {decoder_class: decoder_optimizers[decoder_class].state_dict() for decoder_class in decoder_classes},
                 "encoder_optimizer": encoder_optimizer.state_dict(),
             }
+            if adversarial:
+                state_obj["adversary_optimizer"] = adversary_optimizer.state_dict()
+
             save_checkpoint(state_obj, is_best, model_dir)
             print("Saved checkpoint for model", flush=True)
         else:
@@ -591,19 +743,28 @@ def run_training(run_mode):
 
 # Parse command line args
 run_mode = "ae"
+adversarial = False
 profile = False
-if len(sys.argv) >= 2:
+
+if len(sys.argv) >= 3:
     run_mode = sys.argv[1]
-    if len(sys.argv) >= 3:
-        profile = True if sys.argv[2] == "profile" else False
+    adversarial = True if sys.argv[2] == "true" else False
+    if len(sys.argv) >= 4:
+        profile = True if sys.argv[3] == "profile" else False
+else:
+    print("Usage: python cnn/scripts/train_md.py <run mode> <adversarial true/false> <profile (optional)>", flush=True)
+    sys.exit(1)
+
 print("Running training with mode %s" % run_mode, flush=True)
+if adversarial:
+    print("Using adversarial loss", flush=True)
 if profile:
     print("Profiling code using cProfile", flush=True)
 
     import cProfile
     profile_output_dir = os.path.join(os.environ["LOGS"], os.environ["EXPT_NAME"])
     profile_output_path = os.path.join(profile_output_dir, "train_%s.prof" % run_mode)
-    cProfile.run('run_training(run_mode)', profile_output_path) 
+    cProfile.run('run_training(run_mode, adversarial)', profile_output_path) 
 else:
-    run_training(run_mode)
+    run_training(run_mode, adversarial)
 

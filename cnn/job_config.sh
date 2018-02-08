@@ -52,7 +52,6 @@ export ADV_ACTIVATION=Sigmoid
 export ADV_FC_DELIM=$(printf "_%s" "${ADV_FC[@]}")
 
 export MODEL_DIR=${MODELS}/cnn/$DATASET_NAME/$EXPT_NAME
-# export MODEL_DIR=${MODELS}/old/cnn/$EXPT_NAME
 mkdir -p $MODEL_DIR
 
 export LOGS=${MENG_ROOT}/cnn/logs/$DATASET_NAME
