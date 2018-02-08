@@ -1,0 +1,1204 @@
+Running training with mode ae
+Noising 25.000% of input features
+Constructing model...
+Done constructing model.
+CNNMultidecoder(
+  (encoder_conv): Sequential(
+    (conv2d_0): Conv2d (1, 256, kernel_size=(3, 3), stride=(1, 1))
+    (SELU_0): SELU
+    (maxpool2d_0): MaxPool2d(kernel_size=(1, 3), stride=(1, 3), dilation=(1, 1))
+    (conv2d_1): Conv2d (256, 256, kernel_size=(3, 3), stride=(1, 1))
+    (SELU_1): SELU
+    (maxpool2d_1): MaxPool2d(kernel_size=(1, 3), stride=(1, 3), dilation=(1, 1))
+  )
+  (encoder_fc): Sequential(
+    (lin_0): Linear(in_features=14336, out_features=2048)
+    (SELU_0): SELU
+    (lin_1): Linear(in_features=2048, out_features=2048)
+    (SELU_1): SELU
+    (lin_final): Linear(in_features=2048, out_features=128)
+    (SELU_final): SELU
+  )
+  (decoder_fc_ihm): Sequential(
+    (lin_0): Linear(in_features=128, out_features=2048)
+    (SELU_0): SELU
+    (lin_1): Linear(in_features=2048, out_features=2048)
+    (SELU_1): SELU
+    (lin_final): Linear(in_features=2048, out_features=14336)
+    (SELU_final): SELU
+  )
+  (decoder_deconv_ihm): Sequential(
+    (maxunpool2d_0): MaxUnpool2d(kernel_size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_0): Conv2d (256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (SELU_0): SELU
+    (maxunpool2d_1): MaxUnpool2d(kernel_size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_1): Conv2d (256, 1, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (SELU_1): SELU
+  )
+  (decoder_fc_sdm1): Sequential(
+    (lin_0): Linear(in_features=128, out_features=2048)
+    (SELU_0): SELU
+    (lin_1): Linear(in_features=2048, out_features=2048)
+    (SELU_1): SELU
+    (lin_final): Linear(in_features=2048, out_features=14336)
+    (SELU_final): SELU
+  )
+  (decoder_deconv_sdm1): Sequential(
+    (maxunpool2d_0): MaxUnpool2d(kernel_size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_0): Conv2d (256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (SELU_0): SELU
+    (maxunpool2d_1): MaxUnpool2d(kernel_size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_1): Conv2d (256, 1, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (SELU_1): SELU
+  )
+)
+Model has 103268226 trainable parameters
+Setting up data...
+Setting up training datasets...
+Using 2407138 training features (9403 batches) for class ihm
+Using 2407138 training features (9403 batches) for class sdm1
+Setting up dev datasets...
+Using 249565 dev features (975 batches) for class ihm
+Using 249565 dev features (975 batches) for class sdm1
+Setting up minibatch shuffling for training...
+18806 total batches: {'ihm': 9403, 'sdm1': 9403}
+Done setting up data.
+Completed setup in 123.826 seconds
+Starting training!
+
+STARTING EPOCH 1
+Train epoch 1: [1000/18806 (5.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.516
+===> backtranslation_recon_loss: 0.547
+===> Total for class ihm: 1.063
+=> Class sdm1
+===> autoencoding_recon_loss: 0.508
+===> backtranslation_recon_loss: 0.561
+===> Total for class sdm1: 1.069
+TOTAL: 2.132
+Train epoch 1: [2000/18806 (10.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.370
+===> backtranslation_recon_loss: 0.401
+===> Total for class ihm: 0.771
+=> Class sdm1
+===> autoencoding_recon_loss: 0.385
+===> backtranslation_recon_loss: 0.432
+===> Total for class sdm1: 0.817
+TOTAL: 1.589
+Train epoch 1: [3000/18806 (16.0%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.301
+===> backtranslation_recon_loss: 0.328
+===> Total for class ihm: 0.629
+=> Class sdm1
+===> autoencoding_recon_loss: 0.324
+===> backtranslation_recon_loss: 0.365
+===> Total for class sdm1: 0.688
+TOTAL: 1.318
+Train epoch 1: [4000/18806 (21.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.259
+===> backtranslation_recon_loss: 0.281
+===> Total for class ihm: 0.540
+=> Class sdm1
+===> autoencoding_recon_loss: 0.285
+===> backtranslation_recon_loss: 0.319
+===> Total for class sdm1: 0.604
+TOTAL: 1.144
+Train epoch 1: [5000/18806 (26.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.231
+===> backtranslation_recon_loss: 0.250
+===> Total for class ihm: 0.481
+=> Class sdm1
+===> autoencoding_recon_loss: 0.259
+===> backtranslation_recon_loss: 0.288
+===> Total for class sdm1: 0.547
+TOTAL: 1.028
+Train epoch 1: [6000/18806 (31.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.211
+===> backtranslation_recon_loss: 0.226
+===> Total for class ihm: 0.438
+=> Class sdm1
+===> autoencoding_recon_loss: 0.239
+===> backtranslation_recon_loss: 0.265
+===> Total for class sdm1: 0.505
+TOTAL: 0.942
+Train epoch 1: [7000/18806 (37.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.196
+===> backtranslation_recon_loss: 0.208
+===> Total for class ihm: 0.403
+=> Class sdm1
+===> autoencoding_recon_loss: 0.224
+===> backtranslation_recon_loss: 0.246
+===> Total for class sdm1: 0.469
+TOTAL: 0.873
+Train epoch 1: [8000/18806 (42.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.185
+===> backtranslation_recon_loss: 0.195
+===> Total for class ihm: 0.380
+=> Class sdm1
+===> autoencoding_recon_loss: 0.213
+===> backtranslation_recon_loss: 0.232
+===> Total for class sdm1: 0.444
+TOTAL: 0.825
+Train epoch 1: [9000/18806 (47.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.175
+===> backtranslation_recon_loss: 0.183
+===> Total for class ihm: 0.358
+=> Class sdm1
+===> autoencoding_recon_loss: 0.203
+===> backtranslation_recon_loss: 0.219
+===> Total for class sdm1: 0.422
+TOTAL: 0.780
+Train epoch 1: [10000/18806 (53.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.166
+===> backtranslation_recon_loss: 0.172
+===> Total for class ihm: 0.339
+=> Class sdm1
+===> autoencoding_recon_loss: 0.195
+===> backtranslation_recon_loss: 0.209
+===> Total for class sdm1: 0.403
+TOTAL: 0.742
+Train epoch 1: [11000/18806 (58.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.159
+===> backtranslation_recon_loss: 0.163
+===> Total for class ihm: 0.321
+=> Class sdm1
+===> autoencoding_recon_loss: 0.187
+===> backtranslation_recon_loss: 0.199
+===> Total for class sdm1: 0.387
+TOTAL: 0.708
+Train epoch 1: [12000/18806 (63.8%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.152
+===> backtranslation_recon_loss: 0.155
+===> Total for class ihm: 0.307
+=> Class sdm1
+===> autoencoding_recon_loss: 0.181
+===> backtranslation_recon_loss: 0.191
+===> Total for class sdm1: 0.372
+TOTAL: 0.680
+Train epoch 1: [13000/18806 (69.1%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.146
+===> backtranslation_recon_loss: 0.148
+===> Total for class ihm: 0.295
+=> Class sdm1
+===> autoencoding_recon_loss: 0.175
+===> backtranslation_recon_loss: 0.184
+===> Total for class sdm1: 0.359
+TOTAL: 0.654
+Train epoch 1: [14000/18806 (74.4%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.141
+===> backtranslation_recon_loss: 0.142
+===> Total for class ihm: 0.283
+=> Class sdm1
+===> autoencoding_recon_loss: 0.170
+===> backtranslation_recon_loss: 0.177
+===> Total for class sdm1: 0.347
+TOTAL: 0.630
+Train epoch 1: [15000/18806 (79.8%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.137
+===> backtranslation_recon_loss: 0.137
+===> Total for class ihm: 0.274
+=> Class sdm1
+===> autoencoding_recon_loss: 0.166
+===> backtranslation_recon_loss: 0.172
+===> Total for class sdm1: 0.337
+TOTAL: 0.612
+Train epoch 1: [16000/18806 (85.1%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.133
+===> backtranslation_recon_loss: 0.133
+===> Total for class ihm: 0.266
+=> Class sdm1
+===> autoencoding_recon_loss: 0.162
+===> backtranslation_recon_loss: 0.166
+===> Total for class sdm1: 0.328
+TOTAL: 0.594
+Train epoch 1: [17000/18806 (90.4%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.129
+===> backtranslation_recon_loss: 0.128
+===> Total for class ihm: 0.257
+=> Class sdm1
+===> autoencoding_recon_loss: 0.158
+===> backtranslation_recon_loss: 0.161
+===> Total for class sdm1: 0.319
+TOTAL: 0.576
+Train epoch 1: [18000/18806 (95.7%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.126
+===> backtranslation_recon_loss: 0.124
+===> Total for class ihm: 0.250
+=> Class sdm1
+===> autoencoding_recon_loss: 0.154
+===> backtranslation_recon_loss: 0.157
+===> Total for class sdm1: 0.311
+TOTAL: 0.561
+
+EPOCH 1 TRAIN (5815.025s)
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.124
+===> backtranslation_recon_loss: 0.121
+===> Total for class ihm: 0.245
+=> Class sdm1
+===> autoencoding_recon_loss: 0.152
+===> backtranslation_recon_loss: 0.154
+===> Total for class sdm1: 0.306
+TOTAL: 0.550
+
+EPOCH 1 DEV (184.912s)
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.072
+===> backtranslation_recon_loss: 0.065
+===> Total for class ihm: 0.136
+=> Class sdm1
+===> autoencoding_recon_loss: 0.090
+===> backtranslation_recon_loss: 0.087
+===> Total for class sdm1: 0.176
+TOTAL: 0.313
+
+New best dev set loss: 0.312831
+Saved checkpoint for model
+
+STARTING EPOCH 2
+Train epoch 2: [1000/18806 (5.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.070
+===> backtranslation_recon_loss: 0.061
+===> Total for class ihm: 0.131
+=> Class sdm1
+===> autoencoding_recon_loss: 0.097
+===> backtranslation_recon_loss: 0.087
+===> Total for class sdm1: 0.183
+TOTAL: 0.314
+Train epoch 2: [2000/18806 (10.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.066
+===> backtranslation_recon_loss: 0.056
+===> Total for class ihm: 0.122
+=> Class sdm1
+===> autoencoding_recon_loss: 0.093
+===> backtranslation_recon_loss: 0.082
+===> Total for class sdm1: 0.175
+TOTAL: 0.298
+Train epoch 2: [3000/18806 (16.0%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.065
+===> backtranslation_recon_loss: 0.055
+===> Total for class ihm: 0.120
+=> Class sdm1
+===> autoencoding_recon_loss: 0.092
+===> backtranslation_recon_loss: 0.081
+===> Total for class sdm1: 0.173
+TOTAL: 0.292
+Train epoch 2: [4000/18806 (21.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.064
+===> backtranslation_recon_loss: 0.054
+===> Total for class ihm: 0.118
+=> Class sdm1
+===> autoencoding_recon_loss: 0.091
+===> backtranslation_recon_loss: 0.080
+===> Total for class sdm1: 0.171
+TOTAL: 0.290
+Train epoch 2: [5000/18806 (26.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.064
+===> backtranslation_recon_loss: 0.054
+===> Total for class ihm: 0.118
+=> Class sdm1
+===> autoencoding_recon_loss: 0.091
+===> backtranslation_recon_loss: 0.080
+===> Total for class sdm1: 0.170
+TOTAL: 0.288
+Train epoch 2: [6000/18806 (31.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.064
+===> backtranslation_recon_loss: 0.054
+===> Total for class ihm: 0.117
+=> Class sdm1
+===> autoencoding_recon_loss: 0.090
+===> backtranslation_recon_loss: 0.080
+===> Total for class sdm1: 0.170
+TOTAL: 0.287
+Train epoch 2: [7000/18806 (37.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.063
+===> backtranslation_recon_loss: 0.053
+===> Total for class ihm: 0.116
+=> Class sdm1
+===> autoencoding_recon_loss: 0.090
+===> backtranslation_recon_loss: 0.079
+===> Total for class sdm1: 0.169
+TOTAL: 0.285
+Train epoch 2: [8000/18806 (42.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.063
+===> backtranslation_recon_loss: 0.053
+===> Total for class ihm: 0.115
+=> Class sdm1
+===> autoencoding_recon_loss: 0.090
+===> backtranslation_recon_loss: 0.079
+===> Total for class sdm1: 0.168
+TOTAL: 0.284
+Train epoch 2: [9000/18806 (47.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.062
+===> backtranslation_recon_loss: 0.052
+===> Total for class ihm: 0.114
+=> Class sdm1
+===> autoencoding_recon_loss: 0.089
+===> backtranslation_recon_loss: 0.078
+===> Total for class sdm1: 0.167
+TOTAL: 0.281
+Train epoch 2: [10000/18806 (53.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.062
+===> backtranslation_recon_loss: 0.052
+===> Total for class ihm: 0.114
+=> Class sdm1
+===> autoencoding_recon_loss: 0.089
+===> backtranslation_recon_loss: 0.077
+===> Total for class sdm1: 0.166
+TOTAL: 0.280
+Train epoch 2: [11000/18806 (58.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.061
+===> backtranslation_recon_loss: 0.051
+===> Total for class ihm: 0.112
+=> Class sdm1
+===> autoencoding_recon_loss: 0.088
+===> backtranslation_recon_loss: 0.077
+===> Total for class sdm1: 0.165
+TOTAL: 0.277
+Train epoch 2: [12000/18806 (63.8%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.061
+===> backtranslation_recon_loss: 0.051
+===> Total for class ihm: 0.112
+=> Class sdm1
+===> autoencoding_recon_loss: 0.088
+===> backtranslation_recon_loss: 0.076
+===> Total for class sdm1: 0.164
+TOTAL: 0.276
+Train epoch 2: [13000/18806 (69.1%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.061
+===> backtranslation_recon_loss: 0.051
+===> Total for class ihm: 0.111
+=> Class sdm1
+===> autoencoding_recon_loss: 0.087
+===> backtranslation_recon_loss: 0.076
+===> Total for class sdm1: 0.163
+TOTAL: 0.274
+Train epoch 2: [14000/18806 (74.4%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.060
+===> backtranslation_recon_loss: 0.050
+===> Total for class ihm: 0.110
+=> Class sdm1
+===> autoencoding_recon_loss: 0.087
+===> backtranslation_recon_loss: 0.075
+===> Total for class sdm1: 0.162
+TOTAL: 0.272
+Train epoch 2: [15000/18806 (79.8%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.060
+===> backtranslation_recon_loss: 0.050
+===> Total for class ihm: 0.111
+=> Class sdm1
+===> autoencoding_recon_loss: 0.087
+===> backtranslation_recon_loss: 0.075
+===> Total for class sdm1: 0.162
+TOTAL: 0.273
+Train epoch 2: [16000/18806 (85.1%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.060
+===> backtranslation_recon_loss: 0.050
+===> Total for class ihm: 0.110
+=> Class sdm1
+===> autoencoding_recon_loss: 0.086
+===> backtranslation_recon_loss: 0.075
+===> Total for class sdm1: 0.161
+TOTAL: 0.271
+Train epoch 2: [17000/18806 (90.4%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.059
+===> backtranslation_recon_loss: 0.050
+===> Total for class ihm: 0.109
+=> Class sdm1
+===> autoencoding_recon_loss: 0.086
+===> backtranslation_recon_loss: 0.074
+===> Total for class sdm1: 0.160
+TOTAL: 0.269
+Train epoch 2: [18000/18806 (95.7%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.059
+===> backtranslation_recon_loss: 0.049
+===> Total for class ihm: 0.108
+=> Class sdm1
+===> autoencoding_recon_loss: 0.086
+===> backtranslation_recon_loss: 0.074
+===> Total for class sdm1: 0.160
+TOTAL: 0.268
+
+EPOCH 2 TRAIN (5817.941s)
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.059
+===> backtranslation_recon_loss: 0.049
+===> Total for class ihm: 0.108
+=> Class sdm1
+===> autoencoding_recon_loss: 0.085
+===> backtranslation_recon_loss: 0.074
+===> Total for class sdm1: 0.159
+TOTAL: 0.267
+
+EPOCH 2 DEV (186.445s)
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.053
+===> backtranslation_recon_loss: 0.046
+===> Total for class ihm: 0.099
+=> Class sdm1
+===> autoencoding_recon_loss: 0.079
+===> backtranslation_recon_loss: 0.068
+===> Total for class sdm1: 0.147
+TOTAL: 0.246
+
+New best dev set loss: 0.245789
+Saved checkpoint for model
+
+STARTING EPOCH 3
+Train epoch 3: [1000/18806 (5.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.053
+===> backtranslation_recon_loss: 0.045
+===> Total for class ihm: 0.098
+=> Class sdm1
+===> autoencoding_recon_loss: 0.081
+===> backtranslation_recon_loss: 0.068
+===> Total for class sdm1: 0.149
+TOTAL: 0.247
+Train epoch 3: [2000/18806 (10.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.054
+===> backtranslation_recon_loss: 0.045
+===> Total for class ihm: 0.098
+=> Class sdm1
+===> autoencoding_recon_loss: 0.081
+===> backtranslation_recon_loss: 0.068
+===> Total for class sdm1: 0.149
+TOTAL: 0.247
+Train epoch 3: [3000/18806 (16.0%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.053
+===> backtranslation_recon_loss: 0.044
+===> Total for class ihm: 0.097
+=> Class sdm1
+===> autoencoding_recon_loss: 0.080
+===> backtranslation_recon_loss: 0.067
+===> Total for class sdm1: 0.147
+TOTAL: 0.243
+Train epoch 3: [4000/18806 (21.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.053
+===> backtranslation_recon_loss: 0.043
+===> Total for class ihm: 0.096
+=> Class sdm1
+===> autoencoding_recon_loss: 0.079
+===> backtranslation_recon_loss: 0.066
+===> Total for class sdm1: 0.145
+TOTAL: 0.241
+Train epoch 3: [5000/18806 (26.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.053
+===> backtranslation_recon_loss: 0.044
+===> Total for class ihm: 0.097
+=> Class sdm1
+===> autoencoding_recon_loss: 0.080
+===> backtranslation_recon_loss: 0.067
+===> Total for class sdm1: 0.147
+TOTAL: 0.244
+Train epoch 3: [6000/18806 (31.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.053
+===> backtranslation_recon_loss: 0.043
+===> Total for class ihm: 0.096
+=> Class sdm1
+===> autoencoding_recon_loss: 0.079
+===> backtranslation_recon_loss: 0.066
+===> Total for class sdm1: 0.146
+TOTAL: 0.242
+Train epoch 3: [7000/18806 (37.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.052
+===> backtranslation_recon_loss: 0.043
+===> Total for class ihm: 0.095
+=> Class sdm1
+===> autoencoding_recon_loss: 0.079
+===> backtranslation_recon_loss: 0.066
+===> Total for class sdm1: 0.145
+TOTAL: 0.240
+Train epoch 3: [8000/18806 (42.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.052
+===> backtranslation_recon_loss: 0.043
+===> Total for class ihm: 0.095
+=> Class sdm1
+===> autoencoding_recon_loss: 0.079
+===> backtranslation_recon_loss: 0.066
+===> Total for class sdm1: 0.145
+TOTAL: 0.240
+Train epoch 3: [9000/18806 (47.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.052
+===> backtranslation_recon_loss: 0.043
+===> Total for class ihm: 0.095
+=> Class sdm1
+===> autoencoding_recon_loss: 0.079
+===> backtranslation_recon_loss: 0.066
+===> Total for class sdm1: 0.144
+TOTAL: 0.239
+Train epoch 3: [10000/18806 (53.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.052
+===> backtranslation_recon_loss: 0.043
+===> Total for class ihm: 0.094
+=> Class sdm1
+===> autoencoding_recon_loss: 0.079
+===> backtranslation_recon_loss: 0.065
+===> Total for class sdm1: 0.144
+TOTAL: 0.238
+Train epoch 3: [11000/18806 (58.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.052
+===> backtranslation_recon_loss: 0.042
+===> Total for class ihm: 0.094
+=> Class sdm1
+===> autoencoding_recon_loss: 0.078
+===> backtranslation_recon_loss: 0.065
+===> Total for class sdm1: 0.143
+TOTAL: 0.237
+Train epoch 3: [12000/18806 (63.8%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.051
+===> backtranslation_recon_loss: 0.042
+===> Total for class ihm: 0.093
+=> Class sdm1
+===> autoencoding_recon_loss: 0.078
+===> backtranslation_recon_loss: 0.065
+===> Total for class sdm1: 0.143
+TOTAL: 0.236
+Train epoch 3: [13000/18806 (69.1%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.051
+===> backtranslation_recon_loss: 0.042
+===> Total for class ihm: 0.093
+=> Class sdm1
+===> autoencoding_recon_loss: 0.078
+===> backtranslation_recon_loss: 0.065
+===> Total for class sdm1: 0.143
+TOTAL: 0.236
+Train epoch 3: [14000/18806 (74.4%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.051
+===> backtranslation_recon_loss: 0.042
+===> Total for class ihm: 0.093
+=> Class sdm1
+===> autoencoding_recon_loss: 0.078
+===> backtranslation_recon_loss: 0.065
+===> Total for class sdm1: 0.142
+TOTAL: 0.236
+Train epoch 3: [15000/18806 (79.8%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.051
+===> backtranslation_recon_loss: 0.042
+===> Total for class ihm: 0.093
+=> Class sdm1
+===> autoencoding_recon_loss: 0.078
+===> backtranslation_recon_loss: 0.065
+===> Total for class sdm1: 0.143
+TOTAL: 0.236
+Train epoch 3: [16000/18806 (85.1%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.051
+===> backtranslation_recon_loss: 0.042
+===> Total for class ihm: 0.093
+=> Class sdm1
+===> autoencoding_recon_loss: 0.078
+===> backtranslation_recon_loss: 0.065
+===> Total for class sdm1: 0.143
+TOTAL: 0.236
+Train epoch 3: [17000/18806 (90.4%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.051
+===> backtranslation_recon_loss: 0.042
+===> Total for class ihm: 0.092
+=> Class sdm1
+===> autoencoding_recon_loss: 0.078
+===> backtranslation_recon_loss: 0.064
+===> Total for class sdm1: 0.142
+TOTAL: 0.235
+Train epoch 3: [18000/18806 (95.7%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.051
+===> backtranslation_recon_loss: 0.042
+===> Total for class ihm: 0.093
+=> Class sdm1
+===> autoencoding_recon_loss: 0.078
+===> backtranslation_recon_loss: 0.065
+===> Total for class sdm1: 0.143
+TOTAL: 0.236
+
+EPOCH 3 TRAIN (5821.362s)
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.051
+===> backtranslation_recon_loss: 0.042
+===> Total for class ihm: 0.093
+=> Class sdm1
+===> autoencoding_recon_loss: 0.078
+===> backtranslation_recon_loss: 0.064
+===> Total for class sdm1: 0.142
+TOTAL: 0.235
+
+EPOCH 3 DEV (184.837s)
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.047
+===> backtranslation_recon_loss: 0.037
+===> Total for class ihm: 0.085
+=> Class sdm1
+===> autoencoding_recon_loss: 0.073
+===> backtranslation_recon_loss: 0.056
+===> Total for class sdm1: 0.129
+TOTAL: 0.214
+
+New best dev set loss: 0.214055
+Saved checkpoint for model
+
+STARTING EPOCH 4
+Train epoch 4: [1000/18806 (5.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.047
+===> backtranslation_recon_loss: 0.037
+===> Total for class ihm: 0.084
+=> Class sdm1
+===> autoencoding_recon_loss: 0.073
+===> backtranslation_recon_loss: 0.059
+===> Total for class sdm1: 0.132
+TOTAL: 0.216
+Train epoch 4: [2000/18806 (10.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.048
+===> backtranslation_recon_loss: 0.039
+===> Total for class ihm: 0.087
+=> Class sdm1
+===> autoencoding_recon_loss: 0.075
+===> backtranslation_recon_loss: 0.061
+===> Total for class sdm1: 0.136
+TOTAL: 0.224
+Train epoch 4: [3000/18806 (16.0%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.048
+===> backtranslation_recon_loss: 0.038
+===> Total for class ihm: 0.086
+=> Class sdm1
+===> autoencoding_recon_loss: 0.075
+===> backtranslation_recon_loss: 0.060
+===> Total for class sdm1: 0.135
+TOTAL: 0.221
+Train epoch 4: [4000/18806 (21.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.048
+===> backtranslation_recon_loss: 0.038
+===> Total for class ihm: 0.086
+=> Class sdm1
+===> autoencoding_recon_loss: 0.074
+===> backtranslation_recon_loss: 0.060
+===> Total for class sdm1: 0.134
+TOTAL: 0.220
+Train epoch 4: [5000/18806 (26.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.048
+===> backtranslation_recon_loss: 0.039
+===> Total for class ihm: 0.086
+=> Class sdm1
+===> autoencoding_recon_loss: 0.074
+===> backtranslation_recon_loss: 0.060
+===> Total for class sdm1: 0.134
+TOTAL: 0.220
+Train epoch 4: [6000/18806 (31.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.048
+===> backtranslation_recon_loss: 0.039
+===> Total for class ihm: 0.087
+=> Class sdm1
+===> autoencoding_recon_loss: 0.074
+===> backtranslation_recon_loss: 0.060
+===> Total for class sdm1: 0.134
+TOTAL: 0.221
+Train epoch 4: [7000/18806 (37.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.048
+===> backtranslation_recon_loss: 0.038
+===> Total for class ihm: 0.086
+=> Class sdm1
+===> autoencoding_recon_loss: 0.074
+===> backtranslation_recon_loss: 0.060
+===> Total for class sdm1: 0.133
+TOTAL: 0.219
+Train epoch 4: [8000/18806 (42.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.048
+===> backtranslation_recon_loss: 0.039
+===> Total for class ihm: 0.086
+=> Class sdm1
+===> autoencoding_recon_loss: 0.074
+===> backtranslation_recon_loss: 0.060
+===> Total for class sdm1: 0.134
+TOTAL: 0.220
+Train epoch 4: [9000/18806 (47.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.048
+===> backtranslation_recon_loss: 0.039
+===> Total for class ihm: 0.086
+=> Class sdm1
+===> autoencoding_recon_loss: 0.074
+===> backtranslation_recon_loss: 0.060
+===> Total for class sdm1: 0.134
+TOTAL: 0.220
+Train epoch 4: [10000/18806 (53.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.047
+===> backtranslation_recon_loss: 0.038
+===> Total for class ihm: 0.086
+=> Class sdm1
+===> autoencoding_recon_loss: 0.074
+===> backtranslation_recon_loss: 0.060
+===> Total for class sdm1: 0.133
+TOTAL: 0.219
+Train epoch 4: [11000/18806 (58.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.047
+===> backtranslation_recon_loss: 0.038
+===> Total for class ihm: 0.085
+=> Class sdm1
+===> autoencoding_recon_loss: 0.074
+===> backtranslation_recon_loss: 0.059
+===> Total for class sdm1: 0.133
+TOTAL: 0.219
+Train epoch 4: [12000/18806 (63.8%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.047
+===> backtranslation_recon_loss: 0.038
+===> Total for class ihm: 0.085
+=> Class sdm1
+===> autoencoding_recon_loss: 0.074
+===> backtranslation_recon_loss: 0.059
+===> Total for class sdm1: 0.133
+TOTAL: 0.218
+Train epoch 4: [13000/18806 (69.1%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.047
+===> backtranslation_recon_loss: 0.038
+===> Total for class ihm: 0.085
+=> Class sdm1
+===> autoencoding_recon_loss: 0.074
+===> backtranslation_recon_loss: 0.059
+===> Total for class sdm1: 0.133
+TOTAL: 0.218
+Train epoch 4: [14000/18806 (74.4%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.047
+===> backtranslation_recon_loss: 0.038
+===> Total for class ihm: 0.086
+=> Class sdm1
+===> autoencoding_recon_loss: 0.074
+===> backtranslation_recon_loss: 0.059
+===> Total for class sdm1: 0.133
+TOTAL: 0.219
+Train epoch 4: [15000/18806 (79.8%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.047
+===> backtranslation_recon_loss: 0.038
+===> Total for class ihm: 0.086
+=> Class sdm1
+===> autoencoding_recon_loss: 0.074
+===> backtranslation_recon_loss: 0.059
+===> Total for class sdm1: 0.133
+TOTAL: 0.219
+Train epoch 4: [16000/18806 (85.1%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.047
+===> backtranslation_recon_loss: 0.038
+===> Total for class ihm: 0.085
+=> Class sdm1
+===> autoencoding_recon_loss: 0.074
+===> backtranslation_recon_loss: 0.059
+===> Total for class sdm1: 0.133
+TOTAL: 0.218
+Train epoch 4: [17000/18806 (90.4%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.047
+===> backtranslation_recon_loss: 0.038
+===> Total for class ihm: 0.085
+=> Class sdm1
+===> autoencoding_recon_loss: 0.074
+===> backtranslation_recon_loss: 0.059
+===> Total for class sdm1: 0.133
+TOTAL: 0.218
+Train epoch 4: [18000/18806 (95.7%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.047
+===> backtranslation_recon_loss: 0.038
+===> Total for class ihm: 0.085
+=> Class sdm1
+===> autoencoding_recon_loss: 0.074
+===> backtranslation_recon_loss: 0.059
+===> Total for class sdm1: 0.133
+TOTAL: 0.218
+
+EPOCH 4 TRAIN (5822.939s)
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.047
+===> backtranslation_recon_loss: 0.038
+===> Total for class ihm: 0.085
+=> Class sdm1
+===> autoencoding_recon_loss: 0.074
+===> backtranslation_recon_loss: 0.059
+===> Total for class sdm1: 0.133
+TOTAL: 0.218
+
+EPOCH 4 DEV (186.139s)
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.046
+===> backtranslation_recon_loss: 0.036
+===> Total for class ihm: 0.082
+=> Class sdm1
+===> autoencoding_recon_loss: 0.070
+===> backtranslation_recon_loss: 0.055
+===> Total for class sdm1: 0.125
+TOTAL: 0.207
+
+New best dev set loss: 0.206954
+Saved checkpoint for model
+
+STARTING EPOCH 5
+Train epoch 5: [1000/18806 (5.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.046
+===> backtranslation_recon_loss: 0.038
+===> Total for class ihm: 0.084
+=> Class sdm1
+===> autoencoding_recon_loss: 0.072
+===> backtranslation_recon_loss: 0.058
+===> Total for class sdm1: 0.130
+TOTAL: 0.214
+Train epoch 5: [2000/18806 (10.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.047
+===> backtranslation_recon_loss: 0.038
+===> Total for class ihm: 0.085
+=> Class sdm1
+===> autoencoding_recon_loss: 0.073
+===> backtranslation_recon_loss: 0.059
+===> Total for class sdm1: 0.132
+TOTAL: 0.217
+Train epoch 5: [3000/18806 (16.0%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.046
+===> backtranslation_recon_loss: 0.037
+===> Total for class ihm: 0.083
+=> Class sdm1
+===> autoencoding_recon_loss: 0.072
+===> backtranslation_recon_loss: 0.057
+===> Total for class sdm1: 0.130
+TOTAL: 0.213
+Train epoch 5: [4000/18806 (21.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.046
+===> backtranslation_recon_loss: 0.038
+===> Total for class ihm: 0.084
+=> Class sdm1
+===> autoencoding_recon_loss: 0.073
+===> backtranslation_recon_loss: 0.058
+===> Total for class sdm1: 0.131
+TOTAL: 0.215
+Train epoch 5: [5000/18806 (26.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.046
+===> backtranslation_recon_loss: 0.037
+===> Total for class ihm: 0.083
+=> Class sdm1
+===> autoencoding_recon_loss: 0.072
+===> backtranslation_recon_loss: 0.058
+===> Total for class sdm1: 0.130
+TOTAL: 0.213
+Train epoch 5: [6000/18806 (31.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.046
+===> backtranslation_recon_loss: 0.037
+===> Total for class ihm: 0.083
+=> Class sdm1
+===> autoencoding_recon_loss: 0.072
+===> backtranslation_recon_loss: 0.058
+===> Total for class sdm1: 0.130
+TOTAL: 0.213
+Train epoch 5: [7000/18806 (37.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.046
+===> backtranslation_recon_loss: 0.037
+===> Total for class ihm: 0.083
+=> Class sdm1
+===> autoencoding_recon_loss: 0.072
+===> backtranslation_recon_loss: 0.057
+===> Total for class sdm1: 0.129
+TOTAL: 0.212
+Train epoch 5: [8000/18806 (42.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.046
+===> backtranslation_recon_loss: 0.038
+===> Total for class ihm: 0.084
+=> Class sdm1
+===> autoencoding_recon_loss: 0.072
+===> backtranslation_recon_loss: 0.058
+===> Total for class sdm1: 0.130
+TOTAL: 0.214
+Train epoch 5: [9000/18806 (47.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.046
+===> backtranslation_recon_loss: 0.037
+===> Total for class ihm: 0.083
+=> Class sdm1
+===> autoencoding_recon_loss: 0.072
+===> backtranslation_recon_loss: 0.057
+===> Total for class sdm1: 0.129
+TOTAL: 0.212
+Train epoch 5: [10000/18806 (53.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.046
+===> backtranslation_recon_loss: 0.037
+===> Total for class ihm: 0.083
+=> Class sdm1
+===> autoencoding_recon_loss: 0.072
+===> backtranslation_recon_loss: 0.057
+===> Total for class sdm1: 0.129
+TOTAL: 0.212
+Train epoch 5: [11000/18806 (58.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.045
+===> backtranslation_recon_loss: 0.037
+===> Total for class ihm: 0.082
+=> Class sdm1
+===> autoencoding_recon_loss: 0.072
+===> backtranslation_recon_loss: 0.057
+===> Total for class sdm1: 0.129
+TOTAL: 0.211
+Train epoch 5: [12000/18806 (63.8%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.045
+===> backtranslation_recon_loss: 0.037
+===> Total for class ihm: 0.082
+=> Class sdm1
+===> autoencoding_recon_loss: 0.072
+===> backtranslation_recon_loss: 0.057
+===> Total for class sdm1: 0.129
+TOTAL: 0.211
+Train epoch 5: [13000/18806 (69.1%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.045
+===> backtranslation_recon_loss: 0.037
+===> Total for class ihm: 0.082
+=> Class sdm1
+===> autoencoding_recon_loss: 0.072
+===> backtranslation_recon_loss: 0.057
+===> Total for class sdm1: 0.129
+TOTAL: 0.210
+Train epoch 5: [14000/18806 (74.4%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.045
+===> backtranslation_recon_loss: 0.037
+===> Total for class ihm: 0.082
+=> Class sdm1
+===> autoencoding_recon_loss: 0.072
+===> backtranslation_recon_loss: 0.057
+===> Total for class sdm1: 0.129
+TOTAL: 0.210
+Train epoch 5: [15000/18806 (79.8%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.045
+===> backtranslation_recon_loss: 0.037
+===> Total for class ihm: 0.082
+=> Class sdm1
+===> autoencoding_recon_loss: 0.072
+===> backtranslation_recon_loss: 0.057
+===> Total for class sdm1: 0.129
+TOTAL: 0.210
+Train epoch 5: [16000/18806 (85.1%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.045
+===> backtranslation_recon_loss: 0.036
+===> Total for class ihm: 0.081
+=> Class sdm1
+===> autoencoding_recon_loss: 0.072
+===> backtranslation_recon_loss: 0.057
+===> Total for class sdm1: 0.128
+TOTAL: 0.210
+Train epoch 5: [17000/18806 (90.4%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.045
+===> backtranslation_recon_loss: 0.036
+===> Total for class ihm: 0.081
+=> Class sdm1
+===> autoencoding_recon_loss: 0.071
+===> backtranslation_recon_loss: 0.057
+===> Total for class sdm1: 0.128
+TOTAL: 0.209
+Train epoch 5: [18000/18806 (95.7%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.045
+===> backtranslation_recon_loss: 0.036
+===> Total for class ihm: 0.082
+=> Class sdm1
+===> autoencoding_recon_loss: 0.072
+===> backtranslation_recon_loss: 0.057
+===> Total for class sdm1: 0.129
+TOTAL: 0.210
+
+EPOCH 5 TRAIN (5823.318s)
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.045
+===> backtranslation_recon_loss: 0.036
+===> Total for class ihm: 0.081
+=> Class sdm1
+===> autoencoding_recon_loss: 0.072
+===> backtranslation_recon_loss: 0.057
+===> Total for class sdm1: 0.128
+TOTAL: 0.210
+
+EPOCH 5 DEV (184.549s)
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.047
+===> backtranslation_recon_loss: 0.034
+===> Total for class ihm: 0.080
+=> Class sdm1
+===> autoencoding_recon_loss: 0.073
+===> backtranslation_recon_loss: 0.051
+===> Total for class sdm1: 0.124
+TOTAL: 0.204
+
+New best dev set loss: 0.203958
+Saved checkpoint for model
+
+STARTING EPOCH 6

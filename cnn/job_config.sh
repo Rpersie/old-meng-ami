@@ -11,7 +11,7 @@ export ENC_KERNELS=( 3 3 )        # Assume square kernels (AxA)
 export ENC_POOLS=( 3 3 )          # Pool only in frequency; no overlap. Use 0 to indicate no pooling
 export ENC_FC=( 2048 2048 )     # Fully-connected layers following conv layers
 
-export LATENT_DIM=128
+export LATENT_DIM=256
 
 export DEC_FC=( 2048 2048 )     # Fully-connected layers before conv layers
 export DEC_CHANNELS=( 256 256 )

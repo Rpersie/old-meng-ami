@@ -186,9 +186,8 @@ def run_training(run_mode):
 
         return KLD
     
-    def adversarial_loss(guess_class, truth_class):
-        # Negative of binary cross-entropy; want to fool adversary
-        return -nn.BCELoss()(guess_class, truth_class)
+    def discriminative_loss(guess_class, truth_class):
+        return nn.BCELoss()(guess_class, truth_class)
 
 
 
@@ -427,12 +426,29 @@ def run_training(run_mode):
             class_truth = Variable(class_truth)
             if on_gpu:
                 class_truth = class_truth.cuda()
-            adv_loss = adversarial_loss(class_prediction, class_truth)
-            adv_loss.backward()
-            
-            decoder_class_losses[decoder_class]["adversarial_loss"] += adv_loss.data[0]
+            disc_loss = discriminative_loss(class_prediction, class_truth)
+
+            # Train just discriminator
+            old_adv_weights = model.state_dict()["adversary.lin_final.weight"].cpu().numpy()
+            old_enc_weights = model.state_dict()["encoder_fc.lin_final.weight"].cpu().numpy()
+
+            adversary_optimizer.zero_grad()
+            disc_loss.backward(retain_graph=True)
             adversary_optimizer.step()
+            new_adv_weights = model.state_dict()["adversary.lin_final.weight"].cpu().numpy()
+            new_enc_weights = model.state_dict()["encoder_fc.lin_final.weight"].cpu().numpy()
+
+            # Train just encoder, w/ negative discriminative loss
+            old_adv_weights = model.state_dict()["adversary.lin_final.weight"].cpu().numpy()
+            old_enc_weights = model.state_dict()["encoder_fc.lin_final.weight"].cpu().numpy()
+            encoder_optimizer.zero_grad()
+            adv_loss = -disc_loss
+            adv_loss.backward()
             encoder_optimizer.step()
+            new_adv_weights = model.state_dict()["adversary.lin_final.weight"].cpu().numpy()
+            new_enc_weights = model.state_dict()["encoder_fc.lin_final.weight"].cpu().numpy()
+
+            decoder_class_losses[decoder_class]["adversarial_loss"] += adv_loss.data[0]
             
             # Print updates, if any
 
@@ -569,7 +585,8 @@ def run_training(run_mode):
                 class_truth = Variable(class_truth, volatile=True)
                 if on_gpu:
                     class_truth = class_truth.cuda()
-                adv_loss = adversarial_loss(class_prediction, class_truth)
+                disc_loss = discriminative_loss(class_prediction, class_truth)
+                adv_loss = -disc_loss
                 
                 decoder_class_losses[decoder_class]["adversarial_loss"] += adv_loss.data[0]
 
@@ -645,6 +662,7 @@ def run_training(run_mode):
                 "dev_loss": dev_loss,
                 "decoder_optimizers": {decoder_class: decoder_optimizers[decoder_class].state_dict() for decoder_class in decoder_classes},
                 "encoder_optimizer": encoder_optimizer.state_dict(),
+                "adversary_optimizer": adversary_optimizer.state_dict(),
             }
             save_checkpoint(state_obj, is_best, model_dir)
             print("Saved checkpoint for model", flush=True)

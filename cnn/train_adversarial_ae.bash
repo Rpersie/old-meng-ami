@@ -18,8 +18,6 @@ export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64:/data/sls/u/meng/skanda/cuda/li
 source activate $TRAIN_ENV
 echo "Environment set up."
 
-export EXPT_NAME=$EXPT_NAME/adversarial_fc_${ADV_FC_DELIM}_act_${ADV_ACTIVATION}
-
 mkdir -p $LOGS/$EXPT_NAME
 train_log=$LOGS/$EXPT_NAME/train_adversarial_fc_${ADV_FC_DELIM}_act_${ADV_ACTIVATION}_ae.log
 if [ -f $train_log ]; then

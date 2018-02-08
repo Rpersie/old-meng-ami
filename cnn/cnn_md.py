@@ -456,6 +456,7 @@ class CNNAdversarialMultidecoder(CNNMultidecoder):
             self.adversary_layers["%s_%d" % (self.adv_activation, i)] = getattr(nn, self.adv_activation)()
             current_dim = next_dim
         self.adversary_layers["lin_final"] = nn.Linear(current_dim, 1)
+        self.adversary_layers["%s_final" % self.adv_activation] = getattr(nn, self.adv_activation)() 
         self.adversary = nn.Sequential(self.adversary_layers)
 
     def adversary_parameters(self):
@@ -514,6 +515,7 @@ class CNNAdversarialVariationalMultidecoder(CNNVariationalMultidecoder):
             self.adversary_layers["%s_%d" % (self.adv_activation, i)] = getattr(nn, self.adv_activation)()
             current_dim = next_dim
         self.adversary_layers["lin_final"] = nn.Linear(current_dim, 1)
+        self.adversary_layers["%s_final" % self.adv_activation] = getattr(nn, self.adv_activation)() 
         self.adversary = nn.Sequential(self.adversary_layers)
 
     def adversary_parameters(self):
