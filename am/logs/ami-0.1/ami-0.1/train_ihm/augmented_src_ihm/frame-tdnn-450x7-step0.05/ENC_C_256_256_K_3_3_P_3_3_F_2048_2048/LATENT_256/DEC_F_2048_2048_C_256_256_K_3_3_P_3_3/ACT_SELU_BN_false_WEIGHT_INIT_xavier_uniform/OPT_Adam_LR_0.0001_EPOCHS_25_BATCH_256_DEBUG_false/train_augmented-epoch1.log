@@ -1,0 +1,1515 @@
+/data/sls/scratch/haotang/ami/dist/nn-20171213-4c6c341/nnbin/frame-tdnn-learn-gpu --frame-scp /data/sls/scratch/atitus5/meng/augmented_data/cnn/ami-0.1/ENC_C_256_256_K_3_3_P_3_3_F_2048_2048/LATENT_256/DEC_F_2048_2048_C_256_256_K_3_3_P_3_3/ACT_SELU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/ae_ratio0.25/train-src_ihm-tar_ihm.scp --label-scp /data/sls/r/u/atitus5/meng/ami-0.1/ihm-train-tri3.bali.scp --param /data/sls/scratch/atitus5/meng/models/am/ami-0.1/ami-0.1/train_ihm/augmented_src_ihm/frame-tdnn-450x7-step0.05/ENC_C_256_256_K_3_3_P_3_3_F_2048_2048/LATENT_256/DEC_F_2048_2048_C_256_256_K_3_3_P_3_3/ACT_SELU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/param-0 --opt-data /data/sls/scratch/atitus5/meng/models/am/ami-0.1/ami-0.1/train_ihm/augmented_src_ihm/frame-tdnn-450x7-step0.05/ENC_C_256_256_K_3_3_P_3_3_F_2048_2048/LATENT_256/DEC_F_2048_2048_C_256_256_K_3_3_P_3_3/ACT_SELU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/opt-data-0 --output-param /data/sls/scratch/atitus5/meng/models/am/ami-0.1/ami-0.1/train_ihm/augmented_src_ihm/frame-tdnn-450x7-step0.05/ENC_C_256_256_K_3_3_P_3_3_F_2048_2048/LATENT_256/DEC_F_2048_2048_C_256_256_K_3_3_P_3_3/ACT_SELU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/param-1 --output-opt-data /data/sls/scratch/atitus5/meng/models/am/ami-0.1/ami-0.1/train_ihm/augmented_src_ihm/frame-tdnn-450x7-step0.05/ENC_C_256_256_K_3_3_P_3_3_F_2048_2048/LATENT_256/DEC_F_2048_2048_C_256_256_K_3_3_P_3_3/ACT_SELU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/opt-data-1 --label /data/sls/r/u/atitus5/meng/ami-0.1/ihm-pdfids.txt --seed 1 --shuffle --opt const-step --step-size 0.05 --clip 5 
+sample: 0
+index: 7657
+frames: 337
+labels: 337
+loss: 2790.89
+E: 8.28158
+grad norm: 3959.56
+gradient clipped
+name: weight weight: -0.0213938 update: -6.05658e-07 rate: 2.831e-05
+
+sample: 1
+index: 8057
+frames: 495
+labels: 495
+loss: 4122.04
+E: 8.32736
+grad norm: 887.434
+gradient clipped
+name: weight weight: -0.0213944 update: -3.89364e-05 rate: 0.00181993
+
+sample: 2
+index: 7375
+frames: 43
+labels: 43
+loss: 359.371
+E: 8.35747
+grad norm: 174.962
+gradient clipped
+name: weight weight: -0.0214333 update: -8.56067e-05 rate: 0.00399409
+
+sample: 3
+index: 2486
+frames: 35
+labels: 35
+loss: 295.165
+E: 8.43328
+grad norm: 211.879
+gradient clipped
+name: weight weight: -0.0215189 update: 0.000234935 rate: -0.0109176
+
+sample: 4
+index: 7997
+frames: 406
+labels: 406
+loss: 3373.08
+E: 8.30807
+grad norm: 846.857
+gradient clipped
+name: weight weight: -0.021284 update: 3.44643e-06 rate: -0.000161926
+
+sample: 5
+index: 6424
+frames: 114
+labels: 114
+loss: 937.402
+E: 8.22282
+grad norm: 434.719
+gradient clipped
+name: weight weight: -0.0212806 update: 9.3109e-06 rate: -0.00043753
+
+sample: 6
+index: 3290
+frames: 121
+labels: 121
+loss: 942.657
+E: 7.79055
+grad norm: 1468.89
+gradient clipped
+name: weight weight: -0.0212713 update: 0.000309656 rate: -0.0145575
+
+sample: 7
+index: 4619
+frames: 204
+labels: 204
+loss: 1637.27
+E: 8.02581
+grad norm: 796.456
+gradient clipped
+name: weight weight: -0.0209616 update: 0.000205083 rate: -0.00978373
+
+sample: 8
+index: 893
+frames: 43
+labels: 43
+loss: 336.531
+E: 7.82631
+grad norm: 331.117
+gradient clipped
+name: weight weight: -0.0207565 update: -1.14465e-05 rate: 0.000551463
+
+sample: 9
+index: 1801
+frames: 542
+labels: 542
+loss: 4289.53
+E: 7.91427
+grad norm: 8329.25
+gradient clipped
+name: weight weight: -0.020768 update: 7.07536e-05 rate: -0.00340686
+
+sample: 10
+index: 927
+frames: 307
+labels: 307
+loss: 2536.94
+E: 8.26363
+grad norm: 494.247
+gradient clipped
+name: weight weight: -0.0206972 update: 0.000168961 rate: -0.00816348
+
+sample: 11
+index: 4654
+frames: 527
+labels: 527
+loss: 3875.28
+E: 7.35347
+grad norm: 3176.22
+gradient clipped
+name: weight weight: -0.0205282 update: -0.000224762 rate: 0.0109489
+
+sample: 12
+index: 4534
+frames: 270
+labels: 270
+loss: 1796.79
+E: 6.65478
+grad norm: 4779.25
+gradient clipped
+name: weight weight: -0.020753 update: 0.000405999 rate: -0.0195634
+
+sample: 13
+index: 49
+frames: 201
+labels: 201
+loss: 1673.17
+E: 8.32423
+grad norm: 422.451
+gradient clipped
+name: weight weight: -0.020347 update: -0.000172363 rate: 0.00847116
+
+sample: 14
+index: 8235
+frames: 60
+labels: 60
+loss: 473.833
+E: 7.89722
+grad norm: 225.206
+gradient clipped
+name: weight weight: -0.0205194 update: 2.84204e-05 rate: -0.00138505
+
+sample: 15
+index: 3853
+frames: 36
+labels: 36
+loss: 305.019
+E: 8.47274
+grad norm: 227.013
+gradient clipped
+name: weight weight: -0.020491 update: 0.000137847 rate: -0.0067272
+
+sample: 16
+index: 9085
+frames: 678
+labels: 678
+loss: 5097.15
+E: 7.51792
+grad norm: 3043.18
+gradient clipped
+name: weight weight: -0.0203531 update: -0.000289304 rate: 0.0142143
+
+sample: 17
+index: 3065
+frames: 72
+labels: 72
+loss: 584.785
+E: 8.12202
+grad norm: 295.318
+gradient clipped
+name: weight weight: -0.0206424 update: 3.24445e-05 rate: -0.00157174
+
+sample: 18
+index: 4516
+frames: 129
+labels: 129
+loss: 444.93
+E: 3.44907
+grad norm: 1803.25
+gradient clipped
+name: weight weight: -0.02061 update: -0.000273671 rate: 0.0132786
+
+sample: 19
+index: 2872
+frames: 63
+labels: 63
+loss: 597.237
+E: 9.47996
+grad norm: 1970.57
+gradient clipped
+name: weight weight: -0.0208836 update: 0.000101313 rate: -0.00485129
+
+sample: 20
+index: 3657
+frames: 453
+labels: 453
+loss: 3373.65
+E: 7.44735
+grad norm: 1719.19
+gradient clipped
+name: weight weight: -0.0207823 update: -0.000143963 rate: 0.00692719
+
+sample: 21
+index: 7895
+frames: 210
+labels: 210
+loss: 1769.78
+E: 8.42752
+grad norm: 1987.18
+gradient clipped
+name: weight weight: -0.0209263 update: -2.63095e-06 rate: 0.000125725
+
+sample: 22
+index: 7140
+frames: 14
+labels: 14
+loss: 115.588
+E: 8.25631
+grad norm: 34.2362
+gradient clipped
+name: weight weight: -0.0209289 update: 0 rate: -0
+
+sample: 23
+index: 3140
+frames: 162
+labels: 162
+loss: 1607.8
+E: 9.92471
+grad norm: 6431.9
+gradient clipped
+name: weight weight: -0.0209289 update: 6.93234e-05 rate: -0.00331233
+
+sample: 24
+index: 7795
+frames: 34
+labels: 34
+loss: 280.724
+E: 8.25658
+grad norm: 76.7018
+gradient clipped
+name: weight weight: -0.0208596 update: -1.55727e-05 rate: 0.000746548
+
+sample: 25
+index: 5014
+frames: 284
+labels: 284
+loss: 2257.65
+E: 7.94948
+grad norm: 695.602
+gradient clipped
+name: weight weight: -0.0208752 update: 1.76237e-05 rate: -0.000844244
+
+sample: 26
+index: 3224
+frames: 62
+labels: 62
+loss: 220.791
+E: 3.56115
+grad norm: 685.405
+gradient clipped
+name: weight weight: -0.0208575 update: 9.2626e-05 rate: -0.00444089
+
+sample: 27
+index: 1227
+frames: 326
+labels: 326
+loss: 2676.49
+E: 8.2101
+grad norm: 6245.12
+gradient clipped
+name: weight weight: -0.0207649 update: -5.8055e-05 rate: 0.00279582
+
+sample: 28
+index: 7349
+frames: 130
+labels: 130
+loss: 1058.09
+E: 8.13917
+grad norm: 302.855
+gradient clipped
+name: weight weight: -0.020823 update: -1.59456e-05 rate: 0.00076577
+
+sample: 29
+index: 4212
+frames: 77
+labels: 77
+loss: 497.891
+E: 6.46611
+grad norm: 796.423
+gradient clipped
+name: weight weight: -0.0208389 update: 0.000172054 rate: -0.00825637
+
+sample: 30
+index: 7018
+frames: 77
+labels: 77
+loss: 636.318
+E: 8.26387
+grad norm: 251.82
+gradient clipped
+name: weight weight: -0.0206669 update: -1.75663e-05 rate: 0.000849975
+
+sample: 31
+index: 8382
+frames: 12
+labels: 12
+loss: 99.768
+E: 8.314
+grad norm: 44.4614
+gradient clipped
+name: weight weight: -0.0206844 update: 4.59706e-06 rate: -0.000222247
+
+sample: 32
+index: 3196
+frames: 65
+labels: 65
+loss: 574.303
+E: 8.83543
+grad norm: 1209.8
+gradient clipped
+name: weight weight: -0.0206798 update: -0.000103755 rate: 0.00501723
+
+sample: 33
+index: 3001
+frames: 96
+labels: 96
+loss: 803.947
+E: 8.37445
+grad norm: 415.482
+gradient clipped
+name: weight weight: -0.0207836 update: 7.6357e-06 rate: -0.000367391
+
+sample: 34
+index: 1446
+frames: 425
+labels: 425
+loss: 2900.18
+E: 6.82395
+grad norm: 3651.34
+gradient clipped
+name: weight weight: -0.020776 update: 9.03483e-05 rate: -0.0043487
+
+sample: 35
+index: 6962
+frames: 43
+labels: 43
+loss: 351.093
+E: 8.16494
+grad norm: 184.362
+gradient clipped
+name: weight weight: -0.0206856 update: -0.000286749 rate: 0.0138623
+
+sample: 36
+index: 5065
+frames: 40
+labels: 40
+loss: 294.777
+E: 7.36942
+grad norm: 195.562
+gradient clipped
+name: weight weight: -0.0209724 update: -0.000153367 rate: 0.00731283
+
+sample: 37
+index: 605
+frames: 537
+labels: 537
+loss: 6911.92
+E: 12.8714
+grad norm: 33206.4
+gradient clipped
+name: weight weight: -0.0211257 update: 3.87078e-05 rate: -0.00183226
+
+sample: 38
+index: 7072
+frames: 1103
+labels: 1103
+loss: 8475.78
+E: 7.68429
+grad norm: 5955.7
+gradient clipped
+name: weight weight: -0.021087 update: 2.28245e-05 rate: -0.0010824
+
+sample: 39
+index: 8077
+frames: 17
+labels: 17
+loss: 120.906
+E: 7.11212
+grad norm: 116.189
+gradient clipped
+name: weight weight: -0.0210642 update: -0.000193913 rate: 0.00920584
+
+sample: 40
+index: 9730
+frames: 191
+labels: 191
+loss: 1465.14
+E: 7.6709
+grad norm: 2089.67
+gradient clipped
+name: weight weight: -0.0212581 update: 5.519e-05 rate: -0.00259618
+
+sample: 41
+index: 130
+frames: 98
+labels: 98
+loss: 809.194
+E: 8.25709
+grad norm: 146.188
+gradient clipped
+name: weight weight: -0.0212029 update: 3.9628e-05 rate: -0.00186899
+
+sample: 42
+index: 771
+frames: 16
+labels: 16
+loss: 131.112
+E: 8.19453
+grad norm: 62.6154
+gradient clipped
+name: weight weight: -0.0211633 update: 6.03719e-05 rate: -0.00285267
+
+sample: 43
+index: 6589
+frames: 634
+labels: 634
+loss: 5004.23
+E: 7.89311
+grad norm: 1238.41
+gradient clipped
+name: weight weight: -0.0211029 update: 8.42007e-05 rate: -0.00399
+
+sample: 44
+index: 8157
+frames: 43
+labels: 43
+loss: 222.172
+E: 5.16678
+grad norm: 400.496
+gradient clipped
+name: weight weight: -0.0210187 update: 1.39247e-05 rate: -0.000662493
+
+sample: 45
+index: 2693
+frames: 30
+labels: 30
+loss: 238.531
+E: 7.95103
+grad norm: 237.884
+gradient clipped
+name: weight weight: -0.0210048 update: 0.000431113 rate: -0.0205245
+
+sample: 46
+index: 4050
+frames: 36
+labels: 36
+loss: 295.573
+E: 8.21036
+grad norm: 98.1789
+gradient clipped
+name: weight weight: -0.0205737 update: -2.71301e-05 rate: 0.00131868
+
+sample: 47
+index: 2119
+frames: 30
+labels: 30
+loss: 247.511
+E: 8.25038
+grad norm: 135.58
+gradient clipped
+name: weight weight: -0.0206008 update: -2.12172e-05 rate: 0.00102992
+
+sample: 48
+index: 956
+frames: 196
+labels: 196
+loss: 1550.72
+E: 7.91185
+grad norm: 591.679
+gradient clipped
+name: weight weight: -0.020622 update: 0.000123267 rate: -0.00597746
+
+sample: 49
+index: 2182
+frames: 34
+labels: 34
+loss: 263.486
+E: 7.74959
+grad norm: 272.489
+gradient clipped
+name: weight weight: -0.0204988 update: 5.38817e-06 rate: -0.000262854
+
+sample: 50
+index: 3986
+frames: 184
+labels: 184
+loss: 1225.39
+E: 6.65972
+grad norm: 3249.41
+gradient clipped
+name: weight weight: -0.0204934 update: 6.11755e-05 rate: -0.00298513
+
+sample: 51
+index: 318
+frames: 31
+labels: 31
+loss: 261.554
+E: 8.43721
+grad norm: 95.8206
+gradient clipped
+name: weight weight: -0.0204322 update: 0.000301976 rate: -0.0147794
+
+sample: 52
+index: 6028
+frames: 84
+labels: 84
+loss: 663.679
+E: 7.90094
+grad norm: 217.51
+gradient clipped
+name: weight weight: -0.0201302 update: 9.90025e-05 rate: -0.0049181
+
+sample: 53
+index: 4637
+frames: 419
+labels: 419
+loss: 4188.2
+E: 9.9957
+grad norm: 12752.7
+gradient clipped
+name: weight weight: -0.0200312 update: -0.000199017 rate: 0.00993533
+
+sample: 54
+index: 1199
+frames: 545
+labels: 545
+loss: 4426.23
+E: 8.12152
+grad norm: 927.247
+gradient clipped
+name: weight weight: -0.0202302 update: 0.000178385 rate: -0.00881773
+
+sample: 55
+index: 3865
+frames: 31
+labels: 31
+loss: 237.764
+E: 7.6698
+grad norm: 185.741
+gradient clipped
+name: weight weight: -0.0200518 update: 0.000169327 rate: -0.00844444
+
+sample: 56
+index: 5811
+frames: 762
+labels: 762
+loss: 5539.92
+E: 7.27023
+grad norm: 3272.03
+gradient clipped
+name: weight weight: -0.0198825 update: 6.6328e-05 rate: -0.003336
+
+sample: 57
+index: 5906
+frames: 351
+labels: 351
+loss: 2850.59
+E: 8.12133
+grad norm: 798.444
+gradient clipped
+name: weight weight: -0.0198162 update: -3.29806e-05 rate: 0.00166432
+
+sample: 58
+index: 8375
+frames: 55
+labels: 55
+loss: 411.986
+E: 7.49065
+grad norm: 1596.38
+gradient clipped
+name: weight weight: -0.0198492 update: -0.000229 rate: 0.011537
+
+sample: 59
+index: 3218
+frames: 787
+labels: 787
+loss: 5390.9
+E: 6.84994
+grad norm: 2055.84
+gradient clipped
+name: weight weight: -0.0200782 update: -0.000359463 rate: 0.0179032
+
+sample: 60
+index: 2076
+frames: 101
+labels: 101
+loss: 474.188
+E: 4.69493
+grad norm: 1200.29
+gradient clipped
+name: weight weight: -0.0204376 update: -0.000132118 rate: 0.00646445
+
+sample: 61
+index: 3072
+frames: 140
+labels: 140
+loss: 1142.3
+E: 8.15927
+grad norm: 202.14
+gradient clipped
+name: weight weight: -0.0205698 update: 0.000155685 rate: -0.00756863
+
+sample: 62
+index: 6164
+frames: 114
+labels: 114
+loss: 905.075
+E: 7.93925
+grad norm: 243.683
+gradient clipped
+name: weight weight: -0.0204141 update: 0.000102804 rate: -0.00503596
+
+sample: 63
+index: 2556
+frames: 60
+labels: 60
+loss: 734.151
+E: 12.2359
+grad norm: 3961.74
+gradient clipped
+name: weight weight: -0.0203113 update: -0.000263114 rate: 0.0129541
+
+sample: 64
+index: 3864
+frames: 83
+labels: 83
+loss: 678.563
+E: 8.17546
+grad norm: 151.483
+gradient clipped
+name: weight weight: -0.0205744 update: -0.000256813 rate: 0.0124822
+
+sample: 65
+index: 5184
+frames: 43
+labels: 43
+loss: 371.852
+E: 8.64773
+grad norm: 269.523
+gradient clipped
+name: weight weight: -0.0208312 update: 0.000263383 rate: -0.0126437
+
+sample: 66
+index: 9637
+frames: 85
+labels: 85
+loss: 715.322
+E: 8.41555
+grad norm: 213.627
+gradient clipped
+name: weight weight: -0.0205678 update: 1.21176e-05 rate: -0.000589151
+
+sample: 67
+index: 6776
+frames: 430
+labels: 430
+loss: 3229.1
+E: 7.50955
+grad norm: 1560.13
+gradient clipped
+name: weight weight: -0.0205557 update: -2.36892e-05 rate: 0.00115244
+
+sample: 68
+index: 9120
+frames: 25
+labels: 25
+loss: 205.585
+E: 8.22339
+grad norm: 53.4649
+gradient clipped
+name: weight weight: -0.0205794 update: -1.3128e-05 rate: 0.000637922
+
+sample: 69
+index: 6174
+frames: 109
+labels: 109
+loss: 906.535
+E: 8.31683
+grad norm: 126.089
+gradient clipped
+name: weight weight: -0.0205925 update: -6.5297e-05 rate: 0.00317091
+
+sample: 70
+index: 8133
+frames: 500
+labels: 500
+loss: 3968.02
+E: 7.93604
+grad norm: 1544.96
+gradient clipped
+name: weight weight: -0.0206578 update: -0.000460627 rate: 0.0222979
+
+sample: 71
+index: 5887
+frames: 318
+labels: 318
+loss: 2537.11
+E: 7.97834
+grad norm: 487.884
+gradient clipped
+name: weight weight: -0.0211184 update: 1.51908e-05 rate: -0.000719313
+
+sample: 72
+index: 8181
+frames: 39
+labels: 39
+loss: 153.994
+E: 3.94857
+grad norm: 478.286
+gradient clipped
+name: weight weight: -0.0211032 update: 3.19896e-05 rate: -0.00151586
+
+sample: 73
+index: 4735
+frames: 53
+labels: 53
+loss: 544.591
+E: 10.2753
+grad norm: 3338.68
+gradient clipped
+name: weight weight: -0.0210713 update: -0.000591484 rate: 0.0280707
+
+sample: 74
+index: 824
+frames: 14
+labels: 14
+loss: 109.794
+E: 7.84244
+grad norm: 62.0914
+gradient clipped
+name: weight weight: -0.0216627 update: 0.000128363 rate: -0.00592551
+
+sample: 75
+index: 8322
+frames: 33
+labels: 33
+loss: 228.113
+E: 6.91252
+grad norm: 181.684
+gradient clipped
+name: weight weight: -0.0215344 update: 0.000195945 rate: -0.00909915
+
+sample: 76
+index: 9987
+frames: 26
+labels: 26
+loss: 164.513
+E: 6.32742
+grad norm: 151.422
+gradient clipped
+name: weight weight: -0.0213384 update: -8.89447e-05 rate: 0.00416829
+
+sample: 77
+index: 4085
+frames: 140
+labels: 140
+loss: 1185.91
+E: 8.47079
+grad norm: 568.933
+gradient clipped
+name: weight weight: -0.0214274 update: -0.000255003 rate: 0.0119008
+
+sample: 78
+index: 7943
+frames: 107
+labels: 107
+loss: 870.717
+E: 8.13755
+grad norm: 271.747
+gradient clipped
+name: weight weight: -0.0216824 update: -3.09646e-05 rate: 0.0014281
+
+sample: 79
+index: 9095
+frames: 229
+labels: 229
+loss: 1578.79
+E: 6.89428
+grad norm: 1512.83
+gradient clipped
+name: weight weight: -0.0217133 update: 0.000991159 rate: -0.0456475
+
+sample: 80
+index: 2741
+frames: 844
+labels: 844
+loss: 6719.58
+E: 7.96158
+grad norm: 15683.9
+gradient clipped
+name: weight weight: -0.0207222 update: -0.000289033 rate: 0.013948
+
+sample: 81
+index: 7012
+frames: 197
+labels: 197
+loss: 1172.7
+E: 5.95279
+grad norm: 1768.02
+gradient clipped
+name: weight weight: -0.0210112 update: -6.89081e-05 rate: 0.00327959
+
+sample: 82
+index: 1586
+frames: 250
+labels: 250
+loss: 2333.71
+E: 9.33484
+grad norm: 8239.19
+gradient clipped
+name: weight weight: -0.0210801 update: -0.000438979 rate: 0.0208243
+
+sample: 83
+index: 2955
+frames: 407
+labels: 407
+loss: 3320.9
+E: 8.15946
+grad norm: 650.691
+gradient clipped
+name: weight weight: -0.0215191 update: 0.00108455 rate: -0.0503994
+
+sample: 84
+index: 5711
+frames: 378
+labels: 378
+loss: 3113.31
+E: 8.23626
+grad norm: 1712.3
+gradient clipped
+name: weight weight: -0.0204346 update: 7.34528e-05 rate: -0.00359454
+
+sample: 85
+index: 3775
+frames: 507
+labels: 507
+loss: 3946.8
+E: 7.78462
+grad norm: 1112.42
+gradient clipped
+name: weight weight: -0.0203611 update: 0.000743251 rate: -0.0365035
+
+sample: 86
+index: 7826
+frames: 53
+labels: 53
+loss: 277.073
+E: 5.22779
+grad norm: 301.757
+gradient clipped
+name: weight weight: -0.0196178 update: -0.000108028 rate: 0.00550664
+
+sample: 87
+index: 7805
+frames: 124
+labels: 124
+loss: 1046.98
+E: 8.4434
+grad norm: 534.096
+gradient clipped
+name: weight weight: -0.0197259 update: 0.000189878 rate: -0.00962581
+
+sample: 88
+index: 5052
+frames: 373
+labels: 373
+loss: 2324.03
+E: 6.23064
+grad norm: 1502.67
+gradient clipped
+name: weight weight: -0.019536 update: 7.9121e-05 rate: -0.00405001
+
+sample: 89
+index: 5421
+frames: 33
+labels: 33
+loss: 270.714
+E: 8.20345
+grad norm: 153.017
+gradient clipped
+name: weight weight: -0.0194569 update: 3.92363e-05 rate: -0.00201658
+
+sample: 90
+index: 5177
+frames: 284
+labels: 284
+loss: 2269.53
+E: 7.99131
+grad norm: 561.327
+gradient clipped
+name: weight weight: -0.0194176 update: 0.00012275 rate: -0.00632159
+
+sample: 91
+index: 9437
+frames: 13
+labels: 13
+loss: 101.474
+E: 7.80572
+grad norm: 43.5785
+gradient clipped
+name: weight weight: -0.0192949 update: 8.60656e-06 rate: -0.000446054
+
+sample: 92
+index: 1334
+frames: 75
+labels: 75
+loss: 1006.41
+E: 13.4188
+grad norm: 4569.84
+gradient clipped
+name: weight weight: -0.0192863 update: -9.20399e-06 rate: 0.00047723
+
+sample: 93
+index: 1943
+frames: 141
+labels: 141
+loss: 354.26
+E: 2.51248
+grad norm: 1044.1
+gradient clipped
+name: weight weight: -0.0192955 update: -1.92819e-05 rate: 0.000999295
+
+sample: 94
+index: 7394
+frames: 66
+labels: 66
+loss: 396.948
+E: 6.01437
+grad norm: 556.233
+gradient clipped
+name: weight weight: -0.0193148 update: -2.18946e-05 rate: 0.00113357
+
+sample: 95
+index: 7801
+frames: 10
+labels: 10
+loss: 80.2031
+E: 8.02031
+grad norm: 46.1032
+gradient clipped
+name: weight weight: -0.0193367 update: -4.29975e-05 rate: 0.00222363
+
+sample: 96
+index: 8054
+frames: 158
+labels: 158
+loss: 1293.13
+E: 8.18438
+grad norm: 476.875
+gradient clipped
+name: weight weight: -0.0193797 update: -6.74022e-06 rate: 0.000347799
+
+sample: 97
+index: 9123
+frames: 22
+labels: 22
+loss: 146.228
+E: 6.64671
+grad norm: 161.331
+gradient clipped
+name: weight weight: -0.0193864 update: 3.93308e-05 rate: -0.00202878
+
+sample: 98
+index: 8474
+frames: 125
+labels: 125
+loss: 1174.18
+E: 9.39348
+grad norm: 2296.41
+gradient clipped
+name: weight weight: -0.0193471 update: -0.000150161 rate: 0.00776141
+
+sample: 99
+index: 7342
+frames: 336
+labels: 336
+loss: 2144.56
+E: 6.38263
+grad norm: 3346.05
+gradient clipped
+name: weight weight: -0.0194972 update: 0.000153537 rate: -0.00787482
+
+sample: 100
+index: 962
+frames: 36
+labels: 36
+loss: 270.544
+E: 7.51512
+grad norm: 191.968
+gradient clipped
+name: weight weight: -0.0193437 update: 3.10091e-05 rate: -0.00160306
+
+sample: 101
+index: 652
+frames: 181
+labels: 181
+loss: 1815.52
+E: 10.0305
+grad norm: 3359.66
+gradient clipped
+name: weight weight: -0.0193127 update: -0.0002549 rate: 0.0131986
+
+sample: 102
+index: 3666
+frames: 451
+labels: 451
+loss: 3518.08
+E: 7.80062
+grad norm: 1329.79
+gradient clipped
+name: weight weight: -0.0195676 update: -2.92244e-07 rate: 1.49351e-05
+
+sample: 103
+index: 649
+frames: 615
+labels: 615
+loss: 4968.89
+E: 8.07949
+grad norm: 10301.1
+gradient clipped
+name: weight weight: -0.0195679 update: -0.000103013 rate: 0.00526438
+
+sample: 104
+index: 8440
+frames: 105
+labels: 105
+loss: 729.563
+E: 6.94822
+grad norm: 709.927
+gradient clipped
+name: weight weight: -0.0196709 update: 1.61768e-05 rate: -0.000822372
+
+sample: 105
+index: 270
+frames: 191
+labels: 191
+loss: 1571.69
+E: 8.22876
+grad norm: 404.815
+gradient clipped
+name: weight weight: -0.0196547 update: -0.000131564 rate: 0.00669376
+
+sample: 106
+index: 5803
+frames: 731
+labels: 731
+loss: 6072.01
+E: 8.30645
+grad norm: 2828.32
+gradient clipped
+name: weight weight: -0.0197863 update: 5.68104e-05 rate: -0.0028712
+
+sample: 107
+index: 2778
+frames: 131
+labels: 131
+loss: 982.281
+E: 7.49833
+grad norm: 471.117
+gradient clipped
+name: weight weight: -0.0197295 update: -6.28573e-05 rate: 0.00318596
+
+sample: 108
+index: 3208
+frames: 50
+labels: 50
+loss: 399.34
+E: 7.9868
+grad norm: 176.688
+gradient clipped
+name: weight weight: -0.0197923 update: -3.91116e-05 rate: 0.0019761
+
+sample: 109
+index: 7443
+frames: 224
+labels: 224
+loss: 1677.63
+E: 7.4894
+grad norm: 402.044
+gradient clipped
+name: weight weight: -0.0198314 update: -3.34251e-05 rate: 0.00168546
+
+sample: 110
+index: 8346
+frames: 111
+labels: 111
+loss: 989.514
+E: 8.91454
+grad norm: 1283.33
+gradient clipped
+name: weight weight: -0.0198649 update: -0.000298981 rate: 0.0150508
+
+sample: 111
+index: 8927
+frames: 18
+labels: 18
+loss: 142.232
+E: 7.9018
+grad norm: 56.6224
+gradient clipped
+name: weight weight: -0.0201638 update: 0 rate: -0
+
+sample: 112
+index: 349
+frames: 60
+labels: 60
+loss: 499.173
+E: 8.31955
+grad norm: 152.352
+gradient clipped
+name: weight weight: -0.0201638 update: -0.000118869 rate: 0.00589516
+
+sample: 113
+index: 2405
+frames: 425
+labels: 425
+loss: 2987.33
+E: 7.02902
+grad norm: 3096.51
+gradient clipped
+name: weight weight: -0.0202827 update: 5.60483e-06 rate: -0.000276335
+
+sample: 114
+index: 4411
+frames: 317
+labels: 317
+loss: 1472.64
+E: 4.64556
+grad norm: 6072.9
+gradient clipped
+name: weight weight: -0.0202771 update: -0.000354367 rate: 0.0174762
+
+sample: 115
+index: 459
+frames: 65
+labels: 65
+loss: 506.63
+E: 7.79431
+grad norm: 175.847
+gradient clipped
+name: weight weight: -0.0206315 update: -1.16597e-05 rate: 0.000565142
+
+sample: 116
+index: 990
+frames: 19
+labels: 19
+loss: 162.423
+E: 8.54856
+grad norm: 72.3157
+gradient clipped
+name: weight weight: -0.0206431 update: -0.000594599 rate: 0.0288037
+
+sample: 117
+index: 3034
+frames: 269
+labels: 269
+loss: 2060.69
+E: 7.66055
+grad norm: 717.178
+gradient clipped
+name: weight weight: -0.0212377 update: 0.00108041 rate: -0.050872
+
+sample: 118
+index: 3266
+frames: 902
+labels: 902
+loss: 8535.6
+E: 9.46297
+grad norm: 18638.3
+gradient clipped
+name: weight weight: -0.0201573 update: -0.000133689 rate: 0.00663228
+
+sample: 119
+index: 5310
+frames: 587
+labels: 587
+loss: 4745.65
+E: 8.08458
+grad norm: 750.792
+gradient clipped
+name: weight weight: -0.020291 update: -0.000122727 rate: 0.00604833
+
+sample: 120
+index: 7781
+frames: 41
+labels: 41
+loss: 339.051
+E: 8.26953
+grad norm: 63.9671
+gradient clipped
+name: weight weight: -0.0204137 update: 0.000150414 rate: -0.00736827
+
+sample: 121
+index: 3156
+frames: 98
+labels: 98
+loss: 828.325
+E: 8.45229
+grad norm: 455.186
+gradient clipped
+name: weight weight: -0.0202633 update: 0.000138413 rate: -0.0068307
+
+sample: 122
+index: 1677
+frames: 29
+labels: 29
+loss: 191.447
+E: 6.60163
+grad norm: 222.305
+gradient clipped
+name: weight weight: -0.0201249 update: 0.000293742 rate: -0.0145959
+
+sample: 123
+index: 7953
+frames: 403
+labels: 403
+loss: 2301.38
+E: 5.71063
+grad norm: 3053.33
+gradient clipped
+name: weight weight: -0.0198312 update: 0.000108878 rate: -0.00549022
+
+sample: 124
+index: 4718
+frames: 38
+labels: 38
+loss: 475.422
+E: 12.5111
+grad norm: 1977.38
+gradient clipped
+name: weight weight: -0.0197223 update: -0.00060669 rate: 0.0307616
+
+sample: 125
+index: 6606
+frames: 181
+labels: 181
+loss: 1666.58
+E: 9.20762
+grad norm: 4155
+gradient clipped
+name: weight weight: -0.020329 update: -0.000280334 rate: 0.0137899
+
+sample: 126
+index: 7962
+frames: 202
+labels: 202
+loss: 1516.34
+E: 7.50664
+grad norm: 584.08
+gradient clipped
+name: weight weight: -0.0206093 update: -1.86303e-05 rate: 0.000903975
+
+sample: 127
+index: 7885
+frames: 1202
+labels: 1202
+loss: 6972.85
+E: 5.80104
+grad norm: 9285.35
+gradient clipped
+name: weight weight: -0.020628 update: 0.000138755 rate: -0.00672657
+
+sample: 128
+index: 6468
+frames: 209
+labels: 209
+loss: 2191.17
+E: 10.484
+grad norm: 11404.7
+gradient clipped
+name: weight weight: -0.0204892 update: 0.000191493 rate: -0.00934604
+
+sample: 129
+index: 7882
+frames: 197
+labels: 197
+loss: 1640.17
+E: 8.32574
+grad norm: 415.576
+gradient clipped
+name: weight weight: -0.0202977 update: -0.000586738 rate: 0.0289066
+
+sample: 130
+index: 8333
+frames: 34
+labels: 34
+loss: 286.414
+E: 8.42395
+grad norm: 140.422
+gradient clipped
+name: weight weight: -0.0208844 update: 1.23824e-05 rate: -0.0005929
+
+sample: 131
+index: 7830
+frames: 210
+labels: 210
+loss: 1555.38
+E: 7.40659
+grad norm: 966.773
+gradient clipped
+name: weight weight: -0.0208721 update: 0.000329535 rate: -0.0157883
+
+sample: 132
+index: 4168
+frames: 271
+labels: 271
+loss: 1802.17
+E: 6.65007
+grad norm: 2221.86
+gradient clipped
+name: weight weight: -0.0205425 update: 0.000574551 rate: -0.0279689
+
+sample: 133
+index: 4975
+frames: 277
+labels: 277
+loss: 1425.36
+E: 5.1457
+grad norm: 2536.79
+gradient clipped
+name: weight weight: -0.019968 update: -0.000554798 rate: 0.0277844
+
+sample: 134
+index: 6890
+frames: 189
+labels: 189
+loss: 1540.05
+E: 8.1484
+grad norm: 501.645
+gradient clipped
+name: weight weight: -0.0205228 update: -0.000318363 rate: 0.0155127
+
+sample: 135
+index: 8760
+frames: 50
+labels: 50
+loss: 204.13
+E: 4.0826
+grad norm: 825.742
+gradient clipped
+name: weight weight: -0.0208411 update: 0.000448652 rate: -0.0215272
+
+sample: 136
+index: 2159
+frames: 535
+labels: 535
+loss: 4666.36
+E: 8.72216
+grad norm: 12189.8
+gradient clipped
+name: weight weight: -0.0203925 update: -0.000272009 rate: 0.0133387
+
+sample: 137
+index: 6588
+frames: 39
+labels: 39
+loss: 325.191
+E: 8.33824
+grad norm: 90.0526
+gradient clipped
+name: weight weight: -0.0206645 update: 0.000368531 rate: -0.017834
+
+sample: 138
+index: 4454
+frames: 40
+labels: 40
+loss: 279.777
+E: 6.99444
+grad norm: 222.618
+gradient clipped
+name: weight weight: -0.020296 update: 6.65344e-05 rate: -0.00327821
+
+sample: 139
+index: 5408
+frames: 46
+labels: 46
+loss: 341.891
+E: 7.43241
+grad norm: 178.787
+gradient clipped
+name: weight weight: -0.0202294 update: 0.000262246 rate: -0.0129636
+
+sample: 140
+index: 3023
+frames: 62
+labels: 62
+loss: 519.417
+E: 8.3777
+grad norm: 276.215
+gradient clipped
+name: weight weight: -0.0199672 update: -0.000220482 rate: 0.0110422
+
+sample: 141
+index: 5967
+frames: 480
+labels: 480
+loss: 3530.87
+E: 7.35598
+grad norm: 1204.85
+gradient clipped
+name: weight weight: -0.0201877 update: -0.000162147 rate: 0.00803198
+
+sample: 142
+index: 7252
+frames: 196
+labels: 196
+loss: 842.311
+E: 4.29751
+grad norm: 837.383
+gradient clipped
+name: weight weight: -0.0203498 update: 5.14327e-05 rate: -0.00252743
+
+sample: 143
+index: 1745
+frames: 79
+labels: 79
+loss: 638.961
+E: 8.08812
+grad norm: 1074.79
+gradient clipped
+name: weight weight: -0.0202984 update: -0.00147666 rate: 0.0727477
+
+sample: 144
+index: 924
+frames: 237
+labels: 237
+loss: 1943.41
+E: 8.20002
+grad norm: 224.568
+gradient clipped
+name: weight weight: -0.021775 update: -2.93687e-05 rate: 0.00134873
+
+sample: 145
+index: 1061
+frames: 551
+labels: 551
+loss: 2743.93
+E: 4.97991
+grad norm: 4356.23
+gradient clipped
+name: weight weight: -0.0218044 update: 0.000438529 rate: -0.0201119
+
+sample: 146
+index: 631
+frames: 554
+labels: 554
+loss: 4557.97
+E: 8.22738
+grad norm: 2864.21
+gradient clipped
+name: weight weight: -0.0213659 update: -0.000184528 rate: 0.00863656
+
+sample: 147
+index: 7380
+frames: 67
+labels: 67
+loss: 523.519
+E: 7.81372
+grad norm: 213.66
+gradient clipped
+name: weight weight: -0.0215504 update: 0.000287804 rate: -0.0133549
+
+sample: 148
+index: 8857
+frames: 275
+labels: 275
+loss: 1964.85
+E: 7.14491
+grad norm: 1430.54
+gradient clipped
+name: weight weight: -0.0212626 update: 0.000787384 rate: -0.0370314
+
+sample: 149
+index: 2558
+frames: 446
+labels: 446
+loss: 2067.6
+E: 4.63587
+grad norm: 3486.09
+gradient clipped
+name: weight weight: -0.0204752 update: 0.000188727 rate: -0.00921732
+
+sample: 150
+index: 5193
+frames: 193
+labels: 193
+loss: 1380.32
+E: 7.15191
+grad norm: 1360.9
+gradient clipped
+name: weight weight: -0.0202865 update: -0.000850882 rate: 0.0419433
+
+sample: 151
+index: 7248
+frames: 820
+labels: 820

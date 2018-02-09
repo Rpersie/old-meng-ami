@@ -18,7 +18,7 @@ export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64:/data/sls/u/meng/skanda/cuda/li
 source activate $AUGMENT_ENV
 echo "Environment set up."
 
-if [ "$#" -ne 1 ]; then
+if [ "$#" -lt 1 ]; then
     echo "Run mode not specified; exiting"
     exit 1
 fi

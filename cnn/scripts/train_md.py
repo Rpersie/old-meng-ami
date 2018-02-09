@@ -15,7 +15,7 @@ from torch.utils.data import DataLoader
 sys.path.append("./")
 sys.path.append("./cnn")
 from cnn_md import CNNMultidecoder, CNNVariationalMultidecoder
-from cnn_md import CNNAdversarialMultidecoder, CNNVariationalAdversarialMultidecoder
+from cnn_md import CNNAdversarialMultidecoder, CNNAdversarialVariationalMultidecoder
 from utils.hao_data import HaoDataset
 
 # Moved to function so that cProfile has a function to call

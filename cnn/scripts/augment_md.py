@@ -15,6 +15,7 @@ from torch.utils.data import DataLoader
 sys.path.append("./")
 sys.path.append("./cnn")
 from cnn_md import CNNMultidecoder, CNNVariationalMultidecoder
+from cnn_md import CNNAdversarialMultidecoder, CNNAdversarialVariationalMultidecoder
 from utils.hao_data import HaoEvalDataset, write_kaldi_hao_ark, write_kaldi_hao_scp
 
 run_start_t = time.clock()
