@@ -15,7 +15,7 @@ from torch.utils.data import DataLoader
 sys.path.append("./")
 sys.path.append("./cnn")
 from cnn_md import CNNMultidecoder, CNNVariationalMultidecoder
-from cnn_md import CNNAdversarialMultidecoder, CNNAdversarialVariationalMultidecoder
+from cnn_md import CNNAdversarialMultidecoder
 from utils.hao_data import HaoEvalDataset, write_kaldi_hao_ark, write_kaldi_hao_scp
 
 run_start_t = time.clock()
@@ -168,23 +168,8 @@ if run_mode == "ae":
                                 weight_init=weight_init)
 elif run_mode == "vae":
     if adversarial:
-        model = CNNVariationalAdversarialMultidecoder(freq_dim=freq_dim,
-                                splicing=[left_context, right_context], 
-                                enc_channel_sizes=enc_channel_sizes,
-                                enc_kernel_sizes=enc_kernel_sizes,
-                                enc_pool_sizes=enc_pool_sizes,
-                                enc_fc_sizes=enc_fc_sizes,
-                                latent_dim=latent_dim,
-                                dec_fc_sizes=dec_fc_sizes,
-                                dec_channel_sizes=dec_channel_sizes,
-                                dec_kernel_sizes=dec_kernel_sizes,
-                                dec_pool_sizes=dec_pool_sizes,
-                                activation=activation,
-                                use_batch_norm=use_batch_norm,
-                                decoder_classes=decoder_classes,
-                                weight_init=weight_init,
-                                adv_fc_sizes=adv_fc_sizes,
-                                adv_activation=adv_activation)
+        print("Adversarial VAEs not supported yet", flush=True)
+        sys.exit(1)
     else:
         model = CNNVariationalMultidecoder(freq_dim=freq_dim,
                                 splicing=[left_context, right_context], 
