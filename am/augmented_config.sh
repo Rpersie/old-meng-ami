@@ -19,7 +19,7 @@ export CNN_NAME=ENC_C_256_256_K_3_3_P_3_3_F_2048_2048/LATENT_128/DEC_F_2048_2048
 # export AUGMENTED_DATA_DIR=${SCRATCH}/augmented_data/cnn/$DATASET_NAME/$CNN_NAME/${MODEL_TYPE}_ratio${NOISE_RATIO}
 export AUGMENTED_DATA_DIR=${SCRATCH}/augmented_data/cnn/$DATASET_NAME/$CNN_NAME/adversarial_fc_${ADV_FC_DELIM}_act_${ADV_ACTIVATION}_${MODEL_TYPE}_ratio${NOISE_RATIO}
 
-export SOURCE_DOMAIN=ihm
+export SOURCE_DOMAIN=sdm1
 export TARGET_DOMAIN=ihm
 export PREDICT_DOMAIN=ihm
 export GOLD_DIR=/data/sls/scratch/haotang/ami/sls-data/${DATASET_NAME}

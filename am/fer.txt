@@ -97,6 +97,26 @@ ENC_C_256_256_K_3_3_P_3_3_F_2048_2048/LATENT_256/DEC_F_2048_2048_C_256_256_K_3_3
     - IHM dev FER: 0.7868651865318121 (1.8% relative WORSE than SDM1 baseline)
     - SDM1 dev FER: 0.8291059611511746 (3.0% relative WORSE than SDM1 baseline)
 - Combined (IHM original + IHM->SDM1 augmented):
-    - IHM dev FER: (% relative WORSE than IHM baseline)
-    - SDM1 dev FER: (% relative BETTER than IHM baseline)
-        - % of total improvement from IHM baseline to SDM1 baseline
+    - IHM dev FER: 0.5931850826775098 (% relative WORSE than IHM baseline)
+    - SDM1 dev FER: 0.8573303936715271 (0.3% relative BETTER than IHM baseline)
+        - 4.9% of total improvement from IHM baseline to SDM1 baseline
+
+
+ENC_C_256_256_K_3_3_P_3_3_F_2048_2048/LATENT_128/DEC_F_2048_2048_C_256_256_K_3_3_P_3_3/ACT_SELU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/adversarial_fc__256_act_Sigmoid_ae_ratio0.25
+- Src IHM/Tar IHM (simply reconstruction):
+    - IHM dev FER: 0.6196780551164282 (7.4% relative WORSE than IHM baseline)
+    - SDM1 dev FER: 0.888932122956955 (3.4% relative WORSE than IHM baseline)
+- Src SDM1/Tar SDM1 (simply reconstruction):
+    - SDM1 dev FER: 0.807548847767083 (0.3% relative BETTER than SDM1 baseline)
+    - IHM dev FER: 0.7955142061407577 (2.9% relative WORSE than SDM1 baseline)
+- Src IHM/Tar SDM1 (augmentation):
+    - SDM1 dev FER: 0.855971454839061 (0.5% relative BETTER than IHM baseline)
+        - 7.4% of total improvement from IHM baseline to SDM1 baseline
+    - IHM dev FER:  0.6183480075098429 (7.1% relative WORSE than IHM baseline)
+- Src SDM1/Tar IHM (augmentation):
+    - IHM dev FER: 0.7789498590362628 (0.7% relative WORSE than SDM1 baseline)
+    - SDM1 dev FER: 0.8347405909953347 (3.7% relative WORSE than SDM1 baseline)
+- Combined (IHM original + IHM->SDM1 augmented):
+    - IHM dev FER: 0.5864821481021477 (1.6% relative WORSE than IHM baseline)
+    - SDM1 dev FER: 0.852388194367166 (0.9% relative BETTER than IHM baseline)
+        - 13.8% of total improvement from IHM baseline to SDM1 baseline
