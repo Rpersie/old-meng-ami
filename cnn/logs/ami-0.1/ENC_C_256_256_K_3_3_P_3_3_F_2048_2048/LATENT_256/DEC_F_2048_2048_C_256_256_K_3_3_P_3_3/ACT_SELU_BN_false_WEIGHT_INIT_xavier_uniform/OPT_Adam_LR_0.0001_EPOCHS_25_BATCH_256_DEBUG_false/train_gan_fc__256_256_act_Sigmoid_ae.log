@@ -1,0 +1,134 @@
+Running training with mode ae
+Using generative adversarial loss
+Noising 25.000% of input features
+Constructing model...
+Done constructing model.
+CNNGANMultidecoder(
+  (encoder_conv): Sequential(
+    (conv2d_0): Conv2d (1, 256, kernel_size=(3, 3), stride=(1, 1))
+    (SELU_0): SELU
+    (maxpool2d_0): MaxPool2d(kernel_size=(1, 3), stride=(1, 3), dilation=(1, 1))
+    (conv2d_1): Conv2d (256, 256, kernel_size=(3, 3), stride=(1, 1))
+    (SELU_1): SELU
+    (maxpool2d_1): MaxPool2d(kernel_size=(1, 3), stride=(1, 3), dilation=(1, 1))
+  )
+  (encoder_fc): Sequential(
+    (lin_0): Linear(in_features=14336, out_features=2048)
+    (SELU_0): SELU
+    (lin_1): Linear(in_features=2048, out_features=2048)
+    (SELU_1): SELU
+    (lin_final): Linear(in_features=2048, out_features=256)
+    (SELU_final): SELU
+  )
+  (decoder_fc_ihm): Sequential(
+    (lin_0): Linear(in_features=256, out_features=2048)
+    (SELU_0): SELU
+    (lin_1): Linear(in_features=2048, out_features=2048)
+    (SELU_1): SELU
+    (lin_final): Linear(in_features=2048, out_features=14336)
+    (SELU_final): SELU
+  )
+  (decoder_deconv_ihm): Sequential(
+    (maxunpool2d_0): MaxUnpool2d(kernel_size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_0): Conv2d (256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (SELU_0): SELU
+    (maxunpool2d_1): MaxUnpool2d(kernel_size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_1): Conv2d (256, 1, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (SELU_1): SELU
+  )
+  (decoder_fc_sdm1): Sequential(
+    (lin_0): Linear(in_features=256, out_features=2048)
+    (SELU_0): SELU
+    (lin_1): Linear(in_features=2048, out_features=2048)
+    (SELU_1): SELU
+    (lin_final): Linear(in_features=2048, out_features=14336)
+    (SELU_final): SELU
+  )
+  (decoder_deconv_sdm1): Sequential(
+    (maxunpool2d_0): MaxUnpool2d(kernel_size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_0): Conv2d (256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (SELU_0): SELU
+    (maxunpool2d_1): MaxUnpool2d(kernel_size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_1): Conv2d (256, 1, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (SELU_1): SELU
+  )
+  (gan_ihm): Sequential(
+    (lin_0): Linear(in_features=880, out_features=256)
+    (Sigmoid_0): Sigmoid()
+    (lin_final): Linear(in_features=256, out_features=1)
+    (Sigmoid_final): Sigmoid()
+  )
+  (gan_sdm1): Sequential(
+    (lin_0): Linear(in_features=880, out_features=256)
+    (Sigmoid_0): Sigmoid()
+    (lin_final): Linear(in_features=256, out_features=1)
+    (Sigmoid_final): Sigmoid()
+  )
+)
+Model has 104506372 trainable parameters
+Setting up data...
+Setting up training datasets...
+Using 2407138 training features (9403 batches) for class ihm
+Using 2407138 training features (9403 batches) for class sdm1
+Setting up dev datasets...
+Using 249565 dev features (975 batches) for class ihm
+Using 249565 dev features (975 batches) for class sdm1
+Setting up minibatch shuffling for training...
+18806 total batches: {'ihm': 9403, 'sdm1': 9403}
+Done setting up data.
+Completed setup in 143.543 seconds
+Starting training!
+
+STARTING EPOCH 1
+Train epoch 1: [1000/18806 (5.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.756
+===> backtranslation_recon_loss: 0.774
+===> gan_loss: -0.702
+===> Total for class ihm: 0.829
+=> Class sdm1
+===> autoencoding_recon_loss: 0.746
+===> backtranslation_recon_loss: 0.795
+===> gan_loss: -0.700
+===> Total for class sdm1: 0.841
+TOTAL: 1.669
+Train epoch 1: [2000/18806 (10.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.641
+===> backtranslation_recon_loss: 0.664
+===> gan_loss: -0.699
+===> Total for class ihm: 0.606
+=> Class sdm1
+===> autoencoding_recon_loss: 0.608
+===> backtranslation_recon_loss: 0.654
+===> gan_loss: -0.697
+===> Total for class sdm1: 0.565
+TOTAL: 1.171
+Train epoch 1: [3000/18806 (16.0%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.531
+===> backtranslation_recon_loss: 0.556
+===> gan_loss: -0.697
+===> Total for class ihm: 0.389
+=> Class sdm1
+===> autoencoding_recon_loss: 0.513
+===> backtranslation_recon_loss: 0.557
+===> gan_loss: -0.696
+===> Total for class sdm1: 0.374
+TOTAL: 0.763
+Train epoch 1: [4000/18806 (21.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.443
+===> backtranslation_recon_loss: 0.467
+===> gan_loss: -0.696
+===> Total for class ihm: 0.214
+=> Class sdm1
+===> autoencoding_recon_loss: 0.442
+===> backtranslation_recon_loss: 0.481
+===> gan_loss: -0.696
+===> Total for class sdm1: 0.228
+TOTAL: 0.442
