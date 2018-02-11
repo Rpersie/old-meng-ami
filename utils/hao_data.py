@@ -130,7 +130,7 @@ class HaoDataset(Dataset):
             self.current_feat_idx = 0
 
         feats_tensor = torch.FloatTensor(self.current_feat_mat[self.current_feat_idx:self.current_feat_idx + self.left_context + self.right_context + 1, :])
-        feats_tensor = feats_tensor.view((-1, self.left_context + self.right_context + 1))
+        feats_tensor = feats_tensor.view((self.left_context + self.right_context + 1, -1))
 
         # Target is identical to feature tensor
         target_tensor = feats_tensor.clone()

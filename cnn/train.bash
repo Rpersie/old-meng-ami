@@ -27,10 +27,16 @@ run_mode=$1
 echo "Using run mode ${run_mode}"
 
 adversarial=false
+gan=false
 if [ "$#" -ge 2 ]; then
     if [ "$2" == "adversarial" ]; then
         adversarial=true
         echo "Using adversarial training"
+    fi
+    
+    if [ "$2" == "gan" ]; then
+        gan=true
+        echo "Using generative adversarial net (GAN) style training"
     fi
 fi
 
@@ -40,6 +46,12 @@ if [ "$adversarial" == true ]; then
     if [ -f $train_log ]; then
         # Move old log
         mv $train_log $LOGS/$EXPT_NAME/train_adversarial_fc_${ADV_FC_DELIM}_act_${ADV_ACTIVATION}_${run_mode}-$(date +"%F_%T%z").log
+    fi
+elif [ "$gan" == true ]; then
+    train_log=$LOGS/$EXPT_NAME/train_gan_fc_${ADV_FC_DELIM}_act_${ADV_ACTIVATION}_${run_mode}.log
+    if [ -f $train_log ]; then
+        # Move old log
+        mv $train_log $LOGS/$EXPT_NAME/train_gan_fc_${ADV_FC_DELIM}_act_${ADV_ACTIVATION}_${run_mode}-$(date +"%F_%T%z").log
     fi
 else
     train_log=$LOGS/$EXPT_NAME/train_${run_mode}.log
@@ -51,11 +63,11 @@ fi
 
 if [ "$PROFILE_RUN" = true ] ; then
     echo "Profiling..."
-    python3 cnn/scripts/train_md.py ${run_mode} ${adversarial} profile > $train_log
+    python3 cnn/scripts/train_md.py ${run_mode} ${adversarial} ${gan} profile > $train_log
     echo "Profiling done"
     # echo "Profiling done -- please run 'snakeviz --port=8890 --server $LOGS/$EXPT_NAME/train_${run_mode}.prof' to view the results in browser"
 else
-    python3 cnn/scripts/train_md.py ${run_mode} ${adversarial} > $train_log
+    python3 cnn/scripts/train_md.py ${run_mode} ${adversarial} ${gan} > $train_log
 fi
 
 echo "DONE CONVOLUTIONAL MULTIDECODER TRAINING JOB"

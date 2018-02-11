@@ -16,10 +16,11 @@ sys.path.append("./")
 sys.path.append("./cnn")
 from cnn_md import CNNMultidecoder, CNNVariationalMultidecoder
 from cnn_md import CNNAdversarialMultidecoder
+from cnn_md import CNNGANMultidecoder
 from utils.hao_data import HaoDataset
 
 # Moved to function so that cProfile has a function to call
-def run_training(run_mode, adversarial):
+def run_training(run_mode, adversarial, gan):
     run_start_t = time.clock()
 
     # Set up noising
@@ -88,6 +89,13 @@ def run_training(run_mode, adversarial):
             if len(res_str) > 0:
                 adv_fc_sizes.append(int(res_str))
         adv_activation = os.environ["ADV_ACTIVATION"]
+    
+    if gan:
+        gan_fc_sizes = []
+        for res_str in os.environ["GAN_FC_DELIM"].split("_"):
+            if len(res_str) > 0:
+                gan_fc_sizes.append(int(res_str))
+        gan_activation = os.environ["GAN_ACTIVATION"]
 
     # Set up training parameters
     batch_size = int(os.environ["BATCH_SIZE"])
@@ -135,6 +143,24 @@ def run_training(run_mode, adversarial):
                                     weight_init=weight_init,
                                     adv_fc_sizes=adv_fc_sizes,
                                     adv_activation=adv_activation)
+        elif gan:
+            model = CNNGANMultidecoder(freq_dim=freq_dim,
+                                       splicing=[left_context, right_context], 
+                                       enc_channel_sizes=enc_channel_sizes,
+                                       enc_kernel_sizes=enc_kernel_sizes,
+                                       enc_pool_sizes=enc_pool_sizes,
+                                       enc_fc_sizes=enc_fc_sizes,
+                                       latent_dim=latent_dim,
+                                       dec_fc_sizes=dec_fc_sizes,
+                                       dec_channel_sizes=dec_channel_sizes,
+                                       dec_kernel_sizes=dec_kernel_sizes,
+                                       dec_pool_sizes=dec_pool_sizes,
+                                       activation=activation,
+                                       use_batch_norm=use_batch_norm,
+                                       decoder_classes=decoder_classes,
+                                       weight_init=weight_init,
+                                       gan_fc_sizes=gan_fc_sizes,
+                                       gan_activation=gan_activation)
         else:
             model = CNNMultidecoder(freq_dim=freq_dim,
                                     splicing=[left_context, right_context], 
@@ -154,6 +180,9 @@ def run_training(run_mode, adversarial):
     elif run_mode == "vae":
         if adversarial:
             print("Adversarial VAEs not supported yet", flush=True)
+            sys.exit(1)
+        elif gan:
+            print("Generative adversarial VAEs not supported yet", flush=True)
             sys.exit(1)
         else:
             model = CNNVariationalMultidecoder(freq_dim=freq_dim,
@@ -182,6 +211,11 @@ def run_training(run_mode, adversarial):
     if adversarial:
         best_ckpt_path = os.path.join(model_dir, "best_cnn_adversarial_fc_%s_act_%s_%s_ratio%s_md.pth.tar" % (os.environ["ADV_FC_DELIM"],
                                                                                                   adv_activation,
+                                                                                                  run_mode,
+                                                                                                  str(noise_ratio)))
+    elif gan:
+        best_ckpt_path = os.path.join(model_dir, "best_cnn_gan_fc_%s_act_%s_%s_ratio%s_md.pth.tar" % (os.environ["GAN_FC_DELIM"],
+                                                                                                  gan_activation,
                                                                                                   run_mode,
                                                                                                   str(noise_ratio)))
     else:
@@ -227,8 +261,15 @@ def run_training(run_mode, adversarial):
     encoder_optimizer = getattr(optim, optimizer_name)(model.encoder_parameters(),
                                                        lr=learning_rate)
     if adversarial:
+        # Set up optimizer for domain classifier adversary
         adversary_optimizer = getattr(optim, optimizer_name)(model.adversary_parameters(),
                                                              lr=learning_rate)
+    if gan:
+        # Set up real/fake discriminators for each decoder
+        gan_optimizers = dict()
+        for decoder_class in decoder_classes:
+            gan_optimizers[decoder_class] = getattr(optim, optimizer_name)(model.gan_parameters(decoder_class),
+                                                                           lr=learning_rate)
 
     print("Setting up data...", flush=True)
     loader_kwargs = {"num_workers": 1, "pin_memory": True} if on_gpu else {}
@@ -321,6 +362,8 @@ def run_training(run_mode, adversarial):
                 decoder_class_losses[decoder_class]["backtranslation_kld"] = 0.0
             if adversarial:
                 decoder_class_losses[decoder_class]["adversarial_loss"] = 0.0
+            if gan:
+                decoder_class_losses[decoder_class]["gan_loss"] = 0.0
 
         batches_processed = 0
         class_batches_processed = {decoder_class: 0 for decoder_class in decoder_classes}
@@ -402,19 +445,19 @@ def run_training(run_mode, adversarial):
             encoder_optimizer.zero_grad()
             decoder_optimizers[decoder_class].zero_grad()
             if run_mode == "ae":
-                recon_batch = model.forward_decoder(translated_feats, decoder_class)
+                recon_translated_batch = model.forward_decoder(translated_feats, decoder_class)
             elif run_mode == "vae":
-                recon_batch, mu, logvar = model.forward_decoder(translated_feats, decoder_class)
+                recon_translated_batch, mu, logvar = model.forward_decoder(translated_feats, decoder_class)
             else:
                 print("Unknown train mode %s" % run_mode, flush=True)
                 sys.exit(1)
 
             if run_mode == "ae":
-                r_loss = reconstruction_loss(recon_batch, targets)
+                r_loss = reconstruction_loss(recon_translated_batch, targets)
                 r_loss.backward()
             elif run_mode == "vae":
-                r_loss = reconstruction_loss(recon_batch, targets)
-                k_loss = kld_loss(recon_batch, targets, mu, logvar)
+                r_loss = reconstruction_loss(recon_translated_batch, targets)
+                k_loss = kld_loss(recon_translated_batch, targets, mu, logvar)
                 vae_loss = r_loss + k_loss
                 vae_loss.backward()
             else:
@@ -428,7 +471,7 @@ def run_training(run_mode, adversarial):
             encoder_optimizer.step()
            
             if adversarial:
-                # PHASE 3: Adversarial loss
+                # Adversarial loss
 
                 model.train()
                 encoder_optimizer.zero_grad()
@@ -439,11 +482,8 @@ def run_training(run_mode, adversarial):
                                                                                                    time_dim,
                                                                                                    freq_dim))
                 elif run_mode == "vae":
-                    mu, logvar, fc_input_size, unpool_sizes, pooling_indices = model.encode(feats.view(-1,
-                                                                                                       1,
-                                                                                                       time_dim,
-                                                                                                       freq_dim))
-                    latent = torch.cat((mu, logvar), 1)
+                    print("Adversarial VAEs not supported yet", flush=True)
+                    sys.exit(1)
                 else:
                     print("Unknown train mode %s" % run_mode, flush=True)
                     sys.exit(1)
@@ -456,26 +496,59 @@ def run_training(run_mode, adversarial):
                 disc_loss = discriminative_loss(class_prediction, class_truth)
 
                 # Train just discriminator
-                old_adv_weights = model.state_dict()["adversary.lin_final.weight"].cpu().numpy()
-                old_enc_weights = model.state_dict()["encoder_fc.lin_final.weight"].cpu().numpy()
-
                 adversary_optimizer.zero_grad()
                 disc_loss.backward(retain_graph=True)
                 adversary_optimizer.step()
-                new_adv_weights = model.state_dict()["adversary.lin_final.weight"].cpu().numpy()
-                new_enc_weights = model.state_dict()["encoder_fc.lin_final.weight"].cpu().numpy()
 
                 # Train just encoder, w/ negative discriminative loss
-                old_adv_weights = model.state_dict()["adversary.lin_final.weight"].cpu().numpy()
-                old_enc_weights = model.state_dict()["encoder_fc.lin_final.weight"].cpu().numpy()
                 encoder_optimizer.zero_grad()
                 adv_loss = -disc_loss
                 adv_loss.backward()
                 encoder_optimizer.step()
-                new_adv_weights = model.state_dict()["adversary.lin_final.weight"].cpu().numpy()
-                new_enc_weights = model.state_dict()["encoder_fc.lin_final.weight"].cpu().numpy()
 
                 decoder_class_losses[decoder_class]["adversarial_loss"] += adv_loss.data[0]
+            elif gan:
+                # Generative adversarial loss
+
+                model.train()
+                encoder_optimizer.zero_grad()
+                decoder_optimizers[decoder_class].zero_grad()
+                gan_optimizers[decoder_class].zero_grad()
+                if run_mode == "ae":
+                    # Create minibatch of 50% real, 50% simulated examples
+                    sim_feats = model.forward_decoder(feats, decoder_class)
+                    gan_batch = torch.cat((feats, sim_feats.view((-1, time_dim, freq_dim))), 0)
+                elif run_mode == "vae":
+                    print("Generative adversarial VAEs not supported yet", flush=True)
+                    sys.exit(1)
+                else:
+                    print("Unknown train mode %s" % run_mode, flush=True)
+                    sys.exit(1)
+                
+                class_prediction = model.forward_gan(gan_batch, decoder_class)
+
+                # 1: True, 0: Fake
+                class_truth = torch.FloatTensor(np.concatenate((np.ones((class_prediction.size()[0] // 2, 1)),
+                                                                np.zeros((class_prediction.size()[0] // 2, 1)))))
+                class_truth = Variable(class_truth)
+                if on_gpu:
+                    class_truth = class_truth.cuda()
+                disc_loss = discriminative_loss(class_prediction, class_truth)
+
+                # Train just discriminator
+                gan_optimizers[decoder_class].zero_grad()
+                disc_loss.backward(retain_graph=True)
+                gan_optimizers[decoder_class].step()
+
+                # Train encoder + decoder, w/ negative discriminative loss
+                decoder_optimizers[decoder_class].zero_grad()
+                encoder_optimizer.zero_grad()
+                adv_loss = -disc_loss
+                adv_loss.backward()
+                decoder_optimizers[decoder_class].step()
+                encoder_optimizer.step()
+
+                decoder_class_losses[decoder_class]["gan_loss"] += adv_loss.data[0]
             
             # Print updates, if any
             batches_processed += 1
@@ -503,6 +576,8 @@ def run_training(run_mode, adversarial):
                 decoder_class_losses[decoder_class]["backtranslation_kld"] = 0.0
             if adversarial and not recon_only:
                 decoder_class_losses[decoder_class]["adversarial_loss"] = 0.0
+            elif gan and not recon_only:
+                decoder_class_losses[decoder_class]["gan_loss"] = 0.0
 
         other_decoder_class = decoder_classes[1]
         for decoder_class in decoder_classes:
@@ -568,18 +643,18 @@ def run_training(run_mode, adversarial):
                 # Run translated features back through original decoder
                 model.eval()
                 if run_mode == "ae":
-                    recon_batch = model.forward_decoder(translated_feats, decoder_class)
+                    recon_translated_batch = model.forward_decoder(translated_feats, decoder_class)
                 elif run_mode == "vae":
-                    recon_batch, mu, logvar = model.forward_decoder(translated_feats, decoder_class)
+                    recon_translated_batch, mu, logvar = model.forward_decoder(translated_feats, decoder_class)
                 else:
                     print("Unknown train mode %s" % run_mode, flush=True)
                     sys.exit(1)
 
                 if run_mode == "ae" or recon_only:
-                    r_loss = reconstruction_loss(recon_batch, targets)
+                    r_loss = reconstruction_loss(recon_translated_batch, targets)
                 elif run_mode == "vae":
-                    r_loss = reconstruction_loss(recon_batch, targets)
-                    k_loss = kld_loss(recon_batch, targets, mu, logvar)
+                    r_loss = reconstruction_loss(recon_translated_batch, targets)
+                    k_loss = kld_loss(recon_translate_batch, targets, mu, logvar)
                     vae_loss = r_loss + k_loss
                 else:
                     print("Unknown train mode %s" % run_mode, flush=True)
@@ -590,7 +665,7 @@ def run_training(run_mode, adversarial):
                     decoder_class_losses[decoder_class]["backtranslation_kld"] += k_loss.data[0]
                
                 if adversarial and not recon_only:
-                    # PHASE 3: Adversarial loss
+                    # Adversarial loss
                     model.eval()
                     if run_mode == "ae":
                         latent, fc_input_size, unpool_sizes, pooling_indices = model.encode(feats.view(-1,
@@ -598,11 +673,8 @@ def run_training(run_mode, adversarial):
                                                                                                        time_dim,
                                                                                                        freq_dim))
                     elif run_mode == "vae":
-                        mu, logvar, fc_input_size, unpool_sizes, pooling_indices = model.encode(feats.view(-1,
-                                                                                                           1,
-                                                                                                           time_dim,
-                                                                                                           freq_dim))
-                        latent = torch.cat((mu, logvar), 1)
+                        print("Adversarial VAEs not supported yet", flush=True)
+                        sys.exit(1)
                     else:
                         print("Unknown train mode %s" % run_mode, flush=True)
                         sys.exit(1)
@@ -616,6 +688,32 @@ def run_training(run_mode, adversarial):
                     adv_loss = -disc_loss
                     
                     decoder_class_losses[decoder_class]["adversarial_loss"] += adv_loss.data[0]
+                elif gan and not recon_only:
+                    # Generative adversarial loss
+
+                    model.eval()
+                    if run_mode == "ae":
+                        # Create minibatch of 50% real, 50% fake examples
+                        gan_batch = torch.cat((feats, recon_batch.view((-1, time_dim, freq_dim))), 0)
+                    elif run_mode == "vae":
+                        print("Generative adversarial VAEs not supported yet", flush=True)
+                        sys.exit(1)
+                    else:
+                        print("Unknown train mode %s" % run_mode, flush=True)
+                        sys.exit(1)
+                    
+                    class_prediction = model.forward_gan(gan_batch, decoder_class)
+
+                    # 1: True, 0: Fake
+                    class_truth = torch.FloatTensor(np.concatenate((np.ones((class_prediction.size()[0] // 2, 1)),
+                                                                    np.zeros((class_prediction.size()[0] // 2, 1)))))
+                    class_truth = Variable(class_truth, volatile=True)
+                    if on_gpu:
+                        class_truth = class_truth.cuda()
+                    disc_loss = discriminative_loss(class_prediction, class_truth)
+                    adv_loss = -disc_loss
+
+                    decoder_class_losses[decoder_class]["gan_loss"] += adv_loss.data[0]
 
             other_decoder_class = decoder_class
             
@@ -630,6 +728,12 @@ def run_training(run_mode, adversarial):
             if adversarial:
                 ckpt_path = os.path.join(model_dir, "ckpt_cnn_adversarial_fc_%s_act_%s_%s_ratio%s_md_%d.pth.tar" % (os.environ["ADV_FC_DELIM"],
                                                                                                         adv_activation,
+                                                                                                        run_mode,
+                                                                                                        str(noise_ratio),
+                                                                                                        state_obj["epoch"]))
+            elif gan:
+                ckpt_path = os.path.join(model_dir, "ckpt_cnn_gan_fc_%s_act_%s_%s_ratio%s_md_%d.pth.tar" % (os.environ["GAN_FC_DELIM"],
+                                                                                                        gan_activation,
                                                                                                         run_mode,
                                                                                                         str(noise_ratio),
                                                                                                         state_obj["epoch"]))
@@ -696,6 +800,8 @@ def run_training(run_mode, adversarial):
             }
             if adversarial:
                 state_obj["adversary_optimizer"] = adversary_optimizer.state_dict()
+            elif gan:
+                state_obj["gan_optimizers"] = {decoder_class: gan_optimizers[decoder_class].state_dict() for decoder_class in decoder_classes}
 
             save_checkpoint(state_obj, is_best, model_dir)
             print("Saved checkpoint for model", flush=True)
@@ -729,27 +835,32 @@ def run_training(run_mode, adversarial):
 # Parse command line args
 run_mode = "ae"
 adversarial = False
+gan = False
 profile = False
 
-if len(sys.argv) >= 3:
+if len(sys.argv) >= 4:
     run_mode = sys.argv[1]
     adversarial = True if sys.argv[2] == "true" else False
-    if len(sys.argv) >= 4:
-        profile = True if sys.argv[3] == "profile" else False
+    gan = True if sys.argv[3] == "true" else False
+    if len(sys.argv) >= 5:
+        profile = True if sys.argv[4] == "profile" else False
 else:
-    print("Usage: python cnn/scripts/train_md.py <run mode> <adversarial true/false> <profile (optional)>", flush=True)
+    print("Usage: python cnn/scripts/train_md.py <run mode> <adversarial true/false> <GAN true/false> <profile (optional)>", flush=True)
     sys.exit(1)
 
 print("Running training with mode %s" % run_mode, flush=True)
 if adversarial:
     print("Using adversarial loss", flush=True)
+elif gan:
+    print("Using generative adversarial loss", flush=True)
+
 if profile:
     print("Profiling code using cProfile", flush=True)
 
     import cProfile
     profile_output_dir = os.path.join(os.environ["LOGS"], os.environ["EXPT_NAME"])
     profile_output_path = os.path.join(profile_output_dir, "train_%s.prof" % run_mode)
-    cProfile.run('run_training(run_mode, adversarial)', profile_output_path) 
+    cProfile.run('run_training(run_mode, adversarial, gan)', profile_output_path) 
 else:
-    run_training(run_mode, adversarial)
+    run_training(run_mode, adversarial, gan)
 

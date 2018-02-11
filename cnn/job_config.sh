@@ -51,6 +51,11 @@ export ADV_FC=( 256 256 )
 export ADV_ACTIVATION=Sigmoid
 export ADV_FC_DELIM=$(printf "_%s" "${ADV_FC[@]}")
 
+# For generative adversarial multidecoders
+export GAN_FC=( 256 )
+export GAN_ACTIVATION=Sigmoid
+export GAN_FC_DELIM=$(printf "_%s" "${GAN_FC[@]}")
+
 export MODEL_DIR=${MODELS}/cnn/$DATASET_NAME/$EXPT_NAME
 mkdir -p $MODEL_DIR
 

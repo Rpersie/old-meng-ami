@@ -464,3 +464,69 @@ class CNNAdversarialMultidecoder(CNNMultidecoder):
         adversary_parameters = self.adversary.parameters()
         for param in adversary_parameters:
             yield param
+
+
+
+# Includes an adversarial classifier for detecting real vs. fake IHM (or SDM1) utterances
+class CNNGANMultidecoder(CNNMultidecoder):
+    def __init__(self, freq_dim=80,
+                       splicing=[5,5],
+                       enc_channel_sizes=[],
+                       enc_kernel_sizes=[],
+                       enc_pool_sizes=[],
+                       enc_fc_sizes=[],
+                       latent_dim=512,
+                       dec_fc_sizes=[],
+                       dec_channel_sizes=[],
+                       dec_kernel_sizes=[],
+                       dec_pool_sizes=[],
+                       activation="Tanh",
+                       decoder_classes=[""],
+                       use_batch_norm=False,
+                       weight_init="xavier_uniform",
+                       gan_fc_sizes=[],
+                       gan_activation="Sigmoid"):
+        super(CNNGANMultidecoder, self).__init__(freq_dim=freq_dim,
+                                                 splicing=splicing,
+                                                 enc_channel_sizes=enc_channel_sizes,
+                                                 enc_kernel_sizes=enc_kernel_sizes,
+                                                 enc_pool_sizes=enc_pool_sizes,
+                                                 enc_fc_sizes=enc_fc_sizes,
+                                                 latent_dim=latent_dim,
+                                                 dec_fc_sizes=dec_fc_sizes,
+                                                 dec_channel_sizes=dec_channel_sizes,
+                                                 dec_kernel_sizes=dec_kernel_sizes,
+                                                 dec_pool_sizes=dec_pool_sizes,
+                                                 activation=activation,
+                                                 decoder_classes=decoder_classes,
+                                                 use_batch_norm=use_batch_norm,
+                                                 weight_init=weight_init)
+        
+        self.gan_fc_sizes = gan_fc_sizes
+        self.gan_activation = gan_activation
+
+        # Construct adversary for each decoder class
+        # Simple linear classifier
+        self.gan_layers = dict()
+        self.gans = dict()
+        for decoder_class in self.decoder_classes:
+            self.gan_layers[decoder_class] = OrderedDict()
+            current_dim = self.freq_dim * self.time_dim
+            for i in range(len(self.gan_fc_sizes)):
+                next_dim = self.gan_fc_sizes[i]
+                self.gan_layers[decoder_class]["lin_%d" % i] = nn.Linear(current_dim, next_dim)
+                self.gan_layers[decoder_class]["%s_%d" % (self.gan_activation, i)] = getattr(nn, self.gan_activation)()
+                current_dim = next_dim
+            self.gan_layers[decoder_class]["lin_final"] = nn.Linear(current_dim, 1)
+            self.gan_layers[decoder_class]["%s_final" % self.gan_activation] = getattr(nn, self.gan_activation)() 
+            self.gans[decoder_class] = nn.Sequential(self.gan_layers[decoder_class])
+            self.add_module("gan_%s" % decoder_class, self.gans[decoder_class])
+
+    def gan_parameters(self, decoder_class):
+        # Get parameters for just the adversary
+        gan_parameters = self.gans[decoder_class].parameters()
+        for param in gan_parameters:
+            yield param
+
+    def forward_gan(self, feats, decoder_class):
+        return self.gans[decoder_class](feats.view((-1, self.time_dim * self.freq_dim)))
