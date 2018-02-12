@@ -26,7 +26,7 @@ class CNNMultidecoder(nn.Module):
                        dec_channel_sizes=[],
                        dec_kernel_sizes=[],
                        dec_pool_sizes=[],
-                       activation="Tanh",
+                       activation="ReLU",
                        decoder_classes=[""],
                        use_batch_norm=False,
                        weight_init="xavier_uniform"):
@@ -113,6 +113,7 @@ class CNNMultidecoder(nn.Module):
                 self.encoder_fc_layers["batchnorm1d_%d" % idx] = nn.BatchNorm1d(current_fc_dim)
             self.encoder_fc_layers["%s_%d" % (self.activation, idx)] = getattr(nn, self.activation)()            
 
+        # Should we use an activation here?
         self.encoder_fc_layers["lin_final"] = nn.Linear(current_fc_dim, self.latent_dim)
         self.init_weights(self.encoder_fc_layers["lin_final"], self.activation)
         self.encoder_fc_layers["%s_final" % self.activation] = getattr(nn, self.activation)()
@@ -138,6 +139,8 @@ class CNNMultidecoder(nn.Module):
             current_fc_dim = self.latent_dim
             for idx in range(len(dec_fc_sizes)):
                 dec_fc_size = dec_fc_sizes[idx]
+                
+                self.decoder_fc_layers[decoder_class]["%s_%d" % (self.activation, idx)] = getattr(nn, self.activation)()
 
                 self.decoder_fc_layers[decoder_class]["lin_%d" % idx] = nn.Linear(current_fc_dim, dec_fc_size)
                 self.init_weights(self.decoder_fc_layers[decoder_class]["lin_%d" % idx], self.activation)
@@ -145,13 +148,13 @@ class CNNMultidecoder(nn.Module):
 
                 if self.use_batch_norm:
                     self.decoder_fc_layers[decoder_class]["batchnorm1d_%d" % idx] = nn.BatchNorm1d(current_fc_dim)
-                self.decoder_fc_layers[decoder_class]["%s_%d" % (self.activation, idx)] = getattr(nn, self.activation)()
 
         
+            self.decoder_fc_layers[decoder_class]["%s_final" % self.activation] = getattr(nn, self.activation)()
             self.decoder_fc_layers[decoder_class]["lin_final"] = nn.Linear(current_fc_dim,
                                                                            input_channels * input_height * input_width)
             self.init_weights(self.decoder_fc_layers[decoder_class]["lin_final"], self.activation)
-            self.decoder_fc_layers[decoder_class]["%s_final" % self.activation] = getattr(nn, self.activation)()
+            
             self.decoder_fc[decoder_class] = nn.Sequential(self.decoder_fc_layers[decoder_class])
             self.add_module("decoder_fc_%s" % decoder_class, self.decoder_fc[decoder_class])
 
@@ -165,6 +168,8 @@ class CNNMultidecoder(nn.Module):
                 dec_kernel_size = dec_kernel_sizes[idx]
                 dec_pool_size = dec_pool_sizes[idx]
                 
+                self.decoder_deconv_layers[decoder_class]["%s_%d" % (self.activation, idx)] = getattr(nn, self.activation)()
+
                 if dec_pool_size > 0:
                     # Un-pool only in frequency direction (i.e. kernel and stride 1 in time dimension)
                     self.decoder_deconv_layers[decoder_class]["maxunpool2d_%d" % idx] = nn.MaxUnpool2d((1, dec_pool_size))
@@ -189,9 +194,9 @@ class CNNMultidecoder(nn.Module):
                 current_height = current_height + padding
                 current_width = current_width + padding
 
-                if self.use_batch_norm:
+                if self.use_batch_norm and idx != len(dec_channels) - 1:
+                    # Don't normalize if it's the output layer!
                     self.decoder_deconv_layers[decoder_class]["batchnorm2d_%d" % idx] = nn.BatchNorm2d(output_channels)
-                self.decoder_deconv_layers[decoder_class]["%s_%d" % (self.activation, idx)] = getattr(nn, self.activation)()
 
             self.decoder_deconv[decoder_class] = nn.Sequential(self.decoder_deconv_layers[decoder_class])
             self.add_module("decoder_deconv_%s" % decoder_class, self.decoder_deconv[decoder_class])
@@ -302,7 +307,7 @@ class CNNVariationalMultidecoder(CNNMultidecoder):
                        dec_channel_sizes=[],
                        dec_kernel_sizes=[],
                        dec_pool_sizes=[],
-                       activation="Tanh",
+                       activation="ReLU",
                        decoder_classes=[""],
                        use_batch_norm=False,
                        weight_init="xavier_uniform"):
@@ -336,13 +341,11 @@ class CNNVariationalMultidecoder(CNNMultidecoder):
         self.latent_mu_layers = OrderedDict()
         self.latent_mu_layers["lin"] = nn.Linear(current_fc_dim, self.latent_dim)
         self.init_weights(self.latent_mu_layers["lin"], "linear")
-        self.latent_mu_layers["%s" % self.activation] = getattr(nn, self.activation)()
         self.latent_mu = nn.Sequential(self.latent_mu_layers)
         
         self.latent_logvar_layers = OrderedDict()
         self.latent_logvar_layers["lin"] = nn.Linear(current_fc_dim, self.latent_dim)
         self.init_weights(self.latent_logvar_layers["lin"], "linear")
-        self.latent_logvar_layers["%s" % self.activation] = getattr(nn, self.activation)()
         self.latent_logvar = nn.Sequential(self.latent_logvar_layers)
 
 
@@ -421,7 +424,7 @@ class CNNAdversarialMultidecoder(CNNMultidecoder):
                        dec_channel_sizes=[],
                        dec_kernel_sizes=[],
                        dec_pool_sizes=[],
-                       activation="Tanh",
+                       activation="ReLU",
                        decoder_classes=[""],
                        use_batch_norm=False,
                        weight_init="xavier_uniform",
@@ -480,7 +483,7 @@ class CNNGANMultidecoder(CNNMultidecoder):
                        dec_channel_sizes=[],
                        dec_kernel_sizes=[],
                        dec_pool_sizes=[],
-                       activation="Tanh",
+                       activation="ReLU",
                        decoder_classes=[""],
                        use_batch_norm=False,
                        weight_init="xavier_uniform",

@@ -230,8 +230,9 @@ def run_training(run_mode, adversarial, gan):
 
     # Set up loss functions
     def reconstruction_loss(recon_x, x):
-        MSE = nn.MSELoss()(recon_x, x.view(-1, time_dim, freq_dim))
-        return MSE
+        # MSE = nn.MSELoss()(recon_x, x.view(-1, time_dim, freq_dim))
+        L2 = nn.MSELoss(size_average=False)(recon_x, x.view(-1, time_dim, freq_dim))
+        return L2
 
     def kld_loss(recon_x, x, mu, logvar):
         # see Appendix B from VAE paper:
@@ -391,12 +392,15 @@ def run_training(run_mode, adversarial, gan):
                 feats = feats.cuda()
                 targets = targets.cuda()
             
-            # Add noise to signal; randomly drop out % of elements
-            noise_matrix = torch.FloatTensor(np.random.binomial(1, 1.0 - noise_ratio, size=feats.size()).astype(float))
-            noise_matrix = Variable(noise_matrix)
-            if on_gpu:
-                noise_matrix = noise_matrix.cuda()
-            noised_feats = torch.mul(feats, noise_matrix)
+            if noise_ratio > 0.0:
+                # Add noise to signal; randomly drop out % of elements
+                noise_matrix = torch.FloatTensor(np.random.binomial(1, 1.0 - noise_ratio, size=feats.size()).astype(float))
+                noise_matrix = Variable(noise_matrix)
+                if on_gpu:
+                    noise_matrix = noise_matrix.cuda()
+                noised_feats = torch.mul(feats, noise_matrix)
+            else:
+                noised_feats = feats.clone()
 
             # PHASE 1: Backprop through same decoder (denoised autoencoding)
             model.train()
@@ -591,12 +595,15 @@ def run_training(run_mode, adversarial, gan):
             
                 # Set up noising, if needed
                 if noised:
-                    # Add noise to signal; randomly drop out % of elements
-                    noise_matrix = torch.FloatTensor(np.random.binomial(1, 1.0 - noise_ratio, size=feats.size()).astype(float))
-                    noise_matrix = Variable(noise_matrix, volatile=True)
-                    if on_gpu:
-                        noise_matrix = noise_matrix.cuda()
-                    noised_feats = torch.mul(feats, noise_matrix)
+                    if noise_ratio > 0.0:
+                        # Add noise to signal; randomly drop out % of elements
+                        noise_matrix = torch.FloatTensor(np.random.binomial(1, 1.0 - noise_ratio, size=feats.size()).astype(float))
+                        noise_matrix = Variable(noise_matrix, volatile=True)
+                        if on_gpu:
+                            noise_matrix = noise_matrix.cuda()
+                        noised_feats = torch.mul(feats, noise_matrix)
+                    else:
+                        noised_feats = feats.clone()
 
                 # PHASE 1: Backprop through same decoder (denoised autoencoding)
                 model.eval()

@@ -6,20 +6,20 @@ export LEARNING_RATE=0.0001
 export EPOCHS=25
 export BATCH_SIZE=256
 
-export ENC_CHANNELS=( 256 256 )
+export ENC_CHANNELS=( 64 64 )
 export ENC_KERNELS=( 3 3 )        # Assume square kernels (AxA)
 export ENC_POOLS=( 3 3 )          # Pool only in frequency; no overlap. Use 0 to indicate no pooling
-export ENC_FC=( 2048 2048 )     # Fully-connected layers following conv layers
+export ENC_FC=( 1024 )     # Fully-connected layers following conv layers
 
 export LATENT_DIM=256
 
-export DEC_FC=( 2048 2048 )     # Fully-connected layers before conv layers
-export DEC_CHANNELS=( 256 256 )
+export DEC_FC=( 1024 )     # Fully-connected layers before conv layers
+export DEC_CHANNELS=( 64 64 )
 export DEC_KERNELS=( 3 3 )        # Assume square kernels (AxA)
 export DEC_POOLS=( 3 3 )          # Pool only in frequency; no overlap. Use 0 to indicate no pooling
 
 export USE_BATCH_NORM=false
-export ACTIVATION_FUNC=SELU
+export ACTIVATION_FUNC=ReLU
 export WEIGHT_INIT=xavier_uniform
 
 export ENC_CHANNELS_DELIM=$(printf "_%s" "${ENC_CHANNELS[@]}")
@@ -52,7 +52,7 @@ export ADV_ACTIVATION=Sigmoid
 export ADV_FC_DELIM=$(printf "_%s" "${ADV_FC[@]}")
 
 # For generative adversarial multidecoders
-export GAN_FC=( 256 )
+export GAN_FC=( 256 256 )
 export GAN_ACTIVATION=Sigmoid
 export GAN_FC_DELIM=$(printf "_%s" "${GAN_FC[@]}")
 
@@ -75,4 +75,4 @@ mkdir -p $ACTIVATIONS_DIR
 # "Extracting and Composing Robust Features with Denoising Autoencoders", Vincent et. al.
 # http://www.iro.umontreal.ca/~lisa/publications2/index.php/attachments/single/176
 # Basically sets (NOISE_RATIO * 100)% of input features to 0 at random
-export NOISE_RATIO=0.25
+export NOISE_RATIO=0.0

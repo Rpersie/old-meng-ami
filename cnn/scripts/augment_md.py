@@ -16,6 +16,7 @@ sys.path.append("./")
 sys.path.append("./cnn")
 from cnn_md import CNNMultidecoder, CNNVariationalMultidecoder
 from cnn_md import CNNAdversarialMultidecoder
+from cnn_md import CNNGANMultidecoder
 from utils.hao_data import HaoEvalDataset, write_kaldi_hao_ark, write_kaldi_hao_scp
 
 run_start_t = time.clock()
@@ -23,16 +24,22 @@ run_start_t = time.clock()
 # Parse command line args
 run_mode = "ae"
 adversarial = False
+gan = False
+profile = False
 
-if len(sys.argv) == 3:
+if len(sys.argv) == 4:
     run_mode = sys.argv[1]
     adversarial = True if sys.argv[2] == "true" else False
+    gan = True if sys.argv[3] == "true" else False
 else:
-    print("Usage: python cnn/scripts/augment_md.py <run mode> <adversarial true/false>", flush=True)
+    print("Usage: python cnn/scripts/augment_md.py <run mode> <adversarial true/false> <GAN true/false>", flush=True)
     sys.exit(1)
+
 print("Running augmentation with mode %s" % run_mode, flush=True)
 if adversarial:
     print("Using adversarial loss", flush=True)
+elif gan:
+    print("Using generative adversarial loss", flush=True)
 
 # Set up noising
 noise_ratio = float(os.environ["NOISE_RATIO"])
@@ -100,6 +107,13 @@ if adversarial:
         if len(res_str) > 0:
             adv_fc_sizes.append(int(res_str))
     adv_activation = os.environ["ADV_ACTIVATION"]
+    
+if gan:
+    gan_fc_sizes = []
+    for res_str in os.environ["GAN_FC_DELIM"].split("_"):
+        if len(res_str) > 0:
+            gan_fc_sizes.append(int(res_str))
+    gan_activation = os.environ["GAN_ACTIVATION"]
 
 on_gpu = torch.cuda.is_available()
 log_interval = 100   # Log results once for this many batches during training
@@ -118,6 +132,11 @@ for decoder_class in decoder_classes:
 if adversarial:
     output_dir = os.path.join(os.environ["AUGMENTED_DATA_DIR"], "adversarial_fc_%s_act_%s_%s_ratio%s" % (os.environ["ADV_FC_DELIM"],
                                                                                              adv_activation,
+                                                                                             run_mode,
+                                                                                             str(noise_ratio)))
+elif gan:
+    output_dir = os.path.join(os.environ["AUGMENTED_DATA_DIR"], "gan_fc_%s_act_%s_%s_ratio%s" % (os.environ["GAN_FC_DELIM"],
+                                                                                             gan_activation,
                                                                                              run_mode,
                                                                                              str(noise_ratio)))
 else:
@@ -150,6 +169,24 @@ if run_mode == "ae":
                                 weight_init=weight_init,
                                 adv_fc_sizes=adv_fc_sizes,
                                 adv_activation=adv_activation)
+    elif gan:
+        model = CNNGANMultidecoder(freq_dim=freq_dim,
+                                splicing=[left_context, right_context], 
+                                enc_channel_sizes=enc_channel_sizes,
+                                enc_kernel_sizes=enc_kernel_sizes,
+                                enc_pool_sizes=enc_pool_sizes,
+                                enc_fc_sizes=enc_fc_sizes,
+                                latent_dim=latent_dim,
+                                dec_fc_sizes=dec_fc_sizes,
+                                dec_channel_sizes=dec_channel_sizes,
+                                dec_kernel_sizes=dec_kernel_sizes,
+                                dec_pool_sizes=dec_pool_sizes,
+                                activation=activation,
+                                use_batch_norm=use_batch_norm,
+                                decoder_classes=decoder_classes,
+                                weight_init=weight_init,
+                                gan_fc_sizes=gan_fc_sizes,
+                                gan_activation=gan_activation)
     else:
         model = CNNMultidecoder(freq_dim=freq_dim,
                                 splicing=[left_context, right_context], 
@@ -169,6 +206,9 @@ if run_mode == "ae":
 elif run_mode == "vae":
     if adversarial:
         print("Adversarial VAEs not supported yet", flush=True)
+        sys.exit(1)
+    elif adversarial:
+        print("Generative adversarial VAEs not supported yet", flush=True)
         sys.exit(1)
     else:
         model = CNNVariationalMultidecoder(freq_dim=freq_dim,
@@ -201,6 +241,11 @@ model_dir = os.environ["MODEL_DIR"]
 if adversarial:
     best_ckpt_path = os.path.join(model_dir, "best_cnn_adversarial_fc_%s_act_%s_%s_ratio%s_md.pth.tar" % (os.environ["ADV_FC_DELIM"],
                                                                                               adv_activation,
+                                                                                              run_mode,
+                                                                                              str(noise_ratio)))
+elif gan:
+    best_ckpt_path = os.path.join(model_dir, "best_cnn_gan_fc_%s_act_%s_%s_ratio%s_md.pth.tar" % (os.environ["GAN_FC_DELIM"],
+                                                                                              gan_activation,
                                                                                               run_mode,
                                                                                               str(noise_ratio)))
 else:

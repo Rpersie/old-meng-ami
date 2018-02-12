@@ -14,7 +14,7 @@ else
     export DATASET=$MENG_ROOT/${DATASET_NAME}
 fi
 
-export TRAIN_DOMAIN=sdm1
+export TRAIN_DOMAIN=ihm
 export PREDICT_DOMAIN=sdm1
 export GOLD_DIR=/data/sls/scratch/haotang/ami/sls-data/${DATASET_NAME}
 

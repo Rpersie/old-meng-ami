@@ -16,9 +16,13 @@ export ADV_FC=( 256 )
 export ADV_ACTIVATION=Sigmoid
 export ADV_FC_DELIM=$(printf "_%s" "${ADV_FC[@]}")
 
-export CNN_NAME=ENC_C_256_256_K_3_3_P_3_3_F_2048_2048/LATENT_128/DEC_F_2048_2048_C_256_256_K_3_3_P_3_3/ACT_SELU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false
-# export AUGMENTED_DATA_DIR=${SCRATCH}/augmented_data/cnn/$DATASET_NAME/$CNN_NAME/${MODEL_TYPE}_ratio${NOISE_RATIO}
-export AUGMENTED_DATA_DIR=${SCRATCH}/augmented_data/cnn/$DATASET_NAME/$CNN_NAME/adversarial_fc_${ADV_FC_DELIM}_act_${ADV_ACTIVATION}_${MODEL_TYPE}_ratio${NOISE_RATIO}
+# For generative adversarial multidecoders
+export GAN_FC=( 256, 256 )
+export GAN_ACTIVATION=Sigmoid
+export GAN_FC_DELIM=$(printf "_%s" "${GAN_FC[@]}")
+
+export CNN_NAME=ENC_C_256_256_K_3_3_P_3_3_F_2048_2048/LATENT_256/DEC_F_2048_2048_C_256_256_K_3_3_P_3_3/ACT_SELU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false
+export AUGMENTED_DATA_BASE_DIR=${SCRATCH}/augmented_data/cnn/$DATASET_NAME/$CNN_NAME
 
 export PREDICT_DOMAIN=sdm1
 export GOLD_DIR=/data/sls/scratch/haotang/ami/sls-data/${DATASET_NAME}
