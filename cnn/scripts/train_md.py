@@ -316,14 +316,21 @@ def run_training(run_mode, adversarial, gan):
     # Set up minibatch shuffling (for training only) by decoder class
     print("Setting up minibatch shuffling for training...", flush=True)
     train_batch_counts = dict()
-    total_batches = 0
+    train_element_counts = dict()
     dev_batch_counts = dict()
+    dev_element_counts = dict()
+
+    total_train_batches = 0
+
     for decoder_class in decoder_classes:
         train_batch_counts[decoder_class] = len(training_loaders[decoder_class])
-        total_batches += train_batch_counts[decoder_class]
-        
+        train_element_counts[decoder_class] = len(training_datasets[decoder_class])
         dev_batch_counts[decoder_class] = len(dev_loaders[decoder_class])
-    print("%d total batches: %s" % (total_batches, str(train_batch_counts)), flush=True)
+        dev_element_counts[decoder_class] = len(dev_datasets[decoder_class])
+
+        total_train_batches += train_batch_counts[decoder_class]
+        
+    print("%d total batches: %s" % (total_train_batches, str(train_batch_counts)), flush=True)
 
     print("Done setting up data.", flush=True)
 
@@ -374,9 +381,9 @@ def run_training(run_mode, adversarial, gan):
         current_train_batch_counts = train_batch_counts.copy()
         training_iterators = {decoder_class: iter(training_loaders[decoder_class]) for decoder_class in decoder_classes}
 
-        while batches_processed < total_batches:
+        while batches_processed < total_train_batches:
             # Pick a decoder class
-            batch_idx = random.randint(0, total_batches - batches_processed - 1)
+            batch_idx = random.randint(0, total_train_batches - batches_processed - 1)
             other_decoder_class = decoder_classes[1]
             for decoder_class in decoder_classes:
                 current_count = current_train_batch_counts[decoder_class]
@@ -555,8 +562,8 @@ def run_training(run_mode, adversarial, gan):
             if batches_processed % log_interval == 0:
                 print("GENERATOR Train epoch %d: [%d/%d (%.1f%%)]" % (epoch,
                                                             batches_processed,
-                                                            total_batches,
-                                                            batches_processed / total_batches * 100.0),
+                                                            total_train_batches,
+                                                            batches_processed / total_train_batches * 100.0),
                       flush=True)
                 print_loss_dict(decoder_class_losses, class_elements_processed)
             
@@ -570,9 +577,9 @@ def run_training(run_mode, adversarial, gan):
             current_train_batch_counts = train_batch_counts.copy()
             training_iterators = {decoder_class: iter(training_loaders[decoder_class]) for decoder_class in decoder_classes}
 
-            while batches_processed < total_batches:
+            while batches_processed < total_train_batches:
                 # Pick a decoder class
-                batch_idx = random.randint(0, total_batches - batches_processed - 1)
+                batch_idx = random.randint(0, total_train_batches - batches_processed - 1)
                 other_decoder_class = decoder_classes[1]
                 for decoder_class in decoder_classes:
                     current_count = current_train_batch_counts[decoder_class]
@@ -660,8 +667,8 @@ def run_training(run_mode, adversarial, gan):
                 if batches_processed % log_interval == 0:
                     print("DISCRIMINATOR Train epoch %d: [%d/%d (%.1f%%)]" % (epoch,
                                                                 batches_processed,
-                                                                total_batches,
-                                                                batches_processed / total_batches * 100.0),
+                                                                total_train_batches,
+                                                                batches_processed / total_train_batches * 100.0),
                           flush=True)
 
         return decoder_class_losses
@@ -927,11 +934,11 @@ def run_training(run_mode, adversarial, gan):
 
     train_loss_dict = test(epoch, training_loaders, recon_only=True, noised=False)
     print("\nTRAINING SET", flush=True)
-    print_loss_dict(train_loss_dict, train_batch_counts)
+    print_loss_dict(train_loss_dict, train_element_counts)
 
     dev_loss_dict = test(epoch, dev_loaders, recon_only=True, noised=False)
     print("\nDEV SET", flush=True)
-    print_loss_dict(dev_loss_dict, dev_batch_counts)
+    print_loss_dict(dev_loss_dict, dev_element_counts)
 
     run_end_t = time.clock()
     print("\nCompleted training run in %.3f seconds" % (run_end_t - run_start_t), flush=True)
