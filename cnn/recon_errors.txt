@@ -541,3 +541,46 @@ Losses:
 ===> adversarial_loss: -0.705
 ===> Total for class sdm1: 0.751
 TOTAL: 1.692
+
+
+
+===========================================
+FEBRUARY 10TH
+===========================================
+
+ENC_C_256_256_K_3_3_P_3_3_F_2048_2048/LATENT_256/DEC_F_2048_2048_C_256_256_K_3_3_P_3_3/ACT_SELU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_adversarial_fc__256_256_act_Sigmoid_ae.log
+
+Param count: 104,186,627
+Time per epoch: ~2 hours
+
+TRAINING SET
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.073
+===> backtranslation_recon_loss: 0.074
+===> Total for class ihm: 0.147
+=> Class sdm1
+===> autoencoding_recon_loss: 0.083
+===> backtranslation_recon_loss: 0.110
+===> Total for class sdm1: 0.193
+TOTAL: 0.340
+
+DEV SET
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 0.076
+===> backtranslation_recon_loss: 0.079
+===> Total for class ihm: 0.155
+=> Class sdm1
+===> autoencoding_recon_loss: 0.082
+===> backtranslation_recon_loss: 0.108
+===> Total for class sdm1: 0.191
+TOTAL: 0.346
+
+
+ENC_C_256_256_K_3_3_P_3_3_F_2048_2048/LATENT_256/DEC_F_2048_2048_C_256_256_K_3_3_P_3_3/ACT_SELU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_gan_fc__256_256_act_Sigmoid_ae.log
+
+Param count: 104,506,372
+Time per epoch: 
+
+

@@ -14,8 +14,8 @@ else
     export DATASET=$MENG_ROOT/${DATASET_NAME}
 fi
 
-export TRAIN_DOMAIN=ihm
-export PREDICT_DOMAIN=ihm
+export TRAIN_DOMAIN=sdm1
+export PREDICT_DOMAIN=sdm1
 export GOLD_DIR=/data/sls/scratch/haotang/ami/sls-data/${DATASET_NAME}
 
 
@@ -29,7 +29,7 @@ export GOLD_DIR=/data/sls/scratch/haotang/ami/sls-data/${DATASET_NAME}
 # Always use IHM pdfids! (See Hao email from 1/17/18)
 export NPRED=3984
 
-export EXPT_NAME="${DATASET_NAME}/train_${TRAIN_DOMAIN}/baseline/frame-tdnn-450x7-step0.05"
+export EXPT_NAME="train_${TRAIN_DOMAIN}/baseline/frame-tdnn-450x7-step0.05"
 
 export MODEL_DIR=$MODELS/am/$DATASET_NAME/$EXPT_NAME
 mkdir -p $MODEL_DIR

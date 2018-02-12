@@ -31,4 +31,7 @@ echo "Done predicting using TDNN."
 # Get FER for run
 python $MENG_ROOT/am/eval-frames.py $predict_log $GOLD_DIR/ihm-dev-tri3.bali
 
+# Evaluate errors
+python $MENG_ROOT/am/err_analysis.py $predict_log $GOLD_DIR/ihm-dev-tri3.bali $LOGS/$EXPT_NAME/predict_${PREDICT_DOMAIN}
+
 echo "DONE AUGMENTED ACOUSTIC MODEL PREDICTION JOB"
