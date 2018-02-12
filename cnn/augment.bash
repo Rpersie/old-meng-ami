@@ -7,6 +7,7 @@
 #SBATCH --mem=32768
 #SBATCH --time=48:00:00
 #SBATCH -J augment_cnn_md
+#SBATCH --exclude=sls-sm-[5]
 
 echo "STARTING CONVOLUTIONAL MULTIDECODER DATA AUGMENTATION JOB"
 

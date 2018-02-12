@@ -7,6 +7,7 @@
 #SBATCH --mem=32768
 #SBATCH --time=48:00:00
 #SBATCH -J train_cnn_md
+#SBATCH --exclude=sls-sm-[5]
 
 echo "STARTING CONVOLUTIONAL MULTIDECODER TRAINING JOB"
 
@@ -42,22 +43,22 @@ fi
 
 mkdir -p $LOGS/$EXPT_NAME
 if [ "$adversarial" == true ]; then
-    train_log=$LOGS/$EXPT_NAME/train_adversarial_fc_${ADV_FC_DELIM}_act_${ADV_ACTIVATION}_${run_mode}.log
+    train_log=$LOGS/$EXPT_NAME/train_adversarial_fc_${ADV_FC_DELIM}_act_${ADV_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}.log
     if [ -f $train_log ]; then
         # Move old log
-        mv $train_log $LOGS/$EXPT_NAME/train_adversarial_fc_${ADV_FC_DELIM}_act_${ADV_ACTIVATION}_${run_mode}-$(date +"%F_%T%z").log
+        mv $train_log $LOGS/$EXPT_NAME/train_adversarial_fc_${ADV_FC_DELIM}_act_${ADV_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}-$(date +"%F_%T%z").log
     fi
 elif [ "$gan" == true ]; then
-    train_log=$LOGS/$EXPT_NAME/train_gan_fc_${GAN_FC_DELIM}_act_${GAN_FC_DELIM}_${run_mode}.log
+    train_log=$LOGS/$EXPT_NAME/train_gan_fc_${GAN_FC_DELIM}_act_${GAN_FC_DELIM}_${run_mode}_ratio${NOISE_RATIO}.log
     if [ -f $train_log ]; then
         # Move old log
-        mv $train_log $LOGS/$EXPT_NAME/train_gan_fc_${GAN_FC_DELIM}_act_${GAN_FC_DELIM}_${run_mode}-$(date +"%F_%T%z").log
+        mv $train_log $LOGS/$EXPT_NAME/train_gan_fc_${GAN_FC_DELIM}_act_${GAN_FC_DELIM}_${run_mode}_ratio${NOISE_RATIO}-$(date +"%F_%T%z").log
     fi
 else
-    train_log=$LOGS/$EXPT_NAME/train_${run_mode}.log
+    train_log=$LOGS/$EXPT_NAME/train_${run_mode}_ratio${NOISE_RATIO}.log
     if [ -f $train_log ]; then
         # Move old log
-        mv $train_log $LOGS/$EXPT_NAME/train_${run_mode}-$(date +"%F_%T%z").log
+        mv $train_log $LOGS/$EXPT_NAME/train_${run_mode}_ratio${NOISE_RATIO}-$(date +"%F_%T%z").log
     fi
 fi
 

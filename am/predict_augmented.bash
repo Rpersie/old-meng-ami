@@ -7,6 +7,7 @@
 #SBATCH --mem=32768
 #SBATCH --time=48:00:00
 #SBATCH -J predict_augmented
+#SBATCH --exclude=sls-sm-[5]
 
 echo "STARTING AUGMENTED ACOUSTIC MODEL PREDICTION JOB"
 
