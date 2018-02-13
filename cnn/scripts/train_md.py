@@ -877,7 +877,7 @@ def run_training(run_mode, adversarial, gan):
         print("\nEPOCH %d TRAIN (%.3fs)" % (epoch,
                                           train_end_t - train_start_t),
               flush=True)
-        print_loss_dict(train_loss_dict, train_batch_counts)
+        print_loss_dict(train_loss_dict, train_element_counts)
             
         dev_start_t = time.clock()
         dev_loss_dict = test(epoch, dev_loaders)
@@ -885,8 +885,8 @@ def run_training(run_mode, adversarial, gan):
         print("\nEPOCH %d DEV (%.3fs)" % (epoch,
                                         dev_end_t - dev_start_t),
               flush=True)
-        print_loss_dict(dev_loss_dict, dev_batch_counts)
-        dev_loss = total_loss(dev_loss_dict, dev_batch_counts)
+        print_loss_dict(dev_loss_dict, dev_element_counts)
+        dev_loss = total_loss(dev_loss_dict, dev_element_counts)
         
         is_best = (dev_loss <= best_dev_loss)
         if is_best:

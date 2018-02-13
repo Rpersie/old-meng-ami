@@ -5,7 +5,31 @@ FEBRUARY 12TH
 ENC_C_64_64_K_3_3_P_3_3_F_1024/LATENT_256/DEC_F_1024_C_64_64_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_ae_ratio0.25.log
 
 Param count: 11,919,554
-Time per epoch:
+Time per epoch: ~22 minutes
+
+TRAINING SET
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 24.667
+===> backtranslation_recon_loss: 24.832
+===> Total for class ihm: 49.499
+=> Class sdm1
+===> autoencoding_recon_loss: 32.853
+===> backtranslation_recon_loss: 44.577
+===> Total for class sdm1: 77.430
+TOTAL: 126.929
+
+DEV SET
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 25.587
+===> backtranslation_recon_loss: 26.277
+===> Total for class ihm: 51.864
+=> Class sdm1
+===> autoencoding_recon_loss: 32.608
+===> backtranslation_recon_loss: 44.546
+===> Total for class sdm1: 77.154
+TOTAL: 129.018
 
 
 ENC_C_64_64_K_3_3_P_3_3_F_1024/LATENT_256/DEC_F_1024_C_64_64_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_adversarial_fc__256_256_act_Sigmoid_ae_ratio0.25.log
@@ -41,7 +65,31 @@ TOTAL: 166.749
 ENC_C_64_64_K_3_3_P_3_3_F_1024/LATENT_256/DEC_F_1024_C_64_64_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_gan_fc__256_256_act_Sigmoid_ae_ratio0.25.log
 
 Param count: 12,502,724
-Time per epoch:
+Time per epoch: 35 minutes
+
+TRAINING SET
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 32.792
+===> backtranslation_recon_loss: 29.891
+===> Total for class ihm: 62.683
+=> Class sdm1
+===> autoencoding_recon_loss: 45.074
+===> backtranslation_recon_loss: 52.844
+===> Total for class sdm1: 97.918
+TOTAL: 160.601
+
+DEV SET
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 34.467
+===> backtranslation_recon_loss: 31.794
+===> Total for class ihm: 66.261
+=> Class sdm1
+===> autoencoding_recon_loss: 43.924
+===> backtranslation_recon_loss: 52.721
+===> Total for class sdm1: 96.645
+TOTAL: 162.906
 
 
 ENC_C_256_256_K_3_3_P_3_3_F_1024/LATENT_256/DEC_F_1024_C_256_256_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_ae_ratio0.25.log
@@ -53,13 +101,61 @@ Time per epoch:
 ENC_C_256_256_K_3_3_P_3_3_F_1024/LATENT_256/DEC_F_1024_C_256_256_K_3_3_P_3_3/ACT_ReLU_BN_true_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_ae_ratio0.25.log
 
 Param count: 46,644,226
-Time per epoch:
+Time per epoch: 1 hour, 29 minutes
+
+TRAINING SET
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 81.383
+===> backtranslation_recon_loss: 82.120
+===> Total for class ihm: 163.503
+=> Class sdm1
+===> autoencoding_recon_loss: 107.778
+===> backtranslation_recon_loss: 115.262
+===> Total for class sdm1: 223.040
+TOTAL: 386.543
+
+DEV SET
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 85.484
+===> backtranslation_recon_loss: 84.416
+===> Total for class ihm: 169.900
+=> Class sdm1
+===> autoencoding_recon_loss: 102.499
+===> backtranslation_recon_loss: 110.930
+===> Total for class sdm1: 213.429
+TOTAL: 383.329
 
 
 ENC_C_256_256_K_3_3_P_3_3_F_1024/LATENT_256/DEC_F_1024_C_256_256_K_3_3_P_3_3/ACT_Tanh_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_ae_ratio0.25.log
 
 Param count: 46,636,034
-Time per epoch:
+Time per epoch: 1 hour, 22 minutes
+
+TRAINING SET
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 45.831
+===> backtranslation_recon_loss: 57.811
+===> Total for class ihm: 103.642
+=> Class sdm1
+===> autoencoding_recon_loss: 51.915
+===> backtranslation_recon_loss: 81.605
+===> Total for class sdm1: 133.520
+TOTAL: 237.162
+
+DEV SET
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 46.831
+===> backtranslation_recon_loss: 60.107
+===> Total for class ihm: 106.938
+=> Class sdm1
+===> autoencoding_recon_loss: 52.035
+===> backtranslation_recon_loss: 81.218
+===> Total for class sdm1: 133.253
+TOTAL: 240.191
 
 
 ENC_C_256_256_K_3_3_P_3_3_F_1024/LATENT_256/DEC_F_1024_C_256_256_K_3_3_P_3_3/ACT_SELU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_ae_ratio0.25.log
