@@ -18,8 +18,8 @@ export DEC_CHANNELS=( 256 256 )
 export DEC_KERNELS=( 3 3 )        # Assume square kernels (AxA)
 export DEC_POOLS=( 3 3 )          # Pool only in frequency; no overlap. Use 0 to indicate no pooling
 
-export USE_BATCH_NORM=true
-export ACTIVATION_FUNC=ReLU
+export USE_BATCH_NORM=false
+export ACTIVATION_FUNC=Tanh
 export WEIGHT_INIT=xavier_uniform
 
 export ENC_CHANNELS_DELIM=$(printf "_%s" "${ENC_CHANNELS[@]}")

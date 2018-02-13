@@ -194,7 +194,7 @@ class CNNMultidecoder(nn.Module):
                 current_height = current_height + padding
                 current_width = current_width + padding
 
-                if self.use_batch_norm and idx != len(dec_channels) - 1:
+                if self.use_batch_norm and idx != len(dec_channel_sizes) - 1:
                     # Don't normalize if it's the output layer!
                     self.decoder_deconv_layers[decoder_class]["batchnorm2d_%d" % idx] = nn.BatchNorm2d(output_channels)
 

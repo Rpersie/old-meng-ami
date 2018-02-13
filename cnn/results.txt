@@ -1,0 +1,62 @@
+============================================
+FEBRUARY 12TH
+============================================
+
+ENC_C_64_64_K_3_3_P_3_3_F_1024/LATENT_256/DEC_F_1024_C_64_64_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_ae_ratio0.25.log
+
+Param count: 11,919,554
+Time per epoch:
+
+
+ENC_C_64_64_K_3_3_P_3_3_F_1024/LATENT_256/DEC_F_1024_C_64_64_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_adversarial_fc__256_256_act_Sigmoid_ae_ratio0.25.log
+
+Param count: 12,051,395
+Time per epoch: 29 minutes
+
+TRAINING SET
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 7080.362
+===> backtranslation_recon_loss: 9005.767
+===> Total for class ihm: 16086.129
+=> Class sdm1
+===> autoencoding_recon_loss: 11581.826
+===> backtranslation_recon_loss: 14598.328
+===> Total for class sdm1: 26180.155
+TOTAL: 42266.283
+
+DEV SET
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 7434.606
+===> backtranslation_recon_loss: 9331.682
+===> Total for class ihm: 16766.288
+=> Class sdm1
+===> autoencoding_recon_loss: 11502.595
+===> backtranslation_recon_loss: 14418.989
+===> Total for class sdm1: 25921.583
+TOTAL: 42687.871
+
+                
+ENC_C_64_64_K_3_3_P_3_3_F_1024/LATENT_256/DEC_F_1024_C_64_64_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_gan_fc__256_256_act_Sigmoid_ae_ratio0.25.log
+
+Param count: 12,502,724
+Time per epoch:
+
+
+ENC_C_256_256_K_3_3_P_3_3_F_1024/LATENT_256/DEC_F_1024_C_256_256_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_ae_ratio0.25.log
+
+Param count: 46,636,034
+Time per epoch:
+
+
+ENC_C_256_256_K_3_3_P_3_3_F_1024/LATENT_256/DEC_F_1024_C_256_256_K_3_3_P_3_3/ACT_ReLU_BN_true_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_ae_ratio0.25.log
+
+Param count: 46,644,226
+Time per epoch:
+
+
+ENC_C_256_256_K_3_3_P_3_3_F_1024/LATENT_256/DEC_F_1024_C_256_256_K_3_3_P_3_3/ACT_Tanh_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_ae_ratio0.25.log
+
+Param count: 46,636,034
+Time per epoch:
