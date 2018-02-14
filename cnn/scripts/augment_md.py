@@ -25,7 +25,6 @@ run_start_t = time.clock()
 run_mode = "ae"
 adversarial = False
 gan = False
-profile = False
 
 if len(sys.argv) == 4:
     run_mode = sys.argv[1]

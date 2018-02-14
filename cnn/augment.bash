@@ -28,10 +28,16 @@ run_mode=$1
 echo "Using run mode ${run_mode}"
 
 adversarial=false
+gan=false
 if [ "$#" -ge 2 ]; then
     if [ "$2" == "adversarial" ]; then
         adversarial=true
-        echo "Using adversarial trained models"
+        echo "Using adversarial training"
+    fi
+    
+    if [ "$2" == "gan" ]; then
+        gan=true
+        echo "Using generative adversarial net (GAN) style training"
     fi
 fi
 
@@ -42,18 +48,23 @@ if [ "$adversarial" == true ]; then
         # Move old log
         mv $augment_log $LOGS/$EXPT_NAME/augment_adversarial_fc_${ADV_FC_DELIM}_act_${ADV_ACTIVATION}_${run_mode}-$(date +"%F_%T%z").log
     fi
-
     mkdir -p $AUGMENTED_DATA_DIR/adversarial_fc_${ADV_FC_DELIM}_act_${ADV_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}
+elif [ "$gan" == true ]; then
+    augment_log=$LOGS/$EXPT_NAME/augment_gan_fc_${GAN_FC_DELIM}_act_${GAN_FC_DELIM}_${run_mode}_ratio${NOISE_RATIO}.log
+    if [ -f $augment_log ]; then
+        # Move old log
+        mv $augment_log $LOGS/$EXPT_NAME/augment_gan_fc_${GAN_FC_DELIM}_act_${GAN_FC_DELIM}_${run_mode}_ratio${NOISE_RATIO}-$(date +"%F_%T%z").log
+    fi
+    mkdir -p $AUGMENTED_DATA_DIR/gan_fc_${GAN_FC_DELIM}_act_${GAN_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}
 else
     augment_log=$LOGS/$EXPT_NAME/augment_${run_mode}.log
     if [ -f $augment_log ]; then
         # Move old log
         mv $augment_log $LOGS/$EXPT_NAME/augment_${run_mode}-$(date +"%F_%T%z").log
     fi
-
     mkdir -p $AUGMENTED_DATA_DIR/${run_mode}_ratio${NOISE_RATIO}
 fi
 
-python3 cnn/scripts/augment_md.py ${run_mode} ${adversarial} > $augment_log
+python3 cnn/scripts/augment_md.py ${run_mode} ${adversarial} ${gan} > $augment_log
 
 echo "DONE CONVOLUTIONAL MULTIDECODER DATA AUGMENTATION JOB"
