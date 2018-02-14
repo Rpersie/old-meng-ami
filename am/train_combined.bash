@@ -15,7 +15,7 @@ echo "STARTING BASELINE + AUGMENTED ACOUSTIC MODEL TRAINING JOB"
 . $MENG_ROOT/am/combined_config.sh
 . $MENG_ROOT/am/path-cuda.sh
 
-if [ "$#" -le 1 ]; then
+if [ "$#" -lt 1 ]; then
     echo "Run mode not specified; exiting"
     exit 1
 fi

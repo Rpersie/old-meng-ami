@@ -20,11 +20,11 @@ export GAN_FC=( 256 256 )
 export GAN_ACTIVATION=Sigmoid
 export GAN_FC_DELIM=$(printf "_%s" "${GAN_FC[@]}")
 
-export CNN_NAME=ENC_C_256_256_K_3_3_P_3_3_F_2048_2048/LATENT_256/DEC_F_2048_2048_C_256_256_K_3_3_P_3_3/ACT_SELU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false
+export CNN_NAME=ENC_C_256_256_K_3_3_P_3_3_F_1024/LATENT_256/DEC_F_1024_C_256_256_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false
 export AUGMENTED_DATA_BASE_DIR=${SCRATCH}/augmented_data/cnn/$DATASET_NAME/$CNN_NAME
 
-export SOURCE_DOMAIN=ihm
-export TARGET_DOMAIN=ihm
+export SOURCE_DOMAIN=sdm1
+export TARGET_DOMAIN=sdm1
 export PREDICT_DOMAIN=ihm
 export GOLD_DIR=/data/sls/scratch/haotang/ami/sls-data/${DATASET_NAME}
 
