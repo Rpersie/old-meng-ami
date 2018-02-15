@@ -342,6 +342,30 @@ ENC_C_256_256_K_3_3_P_3_3_F_/LATENT_256/DEC_F__C_256_256_K_3_3_P_3_3/ACT_ReLU_BN
 Param count: 12,816,386
 Time per epoch: 1 hour, 14 minutes
 
+TRAINING SET
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 23.511
+===> backtranslation_recon_loss: 19.203
+===> Total for class ihm: 42.713
+=> Class sdm1
+===> autoencoding_recon_loss: 33.944
+===> backtranslation_recon_loss: 34.954
+===> Total for class sdm1: 68.898
+TOTAL: 111.611
+
+DEV SET
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 23.902
+===> backtranslation_recon_loss: 20.449
+===> Total for class ihm: 44.351
+=> Class sdm1
+===> autoencoding_recon_loss: 33.605
+===> backtranslation_recon_loss: 34.809
+===> Total for class sdm1: 68.413
+TOTAL: 112.765
+
 
 
 ============================================
@@ -351,10 +375,58 @@ FEBRUARY 14TH
 ENC_C_32_K_5_P_2_F_1024_1024_1024/LATENT_256/DEC_F_1024_1024_1024_C_32_K_5_P_2/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_ae_ratio0.25.log
 
 Param count: 33,255,682
-Time per epoch: 
+Time per epoch: 21 minutes
+
+TRAINING SET
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 65.739
+===> backtranslation_recon_loss: 61.601
+===> Total for class ihm: 127.340
+=> Class sdm1
+===> autoencoding_recon_loss: 101.823
+===> backtranslation_recon_loss: 120.298
+===> Total for class sdm1: 222.121
+TOTAL: 349.462
+
+DEV SET
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 69.140
+===> backtranslation_recon_loss: 65.162
+===> Total for class ihm: 134.303
+=> Class sdm1
+===> autoencoding_recon_loss: 101.485
+===> backtranslation_recon_loss: 119.487
+===> Total for class sdm1: 220.972
+TOTAL: 355.275
 
 
-ENC_C_512_512_K_3_3_P_3_3_F_/LATENT_256/DEC_F__C_512_512_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_ae_ratio0.25.log
+ENC_C_512_512_K_3_3_P_3_3_F_/LATENT_256/DEC_F__C_512_512_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_ae_ratio0.25.log (STOPPED EARLY)
 
 Param count: 29,171,458
-Time per epoch
+Time per epoch: 3 hours, 48 minutes
+
+EPOCH 7 TRAIN (13264.419s)
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 37.358
+===> backtranslation_recon_loss: 31.536
+===> Total for class ihm: 68.893
+=> Class sdm1
+===> autoencoding_recon_loss: 61.406
+===> backtranslation_recon_loss: 50.736
+===> Total for class sdm1: 112.142
+TOTAL: 181.036
+
+EPOCH 7 DEV (421.506s)
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 38.226
+===> backtranslation_recon_loss: 32.429
+===> Total for class ihm: 70.655
+=> Class sdm1
+===> autoencoding_recon_loss: 60.623
+===> backtranslation_recon_loss: 49.723
+===> Total for class sdm1: 110.346
+TOTAL: 181.000

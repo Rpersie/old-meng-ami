@@ -15,7 +15,7 @@ echo "STARTING COMBINED ACOUSTIC MODEL PREDICTION JOB"
 . $MENG_ROOT/am/combined_config.sh
 . $MENG_ROOT/am/path-opt.sh
 
-if [ "$#" -le 1 ]; then
+if [ "$#" -lt 1 ]; then
     echo "Run mode not specified; exiting"
     exit 1
 fi

@@ -24,7 +24,7 @@ export GAN_FC_DELIM=$(printf "_%s" "${GAN_FC[@]}")
 export CNN_NAME=ENC_C_256_256_K_3_3_P_3_3_F_1024/LATENT_256/DEC_F_1024_C_256_256_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false
 export AUGMENTED_DATA_BASE_DIR=${SCRATCH}/augmented_data/cnn/$DATASET_NAME/$CNN_NAME
 
-export PREDICT_DOMAIN=sdm1
+export PREDICT_DOMAIN=ihm
 export GOLD_DIR=/data/sls/scratch/haotang/ami/sls-data/${DATASET_NAME}
 
 # if [ "$TRAIN_DOMAIN" = ihm ] ; then

@@ -34,4 +34,4 @@ for ell1, ell2 in zip(pred, gold):
 
         nutt += 1
 
-print('utt: {} error rate: {}'.format(nutt, total_error / nutt))
+print("utt: %d error rate: %f (%.1f%%)" % (nutt, total_error / nutt, total_error / nutt * 100.0))
