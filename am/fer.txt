@@ -28,3 +28,22 @@ frame-tdnn-450x7-step0.05/ENC_C_256_256_K_3_3_P_3_3_F_1024/LATENT_256/DEC_F_1024
 - IHM baseline + IHM->SDM1:
     - IHM: 59.1%
     - SDM1: 85.8%
+
+    
+
+frame-tdnn-450x7-step0.05/ENC_C_256_256_K_3_3_P_3_3_F_/LATENT_256/DEC_F__C_256_256_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/ae
+- IHM -> IHM
+    - IHM:
+    - SDM1:
+- IHM -> SDM1
+    - IHM:
+    - SDM1:
+- SDM1 -> IHM
+    - IHM:
+    - SDM1:
+- SDM1 -> SDM1
+    - IHM:
+    - SDM1:
+- IHM baseline + IHM->SDM1:
+    - IHM:
+    - SDM1:
