@@ -13,7 +13,7 @@ export ENC_FC=( )     # Fully-connected layers following conv layers
 
 export LATENT_DIM=256
 
-export DEC_FC=()     # Fully-connected layers before conv layers
+export DEC_FC=( )     # Fully-connected layers before conv layers
 export DEC_CHANNELS=( 256 256 )
 export DEC_KERNELS=( 3 3 )        # Assume square kernels (AxA)
 export DEC_POOLS=( 3 3 )          # Pool only in frequency; no overlap. Use 0 to indicate no pooling
@@ -47,12 +47,12 @@ export PROFILE_RUN=false
 export EXPT_NAME="ENC_C${ENC_CHANNELS_DELIM}_K${ENC_KERNELS_DELIM}_P${ENC_POOLS_DELIM}_F${ENC_FC_DELIM}/LATENT_${LATENT_DIM}/DEC_F${DEC_FC_DELIM}_C${DEC_CHANNELS_DELIM}_K${DEC_KERNELS_DELIM}_P${DEC_POOLS_DELIM}/ACT_${ACTIVATION_FUNC}_BN_${USE_BATCH_NORM}_WEIGHT_INIT_${WEIGHT_INIT}/OPT_${OPTIMIZER}_LR_${LEARNING_RATE}_EPOCHS_${EPOCHS}_BATCH_${BATCH_SIZE}_DEBUG_${DEBUG_MODEL}"
 
 # For adversarial multidecoders
-export ADV_FC=( 256 256 )
+export ADV_FC=( 512 512 )
 export ADV_ACTIVATION=Sigmoid
 export ADV_FC_DELIM=$(printf "_%s" "${ADV_FC[@]}")
 
 # For generative adversarial multidecoders
-export GAN_FC=( 256 256 )
+export GAN_FC=( 512 512 )
 export GAN_ACTIVATION=Sigmoid
 export GAN_FC_DELIM=$(printf "_%s" "${GAN_FC[@]}")
 
