@@ -1,0 +1,328 @@
+Running training with mode ae
+Noising 10.000% of input features
+Constructing model...
+Done constructing model.
+CNNMultidecoder(
+  (encoder_conv): Sequential(
+    (conv2d_0): Conv2d (1, 256, kernel_size=(3, 3), stride=(1, 1))
+    (ReLU_0): ReLU()
+    (maxpool2d_0): MaxPool2d(kernel_size=(1, 3), stride=(1, 3), dilation=(1, 1))
+    (conv2d_1): Conv2d (256, 256, kernel_size=(3, 3), stride=(1, 1))
+    (ReLU_1): ReLU()
+    (maxpool2d_1): MaxPool2d(kernel_size=(1, 3), stride=(1, 3), dilation=(1, 1))
+  )
+  (encoder_fc): Sequential(
+    (lin_final): Linear(in_features=14336, out_features=256)
+    (ReLU_final): ReLU()
+  )
+  (decoder_fc_ihm): Sequential(
+    (ReLU_final): ReLU()
+    (lin_final): Linear(in_features=256, out_features=14336)
+  )
+  (decoder_deconv_ihm): Sequential(
+    (ReLU_0): ReLU()
+    (maxunpool2d_0): MaxUnpool2d(kernel_size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_0): Conv2d (256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (ReLU_1): ReLU()
+    (maxunpool2d_1): MaxUnpool2d(kernel_size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_1): Conv2d (256, 1, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+  )
+  (decoder_fc_sdm1): Sequential(
+    (ReLU_final): ReLU()
+    (lin_final): Linear(in_features=256, out_features=14336)
+  )
+  (decoder_deconv_sdm1): Sequential(
+    (ReLU_0): ReLU()
+    (maxunpool2d_0): MaxUnpool2d(kernel_size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_0): Conv2d (256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (ReLU_1): ReLU()
+    (maxunpool2d_1): MaxUnpool2d(kernel_size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_1): Conv2d (256, 1, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+  )
+)
+Model has 12816386 trainable parameters
+Setting up data...
+Setting up training datasets...
+Using 2407138 training features (9403 batches) for class ihm
+Using 2407138 training features (9403 batches) for class sdm1
+Setting up dev datasets...
+Using 249565 dev features (975 batches) for class ihm
+Using 249565 dev features (975 batches) for class sdm1
+Setting up minibatch shuffling for training...
+18806 total batches: {'ihm': 9403, 'sdm1': 9403}
+Done setting up data.
+Completed setup in 143.334 seconds
+Starting training!
+
+STARTING EPOCH 1
+GENERATOR Train epoch 1: [1000/18806 (5.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 457.495
+===> backtranslation_recon_loss: 507.011
+===> Total for class ihm: 964.506
+=> Class sdm1
+===> autoencoding_recon_loss: 404.545
+===> backtranslation_recon_loss: 455.219
+===> Total for class sdm1: 859.763
+TOTAL: 1824.270
+GENERATOR Train epoch 1: [2000/18806 (10.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 288.125
+===> backtranslation_recon_loss: 331.230
+===> Total for class ihm: 619.354
+=> Class sdm1
+===> autoencoding_recon_loss: 271.829
+===> backtranslation_recon_loss: 321.745
+===> Total for class sdm1: 593.574
+TOTAL: 1212.928
+GENERATOR Train epoch 1: [3000/18806 (16.0%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 219.261
+===> backtranslation_recon_loss: 254.373
+===> Total for class ihm: 473.634
+=> Class sdm1
+===> autoencoding_recon_loss: 215.622
+===> backtranslation_recon_loss: 259.774
+===> Total for class sdm1: 475.396
+TOTAL: 949.030
+GENERATOR Train epoch 1: [4000/18806 (21.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 182.591
+===> backtranslation_recon_loss: 212.504
+===> Total for class ihm: 395.094
+=> Class sdm1
+===> autoencoding_recon_loss: 184.887
+===> backtranslation_recon_loss: 224.644
+===> Total for class sdm1: 409.531
+TOTAL: 804.625
+GENERATOR Train epoch 1: [5000/18806 (26.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 157.930
+===> backtranslation_recon_loss: 183.808
+===> Total for class ihm: 341.738
+=> Class sdm1
+===> autoencoding_recon_loss: 165.672
+===> backtranslation_recon_loss: 201.970
+===> Total for class sdm1: 367.642
+TOTAL: 709.381
+GENERATOR Train epoch 1: [6000/18806 (31.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 141.140
+===> backtranslation_recon_loss: 164.025
+===> Total for class ihm: 305.165
+=> Class sdm1
+===> autoencoding_recon_loss: 151.160
+===> backtranslation_recon_loss: 184.073
+===> Total for class sdm1: 335.233
+TOTAL: 640.398
+GENERATOR Train epoch 1: [7000/18806 (37.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 128.826
+===> backtranslation_recon_loss: 149.305
+===> Total for class ihm: 278.131
+=> Class sdm1
+===> autoencoding_recon_loss: 140.149
+===> backtranslation_recon_loss: 170.323
+===> Total for class sdm1: 310.472
+TOTAL: 588.603
+GENERATOR Train epoch 1: [8000/18806 (42.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 119.434
+===> backtranslation_recon_loss: 137.994
+===> Total for class ihm: 257.428
+=> Class sdm1
+===> autoencoding_recon_loss: 131.405
+===> backtranslation_recon_loss: 159.408
+===> Total for class sdm1: 290.813
+TOTAL: 548.241
+GENERATOR Train epoch 1: [9000/18806 (47.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 111.724
+===> backtranslation_recon_loss: 128.621
+===> Total for class ihm: 240.345
+=> Class sdm1
+===> autoencoding_recon_loss: 124.422
+===> backtranslation_recon_loss: 150.533
+===> Total for class sdm1: 274.955
+TOTAL: 515.301
+GENERATOR Train epoch 1: [10000/18806 (53.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 105.411
+===> backtranslation_recon_loss: 120.984
+===> Total for class ihm: 226.396
+=> Class sdm1
+===> autoencoding_recon_loss: 119.010
+===> backtranslation_recon_loss: 143.492
+===> Total for class sdm1: 262.502
+TOTAL: 488.898
+GENERATOR Train epoch 1: [11000/18806 (58.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 99.943
+===> backtranslation_recon_loss: 114.260
+===> Total for class ihm: 214.204
+=> Class sdm1
+===> autoencoding_recon_loss: 114.371
+===> backtranslation_recon_loss: 137.455
+===> Total for class sdm1: 251.826
+TOTAL: 466.029
+GENERATOR Train epoch 1: [12000/18806 (63.8%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 95.377
+===> backtranslation_recon_loss: 108.617
+===> Total for class ihm: 203.994
+=> Class sdm1
+===> autoencoding_recon_loss: 110.316
+===> backtranslation_recon_loss: 132.114
+===> Total for class sdm1: 242.430
+TOTAL: 446.424
+GENERATOR Train epoch 1: [13000/18806 (69.1%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 91.695
+===> backtranslation_recon_loss: 104.155
+===> Total for class ihm: 195.850
+=> Class sdm1
+===> autoencoding_recon_loss: 106.928
+===> backtranslation_recon_loss: 127.712
+===> Total for class sdm1: 234.640
+TOTAL: 430.490
+GENERATOR Train epoch 1: [14000/18806 (74.4%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 88.140
+===> backtranslation_recon_loss: 99.751
+===> Total for class ihm: 187.891
+=> Class sdm1
+===> autoencoding_recon_loss: 103.722
+===> backtranslation_recon_loss: 123.473
+===> Total for class sdm1: 227.195
+TOTAL: 415.086
+GENERATOR Train epoch 1: [15000/18806 (79.8%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 85.292
+===> backtranslation_recon_loss: 96.249
+===> Total for class ihm: 181.541
+=> Class sdm1
+===> autoencoding_recon_loss: 100.722
+===> backtranslation_recon_loss: 119.551
+===> Total for class sdm1: 220.273
+TOTAL: 401.814
+GENERATOR Train epoch 1: [16000/18806 (85.1%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 82.641
+===> backtranslation_recon_loss: 92.966
+===> Total for class ihm: 175.607
+=> Class sdm1
+===> autoencoding_recon_loss: 97.904
+===> backtranslation_recon_loss: 115.808
+===> Total for class sdm1: 213.712
+TOTAL: 389.319
+GENERATOR Train epoch 1: [17000/18806 (90.4%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 80.207
+===> backtranslation_recon_loss: 89.957
+===> Total for class ihm: 170.164
+=> Class sdm1
+===> autoencoding_recon_loss: 95.604
+===> backtranslation_recon_loss: 112.748
+===> Total for class sdm1: 208.352
+TOTAL: 378.517
+GENERATOR Train epoch 1: [18000/18806 (95.7%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 78.028
+===> backtranslation_recon_loss: 87.246
+===> Total for class ihm: 165.274
+=> Class sdm1
+===> autoencoding_recon_loss: 93.426
+===> backtranslation_recon_loss: 109.888
+===> Total for class sdm1: 203.314
+TOTAL: 368.588
+
+EPOCH 1 TRAIN (4347.606s)
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 76.477
+===> backtranslation_recon_loss: 85.325
+===> Total for class ihm: 161.803
+=> Class sdm1
+===> autoencoding_recon_loss: 91.879
+===> backtranslation_recon_loss: 107.846
+===> Total for class sdm1: 199.725
+TOTAL: 361.528
+
+EPOCH 1 DEV (147.972s)
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 39.949
+===> backtranslation_recon_loss: 41.152
+===> Total for class ihm: 81.101
+=> Class sdm1
+===> autoencoding_recon_loss: 56.235
+===> backtranslation_recon_loss: 61.165
+===> Total for class sdm1: 117.400
+TOTAL: 198.501
+
+New best dev set loss: 198.501238
+Saved checkpoint for model
+
+STARTING EPOCH 2
+GENERATOR Train epoch 2: [1000/18806 (5.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 40.247
+===> backtranslation_recon_loss: 40.203
+===> Total for class ihm: 80.450
+=> Class sdm1
+===> autoencoding_recon_loss: 55.519
+===> backtranslation_recon_loss: 60.471
+===> Total for class sdm1: 115.990
+TOTAL: 196.440
+GENERATOR Train epoch 2: [2000/18806 (10.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 39.364
+===> backtranslation_recon_loss: 39.344
+===> Total for class ihm: 78.709
+=> Class sdm1
+===> autoencoding_recon_loss: 54.918
+===> backtranslation_recon_loss: 59.472
+===> Total for class sdm1: 114.389
+TOTAL: 193.098
+GENERATOR Train epoch 2: [3000/18806 (16.0%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 38.893
+===> backtranslation_recon_loss: 38.659
+===> Total for class ihm: 77.551
+=> Class sdm1
+===> autoencoding_recon_loss: 54.873
+===> backtranslation_recon_loss: 59.342
+===> Total for class sdm1: 114.215
+TOTAL: 191.767
+GENERATOR Train epoch 2: [4000/18806 (21.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 38.992
+===> backtranslation_recon_loss: 38.932
+===> Total for class ihm: 77.924
+=> Class sdm1
+===> autoencoding_recon_loss: 54.897
+===> backtranslation_recon_loss: 59.562
+===> Total for class sdm1: 114.459
+TOTAL: 192.382

@@ -11,7 +11,6 @@ Baseline:
 ==> Range of improvement for SDM1 dev from IHM to SDM1: 5.75%
 
 
-
 frame-tdnn-450x7-step0.05/ENC_C_256_256_K_3_3_P_3_3_F_1024/LATENT_256/DEC_F_1024_C_256_256_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/ae
 - IHM -> IHM
     - IHM: 59.8%
@@ -33,17 +32,17 @@ frame-tdnn-450x7-step0.05/ENC_C_256_256_K_3_3_P_3_3_F_1024/LATENT_256/DEC_F_1024
 
 frame-tdnn-450x7-step0.05/ENC_C_256_256_K_3_3_P_3_3_F_/LATENT_256/DEC_F__C_256_256_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/ae
 - IHM -> IHM
-    - IHM:
-    - SDM1:
+    - IHM: 59.3%
+    - SDM1: 87.0%
 - IHM -> SDM1
-    - IHM:
-    - SDM1:
+    - IHM: 59.9%
+    - SDM1: 85.9%
 - SDM1 -> IHM
-    - IHM:
-    - SDM1:
+    - IHM: 78.0%
+    - SDM1: 82.1%
 - SDM1 -> SDM1
-    - IHM:
-    - SDM1:
+    - IHM: 79.6%
+    - SDM1: 80.9%
 - IHM baseline + IHM->SDM1:
-    - IHM:
-    - SDM1:
+    - IHM: 58.1%
+    - SDM1: 85.8%

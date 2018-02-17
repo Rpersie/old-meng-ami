@@ -11,8 +11,7 @@ export ENC_KERNELS=( 3 3 )        # Assume square kernels (AxA)
 export ENC_POOLS=( 3 3 )          # Pool only in frequency; no overlap. Use 0 to indicate no pooling
 export ENC_FC=( )     # Fully-connected layers following conv layers
 
-export LATENT_DIM=256
-
+export LATENT_DIM=256 
 export DEC_FC=( )     # Fully-connected layers before conv layers
 export DEC_CHANNELS=( 256 256 )
 export DEC_KERNELS=( 3 3 )        # Assume square kernels (AxA)
@@ -75,4 +74,4 @@ mkdir -p $ACTIVATIONS_DIR
 # "Extracting and Composing Robust Features with Denoising Autoencoders", Vincent et. al.
 # http://www.iro.umontreal.ca/~lisa/publications2/index.php/attachments/single/176
 # Basically sets (NOISE_RATIO * 100)% of input features to 0 at random
-export NOISE_RATIO=0.25
+export NOISE_RATIO=0.1

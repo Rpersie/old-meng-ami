@@ -24,7 +24,7 @@ export CNN_NAME=ENC_C_256_256_K_3_3_P_3_3_F_/LATENT_256/DEC_F__C_256_256_K_3_3_P
 export AUGMENTED_DATA_BASE_DIR=${SCRATCH}/augmented_data/cnn/$DATASET_NAME/$CNN_NAME
 
 export SOURCE_DOMAIN=sdm1
-export TARGET_DOMAIN=ihm
+export TARGET_DOMAIN=sdm1
 export PREDICT_DOMAIN=ihm
 export GOLD_DIR=/data/sls/scratch/haotang/ami/sls-data/${DATASET_NAME}
 
