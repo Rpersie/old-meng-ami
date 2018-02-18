@@ -9,7 +9,7 @@ export DATASET_NAME=ami-0.1
 export DATASET=$MENG_ROOT/${DATASET_NAME}
 
 export MODEL_TYPE=ae
-export NOISE_RATIO=0.25
+export NOISE_RATIO=0.0
 
 # For adversarial multidecoders
 export ADV_FC=( 256 )

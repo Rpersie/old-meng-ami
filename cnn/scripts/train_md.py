@@ -490,6 +490,7 @@ def run_training(run_mode, adversarial, gan):
                 # Adversarial loss
                 model.train()
                 encoder_optimizer.zero_grad()
+                adversary_optimizer.zero_grad()
                 if run_mode == "ae":
                     latent, fc_input_size, unpool_sizes, pooling_indices = model.encode(feats.view(-1,
                                                                                                    1,
@@ -509,6 +510,12 @@ def run_training(run_mode, adversarial, gan):
                 if on_gpu:
                     class_truth = class_truth.cuda()
                 disc_loss = discriminative_loss(class_prediction, class_truth)
+                
+                # Train just discriminator
+                model.train()
+                adversary_optimizer.zero_grad()
+                disc_loss.backward(retain_graph=True)
+                adversary_optimizer.step()
 
                 # Train just encoder, w/ negative discriminative loss
                 model.train()
@@ -523,6 +530,7 @@ def run_training(run_mode, adversarial, gan):
                 model.train()
                 encoder_optimizer.zero_grad()
                 decoder_optimizers[decoder_class].zero_grad()
+                gan_optimizers[decoder_class].zero_grad()
                 if run_mode == "ae":
                     # Create minibatch of 50% real, 50% simulated examples
                     sim_feats = model.forward_decoder(feats, decoder_class)
@@ -545,6 +553,12 @@ def run_training(run_mode, adversarial, gan):
                     class_truth = class_truth.cuda()
                 disc_loss = discriminative_loss(class_prediction, class_truth)
 
+                # Train just discriminator
+                model.train()
+                gan_optimizers[decoder_class].zero_grad()
+                disc_loss.backward(retain_graph=True)
+                gan_optimizers[decoder_class].step()
+
                 # Train encoder + decoder, w/ negative discriminative loss
                 model.train()
                 decoder_optimizers[decoder_class].zero_grad()
@@ -554,7 +568,7 @@ def run_training(run_mode, adversarial, gan):
                 decoder_optimizers[decoder_class].step()
                 encoder_optimizer.step()
 
-                decoder_class_losses[decoder_class]["gan_loss"] += adv_loss.data[0]
+                decoder_class_losses[decoder_class]["gan_loss"] += adv_loss.data[0]                
 
             # Print updates, if any
             batches_processed += 1
@@ -566,110 +580,6 @@ def run_training(run_mode, adversarial, gan):
                                                             batches_processed / total_train_batches * 100.0),
                       flush=True)
                 print_loss_dict(decoder_class_losses, class_elements_processed)
-            
-
-        # STEP 2: Train discriminator(s), if any
-
-        
-        if adversarial or gan:
-            batches_processed = 0
-            class_elements_processed = {decoder_class: 0 for decoder_class in decoder_classes}
-            current_train_batch_counts = train_batch_counts.copy()
-            training_iterators = {decoder_class: iter(training_loaders[decoder_class]) for decoder_class in decoder_classes}
-
-            while batches_processed < total_train_batches:
-                # Pick a decoder class
-                batch_idx = random.randint(0, total_train_batches - batches_processed - 1)
-                other_decoder_class = decoder_classes[1]
-                for decoder_class in decoder_classes:
-                    current_count = current_train_batch_counts[decoder_class]
-                    if batch_idx < current_count:
-                        current_train_batch_counts[decoder_class] -= 1
-                        break
-                    else:
-                        batch_idx -= current_count
-                        other_decoder_class = decoder_class
-
-                # Get data for this decoder class
-                feats, targets = training_iterators[decoder_class].next()
-                element_count = feats.size()[0]
-
-                feats = Variable(feats)
-                targets = Variable(targets)
-                if on_gpu:
-                    feats = feats.cuda()
-                    targets = targets.cuda()
-
-                if adversarial:
-                    # Adversarial loss
-                    model.eval()
-                    adversary_optimizer.zero_grad()
-                    if run_mode == "ae":
-                        latent, fc_input_size, unpool_sizes, pooling_indices = model.encode(feats.view(-1,
-                                                                                                       1,
-                                                                                                       time_dim,
-                                                                                                       freq_dim))
-                    elif run_mode == "vae":
-                        print("Adversarial VAEs not supported yet", flush=True)
-                        sys.exit(1)
-                    else:
-                        print("Unknown train mode %s" % run_mode, flush=True)
-                        sys.exit(1)
-                    
-                    model.train()
-                    class_prediction = model.adversary.forward(latent)
-                    class_truth = torch.FloatTensor(np.zeros(class_prediction.size())) if decoder_class == "ihm" else torch.FloatTensor(np.ones(class_prediction.size()))
-                    class_truth = Variable(class_truth)
-                    if on_gpu:
-                        class_truth = class_truth.cuda()
-                    disc_loss = discriminative_loss(class_prediction, class_truth)
-
-                    # Train just discriminator
-                    model.train()
-                    adversary_optimizer.zero_grad()
-                    disc_loss.backward()
-                    adversary_optimizer.step()
-                elif gan:
-                    # Generative adversarial loss
-                    model.eval()
-                    gan_optimizers[decoder_class].zero_grad()
-                    if run_mode == "ae":
-                        # Create minibatch of 50% real, 50% simulated examples
-                        sim_feats = model.forward_decoder(feats, decoder_class)
-                        gan_batch = torch.cat((feats, sim_feats.view((-1, time_dim, freq_dim))), 0)
-                    elif run_mode == "vae":
-                        print("Generative adversarial VAEs not supported yet", flush=True)
-                        sys.exit(1)
-                    else:
-                        print("Unknown train mode %s" % run_mode, flush=True)
-                        sys.exit(1)
-                    
-                    model.train()
-                    class_prediction = model.forward_gan(gan_batch, decoder_class)
-
-                    # 1: True, 0: Fake
-                    class_truth = torch.FloatTensor(np.concatenate((np.ones((class_prediction.size()[0] // 2, 1)),
-                                                                    np.zeros((class_prediction.size()[0] // 2, 1)))))
-                    class_truth = Variable(class_truth)
-                    if on_gpu:
-                        class_truth = class_truth.cuda()
-                    disc_loss = discriminative_loss(class_prediction, class_truth)
-
-                    # Train just discriminator
-                    model.train()
-                    gan_optimizers[decoder_class].zero_grad()
-                    disc_loss.backward()
-                    gan_optimizers[decoder_class].step()
-
-                # Print updates, if any
-                batches_processed += 1
-                class_elements_processed[decoder_class] += element_count
-                if batches_processed % log_interval == 0:
-                    print("DISCRIMINATOR Train epoch %d: [%d/%d (%.1f%%)]" % (epoch,
-                                                                batches_processed,
-                                                                total_train_batches,
-                                                                batches_processed / total_train_batches * 100.0),
-                          flush=True)
 
         return decoder_class_losses
 

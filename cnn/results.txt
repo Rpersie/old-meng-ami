@@ -582,4 +582,28 @@ Time per epoch:
 ENC_C_256_256_K_3_3_P_3_3_F_/LATENT_256/DEC_F__C_256_256_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_gan_fc__512_512_act_Sigmoid_ae_ratio0.0.log
 
 Param count: 14,244,868
-Time per epoch:
+Time per epoch: 2 hours
+
+TRAINING SET
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 10.217
+===> backtranslation_recon_loss: 18.902
+===> Total for class ihm: 29.119
+=> Class sdm1
+===> autoencoding_recon_loss: 14.536
+===> backtranslation_recon_loss: 30.755
+===> Total for class sdm1: 45.291
+TOTAL: 74.410
+
+DEV SET
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 10.812
+===> backtranslation_recon_loss: 19.852
+===> Total for class ihm: 30.664
+=> Class sdm1
+===> autoencoding_recon_loss: 14.421
+===> backtranslation_recon_loss: 30.599
+===> Total for class sdm1: 45.020
+TOTAL: 75.684

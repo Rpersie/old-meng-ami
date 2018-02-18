@@ -4262,3 +4262,884 @@ Losses:
 ===> adversarial_loss: -0.000
 ===> Total for class sdm1: 41.496
 TOTAL: 67.857
+GENERATOR Train epoch 15: [17000/18806 (90.4%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.503
+===> backtranslation_recon_loss: 16.816
+===> adversarial_loss: -0.000
+===> Total for class ihm: 26.318
+=> Class sdm1
+===> autoencoding_recon_loss: 13.124
+===> backtranslation_recon_loss: 28.303
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 41.427
+TOTAL: 67.745
+GENERATOR Train epoch 15: [18000/18806 (95.7%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.502
+===> backtranslation_recon_loss: 16.804
+===> adversarial_loss: -0.000
+===> Total for class ihm: 26.306
+=> Class sdm1
+===> autoencoding_recon_loss: 13.137
+===> backtranslation_recon_loss: 28.308
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 41.445
+TOTAL: 67.752
+DISCRIMINATOR Train epoch 15: [1000/18806 (5.3%)]
+DISCRIMINATOR Train epoch 15: [2000/18806 (10.6%)]
+DISCRIMINATOR Train epoch 15: [3000/18806 (16.0%)]
+DISCRIMINATOR Train epoch 15: [4000/18806 (21.3%)]
+DISCRIMINATOR Train epoch 15: [5000/18806 (26.6%)]
+DISCRIMINATOR Train epoch 15: [6000/18806 (31.9%)]
+DISCRIMINATOR Train epoch 15: [7000/18806 (37.2%)]
+DISCRIMINATOR Train epoch 15: [8000/18806 (42.5%)]
+DISCRIMINATOR Train epoch 15: [9000/18806 (47.9%)]
+DISCRIMINATOR Train epoch 15: [10000/18806 (53.2%)]
+DISCRIMINATOR Train epoch 15: [11000/18806 (58.5%)]
+DISCRIMINATOR Train epoch 15: [12000/18806 (63.8%)]
+DISCRIMINATOR Train epoch 15: [13000/18806 (69.1%)]
+DISCRIMINATOR Train epoch 15: [14000/18806 (74.4%)]
+DISCRIMINATOR Train epoch 15: [15000/18806 (79.8%)]
+DISCRIMINATOR Train epoch 15: [16000/18806 (85.1%)]
+DISCRIMINATOR Train epoch 15: [17000/18806 (90.4%)]
+DISCRIMINATOR Train epoch 15: [18000/18806 (95.7%)]
+
+EPOCH 15 TRAIN (5498.855s)
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.504
+===> backtranslation_recon_loss: 16.801
+===> adversarial_loss: -0.000
+===> Total for class ihm: 26.305
+=> Class sdm1
+===> autoencoding_recon_loss: 13.149
+===> backtranslation_recon_loss: 28.330
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 41.479
+TOTAL: 67.784
+
+EPOCH 15 DEV (154.112s)
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.545
+===> backtranslation_recon_loss: 17.441
+===> adversarial_loss: -0.000
+===> Total for class ihm: 26.986
+=> Class sdm1
+===> autoencoding_recon_loss: 12.915
+===> backtranslation_recon_loss: 27.633
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.548
+TOTAL: 67.534
+
+No improvement in 2 epochs (best dev set loss: 66.691772)
+Not saving checkpoint; no improvement made
+
+STARTING EPOCH 16
+GENERATOR Train epoch 16: [1000/18806 (5.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.372
+===> backtranslation_recon_loss: 16.462
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.834
+=> Class sdm1
+===> autoencoding_recon_loss: 12.899
+===> backtranslation_recon_loss: 27.790
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.689
+TOTAL: 66.523
+GENERATOR Train epoch 16: [2000/18806 (10.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.508
+===> backtranslation_recon_loss: 16.644
+===> adversarial_loss: -0.000
+===> Total for class ihm: 26.152
+=> Class sdm1
+===> autoencoding_recon_loss: 13.036
+===> backtranslation_recon_loss: 27.930
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.966
+TOTAL: 67.118
+GENERATOR Train epoch 16: [3000/18806 (16.0%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.429
+===> backtranslation_recon_loss: 16.578
+===> adversarial_loss: -0.000
+===> Total for class ihm: 26.008
+=> Class sdm1
+===> autoencoding_recon_loss: 12.952
+===> backtranslation_recon_loss: 27.874
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.826
+TOTAL: 66.834
+GENERATOR Train epoch 16: [4000/18806 (21.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.379
+===> backtranslation_recon_loss: 16.498
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.878
+=> Class sdm1
+===> autoencoding_recon_loss: 12.951
+===> backtranslation_recon_loss: 27.875
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.826
+TOTAL: 66.704
+GENERATOR Train epoch 16: [5000/18806 (26.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.323
+===> backtranslation_recon_loss: 16.402
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.726
+=> Class sdm1
+===> autoencoding_recon_loss: 12.900
+===> backtranslation_recon_loss: 27.785
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.686
+TOTAL: 66.411
+GENERATOR Train epoch 16: [6000/18806 (31.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.386
+===> backtranslation_recon_loss: 16.480
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.866
+=> Class sdm1
+===> autoencoding_recon_loss: 13.016
+===> backtranslation_recon_loss: 27.997
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 41.012
+TOTAL: 66.878
+GENERATOR Train epoch 16: [7000/18806 (37.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.318
+===> backtranslation_recon_loss: 16.404
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.722
+=> Class sdm1
+===> autoencoding_recon_loss: 12.938
+===> backtranslation_recon_loss: 27.887
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.825
+TOTAL: 66.547
+GENERATOR Train epoch 16: [8000/18806 (42.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.329
+===> backtranslation_recon_loss: 16.434
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.763
+=> Class sdm1
+===> autoencoding_recon_loss: 12.955
+===> backtranslation_recon_loss: 27.920
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.875
+TOTAL: 66.638
+GENERATOR Train epoch 16: [9000/18806 (47.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.310
+===> backtranslation_recon_loss: 16.422
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.731
+=> Class sdm1
+===> autoencoding_recon_loss: 12.929
+===> backtranslation_recon_loss: 27.892
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.821
+TOTAL: 66.552
+GENERATOR Train epoch 16: [10000/18806 (53.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.267
+===> backtranslation_recon_loss: 16.357
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.624
+=> Class sdm1
+===> autoencoding_recon_loss: 12.941
+===> backtranslation_recon_loss: 27.935
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.876
+TOTAL: 66.499
+GENERATOR Train epoch 16: [11000/18806 (58.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.299
+===> backtranslation_recon_loss: 16.393
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.692
+=> Class sdm1
+===> autoencoding_recon_loss: 12.992
+===> backtranslation_recon_loss: 28.012
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 41.004
+TOTAL: 66.696
+GENERATOR Train epoch 16: [12000/18806 (63.8%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.287
+===> backtranslation_recon_loss: 16.371
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.659
+=> Class sdm1
+===> autoencoding_recon_loss: 12.968
+===> backtranslation_recon_loss: 27.960
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.928
+TOTAL: 66.587
+GENERATOR Train epoch 16: [13000/18806 (69.1%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.276
+===> backtranslation_recon_loss: 16.362
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.638
+=> Class sdm1
+===> autoencoding_recon_loss: 12.958
+===> backtranslation_recon_loss: 27.958
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.916
+TOTAL: 66.554
+GENERATOR Train epoch 16: [14000/18806 (74.4%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.274
+===> backtranslation_recon_loss: 16.375
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.649
+=> Class sdm1
+===> autoencoding_recon_loss: 12.931
+===> backtranslation_recon_loss: 27.910
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.840
+TOTAL: 66.490
+GENERATOR Train epoch 16: [15000/18806 (79.8%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.295
+===> backtranslation_recon_loss: 16.404
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.699
+=> Class sdm1
+===> autoencoding_recon_loss: 12.915
+===> backtranslation_recon_loss: 27.876
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.791
+TOTAL: 66.490
+GENERATOR Train epoch 16: [16000/18806 (85.1%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.327
+===> backtranslation_recon_loss: 16.459
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.787
+=> Class sdm1
+===> autoencoding_recon_loss: 12.943
+===> backtranslation_recon_loss: 27.923
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.866
+TOTAL: 66.653
+GENERATOR Train epoch 16: [17000/18806 (90.4%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.326
+===> backtranslation_recon_loss: 16.458
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.784
+=> Class sdm1
+===> autoencoding_recon_loss: 12.938
+===> backtranslation_recon_loss: 27.909
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.847
+TOTAL: 66.630
+GENERATOR Train epoch 16: [18000/18806 (95.7%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.316
+===> backtranslation_recon_loss: 16.444
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.760
+=> Class sdm1
+===> autoencoding_recon_loss: 12.936
+===> backtranslation_recon_loss: 27.904
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.840
+TOTAL: 66.601
+DISCRIMINATOR Train epoch 16: [1000/18806 (5.3%)]
+DISCRIMINATOR Train epoch 16: [2000/18806 (10.6%)]
+DISCRIMINATOR Train epoch 16: [3000/18806 (16.0%)]
+DISCRIMINATOR Train epoch 16: [4000/18806 (21.3%)]
+DISCRIMINATOR Train epoch 16: [5000/18806 (26.6%)]
+DISCRIMINATOR Train epoch 16: [6000/18806 (31.9%)]
+DISCRIMINATOR Train epoch 16: [7000/18806 (37.2%)]
+DISCRIMINATOR Train epoch 16: [8000/18806 (42.5%)]
+DISCRIMINATOR Train epoch 16: [9000/18806 (47.9%)]
+DISCRIMINATOR Train epoch 16: [10000/18806 (53.2%)]
+DISCRIMINATOR Train epoch 16: [11000/18806 (58.5%)]
+DISCRIMINATOR Train epoch 16: [12000/18806 (63.8%)]
+DISCRIMINATOR Train epoch 16: [13000/18806 (69.1%)]
+DISCRIMINATOR Train epoch 16: [14000/18806 (74.4%)]
+DISCRIMINATOR Train epoch 16: [15000/18806 (79.8%)]
+DISCRIMINATOR Train epoch 16: [16000/18806 (85.1%)]
+DISCRIMINATOR Train epoch 16: [17000/18806 (90.4%)]
+DISCRIMINATOR Train epoch 16: [18000/18806 (95.7%)]
+
+EPOCH 16 TRAIN (5496.881s)
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.332
+===> backtranslation_recon_loss: 16.466
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.797
+=> Class sdm1
+===> autoencoding_recon_loss: 12.962
+===> backtranslation_recon_loss: 27.948
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.910
+TOTAL: 66.707
+
+EPOCH 16 DEV (154.116s)
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.527
+===> backtranslation_recon_loss: 17.068
+===> adversarial_loss: -0.000
+===> Total for class ihm: 26.595
+=> Class sdm1
+===> autoencoding_recon_loss: 12.458
+===> backtranslation_recon_loss: 27.415
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 39.873
+TOTAL: 66.468
+
+New best dev set loss: 66.467675
+Saved checkpoint for model
+
+STARTING EPOCH 17
+GENERATOR Train epoch 17: [1000/18806 (5.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.194
+===> backtranslation_recon_loss: 16.150
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.344
+=> Class sdm1
+===> autoencoding_recon_loss: 12.548
+===> backtranslation_recon_loss: 27.188
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 39.736
+TOTAL: 65.079
+GENERATOR Train epoch 17: [2000/18806 (10.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.290
+===> backtranslation_recon_loss: 16.377
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.668
+=> Class sdm1
+===> autoencoding_recon_loss: 12.932
+===> backtranslation_recon_loss: 27.789
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.722
+TOTAL: 66.389
+GENERATOR Train epoch 17: [3000/18806 (16.0%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.270
+===> backtranslation_recon_loss: 16.343
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.613
+=> Class sdm1
+===> autoencoding_recon_loss: 12.825
+===> backtranslation_recon_loss: 27.658
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.483
+TOTAL: 66.096
+GENERATOR Train epoch 17: [4000/18806 (21.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.240
+===> backtranslation_recon_loss: 16.285
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.525
+=> Class sdm1
+===> autoencoding_recon_loss: 12.829
+===> backtranslation_recon_loss: 27.684
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.513
+TOTAL: 66.038
+GENERATOR Train epoch 17: [5000/18806 (26.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.172
+===> backtranslation_recon_loss: 16.194
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.366
+=> Class sdm1
+===> autoencoding_recon_loss: 12.749
+===> backtranslation_recon_loss: 27.539
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.288
+TOTAL: 65.654
+GENERATOR Train epoch 17: [6000/18806 (31.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.211
+===> backtranslation_recon_loss: 16.242
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.453
+=> Class sdm1
+===> autoencoding_recon_loss: 12.807
+===> backtranslation_recon_loss: 27.666
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.473
+TOTAL: 65.926
+GENERATOR Train epoch 17: [7000/18806 (37.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.186
+===> backtranslation_recon_loss: 16.194
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.379
+=> Class sdm1
+===> autoencoding_recon_loss: 12.783
+===> backtranslation_recon_loss: 27.616
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.399
+TOTAL: 65.778
+GENERATOR Train epoch 17: [8000/18806 (42.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.193
+===> backtranslation_recon_loss: 16.234
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.427
+=> Class sdm1
+===> autoencoding_recon_loss: 12.811
+===> backtranslation_recon_loss: 27.660
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.471
+TOTAL: 65.898
+GENERATOR Train epoch 17: [9000/18806 (47.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.187
+===> backtranslation_recon_loss: 16.229
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.416
+=> Class sdm1
+===> autoencoding_recon_loss: 12.808
+===> backtranslation_recon_loss: 27.674
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.483
+TOTAL: 65.899
+GENERATOR Train epoch 17: [10000/18806 (53.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.155
+===> backtranslation_recon_loss: 16.181
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.335
+=> Class sdm1
+===> autoencoding_recon_loss: 12.819
+===> backtranslation_recon_loss: 27.703
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.522
+TOTAL: 65.857
+GENERATOR Train epoch 17: [11000/18806 (58.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.164
+===> backtranslation_recon_loss: 16.192
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.356
+=> Class sdm1
+===> autoencoding_recon_loss: 12.856
+===> backtranslation_recon_loss: 27.762
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.619
+TOTAL: 65.975
+GENERATOR Train epoch 17: [12000/18806 (63.8%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.204
+===> backtranslation_recon_loss: 16.228
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.432
+=> Class sdm1
+===> autoencoding_recon_loss: 12.887
+===> backtranslation_recon_loss: 27.766
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.654
+TOTAL: 66.086
+GENERATOR Train epoch 17: [13000/18806 (69.1%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.184
+===> backtranslation_recon_loss: 16.206
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.390
+=> Class sdm1
+===> autoencoding_recon_loss: 12.863
+===> backtranslation_recon_loss: 27.746
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.609
+TOTAL: 65.999
+GENERATOR Train epoch 17: [14000/18806 (74.4%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.184
+===> backtranslation_recon_loss: 16.212
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.396
+=> Class sdm1
+===> autoencoding_recon_loss: 12.840
+===> backtranslation_recon_loss: 27.705
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.546
+TOTAL: 65.942
+GENERATOR Train epoch 17: [15000/18806 (79.8%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.199
+===> backtranslation_recon_loss: 16.240
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.438
+=> Class sdm1
+===> autoencoding_recon_loss: 12.815
+===> backtranslation_recon_loss: 27.668
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.483
+TOTAL: 65.922
+GENERATOR Train epoch 17: [16000/18806 (85.1%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.229
+===> backtranslation_recon_loss: 16.284
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.513
+=> Class sdm1
+===> autoencoding_recon_loss: 12.836
+===> backtranslation_recon_loss: 27.708
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.544
+TOTAL: 66.057
+GENERATOR Train epoch 17: [17000/18806 (90.4%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.220
+===> backtranslation_recon_loss: 16.272
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.492
+=> Class sdm1
+===> autoencoding_recon_loss: 12.819
+===> backtranslation_recon_loss: 27.676
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.495
+TOTAL: 65.987
+GENERATOR Train epoch 17: [18000/18806 (95.7%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.211
+===> backtranslation_recon_loss: 16.256
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.467
+=> Class sdm1
+===> autoencoding_recon_loss: 12.813
+===> backtranslation_recon_loss: 27.667
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.480
+TOTAL: 65.947
+DISCRIMINATOR Train epoch 17: [1000/18806 (5.3%)]
+DISCRIMINATOR Train epoch 17: [2000/18806 (10.6%)]
+DISCRIMINATOR Train epoch 17: [3000/18806 (16.0%)]
+DISCRIMINATOR Train epoch 17: [4000/18806 (21.3%)]
+DISCRIMINATOR Train epoch 17: [5000/18806 (26.6%)]
+DISCRIMINATOR Train epoch 17: [6000/18806 (31.9%)]
+DISCRIMINATOR Train epoch 17: [7000/18806 (37.2%)]
+DISCRIMINATOR Train epoch 17: [8000/18806 (42.5%)]
+DISCRIMINATOR Train epoch 17: [9000/18806 (47.9%)]
+DISCRIMINATOR Train epoch 17: [10000/18806 (53.2%)]
+DISCRIMINATOR Train epoch 17: [11000/18806 (58.5%)]
+DISCRIMINATOR Train epoch 17: [12000/18806 (63.8%)]
+DISCRIMINATOR Train epoch 17: [13000/18806 (69.1%)]
+DISCRIMINATOR Train epoch 17: [14000/18806 (74.4%)]
+DISCRIMINATOR Train epoch 17: [15000/18806 (79.8%)]
+DISCRIMINATOR Train epoch 17: [16000/18806 (85.1%)]
+DISCRIMINATOR Train epoch 17: [17000/18806 (90.4%)]
+DISCRIMINATOR Train epoch 17: [18000/18806 (95.7%)]
+
+EPOCH 17 TRAIN (5495.446s)
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.208
+===> backtranslation_recon_loss: 16.253
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.461
+=> Class sdm1
+===> autoencoding_recon_loss: 12.816
+===> backtranslation_recon_loss: 27.675
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.491
+TOTAL: 65.951
+
+EPOCH 17 DEV (154.141s)
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.361
+===> backtranslation_recon_loss: 17.509
+===> adversarial_loss: -0.000
+===> Total for class ihm: 26.870
+=> Class sdm1
+===> autoencoding_recon_loss: 12.469
+===> backtranslation_recon_loss: 27.408
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 39.877
+TOTAL: 66.747
+
+No improvement in 1 epochs (best dev set loss: 66.467675)
+Not saving checkpoint; no improvement made
+
+STARTING EPOCH 18
+GENERATOR Train epoch 18: [1000/18806 (5.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.024
+===> backtranslation_recon_loss: 15.900
+===> adversarial_loss: -0.000
+===> Total for class ihm: 24.923
+=> Class sdm1
+===> autoencoding_recon_loss: 12.488
+===> backtranslation_recon_loss: 27.117
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 39.605
+TOTAL: 64.529
+GENERATOR Train epoch 18: [2000/18806 (10.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.107
+===> backtranslation_recon_loss: 16.062
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.170
+=> Class sdm1
+===> autoencoding_recon_loss: 12.686
+===> backtranslation_recon_loss: 27.412
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.098
+TOTAL: 65.268
+GENERATOR Train epoch 18: [3000/18806 (16.0%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.103
+===> backtranslation_recon_loss: 16.071
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.174
+=> Class sdm1
+===> autoencoding_recon_loss: 12.597
+===> backtranslation_recon_loss: 27.304
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 39.900
+TOTAL: 65.075
+GENERATOR Train epoch 18: [4000/18806 (21.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.067
+===> backtranslation_recon_loss: 16.033
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.100
+=> Class sdm1
+===> autoencoding_recon_loss: 12.580
+===> backtranslation_recon_loss: 27.302
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 39.882
+TOTAL: 64.982
+GENERATOR Train epoch 18: [5000/18806 (26.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.022
+===> backtranslation_recon_loss: 15.969
+===> adversarial_loss: -0.000
+===> Total for class ihm: 24.991
+=> Class sdm1
+===> autoencoding_recon_loss: 12.547
+===> backtranslation_recon_loss: 27.217
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 39.764
+TOTAL: 64.755
+GENERATOR Train epoch 18: [6000/18806 (31.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.046
+===> backtranslation_recon_loss: 15.995
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.042
+=> Class sdm1
+===> autoencoding_recon_loss: 12.623
+===> backtranslation_recon_loss: 27.351
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 39.975
+TOTAL: 65.016
+GENERATOR Train epoch 18: [7000/18806 (37.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.023
+===> backtranslation_recon_loss: 15.966
+===> adversarial_loss: -0.000
+===> Total for class ihm: 24.990
+=> Class sdm1
+===> autoencoding_recon_loss: 12.575
+===> backtranslation_recon_loss: 27.266
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 39.841
+TOTAL: 64.830
+GENERATOR Train epoch 18: [8000/18806 (42.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.021
+===> backtranslation_recon_loss: 15.972
+===> adversarial_loss: -0.000
+===> Total for class ihm: 24.993
+=> Class sdm1
+===> autoencoding_recon_loss: 12.594
+===> backtranslation_recon_loss: 27.303
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 39.897
+TOTAL: 64.890
+GENERATOR Train epoch 18: [9000/18806 (47.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.024
+===> backtranslation_recon_loss: 15.969
+===> adversarial_loss: -0.000
+===> Total for class ihm: 24.993
+=> Class sdm1
+===> autoencoding_recon_loss: 12.590
+===> backtranslation_recon_loss: 27.299
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 39.890
+TOTAL: 64.883
+GENERATOR Train epoch 18: [10000/18806 (53.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 8.992
+===> backtranslation_recon_loss: 15.932
+===> adversarial_loss: -0.000
+===> Total for class ihm: 24.924
+=> Class sdm1
+===> autoencoding_recon_loss: 12.614
+===> backtranslation_recon_loss: 27.364
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 39.978
+TOTAL: 64.902
+GENERATOR Train epoch 18: [11000/18806 (58.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.000
+===> backtranslation_recon_loss: 15.949
+===> adversarial_loss: -0.000
+===> Total for class ihm: 24.949
+=> Class sdm1
+===> autoencoding_recon_loss: 12.640
+===> backtranslation_recon_loss: 27.394
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.034
+TOTAL: 64.983
+GENERATOR Train epoch 18: [12000/18806 (63.8%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 8.991
+===> backtranslation_recon_loss: 15.944
+===> adversarial_loss: -0.000
+===> Total for class ihm: 24.935
+=> Class sdm1
+===> autoencoding_recon_loss: 12.620
+===> backtranslation_recon_loss: 27.346
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 39.966
+TOTAL: 64.901
+GENERATOR Train epoch 18: [13000/18806 (69.1%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.016
+===> backtranslation_recon_loss: 15.975
+===> adversarial_loss: -0.000
+===> Total for class ihm: 24.992
+=> Class sdm1
+===> autoencoding_recon_loss: 12.631
+===> backtranslation_recon_loss: 27.375
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 40.006
+TOTAL: 64.997
+GENERATOR Train epoch 18: [14000/18806 (74.4%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.024
+===> backtranslation_recon_loss: 15.989
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.013
+=> Class sdm1
+===> autoencoding_recon_loss: 12.623
+===> backtranslation_recon_loss: 27.355
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 39.978
+TOTAL: 64.991
+GENERATOR Train epoch 18: [15000/18806 (79.8%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.037
+===> backtranslation_recon_loss: 16.005
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.042
+=> Class sdm1
+===> autoencoding_recon_loss: 12.601
+===> backtranslation_recon_loss: 27.317
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 39.918
+TOTAL: 64.960
+GENERATOR Train epoch 18: [16000/18806 (85.1%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.066
+===> backtranslation_recon_loss: 16.062
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.129
+=> Class sdm1
+===> autoencoding_recon_loss: 12.618
+===> backtranslation_recon_loss: 27.358
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 39.975
+TOTAL: 65.104
+GENERATOR Train epoch 18: [17000/18806 (90.4%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.089
+===> backtranslation_recon_loss: 16.088
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.177
+=> Class sdm1
+===> autoencoding_recon_loss: 12.623
+===> backtranslation_recon_loss: 27.351
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 39.975
+TOTAL: 65.151
+GENERATOR Train epoch 18: [18000/18806 (95.7%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.080
+===> backtranslation_recon_loss: 16.075
+===> adversarial_loss: -0.000
+===> Total for class ihm: 25.155
+=> Class sdm1
+===> autoencoding_recon_loss: 12.629
+===> backtranslation_recon_loss: 27.357
+===> adversarial_loss: -0.000
+===> Total for class sdm1: 39.986
+TOTAL: 65.141

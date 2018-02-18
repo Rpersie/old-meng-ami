@@ -74,4 +74,4 @@ mkdir -p $ACTIVATIONS_DIR
 # "Extracting and Composing Robust Features with Denoising Autoencoders", Vincent et. al.
 # http://www.iro.umontreal.ca/~lisa/publications2/index.php/attachments/single/176
 # Basically sets (NOISE_RATIO * 100)% of input features to 0 at random
-export NOISE_RATIO=0.25
+export NOISE_RATIO=0.0
