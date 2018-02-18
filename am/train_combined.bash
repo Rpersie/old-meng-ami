@@ -39,19 +39,19 @@ fi
 
 mkdir -p $LOGS/$EXPT_NAME
 if [ "$adversarial" == true ]; then
-    log_dir=$LOGS/$EXPT_NAME/adversarial_fc_${ADV_FC_DELIM}_act_${ADV_ACTIVATION}_${run_mode}
+    log_dir=$LOGS/$EXPT_NAME/adversarial_fc_${ADV_FC_DELIM}_act_${ADV_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}
     mkdir -p $log_dir
     augmented_data_dir=$AUGMENTED_DATA_BASE_DIR/adversarial_fc_${ADV_FC_DELIM}_act_${ADV_ACTIVATION}_${MODEL_TYPE}_ratio${NOISE_RATIO}
     model_dir=$MODEL_DIR/adversarial_fc_${ADV_FC_DELIM}_act_${ADV_ACTIVATION}_${MODEL_TYPE}_ratio${NOISE_RATIO}
     mkdir -p $model_dir
 elif [ "$gan" == true ]; then
-    log_dir=$LOGS/$EXPT_NAME/gan_fc_${GAN_FC_DELIM}_act_${GAN_FC_DELIM}_${run_mode}
+    log_dir=$LOGS/$EXPT_NAME/gan_fc_${GAN_FC_DELIM}_act_${GAN_FC_DELIM}_${run_mode}_ratio${NOISE_RATIO}
     mkdir -p $log_dir
     augmented_data_dir=$AUGMENTED_DATA_BASE_DIR/gan_fc_${GAN_FC_DELIM}_act_${GAN_FC_DELIM}_${MODEL_TYPE}_ratio${NOISE_RATIO}
     model_dir=$MODEL_DIR/gan_fc_${GAN_FC_DELIM}_act_${GAN_FC_DELIM}_${MODEL_TYPE}_ratio${NOISE_RATIO}
     mkdir -p $model_dir
 else
-    log_dir=$LOGS/$EXPT_NAME/${run_mode}
+    log_dir=$LOGS/$EXPT_NAME/${run_mode}_ratio${NOISE_RATIO}
     mkdir -p $log_dir
     augmented_data_dir=$AUGMENTED_DATA_BASE_DIR/${MODEL_TYPE}_ratio${NOISE_RATIO}
     model_dir=$MODEL_DIR/${MODEL_TYPE}_ratio${NOISE_RATIO}

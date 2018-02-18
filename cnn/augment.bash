@@ -57,10 +57,10 @@ elif [ "$gan" == true ]; then
     fi
     mkdir -p $AUGMENTED_DATA_DIR/gan_fc_${GAN_FC_DELIM}_act_${GAN_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}
 else
-    augment_log=$LOGS/$EXPT_NAME/augment_${run_mode}.log
+    augment_log=$LOGS/$EXPT_NAME/augment_${run_mode}_ratio${NOISE_RATIO}.log
     if [ -f $augment_log ]; then
         # Move old log
-        mv $augment_log $LOGS/$EXPT_NAME/augment_${run_mode}-$(date +"%F_%T%z").log
+        mv $augment_log $LOGS/$EXPT_NAME/augment_${run_mode}_ratio${NOISE_RATIO}-$(date +"%F_%T%z").log
     fi
     mkdir -p $AUGMENTED_DATA_DIR/${run_mode}_ratio${NOISE_RATIO}
 fi
