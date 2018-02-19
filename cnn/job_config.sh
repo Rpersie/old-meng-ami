@@ -54,6 +54,7 @@ export ADV_FC_DELIM=$(printf "_%s" "${ADV_FC[@]}")
 export GAN_FC=( 512 512 )
 export GAN_ACTIVATION=Sigmoid
 export GAN_FC_DELIM=$(printf "_%s" "${GAN_FC[@]}")
+export GAN_K=1         # Number of iterations to train adversary per iteration of training generator
 
 export MODEL_DIR=${MODELS}/cnn/$DATASET_NAME/$EXPT_NAME
 mkdir -p $MODEL_DIR

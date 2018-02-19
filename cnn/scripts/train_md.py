@@ -96,6 +96,7 @@ def run_training(run_mode, adversarial, gan):
             if len(res_str) > 0:
                 gan_fc_sizes.append(int(res_str))
         gan_activation = os.environ["GAN_ACTIVATION"]
+        gan_k = int(os.environ["GAN_K"])
 
     # Set up training parameters
     batch_size = int(os.environ["BATCH_SIZE"])
@@ -246,7 +247,7 @@ def run_training(run_mode, adversarial, gan):
         return KLD
     
     def discriminative_loss(guess_class, truth_class):
-        return nn.BCELoss()(guess_class, truth_class)
+        return nn.BCELoss(size_average=False)(guess_class, truth_class)
 
 
 
@@ -542,6 +543,27 @@ def run_training(run_mode, adversarial, gan):
                     print("Unknown train mode %s" % run_mode, flush=True)
                     sys.exit(1)
                 
+                # Train just discriminator for k iterations
+                # See Algorithm 1 of original GAN paper
+                # https://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf
+                for k in range(gan_k):
+                    model.eval()
+                    class_prediction = model.forward_gan(gan_batch, decoder_class)
+
+                    # 1: True, 0: Fake
+                    class_truth = torch.FloatTensor(np.concatenate((np.ones((class_prediction.size()[0] // 2, 1)),
+                                                                    np.zeros((class_prediction.size()[0] // 2, 1)))))
+                    class_truth = Variable(class_truth)
+                    if on_gpu:
+                        class_truth = class_truth.cuda()
+                    disc_loss = discriminative_loss(class_prediction, class_truth)
+
+                    model.train()
+                    gan_optimizers[decoder_class].zero_grad()
+                    disc_loss.backward(retain_graph=True)
+                    gan_optimizers[decoder_class].step()
+
+                # Train encoder + decoder, w/ negative discriminative loss
                 model.eval()
                 class_prediction = model.forward_gan(gan_batch, decoder_class)
 
@@ -552,18 +574,11 @@ def run_training(run_mode, adversarial, gan):
                 if on_gpu:
                     class_truth = class_truth.cuda()
                 disc_loss = discriminative_loss(class_prediction, class_truth)
-
-                # Train just discriminator
-                model.train()
-                gan_optimizers[decoder_class].zero_grad()
-                disc_loss.backward(retain_graph=True)
-                gan_optimizers[decoder_class].step()
-
-                # Train encoder + decoder, w/ negative discriminative loss
-                model.train()
-                decoder_optimizers[decoder_class].zero_grad()
-                encoder_optimizer.zero_grad()
                 adv_loss = -disc_loss
+
+                model.train()
+                encoder_optimizer.zero_grad()
+                decoder_optimizers[decoder_class].zero_grad()
                 adv_loss.backward()
                 decoder_optimizers[decoder_class].step()
                 encoder_optimizer.step()
@@ -579,8 +594,7 @@ def run_training(run_mode, adversarial, gan):
                                                             total_train_batches,
                                                             batches_processed / total_train_batches * 100.0),
                       flush=True)
-                print_loss_dict(decoder_class_losses, class_elements_processed)
-
+                print_loss_dict(decoder_class_losses, class_elements_processed) 
         return decoder_class_losses
 
     def test(epoch, loaders, recon_only=False, noised=True):
