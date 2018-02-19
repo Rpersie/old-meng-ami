@@ -570,13 +570,61 @@ FEBRUARY 17TH
 ENC_C_256_256_K_3_3_P_3_3_F_/LATENT_256/DEC_F__C_256_256_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_ae_ratio0.1.log
 
 Param count: 12,816,386
-Time per epoch:
+Time per epoch: 1 hour, 15 minutes
+
+TRAINING SET
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 14.113
+===> backtranslation_recon_loss: 16.725
+===> Total for class ihm: 30.838
+=> Class sdm1
+===> autoencoding_recon_loss: 21.179
+===> backtranslation_recon_loss: 30.111
+===> Total for class sdm1: 51.290
+TOTAL: 82.128
+
+DEV SET
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 14.721
+===> backtranslation_recon_loss: 17.660
+===> Total for class ihm: 32.381
+=> Class sdm1
+===> autoencoding_recon_loss: 20.666
+===> backtranslation_recon_loss: 30.205
+===> Total for class sdm1: 50.871
+TOTAL: 83.252
 
 
 ENC_C_256_256_K_3_3_P_3_3_F_/LATENT_256/DEC_F__C_256_256_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_adversarial_fc__512_512_act_Sigmoid_ae_ratio0.0.log
 
 Param count: 13,211,139
-Time per epoch:
+Time per epoch: 1 hour, 14 minutes
+
+TRAINING SET
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 8.551
+===> backtranslation_recon_loss: 15.516
+===> Total for class ihm: 24.067
+=> Class sdm1
+===> autoencoding_recon_loss: 12.223
+===> backtranslation_recon_loss: 26.603
+===> Total for class sdm1: 38.826
+TOTAL: 62.893
+
+DEV SET
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 9.086
+===> backtranslation_recon_loss: 16.353
+===> Total for class ihm: 25.439
+=> Class sdm1
+===> autoencoding_recon_loss: 12.147
+===> backtranslation_recon_loss: 26.481
+===> Total for class sdm1: 38.628
+TOTAL: 64.067
 
 
 ENC_C_256_256_K_3_3_P_3_3_F_/LATENT_256/DEC_F__C_256_256_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_gan_fc__512_512_act_Sigmoid_ae_ratio0.0.log
