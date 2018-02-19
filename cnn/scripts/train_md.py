@@ -89,6 +89,7 @@ def run_training(run_mode, adversarial, gan):
             if len(res_str) > 0:
                 adv_fc_sizes.append(int(res_str))
         adv_activation = os.environ["ADV_ACTIVATION"]
+        adv_k = int(os.environ["ADV_K"])
     
     if gan:
         gan_fc_sizes = []
@@ -504,6 +505,22 @@ def run_training(run_mode, adversarial, gan):
                     print("Unknown train mode %s" % run_mode, flush=True)
                     sys.exit(1)
                 
+                # Train just adversary for k iterations
+                for k in range(adv_k):
+                    model.eval()
+                    class_prediction = model.adversary.forward(latent)
+                    class_truth = torch.FloatTensor(np.zeros(class_prediction.size())) if decoder_class == "ihm" else torch.FloatTensor(np.ones(class_prediction.size()))
+                    class_truth = Variable(class_truth)
+                    if on_gpu:
+                        class_truth = class_truth.cuda()
+                    disc_loss = discriminative_loss(class_prediction, class_truth)
+                
+                    model.train()
+                    adversary_optimizer.zero_grad()
+                    disc_loss.backward(retain_graph=True)
+                    adversary_optimizer.step()
+                    
+                # Train just encoder, w/ negative discriminative loss
                 model.eval()
                 class_prediction = model.adversary.forward(latent)
                 class_truth = torch.FloatTensor(np.zeros(class_prediction.size())) if decoder_class == "ihm" else torch.FloatTensor(np.ones(class_prediction.size()))
@@ -511,14 +528,7 @@ def run_training(run_mode, adversarial, gan):
                 if on_gpu:
                     class_truth = class_truth.cuda()
                 disc_loss = discriminative_loss(class_prediction, class_truth)
-                
-                # Train just discriminator
-                model.train()
-                adversary_optimizer.zero_grad()
-                disc_loss.backward(retain_graph=True)
-                adversary_optimizer.step()
 
-                # Train just encoder, w/ negative discriminative loss
                 model.train()
                 encoder_optimizer.zero_grad()
                 adv_loss = -disc_loss

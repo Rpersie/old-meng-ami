@@ -49,6 +49,7 @@ export EXPT_NAME="ENC_C${ENC_CHANNELS_DELIM}_K${ENC_KERNELS_DELIM}_P${ENC_POOLS_
 export ADV_FC=( 512 512 )
 export ADV_ACTIVATION=Sigmoid
 export ADV_FC_DELIM=$(printf "_%s" "${ADV_FC[@]}")
+export ADV_K=1         # Number of iterations to train adversary per iteration of training generator
 
 # For generative adversarial multidecoders
 export GAN_FC=( 512 512 )

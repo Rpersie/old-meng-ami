@@ -1,6 +1,6 @@
-Running augmentation with mode ae
+Running training with mode ae
 Using adversarial loss
-Noise ratio: 0.000% of input features
+Noising 0.000% of input features
 Constructing model...
 Done constructing model.
 CNNAdversarialMultidecoder(
@@ -49,51 +49,18 @@ CNNAdversarialMultidecoder(
     (Sigmoid_final): Sigmoid()
   )
 )
-Loading checkpoint...
-Loaded checkpoint; best model ready now.
+Model has 13211139 trainable parameters
 Setting up data...
 Setting up training datasets...
-Using 10000 training features (10000 batches) for class ihm
-Using 10000 training features (10000 batches) for class sdm1
+Using 2407138 training features (9403 batches) for class ihm
+Using 2407138 training features (9403 batches) for class sdm1
 Setting up dev datasets...
-Using 1000 dev features (1000 batches) for class ihm
-Using 1000 dev features (1000 batches) for class sdm1
+Using 249565 dev features (975 batches) for class ihm
+Using 249565 dev features (975 batches) for class sdm1
+Setting up minibatch shuffling for training...
+18806 total batches: {'ihm': 9403, 'sdm1': 9403}
 Done setting up data.
-Completed setup in 6.518 seconds
-PROCESSING SOURCE ihm, TARGET ihm
-=> Processing training data...
-===> Augmented 100/10000 batches (1.0%)]
-===> Augmented 200/10000 batches (2.0%)]
-===> Augmented 300/10000 batches (3.0%)]
-===> Augmented 400/10000 batches (4.0%)]
-===> Augmented 500/10000 batches (5.0%)]
-===> Augmented 600/10000 batches (6.0%)]
-===> Augmented 700/10000 batches (7.0%)]
-===> Augmented 800/10000 batches (8.0%)]
-===> Augmented 900/10000 batches (9.0%)]
-===> Augmented 1000/10000 batches (10.0%)]
-===> Augmented 1100/10000 batches (11.0%)]
-===> Augmented 1200/10000 batches (12.0%)]
-===> Augmented 1300/10000 batches (13.0%)]
-===> Augmented 1400/10000 batches (14.0%)]
-===> Augmented 1500/10000 batches (15.0%)]
-===> Augmented 1600/10000 batches (16.0%)]
-===> Augmented 1700/10000 batches (17.0%)]
-===> Augmented 1800/10000 batches (18.0%)]
-===> Augmented 1900/10000 batches (19.0%)]
-===> Augmented 2000/10000 batches (20.0%)]
-===> Augmented 2100/10000 batches (21.0%)]
-===> Augmented 2200/10000 batches (22.0%)]
-===> Augmented 2300/10000 batches (23.0%)]
-===> Augmented 2400/10000 batches (24.0%)]
-===> Augmented 2500/10000 batches (25.0%)]
-===> Augmented 2600/10000 batches (26.0%)]
-===> Augmented 2700/10000 batches (27.0%)]
-===> Augmented 2800/10000 batches (28.0%)]
-===> Augmented 2900/10000 batches (29.0%)]
-===> Augmented 3000/10000 batches (30.0%)]
-===> Augmented 3100/10000 batches (31.0%)]
-===> Augmented 3200/10000 batches (32.0%)]
-===> Augmented 3300/10000 batches (33.0%)]
-===> Augmented 3400/10000 batches (34.0%)]
-===> Augmented 3500/10000 batches (35.0%)]
+Completed setup in 174.908 seconds
+Starting training!
+
+STARTING EPOCH 1
