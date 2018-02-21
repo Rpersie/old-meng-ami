@@ -538,14 +538,12 @@ def run_training(run_mode, adversarial, gan):
                 decoder_class_losses[decoder_class]["adversarial_loss"] += adv_loss.data[0]
             elif gan:
                 # Generative adversarial loss
-                model.train()
-                encoder_optimizer.zero_grad()
-                decoder_optimizers[decoder_class].zero_grad()
-                gan_optimizers[decoder_class].zero_grad()
+                # Adversary determines whether output is real data, or TRANSFORMED data
+                # i.e., is this example real SDM1 data, or IHM data decoded into SDM1 via multidecoder?
+                model.eval()
                 if run_mode == "ae":
-                    # Create minibatch of 50% real, 50% simulated examples
-                    sim_feats = model.forward_decoder(feats, decoder_class)
-                    gan_batch = torch.cat((feats, sim_feats.view((-1, time_dim, freq_dim))), 0)
+                    # Create minibatch of transformed examples
+                    sim_feats = model.forward_decoder(feats, other_decoder_class)
                 elif run_mode == "vae":
                     print("Generative adversarial VAEs not supported yet", flush=True)
                     sys.exit(1)
@@ -553,47 +551,79 @@ def run_training(run_mode, adversarial, gan):
                     print("Unknown train mode %s" % run_mode, flush=True)
                     sys.exit(1)
                 
-                # Train just discriminator for k iterations
+                # Train just discriminators for k iterations
                 # See Algorithm 1 of original GAN paper
                 # https://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf
                 for k in range(gan_k):
-                    model.eval()
-                    class_prediction = model.forward_gan(gan_batch, decoder_class)
+                    # Convention for classifier: 1 is True, 0 is Fake
 
-                    # 1: True, 0: Fake
-                    class_truth = torch.FloatTensor(np.concatenate((np.ones((class_prediction.size()[0] // 2, 1)),
-                                                                    np.zeros((class_prediction.size()[0] // 2, 1)))))
+                    # Real examples
+                    model.eval()
+                    class_prediction = model.forward_gan(feats, decoder_class)
+                    class_truth = torch.FloatTensor(np.ones((class_prediction.size()[0], 1)))
                     class_truth = Variable(class_truth)
                     if on_gpu:
                         class_truth = class_truth.cuda()
-                    disc_loss = discriminative_loss(class_prediction, class_truth)
+                    real_disc_loss = discriminative_loss(class_prediction, class_truth)
 
                     model.train()
                     gan_optimizers[decoder_class].zero_grad()
-                    disc_loss.backward(retain_graph=True)
+                    real_disc_loss.backward(retain_graph=True)
+                    gan_optimizers[decoder_class].step()
+                    
+                    # Fake examples
+                    model.eval()
+                    class_prediction = model.forward_gan(sim_feats, other_decoder_class)
+                    class_truth = torch.FloatTensor(np.zeros((class_prediction.size()[0], 1)))
+                    class_truth = Variable(class_truth)
+                    if on_gpu:
+                        class_truth = class_truth.cuda()
+                    fake_disc_loss = discriminative_loss(class_prediction, class_truth)
+
+                    model.train()
+                    gan_optimizers[decoder_class].zero_grad()
+                    fake_disc_loss.backward(retain_graph=True)
                     gan_optimizers[decoder_class].step()
 
-                # Train encoder + decoder, w/ negative discriminative loss
-                model.eval()
-                class_prediction = model.forward_gan(gan_batch, decoder_class)
+                # Train encoder + decoders, w/ negative discriminative losses
 
-                # 1: True, 0: Fake
-                class_truth = torch.FloatTensor(np.concatenate((np.ones((class_prediction.size()[0] // 2, 1)),
-                                                                np.zeros((class_prediction.size()[0] // 2, 1)))))
+                # Real examples
+                model.eval()
+                class_prediction = model.forward_gan(feats, decoder_class)
+                class_truth = torch.FloatTensor(np.ones((class_prediction.size()[0], 1)))
                 class_truth = Variable(class_truth)
                 if on_gpu:
                     class_truth = class_truth.cuda()
-                disc_loss = discriminative_loss(class_prediction, class_truth)
-                adv_loss = -disc_loss
+                real_disc_loss = discriminative_loss(class_prediction, class_truth)
+                real_adv_loss = -real_disc_loss
 
                 model.train()
                 encoder_optimizer.zero_grad()
                 decoder_optimizers[decoder_class].zero_grad()
-                adv_loss.backward()
+                real_adv_loss.backward()
                 decoder_optimizers[decoder_class].step()
                 encoder_optimizer.step()
 
-                decoder_class_losses[decoder_class]["gan_loss"] += adv_loss.data[0]                
+                decoder_class_losses[decoder_class]["gan_loss"] += real_adv_loss.data[0]                
+                
+                # Fake examples
+                model.eval()
+                class_prediction = model.forward_gan(sim_feats, other_decoder_class)
+                class_truth = torch.FloatTensor(np.zeros((class_prediction.size()[0], 1)))
+                class_truth = Variable(class_truth)
+                if on_gpu:
+                    class_truth = class_truth.cuda()
+                fake_disc_loss = discriminative_loss(class_prediction, class_truth)
+                fake_adv_loss = -fake_disc_loss
+
+                model.train()
+                encoder_optimizer.zero_grad()
+                decoder_optimizers[other_decoder_class].zero_grad()
+                fake_adv_loss.backward()
+                decoder_optimizers[other_decoder_class].step()
+                encoder_optimizer.step()
+
+                decoder_class_losses[other_decoder_class]["gan_loss"] += fake_adv_loss.data[0]                
 
             # Print updates, if any
             batches_processed += 1
@@ -737,30 +767,40 @@ def run_training(run_mode, adversarial, gan):
                     decoder_class_losses[decoder_class]["adversarial_loss"] += adv_loss.data[0]
                 elif gan and not recon_only:
                     # Generative adversarial loss
-
+                    # Adversary determines whether output is real data, or TRANSFORMED data
+                    # i.e., is this example real SDM1 data, or IHM data decoded into SDM1 via multidecoder?
                     model.eval()
                     if run_mode == "ae":
-                        # Create minibatch of 50% real, 50% fake examples
-                        gan_batch = torch.cat((feats, recon_batch.view((-1, time_dim, freq_dim))), 0)
+                        # Create minibatch of transformed examples
+                        sim_feats = model.forward_decoder(feats, other_decoder_class)
                     elif run_mode == "vae":
                         print("Generative adversarial VAEs not supported yet", flush=True)
                         sys.exit(1)
                     else:
                         print("Unknown train mode %s" % run_mode, flush=True)
                         sys.exit(1)
-                    
-                    class_prediction = model.forward_gan(gan_batch, decoder_class)
-
-                    # 1: True, 0: Fake
-                    class_truth = torch.FloatTensor(np.concatenate((np.ones((class_prediction.size()[0] // 2, 1)),
-                                                                    np.zeros((class_prediction.size()[0] // 2, 1)))))
+                
+                    # Real examples
+                    model.eval()
+                    class_prediction = model.forward_gan(feats, decoder_class)
+                    class_truth = torch.FloatTensor(np.ones((class_prediction.size()[0], 1)))
                     class_truth = Variable(class_truth, volatile=True)
                     if on_gpu:
                         class_truth = class_truth.cuda()
-                    disc_loss = discriminative_loss(class_prediction, class_truth)
-                    adv_loss = -disc_loss
-
-                    decoder_class_losses[decoder_class]["gan_loss"] += adv_loss.data[0]
+                    real_disc_loss = discriminative_loss(class_prediction, class_truth)
+                    real_adv_loss = -real_disc_loss
+                    decoder_class_losses[decoder_class]["gan_loss"] += real_adv_loss.data[0]                
+                    
+                    # Fake examples
+                    model.eval()
+                    class_prediction = model.forward_gan(sim_feats, other_decoder_class)
+                    class_truth = torch.FloatTensor(np.zeros((class_prediction.size()[0], 1)))
+                    class_truth = Variable(class_truth, volatile=True)
+                    if on_gpu:
+                        class_truth = class_truth.cuda()
+                    fake_disc_loss = discriminative_loss(class_prediction, class_truth)
+                    fake_adv_loss = -fake_disc_loss
+                    decoder_class_losses[other_decoder_class]["gan_loss"] += fake_adv_loss.data[0]                
 
             other_decoder_class = decoder_class
             
