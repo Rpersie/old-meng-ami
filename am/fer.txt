@@ -73,8 +73,8 @@ frame-tdnn-450x7-step0.05/ENC_C_256_256_K_3_3_P_3_3_F_/LATENT_256/DEC_F__C_256_2
     - IHM:
     - SDM1:
 - IHM -> SDM1
-    - IHM:
-    - SDM1:
+    - IHM: 60.6%
+    - SDM1: 85.6%
 - SDM1 -> IHM
     - IHM:
     - SDM1:
@@ -87,7 +87,7 @@ frame-tdnn-450x7-step0.05/ENC_C_256_256_K_3_3_P_3_3_F_/LATENT_256/DEC_F__C_256_2
 
     
 
-frame-tdnn-450x7-step0.05/ENC_C_256_256_K_3_3_P_3_3_F_/LATENT_256/DEC_F__C_256_256_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/gan_fc__512_512_act_Sigmoid_ae_ratio0.0
+frame-tdnn-450x7-step0.05/ENC_C_256_256_K_3_3_P_3_3_F_/LATENT_256/DEC_F__C_256_256_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/adversarial_fc__512_512_act_Sigmoid_ae_ratio0.0
 - IHM -> IHM
     - IHM:
     - SDM1:

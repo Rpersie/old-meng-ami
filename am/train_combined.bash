@@ -16,7 +16,7 @@ echo "STARTING BASELINE + AUGMENTED ACOUSTIC MODEL TRAINING JOB"
 . $MENG_ROOT/am/path-cuda.sh
 
 if [ "$#" -lt 1 ]; then
-    echo "Run mode not specified; exiting"
+    echo "Run mode, source domain and target domain not specified; exiting"
     exit 1
 fi
 
@@ -45,10 +45,10 @@ if [ "$adversarial" == true ]; then
     model_dir=$MODEL_DIR/adversarial_fc_${ADV_FC_DELIM}_act_${ADV_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}
     mkdir -p $model_dir
 elif [ "$gan" == true ]; then
-    log_dir=$LOGS/$EXPT_NAME/gan_fc_${GAN_FC_DELIM}_act_${GAN_FC_DELIM}_${run_mode}_ratio${NOISE_RATIO}
+    log_dir=$LOGS/$EXPT_NAME/gan_fc_${GAN_FC_DELIM}_act_${GAN_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}
     mkdir -p $log_dir
-    augmented_data_dir=$AUGMENTED_DATA_BASE_DIR/gan_fc_${GAN_FC_DELIM}_act_${GAN_FC_DELIM}_${run_mode}_ratio${NOISE_RATIO}
-    model_dir=$MODEL_DIR/gan_fc_${GAN_FC_DELIM}_act_${GAN_FC_DELIM}_${run_mode}_ratio${NOISE_RATIO}
+    augmented_data_dir=$AUGMENTED_DATA_BASE_DIR/gan_fc_${GAN_FC_DELIM}_act_${GAN_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}
+    model_dir=$MODEL_DIR/gan_fc_${GAN_FC_DELIM}_act_${GAN_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}
     mkdir -p $model_dir
 else
     log_dir=$LOGS/$EXPT_NAME/${run_mode}_ratio${NOISE_RATIO}
