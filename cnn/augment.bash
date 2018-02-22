@@ -27,12 +27,12 @@ fi
 run_mode=$1
 echo "Using run mode ${run_mode}"
 
-adversarial=false
+domain_adversarial=false
 gan=false
 if [ "$#" -ge 2 ]; then
-    if [ "$2" == "adversarial" ]; then
-        adversarial=true
-        echo "Using adversarial training"
+    if [ "$2" == "domain" ]; then
+        domain_adversarial=true
+        echo "Using domain_adversarial training"
     fi
     
     if [ "$2" == "gan" ]; then
@@ -42,13 +42,13 @@ if [ "$#" -ge 2 ]; then
 fi
 
 mkdir -p $LOGS/$EXPT_NAME
-if [ "$adversarial" == true ]; then
-    augment_log=$LOGS/$EXPT_NAME/augment_adversarial_fc_${ADV_FC_DELIM}_act_${ADV_ACTIVATION}_${run_mode}.log
+if [ "$domain_adversarial" == true ]; then
+    augment_log=$LOGS/$EXPT_NAME/augment_domain_adversarial_fc_${DOMAIN_ADV_FC_DELIM}_act_${DOMAIN_ADV_ACTIVATION}_${run_mode}.log
     if [ -f $augment_log ]; then
         # Move old log
-        mv $augment_log $LOGS/$EXPT_NAME/augment_adversarial_fc_${ADV_FC_DELIM}_act_${ADV_ACTIVATION}_${run_mode}-$(date +"%F_%T%z").log
+        mv $augment_log $LOGS/$EXPT_NAME/augment_domain_adversarial_fc_${DOMAIN_ADV_FC_DELIM}_act_${DOMAIN_ADV_ACTIVATION}_${run_mode}-$(date +"%F_%T%z").log
     fi
-    mkdir -p $AUGMENTED_DATA_DIR/adversarial_fc_${ADV_FC_DELIM}_act_${ADV_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}
+    mkdir -p $AUGMENTED_DATA_DIR/domain_adversarial_fc_${DOMAIN_ADV_FC_DELIM}_act_${DOMAIN_ADV_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}
 elif [ "$gan" == true ]; then
     augment_log=$LOGS/$EXPT_NAME/augment_gan_fc_${GAN_FC_DELIM}_act_${GAN_FC_DELIM}_${run_mode}_ratio${NOISE_RATIO}.log
     if [ -f $augment_log ]; then
@@ -65,6 +65,6 @@ else
     mkdir -p $AUGMENTED_DATA_DIR/${run_mode}_ratio${NOISE_RATIO}
 fi
 
-python3 cnn/scripts/augment_md.py ${run_mode} ${adversarial} ${gan} > $augment_log
+python3 cnn/scripts/augment_md.py ${run_mode} ${domain_adversarial} ${gan} > $augment_log
 
 echo "DONE CONVOLUTIONAL MULTIDECODER DATA AUGMENTATION JOB"

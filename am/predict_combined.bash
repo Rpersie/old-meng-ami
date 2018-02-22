@@ -26,25 +26,25 @@ echo "Using run mode ${run_mode}"
 pre_domain=$2
 echo "Combined model (IHM baseline + IHM->SDM1 augmented), predict domain ${pre_domain}"
 
-adversarial=false
+domain_adversarial=false
 gan=false
 if [ "$#" -ge 3 ]; then
-    if [ "$3" == "adversarial" ]; then
-        adversarial=true
-        echo "Using adversarial training"
+    if [ "$3" == "domain" ]; then
+        domain_adversarial=true
+        echo "Using domain_adversarial training"
     fi
     
     if [ "$3" == "gan" ]; then
         gan=true
-        echo "Using generative adversarial net (GAN) style training"
+        echo "Using generative domain_adversarial net (GAN) style training"
     fi
 fi
 
 mkdir -p $LOGS/$EXPT_NAME
-if [ "$adversarial" == true ]; then
-    log_dir=$LOGS/$EXPT_NAME/adversarial_fc_${ADV_FC_DELIM}_act_${ADV_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}
+if [ "$domain_adversarial" == true ]; then
+    log_dir=$LOGS/$EXPT_NAME/domain_adversarial_fc_${DOMAIN_ADV_FC_DELIM}_act_${DOMAIN_ADV_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}
     mkdir -p $log_dir
-    model_dir=$MODEL_DIR/adversarial_fc_${ADV_FC_DELIM}_act_${ADV_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}
+    model_dir=$MODEL_DIR/domain_adversarial_fc_${DOMAIN_ADV_FC_DELIM}_act_${DOMAIN_ADV_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}
 elif [ "$gan" == true ]; then
     log_dir=$LOGS/$EXPT_NAME/gan_fc_${GAN_FC_DELIM}_act_${GAN_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}
     mkdir -p $log_dir

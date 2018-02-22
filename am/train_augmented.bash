@@ -27,12 +27,12 @@ src_domain=$2
 tar_domain=$3
 echo "Source domain ${src_domain}, target domain ${tar_domain}"
 
-adversarial=false
+domain_adversarial=false
 gan=false
 if [ "$#" -ge 3 ]; then
-    if [ "$4" == "adversarial" ]; then
-        adversarial=true
-        echo "Using adversarial training"
+    if [ "$4" == "domain" ]; then
+        domain_adversarial=true
+        echo "Using domain_adversarial training"
     fi
     
     if [ "$4" == "gan" ]; then
@@ -46,11 +46,11 @@ expt_name="train_${tar_domain}/augmented_src_${src_domain}/${ARCH_NAME}/${CNN_NA
 mkdir -p $LOGS/$expt_name
 mkdir -p $MODEL_DIR/$expt_name
 
-if [ "$adversarial" == true ]; then
-    log_dir=$LOGS/$expt_name/adversarial_fc_${ADV_FC_DELIM}_act_${ADV_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}
+if [ "$domain_adversarial" == true ]; then
+    log_dir=$LOGS/$expt_name/domain_adversarial_fc_${DOMAIN_ADV_FC_DELIM}_act_${DOMAIN_ADV_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}
     mkdir -p $log_dir
-    augmented_data_dir=$AUGMENTED_DATA_BASE_DIR/adversarial_fc_${ADV_FC_DELIM}_act_${ADV_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}
-    model_dir=$MODEL_DIR/$expt_name/adversarial_fc_${ADV_FC_DELIM}_act_${ADV_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}
+    augmented_data_dir=$AUGMENTED_DATA_BASE_DIR/domain_adversarial_fc_${DOMAIN_ADV_FC_DELIM}_act_${DOMAIN_ADV_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}
+    model_dir=$MODEL_DIR/$expt_name/domain_adversarial_fc_${DOMAIN_ADV_FC_DELIM}_act_${DOMAIN_ADV_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}
     mkdir -p $model_dir
 elif [ "$gan" == true ]; then
     log_dir=$LOGS/$expt_name/gan_fc_${GAN_FC_DELIM}_act_${GAN_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}

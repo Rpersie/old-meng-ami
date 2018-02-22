@@ -412,7 +412,7 @@ class CNNVariationalMultidecoder(CNNMultidecoder):
 
 
 # Includes an adversarial classifier for picking IHM vs SDM1
-class CNNAdversarialMultidecoder(CNNMultidecoder):
+class CNNDomainAdversarialMultidecoder(CNNMultidecoder):
     def __init__(self, freq_dim=80,
                        splicing=[5,5],
                        enc_channel_sizes=[],
@@ -428,9 +428,9 @@ class CNNAdversarialMultidecoder(CNNMultidecoder):
                        decoder_classes=[""],
                        use_batch_norm=False,
                        weight_init="xavier_uniform",
-                       adv_fc_sizes=[],
-                       adv_activation="Sigmoid"):
-        super(CNNAdversarialMultidecoder, self).__init__(freq_dim=freq_dim,
+                       domain_adv_fc_sizes=[],
+                       domain_adv_activation="Sigmoid"):
+        super(CNNDomainAdversarialMultidecoder, self).__init__(freq_dim=freq_dim,
                                                          splicing=splicing,
                                                          enc_channel_sizes=enc_channel_sizes,
                                                          enc_kernel_sizes=enc_kernel_sizes,
@@ -446,26 +446,26 @@ class CNNAdversarialMultidecoder(CNNMultidecoder):
                                                          use_batch_norm=use_batch_norm,
                                                          weight_init=weight_init)
         
-        self.adv_fc_sizes = adv_fc_sizes
-        self.adv_activation = adv_activation
+        self.domain_adv_fc_sizes = domain_adv_fc_sizes
+        self.domain_adv_activation = domain_adv_activation
 
-        # Construct adversary
+        # Construct domain_adversary
         # Simple linear classifier
-        self.adversary_layers = OrderedDict()
+        self.domain_adversary_layers = OrderedDict()
         current_dim = self.latent_dim
-        for i in range(len(self.adv_fc_sizes)):
-            next_dim = self.adv_fc_sizes[i]
-            self.adversary_layers["lin_%d" % i] = nn.Linear(current_dim, next_dim)
-            self.adversary_layers["%s_%d" % (self.adv_activation, i)] = getattr(nn, self.adv_activation)()
+        for i in range(len(self.domain_adv_fc_sizes)):
+            next_dim = self.domain_adv_fc_sizes[i]
+            self.domain_adversary_layers["lin_%d" % i] = nn.Linear(current_dim, next_dim)
+            self.domain_adversary_layers["%s_%d" % (self.domain_adv_activation, i)] = getattr(nn, self.domain_adv_activation)()
             current_dim = next_dim
-        self.adversary_layers["lin_final"] = nn.Linear(current_dim, 1)
-        self.adversary_layers["%s_final" % self.adv_activation] = getattr(nn, self.adv_activation)() 
-        self.adversary = nn.Sequential(self.adversary_layers)
+        self.domain_adversary_layers["lin_final"] = nn.Linear(current_dim, 1)
+        self.domain_adversary_layers["%s_final" % self.domain_adv_activation] = getattr(nn, self.domain_adv_activation)() 
+        self.domain_adversary = nn.Sequential(self.domain_adversary_layers)
 
-    def adversary_parameters(self):
-        # Get parameters for just the adversary
-        adversary_parameters = self.adversary.parameters()
-        for param in adversary_parameters:
+    def domain_adversary_parameters(self):
+        # Get parameters for just the domain_adversary
+        domain_adversary_parameters = self.domain_adversary.parameters()
+        for param in domain_adversary_parameters:
             yield param
 
 

@@ -7,7 +7,7 @@
 #SBATCH --mem=32768
 #SBATCH --time=48:00:00
 #SBATCH -J train_cnn_md
-#SBATCH --exclude=sls-sm-[5]
+#SBATCH --exclude=sls-sm-[5],sls-tesla-[0,1]
 
 echo "STARTING CONVOLUTIONAL MULTIDECODER TRAINING JOB"
 
@@ -27,26 +27,26 @@ fi
 run_mode=$1
 echo "Using run mode ${run_mode}"
 
-adversarial=false
+domain_adversarial=false
 gan=false
 if [ "$#" -ge 2 ]; then
-    if [ "$2" == "adversarial" ]; then
-        adversarial=true
-        echo "Using adversarial training"
+    if [ "$2" == "domain" ]; then
+        domain_adversarial=true
+        echo "Using domain_adversarial training"
     fi
     
     if [ "$2" == "gan" ]; then
         gan=true
-        echo "Using generative adversarial net (GAN) style training"
+        echo "Using generative domain_adversarial net (GAN) style training"
     fi
 fi
 
 mkdir -p $LOGS/$EXPT_NAME
-if [ "$adversarial" == true ]; then
-    train_log=$LOGS/$EXPT_NAME/train_adversarial_fc_${ADV_FC_DELIM}_act_${ADV_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}.log
+if [ "$domain_adversarial" == true ]; then
+    train_log=$LOGS/$EXPT_NAME/train_domain_adversarial_fc_${DOMAIN_ADV_FC_DELIM}_act_${DOMAIN_ADV_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}.log
     if [ -f $train_log ]; then
         # Move old log
-        mv $train_log $LOGS/$EXPT_NAME/train_adversarial_fc_${ADV_FC_DELIM}_act_${ADV_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}-$(date +"%F_%T%z").log
+        mv $train_log $LOGS/$EXPT_NAME/train_domain_adversarial_fc_${DOMAIN_ADV_FC_DELIM}_act_${DOMAIN_ADV_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}-$(date +"%F_%T%z").log
     fi
 elif [ "$gan" == true ]; then
     train_log=$LOGS/$EXPT_NAME/train_gan_fc_${GAN_FC_DELIM}_act_${GAN_FC_DELIM}_${run_mode}_ratio${NOISE_RATIO}.log
@@ -64,11 +64,11 @@ fi
 
 if [ "$PROFILE_RUN" = true ] ; then
     echo "Profiling..."
-    python3 cnn/scripts/train_md.py ${run_mode} ${adversarial} ${gan} profile > $train_log
+    python3 cnn/scripts/train_md.py ${run_mode} ${domain_adversarial} ${gan} profile > $train_log
     echo "Profiling done"
     # echo "Profiling done -- please run 'snakeviz --port=8890 --server $LOGS/$EXPT_NAME/train_${run_mode}.prof' to view the results in browser"
 else
-    python3 cnn/scripts/train_md.py ${run_mode} ${adversarial} ${gan} > $train_log
+    python3 cnn/scripts/train_md.py ${run_mode} ${domain_adversarial} ${gan} > $train_log
 fi
 
 echo "DONE CONVOLUTIONAL MULTIDECODER TRAINING JOB"
