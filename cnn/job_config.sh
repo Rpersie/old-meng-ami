@@ -37,8 +37,8 @@ export DECODER_CLASSES=( ihm sdm1 )
 export DECODER_CLASSES_DELIM=$(printf "_%s" "${DECODER_CLASSES[@]}")
 
 export DEBUG_MODEL=false
-# export DATASET_NAME=ami-0.1
-export DATASET_NAME=ami-full
+export DATASET_NAME=ami-0.1
+# export DATASET_NAME=ami-full
 if [ "$DEBUG_MODEL" = true ] ; then
     export CURRENT_FEATS=$TEST_FEATS
 else

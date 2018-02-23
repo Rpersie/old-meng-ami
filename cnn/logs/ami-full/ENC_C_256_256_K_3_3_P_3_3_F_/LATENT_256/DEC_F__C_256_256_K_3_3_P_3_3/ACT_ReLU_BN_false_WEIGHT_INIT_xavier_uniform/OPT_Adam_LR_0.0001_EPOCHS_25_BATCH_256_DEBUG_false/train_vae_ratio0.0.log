@@ -1,0 +1,50 @@
+Running training with mode vae
+Noising 0.000% of input features
+Constructing model...
+Done constructing model.
+CNNVariationalMultidecoder(
+  (encoder_conv): Sequential(
+    (conv2d_0): Conv2d (1, 256, kernel_size=(3, 3), stride=(1, 1))
+    (ReLU_0): ReLU()
+    (maxpool2d_0): MaxPool2d(kernel_size=(1, 3), stride=(1, 3), dilation=(1, 1))
+    (conv2d_1): Conv2d (256, 256, kernel_size=(3, 3), stride=(1, 1))
+    (ReLU_1): ReLU()
+    (maxpool2d_1): MaxPool2d(kernel_size=(1, 3), stride=(1, 3), dilation=(1, 1))
+  )
+  (encoder_fc): Sequential(
+  )
+  (decoder_fc_ihm): Sequential(
+    (ReLU_final): ReLU()
+    (lin_final): Linear(in_features=256, out_features=14336)
+  )
+  (decoder_deconv_ihm): Sequential(
+    (ReLU_0): ReLU()
+    (maxunpool2d_0): MaxUnpool2d(kernel_size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_0): Conv2d (256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (ReLU_1): ReLU()
+    (maxunpool2d_1): MaxUnpool2d(kernel_size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_1): Conv2d (256, 1, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+  )
+  (decoder_fc_sdm1): Sequential(
+    (ReLU_final): ReLU()
+    (lin_final): Linear(in_features=256, out_features=14336)
+  )
+  (decoder_deconv_sdm1): Sequential(
+    (ReLU_0): ReLU()
+    (maxunpool2d_0): MaxUnpool2d(kernel_size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_0): Conv2d (256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (ReLU_1): ReLU()
+    (maxunpool2d_1): MaxUnpool2d(kernel_size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_1): Conv2d (256, 1, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+  )
+  (latent_mu): Sequential(
+    (lin): Linear(in_features=14336, out_features=256)
+  )
+  (latent_logvar): Sequential(
+    (lin): Linear(in_features=14336, out_features=256)
+  )
+)
+Model has 16486658 trainable parameters
+Setting up data...
+Setting up training datasets...
+Using 27822979 training features (108684 batches) for class ihm

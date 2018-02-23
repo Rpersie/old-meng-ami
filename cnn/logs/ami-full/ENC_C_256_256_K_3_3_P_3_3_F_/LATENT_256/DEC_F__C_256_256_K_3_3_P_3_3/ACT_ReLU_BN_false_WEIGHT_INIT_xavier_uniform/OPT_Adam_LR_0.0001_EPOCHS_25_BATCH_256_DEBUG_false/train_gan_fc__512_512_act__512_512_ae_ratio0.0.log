@@ -1,6 +1,6 @@
-Running augmentation with mode ae
+Running training with mode ae
 Using generative adversarial loss
-Noise ratio: 0.000% of input features
+Noising 0.000% of input features
 Constructing model...
 Done constructing model.
 CNNGANMultidecoder(
@@ -57,30 +57,7 @@ CNNGANMultidecoder(
     (Sigmoid_final): Sigmoid()
   )
 )
-Loading checkpoint...
-Loaded checkpoint; best model ready now.
+Model has 14244868 trainable parameters
 Setting up data...
 Setting up training datasets...
-Using 10000 training features (10000 batches) for class ihm
-Using 10000 training features (10000 batches) for class sdm1
-Setting up dev datasets...
-Using 1000 dev features (1000 batches) for class ihm
-Using 1000 dev features (1000 batches) for class sdm1
-Done setting up data.
-Completed setup in 6.690 seconds
-PROCESSING SOURCE ihm, TARGET ihm
-=> Processing training data...
-===> Augmented 100/10000 batches (1.0%)]
-===> Augmented 200/10000 batches (2.0%)]
-===> Augmented 300/10000 batches (3.0%)]
-===> Augmented 400/10000 batches (4.0%)]
-===> Augmented 500/10000 batches (5.0%)]
-===> Augmented 600/10000 batches (6.0%)]
-===> Augmented 700/10000 batches (7.0%)]
-===> Augmented 800/10000 batches (8.0%)]
-===> Augmented 900/10000 batches (9.0%)]
-===> Augmented 1000/10000 batches (10.0%)]
-===> Augmented 1100/10000 batches (11.0%)]
-===> Augmented 1200/10000 batches (12.0%)]
-===> Augmented 1300/10000 batches (13.0%)]
-===> Augmented 1400/10000 batches (14.0%)]
+Using 27822979 training features (108684 batches) for class ihm

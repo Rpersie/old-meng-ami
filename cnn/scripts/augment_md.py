@@ -15,7 +15,7 @@ from torch.utils.data import DataLoader
 sys.path.append("./")
 sys.path.append("./cnn")
 from cnn_md import CNNMultidecoder, CNNVariationalMultidecoder
-from cnn_md import CNNAdversarialMultidecoder
+from cnn_md import CNNDomainAdversarialMultidecoder
 from cnn_md import CNNGANMultidecoder
 from utils.hao_data import HaoEvalDataset, write_kaldi_hao_ark, write_kaldi_hao_scp
 
@@ -23,20 +23,20 @@ run_start_t = time.clock()
 
 # Parse command line args
 run_mode = "ae"
-adversarial = False
+domain_adversarial = False
 gan = False
 
 if len(sys.argv) == 4:
     run_mode = sys.argv[1]
-    adversarial = True if sys.argv[2] == "true" else False
+    domain_adversarial = True if sys.argv[2] == "true" else False
     gan = True if sys.argv[3] == "true" else False
 else:
-    print("Usage: python cnn/scripts/augment_md.py <run mode> <adversarial true/false> <GAN true/false>", flush=True)
+    print("Usage: python cnn/scripts/augment_md.py <run mode> <domain_adversarial true/false> <GAN true/false>", flush=True)
     sys.exit(1)
 
 print("Running augmentation with mode %s" % run_mode, flush=True)
-if adversarial:
-    print("Using adversarial loss", flush=True)
+if domain_adversarial:
+    print("Using domain_adversarial loss", flush=True)
 elif gan:
     print("Using generative adversarial loss", flush=True)
 
@@ -100,12 +100,12 @@ for res_str in os.environ["DECODER_CLASSES_DELIM"].split("_"):
 use_batch_norm = True if os.environ["USE_BATCH_NORM"] == "true" else False
 weight_init = os.environ["WEIGHT_INIT"]
     
-if adversarial:
-    adv_fc_sizes = []
-    for res_str in os.environ["ADV_FC_DELIM"].split("_"):
+if domain_adversarial:
+    domain_adv_fc_sizes = []
+    for res_str in os.environ["DOMAIN_ADV_FC_DELIM"].split("_"):
         if len(res_str) > 0:
-            adv_fc_sizes.append(int(res_str))
-    adv_activation = os.environ["ADV_ACTIVATION"]
+            domain_adv_fc_sizes.append(int(res_str))
+    domain_adv_activation = os.environ["DOMAIN_ADV_ACTIVATION"]
     
 if gan:
     gan_fc_sizes = []
@@ -128,9 +128,9 @@ for decoder_class in decoder_classes:
     dev_scp_name = os.path.join(os.environ["CURRENT_FEATS"], "%s-dev-norm.blogmel.scp" % decoder_class)
     dev_scps[decoder_class] = dev_scp_name
 
-if adversarial:
-    output_dir = os.path.join(os.environ["AUGMENTED_DATA_DIR"], "adversarial_fc_%s_act_%s_%s_ratio%s" % (os.environ["ADV_FC_DELIM"],
-                                                                                             adv_activation,
+if domain_adversarial:
+    output_dir = os.path.join(os.environ["AUGMENTED_DATA_DIR"], "domain_adversarial_fc_%s_act_%s_%s_ratio%s" % (os.environ["DOMAIN_ADV_FC_DELIM"],
+                                                                                             domain_adv_activation,
                                                                                              run_mode,
                                                                                              str(noise_ratio)))
 elif gan:
@@ -150,7 +150,7 @@ random.seed(1)
 # Construct autoencoder with our parameters
 print("Constructing model...", flush=True)
 if run_mode == "ae":
-    if adversarial:
+    if domain_adversarial:
         model = CNNAdversarialMultidecoder(freq_dim=freq_dim,
                                 splicing=[left_context, right_context], 
                                 enc_channel_sizes=enc_channel_sizes,
@@ -166,8 +166,8 @@ if run_mode == "ae":
                                 use_batch_norm=use_batch_norm,
                                 decoder_classes=decoder_classes,
                                 weight_init=weight_init,
-                                adv_fc_sizes=adv_fc_sizes,
-                                adv_activation=adv_activation)
+                                domain_adv_fc_sizes=domain_adv_fc_sizes,
+                                domain_adv_activation=domain_adv_activation)
     elif gan:
         model = CNNGANMultidecoder(freq_dim=freq_dim,
                                 splicing=[left_context, right_context], 
@@ -203,10 +203,10 @@ if run_mode == "ae":
                                 decoder_classes=decoder_classes,
                                 weight_init=weight_init)
 elif run_mode == "vae":
-    if adversarial:
+    if domain_adversarial:
         print("Adversarial VAEs not supported yet", flush=True)
         sys.exit(1)
-    elif adversarial:
+    elif gan:
         print("Generative adversarial VAEs not supported yet", flush=True)
         sys.exit(1)
     else:
@@ -237,9 +237,9 @@ print(model, flush=True)
 # Load checkpoint (potentially trained on GPU) into CPU memory (hence the map_location)
 print("Loading checkpoint...")
 model_dir = os.environ["MODEL_DIR"]
-if adversarial:
-    best_ckpt_path = os.path.join(model_dir, "best_cnn_adversarial_fc_%s_act_%s_%s_ratio%s_md.pth.tar" % (os.environ["ADV_FC_DELIM"],
-                                                                                              adv_activation,
+if domain_adversarial:
+    best_ckpt_path = os.path.join(model_dir, "best_cnn_domain_adversarial_fc_%s_act_%s_%s_ratio%s_md.pth.tar" % (os.environ["DOMAIN_ADV_FC_DELIM"],
+                                                                                              domain_adv_activation,
                                                                                               run_mode,
                                                                                               str(noise_ratio)))
 elif gan:
@@ -321,7 +321,14 @@ def augment(source_class, target_class):
                 if on_gpu:
                     frame_tensor = frame_tensor.cuda()
 
-                recon_frames = model.forward_decoder(frame_tensor, target_class)
+                if run_mode == "ae":
+                    recon_frames = model.forward_decoder(frame_tensor, target_class)
+                elif run_mode == "vae":
+                    recon_frames, mu, logvar = model.forward_decoder(frame_tensor, target_class)
+                else:
+                    print("Unknown augment mode %s" % run_mode, flush=True)
+                    sys.exit(1)
+
                 recon_frames_numpy = recon_frames.cpu().data.numpy().reshape((-1, freq_dim))
                 decoded_feats[i, :] = recon_frames_numpy[left_context:left_context + 1, :]
 

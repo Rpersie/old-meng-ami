@@ -422,16 +422,73 @@ FEBRUARY 22ND
 ami-0.1/ENC_C_256_256_K_3_3_P_3_3_F_/LATENT_256/DEC_F__C_256_256_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_gan_fc__512_512_act_Sigmoid_ae_ratio0.0.log (WITH GAN LOSS ON TRANSFORMATION, NOT RECONSTRUCTION)
 
 Param count: 14,244,868
-Time per epoch:
+Time per epoch: 49 minutes
+
+TRAINING SET
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 6.201
+===> Total for class ihm: 6.201
+=> Class sdm1
+===> autoencoding_recon_loss: 9.255
+===> Total for class sdm1: 9.255
+TOTAL: 15.456
+
+DEV SET
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 6.562
+===> Total for class ihm: 6.562
+=> Class sdm1
+===> autoencoding_recon_loss: 9.144
+===> Total for class sdm1: 9.144
+TOTAL: 15.706
 
 
 ami-0.1/ENC_C_256_256_K_3_3_P_3_3_F_/LATENT_256/DEC_F__C_256_256_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_vae_ratio0.0.log
 
 Param count: 16,486,658
-Time per epoch: 
+Time per epoch: 25 minutes
+
+TRAINING SET
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 11.360
+===> Total for class ihm: 11.360
+=> Class sdm1
+===> autoencoding_recon_loss: 16.768
+===> Total for class sdm1: 16.768
+TOTAL: 28.128
+
+DEV SET
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 11.914
+===> Total for class ihm: 11.914
+=> Class sdm1
+===> autoencoding_recon_loss: 16.476
+===> Total for class sdm1: 16.476
+TOTAL: 28.390
 
 
 ami-full/ENC_C_256_256_K_3_3_P_3_3_F_/LATENT_256/DEC_F__C_256_256_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_ae_ratio0.0.log
 
 Param count: 12,816,386
+Time per epoch: 6 hours, 15 minutes
+
+
+
+============================================
+FEBRUARY 23RD
+============================================
+
+ami-full/ENC_C_256_256_K_3_3_P_3_3_F_/LATENT_256/DEC_F__C_256_256_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_vae_ratio0.0.log
+
+Param count: 16,486,658
 Time per epoch: 
+
+
+ami-full/ENC_C_256_256_K_3_3_P_3_3_F_/LATENT_256/DEC_F__C_256_256_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/train_gan_fc__512_512_act_Sigmoid_ae_ratio0.0.log
+
+Param count: 14,244,868
+Time per epoch:

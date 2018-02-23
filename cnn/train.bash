@@ -5,7 +5,7 @@
 #SBATCH -c 4
 #SBATCH --gres=gpu:1
 #SBATCH --mem=32768
-#SBATCH --time=48:00:00
+#SBATCH --time=96:00:00
 #SBATCH -J train_cnn_md
 #SBATCH --exclude=sls-sm-[5],sls-tesla-[0,1]
 
