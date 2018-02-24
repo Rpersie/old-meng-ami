@@ -1,0 +1,142 @@
+10% AMI subset
+
+AM Error rates:
+
+Baseline:
+- Src IHM:
+    - IHM dev FER: 57.9%
+    - SDM1 dev FER: 86.7%
+- Src SDM1:
+    - SDM1 dev FER: 80.9%
+    - IHM dev FER: 77.3%
+
+==> Range of improvement for SDM1 dev from IHM to SDM1: 5.75%
+
+
+frame-tdnn-450x7-step0.05/ENC_C_256_256_K_3_3_P_3_3_F_1024/LATENT_256/DEC_F_1024_C_256_256_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/ae_ratio0.25
+- IHM -> IHM
+    - IHM: 59.8%
+    - SDM1: 87.8%
+- IHM -> SDM1
+    - IHM: 59.8%
+    - SDM1: 85.6%
+- SDM1 -> IHM
+    - IHM: 77.6%
+    - SDM1: 82.2%
+- SDM1 -> SDM1
+    - IHM: 79.6%
+    - SDM1: 80.9%
+- IHM baseline + IHM->SDM1:
+    - IHM: 59.1%
+    - SDM1: 85.8%
+
+    
+
+frame-tdnn-450x7-step0.05/ENC_C_256_256_K_3_3_P_3_3_F_/LATENT_256/DEC_F__C_256_256_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/ae_ratio0.25
+- IHM -> IHM
+    - IHM: 59.3%
+    - SDM1: 87.0%
+- IHM -> SDM1
+    - IHM: 59.9%
+    - SDM1: 85.9%
+- SDM1 -> IHM
+    - IHM: 78.0%
+    - SDM1: 82.1%
+- SDM1 -> SDM1
+    - IHM: 79.6%
+    - SDM1: 80.9%
+- IHM baseline + IHM->SDM1:
+    - IHM: 58.1%
+    - SDM1: 85.8%
+
+
+
+frame-tdnn-450x7-step0.05/ENC_C_256_256_K_3_3_P_3_3_F_/LATENT_256/DEC_F__C_256_256_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/ae_ratio0.0
+- IHM -> IHM
+    - IHM: 58.2%
+    - SDM1: 86.7%
+- IHM -> SDM1
+    - IHM: 60.4%
+    - SDM1: 85.7%
+- SDM1 -> IHM
+    - IHM: 77.9%
+    - SDM1: 82.1%
+- SDM1 -> SDM1
+    - IHM: 77.9%
+    - SDM1: 80.6%
+- IHM baseline + IHM->SDM1:
+    - IHM: (ISSUES WITH RUNNING)
+    - SDM1: (ISSUES WITH RUNNING)
+
+    
+    
+frame-tdnn-450x7-step0.05/ENC_C_256_256_K_3_3_P_3_3_F_/LATENT_256/DEC_F__C_256_256_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/gan_fc__512_512_act_Sigmoid_ae_ratio0.0
+- IHM -> IHM
+    - IHM:
+    - SDM1:
+- IHM -> SDM1
+    - IHM: 60.6%
+    - SDM1: 85.6%
+- SDM1 -> IHM
+    - IHM:
+    - SDM1:
+- SDM1 -> SDM1
+    - IHM:
+    - SDM1:
+- IHM baseline + IHM->SDM1:
+    - IHM: 59.2%
+    - SDM1: 85.9%
+
+    
+
+frame-tdnn-450x7-step0.05/ENC_C_256_256_K_3_3_P_3_3_F_/LATENT_256/DEC_F__C_256_256_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/adversarial_fc__512_512_act_Sigmoid_ae_ratio0.0
+- IHM -> IHM
+    - IHM:
+    - SDM1:
+- IHM -> SDM1
+    - IHM: 59.4%
+    - SDM1: 85.6%
+- SDM1 -> IHM
+    - IHM:
+    - SDM1:
+- SDM1 -> SDM1
+    - IHM:
+    - SDM1:
+- IHM baseline + IHM->SDM1:
+    - IHM: 59.1%
+    - SDM1:
+
+
+frame-tdnn-450x7-step0.05/ENC_C_256_256_K_3_3_P_3_3_F_/LATENT_256/DEC_F__C_256_256_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/vae_ratio0.0
+- IHM -> IHM
+    - IHM:
+    - SDM1:
+- IHM -> SDM1
+    - IHM: 59.0%
+    - SDM1: 86.1%
+- SDM1 -> IHM
+    - IHM:
+    - SDM1:
+- SDM1 -> SDM1
+    - IHM:
+    - SDM1:
+- IHM baseline + IHM->SDM1:
+    - IHM: 59.2%
+    - SDM1: 86.2%
+
+frame-tdnn-450x7-step0.05/ENC_C_256_256_K_3_3_P_3_3_F_/LATENT_256/DEC_F__C_256_256_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/gan_fc__512_512_act_Sigmoid_ae_ratio0.0 (FIXED)
+- IHM -> IHM
+    - IHM:
+    - SDM1:
+- IHM -> SDM1
+    - IHM: 67.1%
+    - SDM1: 88.1%
+- SDM1 -> IHM
+    - IHM:
+    - SDM1:
+- SDM1 -> SDM1
+    - IHM:
+    - SDM1:
+- IHM baseline + IHM->SDM1:
+    - IHM: 59.3%
+    - SDM1: 86.6%
