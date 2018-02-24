@@ -7,7 +7,7 @@
 #SBATCH --mem=32768
 #SBATCH --time=48:00:00
 #SBATCH -J predict_combined
-#SBATCH --exclude=sls-sm-[5]
+#SBATCH --exclude=sls-sm-[5],sls-tesla-[0,1]
 
 echo "STARTING COMBINED ACOUSTIC MODEL PREDICTION JOB"
 

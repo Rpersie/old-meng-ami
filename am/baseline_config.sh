@@ -10,21 +10,15 @@ if [ "$DEBUG_MODEL" = true ] ; then
     export DATASET_NAME=debug
     export DATASET=$TEST_FEATS
 else
-    export DATASET_NAME=ami-0.1
+    # export DATASET_NAME=ami-0.1
+    export DATASET_NAME=ami-full
     export DATASET=$MENG_ROOT/${DATASET_NAME}
 fi
 
-export TRAIN_DOMAIN=ihm
+export TRAIN_DOMAIN=sdm1
 export PREDICT_DOMAIN=sdm1
 export GOLD_DIR=/data/sls/scratch/haotang/ami/sls-data/${DATASET_NAME}
 
-
-# if [ "$TRAIN_DOMAIN" = ihm ] ; then
-#     export NPRED=3984
-# else
-#     # SDM1
-#     export NPRED=3966
-# fi
 
 # Always use IHM pdfids! (See Hao email from 1/17/18)
 export NPRED=3984
