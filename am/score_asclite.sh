@@ -9,7 +9,8 @@ stage=0
 decode_mbr=true
 min_lmwt=7
 max_lmwt=15
-asclite=true
+# asclite=true
+asclite=false   # ASCLITE doesn't seem to play nice with augmented data -- turn off for now
 iter=final
 overlap_spk=4
 # end configuration section.

@@ -1,0 +1,22 @@
+10% AMI subset
+
+AM Word Error Rates:
+
+Baseline:
+- Src IHM:
+    - IHM dev WER: 34.3% (LM weight: 10 or 11)
+    - SDM1 dev WER: 86.9% (LM weight: 7 or 8)
+- Src SDM1:
+    - SDM1 dev WER: 74.6% (LM weight: 7)
+    - IHM dev WER: 73.8% (LM weight: 7)
+
+==> Range of improvement for SDM1 dev from IHM to SDM1: 12.3%
+
+
+ENC_C_256_256_K_3_3_P_3_3_F_/LATENT_256/DEC_F__C_256_256_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/ae_ratio0.0
+- IHM -> SDM1
+    - IHM:
+    - SDM1:
+- IHM baseline + IHM->SDM1:
+    - IHM:
+    - SDM1:
