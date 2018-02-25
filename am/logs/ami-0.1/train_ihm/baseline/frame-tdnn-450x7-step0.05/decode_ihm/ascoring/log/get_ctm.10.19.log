@@ -1,0 +1,50 @@
+# mkdir -p /data/sls/r/u/atitus5/meng/am/logs/ami-0.1/train_ihm/baseline/frame-tdnn-450x7-step0.05/decode_ihm/ascore_10/ && lattice-scale --inv-acoustic-scale=10 "ark:gunzip -c /data/sls/r/u/atitus5/meng/am/logs/ami-0.1/train_ihm/baseline/frame-tdnn-450x7-step0.05/decode_ihm/lat.19.gz|" ark:- | lattice-limit-depth ark:- ark:- | lattice-push --push-strings=false ark:- ark:- | lattice-align-words-lexicon --max-expand=10.0 /data/sls/scratch/haotang/ami//exp/ihm/tri3-logmel-hires/graph_ami_fsh.o3g.kn.pr1-7/phones/align_lexicon.int /data/sls/scratch/haotang/ami//exp/ihm/tri3-logmel-hires_ali/final.mdl ark:- ark:- | lattice-to-ctm-conf --decode-mbr=true ark:- - | /data/sls/r/u/atitus5/meng/utils/int2sym.pl -f 5 /data/sls/scratch/haotang/ami//exp/ihm/tri3-logmel-hires/graph_ami_fsh.o3g.kn.pr1-7/words.txt | /data/sls/r/u/atitus5/meng/utils/convert_ctm.pl /data/sls/scratch/haotang/ami//sls-data/ami-0.1/ihm-dev/segments /data/sls/scratch/haotang/ami//sls-data/ami-0.1/ihm-dev/reco2file_and_channel > /data/sls/r/u/atitus5/meng/am/logs/ami-0.1/train_ihm/baseline/frame-tdnn-450x7-step0.05/decode_ihm/ascore_10/ihm-dev.19.ctm 
+# Started at Sun Feb 25 12:05:54 EST 2018
+#
+lattice-scale --inv-acoustic-scale=10 'ark:gunzip -c /data/sls/r/u/atitus5/meng/am/logs/ami-0.1/train_ihm/baseline/frame-tdnn-450x7-step0.05/decode_ihm/lat.19.gz|' ark:- 
+lattice-limit-depth ark:- ark:- 
+lattice-align-words-lexicon --max-expand=10.0 /data/sls/scratch/haotang/ami//exp/ihm/tri3-logmel-hires/graph_ami_fsh.o3g.kn.pr1-7/phones/align_lexicon.int /data/sls/scratch/haotang/ami//exp/ihm/tri3-logmel-hires_ali/final.mdl ark:- ark:- 
+lattice-to-ctm-conf --decode-mbr=true ark:- - 
+lattice-push --push-strings=false ark:- ark:- 
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:172) For utterance AMI_IS1006c_H03_MIO008_0168887_0169134, Bayes Risk 0.00728831, avg. confidence per-word 1
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:172) For utterance AMI_IS1006c_H03_MIO008_0169134_0169382, Bayes Risk 0.260223, avg. confidence per-word 0.871383
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:172) For utterance AMI_IS1006c_H03_MIO008_0170572_0170620, Bayes Risk 0.719826, avg. confidence per-word 0.941646
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:172) For utterance AMI_IS1006c_H03_MIO008_0170834_0172593, Bayes Risk 3.08956, avg. confidence per-word 0.979063
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:172) For utterance AMI_IS1006c_H03_MIO008_0172593_0172708, Bayes Risk 0.00126073, avg. confidence per-word 0.99937
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:172) For utterance AMI_IS1006c_H03_MIO008_0172708_0173059, Bayes Risk 0.637641, avg. confidence per-word 0.947142
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:172) For utterance AMI_IS1006c_H03_MIO008_0174801_0174956, Bayes Risk 0.266004, avg. confidence per-word 0.962263
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:172) For utterance AMI_IS1006c_H03_MIO008_0176280_0176374, Bayes Risk 0.131934, avg. confidence per-word 0.868066
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:172) For utterance AMI_IS1006c_H03_MIO008_0176374_0176480, Bayes Risk 0.263252, avg. confidence per-word 0.764935
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:172) For utterance AMI_IS1006c_H03_MIO008_0180545_0180617, Bayes Risk 0.458694, avg. confidence per-word 0.885326
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:172) For utterance AMI_IS1006c_H03_MIO008_0181822_0182188, Bayes Risk 0.839204, avg. confidence per-word 0.72281
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:172) For utterance AMI_IS1006c_H03_MIO008_0183062_0183363, Bayes Risk 0.576641, avg. confidence per-word 0.920131
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:172) For utterance AMI_IS1006c_H03_MIO008_0183363_0183412, Bayes Risk 0, avg. confidence per-word 1
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:172) For utterance AMI_IS1006c_H03_MIO008_0183412_0184022, Bayes Risk 1.34469, avg. confidence per-word 0.877961
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:172) For utterance AMI_IS1006c_H03_MIO008_0184022_0184187, Bayes Risk 0.213136, avg. confidence per-word 0.946716
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:172) For utterance AMI_IS1006c_H03_MIO008_0185631_0185651, Bayes Risk 0, avg. confidence per-word 1
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:172) For utterance AMI_IS1006c_H03_MIO008_0186053_0187097, Bayes Risk 2.19153, avg. confidence per-word 0.948938
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:172) For utterance AMI_IS1006c_H03_MIO008_0187296_0187323, Bayes Risk 0, avg. confidence per-word 1
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:172) For utterance AMI_IS1006c_H03_MIO008_0187445_0187920, Bayes Risk 0.973928, avg. confidence per-word 0.948576
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:172) For utterance AMI_IS1006c_H03_MIO008_0188792_0188863, Bayes Risk 0, avg. confidence per-word 1
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:172) For utterance AMI_IS1006c_H03_MIO008_0188863_0189403, Bayes Risk 2.45247, avg. confidence per-word 0.800476
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:172) For utterance AMI_IS1006c_H03_MIO008_0189403_0190192, Bayes Risk 2.01494, avg. confidence per-word 0.922033
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:172) For utterance AMI_IS1006c_H03_MIO008_0190192_0190326, Bayes Risk 0, avg. confidence per-word 1
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:172) For utterance AMI_IS1006c_H03_MIO008_0190326_0190622, Bayes Risk 0.80928, avg. confidence per-word 0.91121
+LOG (lattice-scale[5.2.134~1-ecd4]:main():lattice-scale.cc:90) Done 33 lattices.
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:172) For utterance AMI_IS1006c_H03_MIO008_0190956_0191049, Bayes Risk 0.593786, avg. confidence per-word 0.672117
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:172) For utterance AMI_IS1006c_H03_MIO008_0191378_0191410, Bayes Risk 0, avg. confidence per-word 1
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:172) For utterance AMI_IS1006c_H03_MIO008_0191525_0191573, Bayes Risk 0.465547, avg. confidence per-word 0.767227
+LOG (lattice-limit-depth[5.2.134~1-ecd4]:main():lattice-limit-depth.cc:103) Done 33 lattices.
+LOG (lattice-limit-depth[5.2.134~1-ecd4]:main():lattice-limit-depth.cc:104) Overall density changed from 23.2437 to 23.2437
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:172) For utterance AMI_IS1006c_H01_MIO040_0003626_0004736, Bayes Risk 1.10878, avg. confidence per-word 0.63265
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:172) For utterance AMI_IS1006c_H01_MIO040_0007713_0007740, Bayes Risk 0.17338, avg. confidence per-word 0.82662
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:172) For utterance AMI_IS1006c_H01_MIO040_0029920_0029955, Bayes Risk 0.0024707, avg. confidence per-word 0.997529
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:172) For utterance AMI_IS1006c_H01_MIO040_0032608_0032644, Bayes Risk 0.106646, avg. confidence per-word 0.90191
+LOG (lattice-push[5.2.134~1-ecd4]:main():lattice-push.cc:98) Pushed 33 lattices, errors on 0
+LOG (lattice-align-words-lexicon[5.2.134~1-ecd4]:main():lattice-align-words-lexicon.cc:138) Successfully aligned 33 lattices; 0 had errors.
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:172) For utterance AMI_IS1006c_H01_MIO040_0035120_0036571, Bayes Risk 4.59443, avg. confidence per-word 0.888782
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:172) For utterance AMI_IS1006c_H01_MIO040_0036737_0036842, Bayes Risk 0, avg. confidence per-word 1
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:181) Done 33 lattices.
+LOG (lattice-to-ctm-conf[5.2.134~1-ecd4]:main():lattice-to-ctm-conf.cc:182) Overall average Bayes Risk per sentence is 0.736259 and per word, 0.0979699
+# Accounting: time=69 threads=1
+# Ended (code 0) at Sun Feb 25 12:07:03 EST 2018, elapsed time 69 seconds

@@ -15,20 +15,30 @@ echo "STARTING BASELINE ACOUSTIC MODEL TRAINING JOB"
 . $MENG_ROOT/am/baseline_config.sh
 . $MENG_ROOT/am/path-cuda.sh
 
-mkdir -p $LOGS/$EXPT_NAME
+if [ "$#" -lt 1 ]; then
+    echo "Train domain not specified; exiting"
+    exit 1
+fi
 
-echo "Train domain ${TRAIN_DOMAIN}"
+train_domain=$1
+echo "Train domain ${train_domain}"
+
+expt_name="train_${train_domain}/baseline/${ARCH_NAME}"
+mkdir -p $LOGS/$expt_name
+
+model_dir=$MODEL_DIR/$expt_name
+mkdir -p $model_dir
 
 for epoch in $(seq $START_EPOCH $END_EPOCH); do
     echo "========== EPOCH $epoch =========="
 
-    epoch_log=$LOGS/$EXPT_NAME/train_baseline-epoch${epoch}.log
+    epoch_log=$LOGS/$expt_name/train_baseline-epoch${epoch}.log
 
-    if [ ! -f $MODEL_DIR/param-$((epoch-1)) ]; then
+    if [ ! -f $model_dir/param-$((epoch-1)) ]; then
         # Parameter file doesn't exist -- only generate if we're just starting
         if [ "$epoch" -eq "1" ]; then
             echo "TDNN not initialized. Initializing parameters..."
-            $MENG_ROOT/am/init-tdnn.py random > $MODEL_DIR/param-$((epoch-1))
+            $MENG_ROOT/am/init-tdnn.py random > $model_dir/param-$((epoch-1))
             echo "Done initializing parameters."
         else
             echo "Parameter file does not exist for (epoch - 1 = $((epoch-1)))"
@@ -38,12 +48,12 @@ for epoch in $(seq $START_EPOCH $END_EPOCH); do
 
     # Always use IHM pdfids, even for SDM1 (data are parallel -- see Hao email from 1/17/18)
     OMP_NUM_THREADS=1 /data/sls/scratch/haotang/ami/dist/nn-20171213-4c6c341/nnbin/frame-tdnn-learn-gpu \
-        --frame-scp $DATASET/${TRAIN_DOMAIN}-train-logmel-hires-filt.blogmel.scp \
+        --frame-scp $DATASET/${train_domain}-train-logmel-hires-filt.blogmel.scp \
         --label-scp $DATASET/ihm-train-logmel-hires-tri3.bali.scp \
-        --param $MODEL_DIR/param-$((epoch-1)) \
-        --opt-data $MODEL_DIR/opt-data-$((epoch-1)) \
-        --output-param $MODEL_DIR/param-$epoch \
-        --output-opt-data $MODEL_DIR/opt-data-$epoch \
+        --param $model_dir/param-$((epoch-1)) \
+        --opt-data $model_dir/opt-data-$((epoch-1)) \
+        --output-param $model_dir/param-$epoch \
+        --output-opt-data $model_dir/opt-data-$epoch \
         --label $DATASET/ihm-pdfids.txt \
         --seed $epoch \
         --shuffle \

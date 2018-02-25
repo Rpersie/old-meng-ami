@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -p sm
+#SBATCH -p gpu
 #SBATCH -n1
 #SBATCH -N1-1
 #SBATCH -c 4
@@ -15,16 +15,27 @@ echo "STARTING BASELINE ACOUSTIC MODEL PREDICTION JOB"
 . $MENG_ROOT/am/baseline_config.sh
 . $MENG_ROOT/am/path-opt.sh
 
-mkdir -p $LOGS/$EXPT_NAME/predict_${PREDICT_DOMAIN}
-predict_log=$LOGS/$EXPT_NAME/predict_${PREDICT_DOMAIN}/predictions.log
+if [ "$#" -lt 2 ]; then
+    echo "Train domain and predict domain not specified; exiting"
+    exit 1
+fi
 
-echo "Train domain ${TRAIN_DOMAIN}, predict domain ${PREDICT_DOMAIN}"
+train_domain=$1
+predict_domain=$2
+echo "Train domain ${train_domain}, predict domain ${predict_domain}"
+
+expt_name="train_${train_domain}/baseline/${ARCH_NAME}"
+
+mkdir -p $LOGS/$expt_name/predict_${predict_domain}
+predict_log=$LOGS/$expt_name/predict_${predict_domain}/predictions.log
+
+model_dir=$MODEL_DIR/$expt_name
 
 echo "Predicting using TDNN..."
 # Always use IHM pdfids, even for SDM1 (data are parallel -- see Hao email from 1/17/18)
 OPENBLAS_CORETYPE=Sandybridge OMP_NUM_THREADS=4 /data/sls/scratch/haotang/ami/dist/nn-20171210-4c6c341-openblas/nnbin/frame-tdnn-predict \
-    --frame-scp $DATASET/${PREDICT_DOMAIN}-dev-norm.blogmel.scp \
-    --param $MODEL_DIR/param-$MODEL_EPOCH \
+    --frame-scp $DATASET/${predict_domain}-dev-norm.blogmel.scp \
+    --param $model_dir/param-$MODEL_EPOCH \
     --label $DATASET/ihm-pdfids.txt \
     > $predict_log
 echo "Done predicting using TDNN."
@@ -33,6 +44,6 @@ echo "Done predicting using TDNN."
 python $MENG_ROOT/am/eval-frames.py $predict_log $GOLD_DIR/ihm-dev-tri3.bali
 
 # Evaluate errors
-python $MENG_ROOT/am/err_analysis.py $predict_log $GOLD_DIR/ihm-dev-tri3.bali $LOGS/$EXPT_NAME/predict_${PREDICT_DOMAIN}
+python $MENG_ROOT/am/err_analysis.py $predict_log $GOLD_DIR/ihm-dev-tri3.bali $LOGS/$expt_name/predict_${predict_domain}
 
 echo "DONE BASELINE ACOUSTIC MODEL PREDICTION JOB"

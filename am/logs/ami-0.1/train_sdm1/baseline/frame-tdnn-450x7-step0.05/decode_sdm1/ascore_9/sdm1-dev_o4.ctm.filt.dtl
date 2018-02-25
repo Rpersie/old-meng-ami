@@ -1,0 +1,2750 @@
+DETAILED OVERALL REPORT FOR THE SYSTEM: sdm1-dev_o4.ctm
+
+SENTENCE RECOGNITION PERFORMANCE
+
+ sentences                                        1342
+ with errors                             63.3%   ( 850)
+
+   with substitions                      41.7%   ( 559)
+   with deletions                        53.1%   ( 713)
+   with insertions                        6.6%   (  89)
+
+
+WORD RECOGNITION PERFORMANCE
+
+Percent Total Error       =   76.4%   (5024)
+
+Percent Correct           =   25.4%   (1672)
+
+Percent Substitution      =   17.6%   (1157)
+Percent Deletions         =   57.0%   (3750)
+Percent Insertions        =    1.8%   ( 117)
+Percent Word Accuracy     =   23.6%
+
+
+Ref. words                =           (6579)
+Hyp. words                =           (2946)
+Aligned words             =           (6696)
+
+CONFUSION PAIRS                  Total                 (1067)
+                                 With >=  1 occurances (1067)
+
+   1:    5  ->  we ==> you
+   2:    4  ->  banana ==> yeah
+   3:    4  ->  it ==> yeah
+   4:    4  ->  the ==> a
+   5:    3  ->  a ==> yeah
+   6:    3  ->  it ==> that
+   7:    3  ->  k. ==> yeah
+   8:    3  ->  know ==> yeah
+   9:    3  ->  no ==> yeah
+  10:    3  ->  of ==> the
+  11:    3  ->  of ==> yeah
+  12:    3  ->  right ==> but
+  13:    3  ->  right ==> yeah
+  14:    3  ->  think ==> yeah
+  15:    3  ->  yeah ==> no
+  16:    3  ->  yeah ==> the
+  17:    3  ->  yeah ==> yes
+  18:    2  ->  %bcack ==> oh
+  19:    2  ->  %bcack ==> yeah
+  20:    2  ->  a ==> the
+  21:    2  ->  a ==> this
+  22:    2  ->  a ==> to
+  23:    2  ->  and ==> a
+  24:    2  ->  and ==> yeah
+  25:    2  ->  be ==> oh
+  26:    2  ->  brilliant ==> yeah
+  27:    2  ->  c. ==> oh
+  28:    2  ->  cats ==> that
+  29:    2  ->  costs ==> cost
+  30:    2  ->  go ==> yeah
+  31:    2  ->  good ==> yeah
+  32:    2  ->  had ==> have
+  33:    2  ->  has ==> o.
+  34:    2  ->  i ==> o.
+  35:    2  ->  i ==> yeah
+  36:    2  ->  in ==> the
+  37:    2  ->  is ==> so
+  38:    2  ->  is ==> yeah
+  39:    2  ->  it ==> this
+  40:    2  ->  it ==> well
+  41:    2  ->  it's ==> i
+  42:    2  ->  k. ==> so
+  43:    2  ->  market ==> yeah
+  44:    2  ->  me ==> yeah
+  45:    2  ->  no ==> so
+  46:    2  ->  not ==> that
+  47:    2  ->  or ==> i
+  48:    2  ->  shape ==> yeah
+  49:    2  ->  so ==> yeah
+  50:    2  ->  some ==> so
+  51:    2  ->  something ==> so
+  52:    2  ->  that ==> like
+  53:    2  ->  the ==> but
+  54:    2  ->  the ==> that
+  55:    2  ->  the ==> yeah
+  56:    2  ->  the ==> you
+  57:    2  ->  them ==> right
+  58:    2  ->  this ==> k.
+  59:    2  ->  this ==> yeah
+  60:    2  ->  time ==> yeah
+  61:    2  ->  to ==> one
+  62:    2  ->  up ==> out
+  63:    2  ->  use ==> is
+  64:    2  ->  yeah ==> are
+  65:    2  ->  yeah ==> this
+  66:    2  ->  yeah ==> yep
+  67:    2  ->  you ==> that's
+  68:    2  ->  your ==> the
+  69:    1  ->  %bcack ==> want
+  70:    1  ->  'kay ==> k.
+  71:    1  ->  a ==> and
+  72:    1  ->  a ==> conceptual
+  73:    1  ->  a ==> for
+  74:    1  ->  a ==> it's
+  75:    1  ->  a ==> know
+  76:    1  ->  a ==> o.
+  77:    1  ->  a ==> one
+  78:    1  ->  a ==> question
+  79:    1  ->  a ==> right
+  80:    1  ->  a ==> shell
+  81:    1  ->  a ==> so
+  82:    1  ->  a ==> that
+  83:    1  ->  a ==> was
+  84:    1  ->  about ==> stable
+  85:    1  ->  absorber ==> no
+  86:    1  ->  absorption ==> it
+  87:    1  ->  absorption ==> systems
+  88:    1  ->  accepted ==> see
+  89:    1  ->  acne ==> k.
+  90:    1  ->  action ==> seven
+  91:    1  ->  actions ==> they
+  92:    1  ->  actually ==> seven
+  93:    1  ->  after ==> just
+  94:    1  ->  afterward ==> k.
+  95:    1  ->  again ==> alpha
+  96:    1  ->  again ==> k.
+  97:    1  ->  again ==> then
+  98:    1  ->  again ==> yeah
+  99:    1  ->  agree ==> coffee
+ 100:    1  ->  alarm ==> now
+ 101:    1  ->  along ==> on
+ 102:    1  ->  alpha ==> like
+ 103:    1  ->  already ==> or
+ 104:    1  ->  also ==> the
+ 105:    1  ->  also ==> yeah
+ 106:    1  ->  always ==> tied
+ 107:    1  ->  am ==> and
+ 108:    1  ->  am ==> but
+ 109:    1  ->  am ==> for
+ 110:    1  ->  am ==> that's
+ 111:    1  ->  an ==> absorption
+ 112:    1  ->  an ==> o.
+ 113:    1  ->  an ==> well
+ 114:    1  ->  and ==> could
+ 115:    1  ->  and ==> emission
+ 116:    1  ->  and ==> for
+ 117:    1  ->  and ==> like
+ 118:    1  ->  and ==> means
+ 119:    1  ->  and ==> mine
+ 120:    1  ->  and ==> my
+ 121:    1  ->  and ==> send
+ 122:    1  ->  and ==> that
+ 123:    1  ->  and ==> that's
+ 124:    1  ->  and ==> this
+ 125:    1  ->  and ==> to
+ 126:    1  ->  and ==> trapped
+ 127:    1  ->  animals ==> see
+ 128:    1  ->  anybody ==> because
+ 129:    1  ->  anybody ==> if
+ 130:    1  ->  anyway ==> or
+ 131:    1  ->  anyway ==> you
+ 132:    1  ->  apply ==> are
+ 133:    1  ->  apply ==> on
+ 134:    1  ->  are ==> both
+ 135:    1  ->  are ==> cause
+ 136:    1  ->  are ==> control
+ 137:    1  ->  are ==> i
+ 138:    1  ->  are ==> is
+ 139:    1  ->  are ==> o.
+ 140:    1  ->  are ==> or
+ 141:    1  ->  are ==> out
+ 142:    1  ->  are ==> really
+ 143:    1  ->  are ==> the
+ 144:    1  ->  are ==> yeah
+ 145:    1  ->  around ==> just
+ 146:    1  ->  artist ==> it
+ 147:    1  ->  artist ==> yeah
+ 148:    1  ->  as ==> and
+ 149:    1  ->  as ==> is
+ 150:    1  ->  as ==> we
+ 151:    1  ->  as ==> what
+ 152:    1  ->  as ==> would
+ 153:    1  ->  asked ==> a
+ 154:    1  ->  asked ==> have
+ 155:    1  ->  asked ==> the
+ 156:    1  ->  at ==> mean
+ 157:    1  ->  available ==> the
+ 158:    1  ->  avoid ==> %bcack
+ 159:    1  ->  away ==> right
+ 160:    1  ->  back ==> k.
+ 161:    1  ->  back ==> well
+ 162:    1  ->  back ==> yeah
+ 163:    1  ->  backwards ==> well
+ 164:    1  ->  bad ==> that
+ 165:    1  ->  banana ==> just
+ 166:    1  ->  basically ==> drop
+ 167:    1  ->  be ==> am
+ 168:    1  ->  be ==> by
+ 169:    1  ->  be ==> is
+ 170:    1  ->  be ==> k.
+ 171:    1  ->  be ==> o.
+ 172:    1  ->  be ==> that
+ 173:    1  ->  be ==> we
+ 174:    1  ->  be ==> what
+ 175:    1  ->  because ==> first
+ 176:    1  ->  because ==> if
+ 177:    1  ->  because ==> mean
+ 178:    1  ->  been ==> per
+ 179:    1  ->  been ==> the
+ 180:    1  ->  before ==> why
+ 181:    1  ->  better ==> logo
+ 182:    1  ->  bit ==> just
+ 183:    1  ->  black ==> some
+ 184:    1  ->  blue ==> yeah
+ 185:    1  ->  book ==> but
+ 186:    1  ->  both ==> all
+ 187:    1  ->  both ==> of
+ 188:    1  ->  bottom ==> but
+ 189:    1  ->  bring ==> every
+ 190:    1  ->  buckley ==> badly
+ 191:    1  ->  budget ==> it
+ 192:    1  ->  build ==> like
+ 193:    1  ->  burst ==> say
+ 194:    1  ->  burst ==> stuff
+ 195:    1  ->  burst ==> that's
+ 196:    1  ->  but ==> cool
+ 197:    1  ->  but ==> eight
+ 198:    1  ->  but ==> know
+ 199:    1  ->  but ==> oh
+ 200:    1  ->  but ==> that
+ 201:    1  ->  but ==> well
+ 202:    1  ->  but ==> why
+ 203:    1  ->  but ==> with
+ 204:    1  ->  but ==> yeah
+ 205:    1  ->  button ==> o.
+ 206:    1  ->  buttons ==> sense
+ 207:    1  ->  buy ==> or
+ 208:    1  ->  by ==> use
+ 209:    1  ->  c ==> raw
+ 210:    1  ->  c. ==> days
+ 211:    1  ->  c. ==> for
+ 212:    1  ->  c. ==> need
+ 213:    1  ->  c. ==> that
+ 214:    1  ->  call ==> finally
+ 215:    1  ->  can ==> do
+ 216:    1  ->  can ==> for
+ 217:    1  ->  can ==> then
+ 218:    1  ->  can ==> well
+ 219:    1  ->  can ==> what
+ 220:    1  ->  can ==> you
+ 221:    1  ->  cannot ==> kate
+ 222:    1  ->  cannot ==> know
+ 223:    1  ->  cannot ==> o.
+ 224:    1  ->  capable ==> five
+ 225:    1  ->  carry ==> am
+ 226:    1  ->  case ==> is
+ 227:    1  ->  cash ==> just
+ 228:    1  ->  centre ==> and
+ 229:    1  ->  changeable ==> for
+ 230:    1  ->  channel ==> yeah
+ 231:    1  ->  character ==> mean
+ 232:    1  ->  check ==> yeah
+ 233:    1  ->  check ==> you
+ 234:    1  ->  checked ==> check
+ 235:    1  ->  coefficient ==> question
+ 236:    1  ->  colour ==> like
+ 237:    1  ->  colour ==> no
+ 238:    1  ->  colour ==> oh
+ 239:    1  ->  colour ==> our
+ 240:    1  ->  colours ==> phone
+ 241:    1  ->  complicated ==> right
+ 242:    1  ->  computers ==> computer
+ 243:    1  ->  concept ==> for
+ 244:    1  ->  controlling ==> a
+ 245:    1  ->  controls ==> it's
+ 246:    1  ->  converse ==> covers
+ 247:    1  ->  convince ==> commit
+ 248:    1  ->  cool ==> oh
+ 249:    1  ->  cool ==> yeah
+ 250:    1  ->  costs ==> us
+ 251:    1  ->  could ==> live
+ 252:    1  ->  could ==> the
+ 253:    1  ->  course ==> correct
+ 254:    1  ->  course ==> yeah
+ 255:    1  ->  covered ==> colour
+ 256:    1  ->  creation ==> dunno
+ 257:    1  ->  criteria ==> user
+ 258:    1  ->  cube ==> k.
+ 259:    1  ->  currently ==> screeches
+ 260:    1  ->  curved ==> curve
+ 261:    1  ->  curved ==> that's
+ 262:    1  ->  cut ==> oh
+ 263:    1  ->  d. ==> of
+ 264:    1  ->  d. ==> that
+ 265:    1  ->  d. ==> this
+ 266:    1  ->  d. ==> to
+ 267:    1  ->  damn ==> yeah
+ 268:    1  ->  dark ==> like
+ 269:    1  ->  dash ==> it's
+ 270:    1  ->  designer ==> design
+ 271:    1  ->  designer ==> interface
+ 272:    1  ->  designers ==> designer
+ 273:    1  ->  detailed ==> can
+ 274:    1  ->  detailed ==> tell
+ 275:    1  ->  details ==> it
+ 276:    1  ->  details ==> two
+ 277:    1  ->  did ==> idea
+ 278:    1  ->  different ==> the
+ 279:    1  ->  directly ==> telling
+ 280:    1  ->  disagree ==> not
+ 281:    1  ->  display ==> were
+ 282:    1  ->  disposal ==> for
+ 283:    1  ->  do ==> all
+ 284:    1  ->  do ==> be
+ 285:    1  ->  do ==> well
+ 286:    1  ->  do ==> yeah
+ 287:    1  ->  document ==> no
+ 288:    1  ->  does ==> complex
+ 289:    1  ->  does ==> yeah
+ 290:    1  ->  dog ==> is
+ 291:    1  ->  dog ==> job
+ 292:    1  ->  dog ==> then
+ 293:    1  ->  doh ==> so
+ 294:    1  ->  doing ==> that
+ 295:    1  ->  done ==> but
+ 296:    1  ->  down ==> ex
+ 297:    1  ->  down ==> time
+ 298:    1  ->  drawing ==> or
+ 299:    1  ->  dunno ==> but
+ 300:    1  ->  dunno ==> e.
+ 301:    1  ->  dunno ==> me
+ 302:    1  ->  dunno ==> my
+ 303:    1  ->  dunno ==> no
+ 304:    1  ->  dunno ==> not
+ 305:    1  ->  dunno ==> oh
+ 306:    1  ->  durable ==> easy
+ 307:    1  ->  each ==> which
+ 308:    1  ->  easier ==> done
+ 309:    1  ->  edge ==> kind
+ 310:    1  ->  eight ==> like
+ 311:    1  ->  eight ==> so
+ 312:    1  ->  either ==> try
+ 313:    1  ->  eleven ==> right
+ 314:    1  ->  elk ==> it
+ 315:    1  ->  emails ==> saying
+ 316:    1  ->  end ==> and
+ 317:    1  ->  end ==> information
+ 318:    1  ->  end ==> that
+ 319:    1  ->  end ==> the
+ 320:    1  ->  enough ==> yeah
+ 321:    1  ->  entire ==> a
+ 322:    1  ->  entire ==> the
+ 323:    1  ->  evaluation ==> for
+ 324:    1  ->  even ==> says
+ 325:    1  ->  ever ==> five
+ 326:    1  ->  every ==> a
+ 327:    1  ->  excellent ==> and
+ 328:    1  ->  except ==> yeah
+ 329:    1  ->  expensive ==> it
+ 330:    1  ->  expensive ==> yeah
+ 331:    1  ->  expert ==> k.
+ 332:    1  ->  explanation ==> the
+ 333:    1  ->  extent ==> so
+ 334:    1  ->  extreme ==> sure
+ 335:    1  ->  f. ==> fifty
+ 336:    1  ->  fact ==> but
+ 337:    1  ->  fact ==> wow
+ 338:    1  ->  factors ==> oh
+ 339:    1  ->  family ==> for
+ 340:    1  ->  family ==> interesting
+ 341:    1  ->  fashion ==> yeah
+ 342:    1  ->  few ==> part
+ 343:    1  ->  find ==> spot
+ 344:    1  ->  first ==> trust
+ 345:    1  ->  folder ==> maybe
+ 346:    1  ->  for ==> all
+ 347:    1  ->  for ==> but
+ 348:    1  ->  for ==> course
+ 349:    1  ->  for ==> most
+ 350:    1  ->  for ==> oh
+ 351:    1  ->  for ==> so
+ 352:    1  ->  format ==> shape
+ 353:    1  ->  forming ==> start
+ 354:    1  ->  four ==> six
+ 355:    1  ->  four ==> well
+ 356:    1  ->  frame ==> for
+ 357:    1  ->  friendly ==> yeah
+ 358:    1  ->  from ==> a
+ 359:    1  ->  front ==> for
+ 360:    1  ->  fruity ==> yeah
+ 361:    1  ->  fun ==> fine
+ 362:    1  ->  fun ==> yeah
+ 363:    1  ->  gadgets ==> yeah
+ 364:    1  ->  galactic ==> source
+ 365:    1  ->  galaxies ==> that
+ 366:    1  ->  galaxy ==> it
+ 367:    1  ->  geometry ==> would
+ 368:    1  ->  get ==> someone
+ 369:    1  ->  get ==> yeah
+ 370:    1  ->  gets ==> you
+ 371:    1  ->  getting ==> i
+ 372:    1  ->  give ==> be
+ 373:    1  ->  go ==> got
+ 374:    1  ->  go ==> have
+ 375:    1  ->  go ==> o.
+ 376:    1  ->  go ==> otherwise
+ 377:    1  ->  go ==> worried
+ 378:    1  ->  god ==> well
+ 379:    1  ->  goes ==> it
+ 380:    1  ->  goes ==> o.
+ 381:    1  ->  going ==> i
+ 382:    1  ->  going ==> those
+ 383:    1  ->  good ==> it
+ 384:    1  ->  good ==> like
+ 385:    1  ->  good ==> mikes
+ 386:    1  ->  good ==> use
+ 387:    1  ->  gosh ==> yeah
+ 388:    1  ->  got ==> am
+ 389:    1  ->  got ==> well
+ 390:    1  ->  guess ==> right
+ 391:    1  ->  guy ==> that
+ 392:    1  ->  guys ==> to
+ 393:    1  ->  h. ==> easy
+ 394:    1  ->  had ==> for
+ 395:    1  ->  hal ==> half
+ 396:    1  ->  hand ==> of
+ 397:    1  ->  hard ==> down
+ 398:    1  ->  hard ==> twenty
+ 399:    1  ->  hardware ==> or
+ 400:    1  ->  harvard ==> hire
+ 401:    1  ->  have ==> are
+ 402:    1  ->  have ==> can
+ 403:    1  ->  have ==> did
+ 404:    1  ->  have ==> for
+ 405:    1  ->  have ==> future
+ 406:    1  ->  have ==> if
+ 407:    1  ->  have ==> k.
+ 408:    1  ->  have ==> so
+ 409:    1  ->  have ==> that
+ 410:    1  ->  have ==> the
+ 411:    1  ->  having ==> the
+ 412:    1  ->  he ==> is
+ 413:    1  ->  he ==> you
+ 414:    1  ->  heading ==> is
+ 415:    1  ->  heavy ==> be
+ 416:    1  ->  hello ==> but
+ 417:    1  ->  here ==> double
+ 418:    1  ->  here ==> for
+ 419:    1  ->  here ==> not
+ 420:    1  ->  here ==> yeah
+ 421:    1  ->  hold ==> the
+ 422:    1  ->  hope ==> cool
+ 423:    1  ->  horizontal's ==> have
+ 424:    1  ->  house ==> lot
+ 425:    1  ->  how ==> for
+ 426:    1  ->  how ==> two
+ 427:    1  ->  humans ==> wow
+ 428:    1  ->  i ==> are
+ 429:    1  ->  i ==> by
+ 430:    1  ->  i ==> cover
+ 431:    1  ->  i ==> features
+ 432:    1  ->  i ==> fifty
+ 433:    1  ->  i ==> it
+ 434:    1  ->  i ==> k.
+ 435:    1  ->  i ==> most
+ 436:    1  ->  i ==> my
+ 437:    1  ->  i ==> of
+ 438:    1  ->  i ==> they
+ 439:    1  ->  i ==> to
+ 440:    1  ->  i ==> you
+ 441:    1  ->  i. ==> on
+ 442:    1  ->  i. ==> side
+ 443:    1  ->  idea ==> do
+ 444:    1  ->  idea ==> side
+ 445:    1  ->  ideas ==> all
+ 446:    1  ->  if ==> of
+ 447:    1  ->  if ==> with
+ 448:    1  ->  ignore ==> decide
+ 449:    1  ->  important ==> quarter
+ 450:    1  ->  important ==> that's
+ 451:    1  ->  in ==> coffee
+ 452:    1  ->  in ==> could
+ 453:    1  ->  in ==> i
+ 454:    1  ->  in ==> important
+ 455:    1  ->  in ==> only
+ 456:    1  ->  in ==> right
+ 457:    1  ->  in ==> so
+ 458:    1  ->  in ==> someone
+ 459:    1  ->  in ==> that
+ 460:    1  ->  in ==> your
+ 461:    1  ->  including ==> that's
+ 462:    1  ->  information ==> it
+ 463:    1  ->  interface ==> it's
+ 464:    1  ->  interface ==> phrase
+ 465:    1  ->  into ==> write
+ 466:    1  ->  introductions ==> interactions
+ 467:    1  ->  involved ==> cost
+ 468:    1  ->  is ==> ideas
+ 469:    1  ->  is ==> this
+ 470:    1  ->  is ==> two
+ 471:    1  ->  is ==> useful
+ 472:    1  ->  is ==> very
+ 473:    1  ->  it ==> a
+ 474:    1  ->  it ==> about
+ 475:    1  ->  it ==> all
+ 476:    1  ->  it ==> and
+ 477:    1  ->  it ==> collided
+ 478:    1  ->  it ==> comma
+ 479:    1  ->  it ==> crappy
+ 480:    1  ->  it ==> five
+ 481:    1  ->  it ==> for
+ 482:    1  ->  it ==> found
+ 483:    1  ->  it ==> i
+ 484:    1  ->  it ==> just
+ 485:    1  ->  it ==> k.
+ 486:    1  ->  it ==> kind
+ 487:    1  ->  it ==> like
+ 488:    1  ->  it ==> mail
+ 489:    1  ->  it ==> no
+ 490:    1  ->  it ==> o.
+ 491:    1  ->  it ==> of
+ 492:    1  ->  it ==> phone
+ 493:    1  ->  it ==> right
+ 494:    1  ->  it ==> thanks
+ 495:    1  ->  it ==> us
+ 496:    1  ->  it ==> what
+ 497:    1  ->  it's ==> be
+ 498:    1  ->  it's ==> do
+ 499:    1  ->  it's ==> for
+ 500:    1  ->  it's ==> k.
+ 501:    1  ->  it's ==> oh
+ 502:    1  ->  it's ==> that's
+ 503:    1  ->  it's ==> yeah
+ 504:    1  ->  j ==> two
+ 505:    1  ->  just ==> us
+ 506:    1  ->  just ==> we
+ 507:    1  ->  just ==> yeah
+ 508:    1  ->  k. ==> %bcack
+ 509:    1  ->  k. ==> about
+ 510:    1  ->  k. ==> and
+ 511:    1  ->  k. ==> does
+ 512:    1  ->  k. ==> or
+ 513:    1  ->  k. ==> source
+ 514:    1  ->  k. ==> well
+ 515:    1  ->  kind ==> and
+ 516:    1  ->  know ==> can
+ 517:    1  ->  know ==> i
+ 518:    1  ->  know ==> in
+ 519:    1  ->  know ==> that
+ 520:    1  ->  l. ==> so
+ 521:    1  ->  later ==> oh
+ 522:    1  ->  later ==> yes
+ 523:    1  ->  leadered ==> goes
+ 524:    1  ->  like ==> five
+ 525:    1  ->  like ==> i
+ 526:    1  ->  like ==> o.
+ 527:    1  ->  like ==> that
+ 528:    1  ->  like ==> then
+ 529:    1  ->  like ==> yes
+ 530:    1  ->  line ==> is
+ 531:    1  ->  line ==> lines
+ 532:    1  ->  line ==> oh
+ 533:    1  ->  little ==> easy
+ 534:    1  ->  little ==> one
+ 535:    1  ->  local ==> are
+ 536:    1  ->  local ==> yeah
+ 537:    1  ->  logical ==> call
+ 538:    1  ->  look ==> am
+ 539:    1  ->  look ==> so
+ 540:    1  ->  look ==> yeah
+ 541:    1  ->  looking ==> your
+ 542:    1  ->  lost ==> all
+ 543:    1  ->  lost ==> us
+ 544:    1  ->  lot ==> o.
+ 545:    1  ->  lot ==> part
+ 546:    1  ->  love ==> oh
+ 547:    1  ->  lump ==> type
+ 548:    1  ->  lump ==> yeah
+ 549:    1  ->  lunch ==> slide
+ 550:    1  ->  lyman ==> not
+ 551:    1  ->  m. ==> fancy
+ 552:    1  ->  m. ==> is
+ 553:    1  ->  manually ==> yeah
+ 554:    1  ->  manufacturers ==> yeah
+ 555:    1  ->  market ==> on
+ 556:    1  ->  marty ==> oh
+ 557:    1  ->  match ==> table
+ 558:    1  ->  material ==> yeah
+ 559:    1  ->  matter ==> right
+ 560:    1  ->  maximising ==> maximizing
+ 561:    1  ->  maybe ==> i
+ 562:    1  ->  maybe ==> is
+ 563:    1  ->  maybe ==> make
+ 564:    1  ->  maybe ==> us
+ 565:    1  ->  mean ==> but
+ 566:    1  ->  meet ==> me
+ 567:    1  ->  merge ==> k.
+ 568:    1  ->  messenger ==> that
+ 569:    1  ->  mic ==> might
+ 570:    1  ->  microphone ==> well
+ 571:    1  ->  millisecond ==> second
+ 572:    1  ->  millisecond ==> six
+ 573:    1  ->  mind ==> four
+ 574:    1  ->  minging ==> an
+ 575:    1  ->  modifier ==> modified
+ 576:    1  ->  more ==> are
+ 577:    1  ->  more ==> right
+ 578:    1  ->  more ==> well
+ 579:    1  ->  most ==> it
+ 580:    1  ->  most ==> yeah
+ 581:    1  ->  much ==> be
+ 582:    1  ->  much ==> so
+ 583:    1  ->  much ==> those
+ 584:    1  ->  must ==> right
+ 585:    1  ->  my ==> as
+ 586:    1  ->  my ==> for
+ 587:    1  ->  name ==> maybe
+ 588:    1  ->  name ==> the
+ 589:    1  ->  nasty ==> five
+ 590:    1  ->  nathan ==> see
+ 591:    1  ->  need ==> right
+ 592:    1  ->  need ==> treats
+ 593:    1  ->  network ==> that
+ 594:    1  ->  new ==> forty
+ 595:    1  ->  new ==> o.
+ 596:    1  ->  nice ==> right
+ 597:    1  ->  nine ==> and
+ 598:    1  ->  no ==> all
+ 599:    1  ->  no ==> k.
+ 600:    1  ->  no ==> more
+ 601:    1  ->  no ==> not
+ 602:    1  ->  no ==> oh
+ 603:    1  ->  no ==> on
+ 604:    1  ->  no ==> one
+ 605:    1  ->  no ==> sorry
+ 606:    1  ->  no ==> there
+ 607:    1  ->  no ==> well
+ 608:    1  ->  no ==> work
+ 609:    1  ->  nokia ==> as
+ 610:    1  ->  not ==> all
+ 611:    1  ->  not ==> and
+ 612:    1  ->  not ==> go
+ 613:    1  ->  not ==> i
+ 614:    1  ->  not ==> let
+ 615:    1  ->  not ==> o.
+ 616:    1  ->  not ==> so
+ 617:    1  ->  not ==> the
+ 618:    1  ->  not ==> to
+ 619:    1  ->  not ==> what
+ 620:    1  ->  not ==> yeah
+ 621:    1  ->  notes ==> us
+ 622:    1  ->  nothing ==> %bcack
+ 623:    1  ->  nothing ==> k.
+ 624:    1  ->  nothing ==> so
+ 625:    1  ->  novelty ==> shape
+ 626:    1  ->  now ==> it
+ 627:    1  ->  now ==> k.
+ 628:    1  ->  now ==> that
+ 629:    1  ->  now ==> what
+ 630:    1  ->  number ==> o.
+ 631:    1  ->  o. ==> a
+ 632:    1  ->  o. ==> oh
+ 633:    1  ->  of ==> a
+ 634:    1  ->  of ==> are
+ 635:    1  ->  of ==> by
+ 636:    1  ->  of ==> k.
+ 637:    1  ->  of ==> o.
+ 638:    1  ->  of ==> our
+ 639:    1  ->  of ==> so
+ 640:    1  ->  of ==> was
+ 641:    1  ->  of ==> will
+ 642:    1  ->  off ==> no
+ 643:    1  ->  often ==> find
+ 644:    1  ->  oh ==> all
+ 645:    1  ->  oh ==> it's
+ 646:    1  ->  oh ==> o.
+ 647:    1  ->  oh ==> small
+ 648:    1  ->  on ==> for
+ 649:    1  ->  on ==> me
+ 650:    1  ->  on ==> there's
+ 651:    1  ->  on ==> yes
+ 652:    1  ->  one ==> menu
+ 653:    1  ->  one ==> oh
+ 654:    1  ->  one ==> taking
+ 655:    1  ->  one ==> thinking
+ 656:    1  ->  only ==> cold
+ 657:    1  ->  only ==> of
+ 658:    1  ->  only ==> on
+ 659:    1  ->  option ==> yeah
+ 660:    1  ->  or ==> stu
+ 661:    1  ->  ordinary ==> extra
+ 662:    1  ->  other ==> the
+ 663:    1  ->  others ==> it
+ 664:    1  ->  our ==> and
+ 665:    1  ->  out ==> yeah
+ 666:    1  ->  outrageous ==> k.
+ 667:    1  ->  overlap ==> second
+ 668:    1  ->  own ==> right
+ 669:    1  ->  own ==> yes
+ 670:    1  ->  p. ==> the
+ 671:    1  ->  paint ==> yeah
+ 672:    1  ->  paints ==> it's
+ 673:    1  ->  panels ==> question
+ 674:    1  ->  part ==> one
+ 675:    1  ->  pay ==> o.
+ 676:    1  ->  peak ==> pitch
+ 677:    1  ->  people ==> o.
+ 678:    1  ->  people ==> we
+ 679:    1  ->  perfect ==> fun
+ 680:    1  ->  perhaps ==> all
+ 681:    1  ->  phone ==> an
+ 682:    1  ->  pinocchio ==> yeah
+ 683:    1  ->  play ==> thanks
+ 684:    1  ->  please ==> wow
+ 685:    1  ->  point ==> i
+ 686:    1  ->  point ==> time
+ 687:    1  ->  possible ==> ooh
+ 688:    1  ->  possible ==> spots
+ 689:    1  ->  presented ==> cent
+ 690:    1  ->  pretend ==> oh
+ 691:    1  ->  pretty ==> that
+ 692:    1  ->  problem ==> yeah
+ 693:    1  ->  product ==> that
+ 694:    1  ->  proto ==> a
+ 695:    1  ->  psychology ==> caution
+ 696:    1  ->  purdy ==> yeah
+ 697:    1  ->  purple ==> oh
+ 698:    1  ->  put ==> yeah
+ 699:    1  ->  putting ==> waiting
+ 700:    1  ->  questions ==> yeah
+ 701:    1  ->  quite ==> you
+ 702:    1  ->  r. ==> is
+ 703:    1  ->  r. ==> or
+ 704:    1  ->  radius ==> use
+ 705:    1  ->  random ==> options
+ 706:    1  ->  rather ==> k.
+ 707:    1  ->  reaction ==> yeah
+ 708:    1  ->  real ==> aerial
+ 709:    1  ->  real ==> my
+ 710:    1  ->  really ==> well
+ 711:    1  ->  recognition ==> is
+ 712:    1  ->  red ==> this
+ 713:    1  ->  refers ==> prefers
+ 714:    1  ->  release ==> is
+ 715:    1  ->  remote ==> hard
+ 716:    1  ->  remote ==> more
+ 717:    1  ->  remote ==> really
+ 718:    1  ->  remote ==> slide
+ 719:    1  ->  remote ==> so
+ 720:    1  ->  remote ==> sure
+ 721:    1  ->  remote ==> will
+ 722:    1  ->  remote ==> yeah
+ 723:    1  ->  remotes ==> a
+ 724:    1  ->  rep ==> my
+ 725:    1  ->  report ==> four
+ 726:    1  ->  represented ==> precise
+ 727:    1  ->  rest ==> thing
+ 728:    1  ->  results ==> sense
+ 729:    1  ->  right ==> as
+ 730:    1  ->  right ==> k.
+ 731:    1  ->  right ==> oh
+ 732:    1  ->  right ==> stay
+ 733:    1  ->  robots ==> for
+ 734:    1  ->  room ==> easy
+ 735:    1  ->  round ==> on
+ 736:    1  ->  s ==> diesel
+ 737:    1  ->  s ==> does
+ 738:    1  ->  s. ==> a
+ 739:    1  ->  s. ==> use
+ 740:    1  ->  sadly ==> mean
+ 741:    1  ->  said ==> say
+ 742:    1  ->  satisfied ==> five
+ 743:    1  ->  say ==> am
+ 744:    1  ->  say ==> is
+ 745:    1  ->  say ==> see
+ 746:    1  ->  say ==> yeah
+ 747:    1  ->  saying ==> say
+ 748:    1  ->  says ==> said
+ 749:    1  ->  says ==> say
+ 750:    1  ->  screws ==> this
+ 751:    1  ->  season ==> it
+ 752:    1  ->  see ==> it
+ 753:    1  ->  see ==> o.
+ 754:    1  ->  seem ==> not
+ 755:    1  ->  seem ==> to
+ 756:    1  ->  seen ==> you
+ 757:    1  ->  sell ==> cell
+ 758:    1  ->  set ==> that
+ 759:    1  ->  seventeen ==> so
+ 760:    1  ->  sh ==> yeah
+ 761:    1  ->  shape ==> just
+ 762:    1  ->  shapely ==> shape
+ 763:    1  ->  should ==> which
+ 764:    1  ->  should ==> yeah
+ 765:    1  ->  shut ==> should
+ 766:    1  ->  side ==> so
+ 767:    1  ->  signal ==> for
+ 768:    1  ->  single ==> k.
+ 769:    1  ->  six ==> i
+ 770:    1  ->  six ==> take
+ 771:    1  ->  sixteen ==> sixty
+ 772:    1  ->  sixteen ==> so
+ 773:    1  ->  skipped ==> the
+ 774:    1  ->  slightly ==> for
+ 775:    1  ->  smart ==> one
+ 776:    1  ->  so ==> %bcack
+ 777:    1  ->  so ==> is
+ 778:    1  ->  so ==> that
+ 779:    1  ->  so ==> that's
+ 780:    1  ->  solid ==> we
+ 781:    1  ->  solution ==> colour
+ 782:    1  ->  some ==> for
+ 783:    1  ->  something ==> speak
+ 784:    1  ->  something ==> think
+ 785:    1  ->  something ==> yeah
+ 786:    1  ->  somethings ==> something
+ 787:    1  ->  sorry ==> is
+ 788:    1  ->  sorry ==> so
+ 789:    1  ->  sorry ==> yeah
+ 790:    1  ->  sorted ==> yeah
+ 791:    1  ->  source ==> formation
+ 792:    1  ->  speaker ==> it's
+ 793:    1  ->  spectrum ==> it
+ 794:    1  ->  speech ==> this
+ 795:    1  ->  splendid ==> sides
+ 796:    1  ->  split ==> display
+ 797:    1  ->  star ==> mine
+ 798:    1  ->  star ==> that
+ 799:    1  ->  start ==> o.
+ 800:    1  ->  start ==> star
+ 801:    1  ->  strange ==> so
+ 802:    1  ->  stuff ==> control
+ 803:    1  ->  stuff ==> feature
+ 804:    1  ->  stuff ==> fine
+ 805:    1  ->  stuff ==> i
+ 806:    1  ->  subjects ==> shop
+ 807:    1  ->  such ==> it
+ 808:    1  ->  suggest ==> just
+ 809:    1  ->  sunshine ==> centre
+ 810:    1  ->  suppose ==> for
+ 811:    1  ->  suppose ==> was
+ 812:    1  ->  sure ==> but
+ 813:    1  ->  sweet ==> so
+ 814:    1  ->  t ==> kind
+ 815:    1  ->  t. ==> fifty
+ 816:    1  ->  t. ==> yes
+ 817:    1  ->  take ==> assume
+ 818:    1  ->  take ==> line
+ 819:    1  ->  tara ==> our
+ 820:    1  ->  technological ==> what
+ 821:    1  ->  technologically ==> k.
+ 822:    1  ->  ten ==> yes
+ 823:    1  ->  than ==> and
+ 824:    1  ->  than ==> well
+ 825:    1  ->  that ==> %bcack
+ 826:    1  ->  that ==> am
+ 827:    1  ->  that ==> be
+ 828:    1  ->  that ==> just
+ 829:    1  ->  that ==> k.
+ 830:    1  ->  that ==> so
+ 831:    1  ->  that ==> sure
+ 832:    1  ->  that ==> to
+ 833:    1  ->  that ==> want
+ 834:    1  ->  that ==> we
+ 835:    1  ->  that ==> well
+ 836:    1  ->  that ==> yes
+ 837:    1  ->  that ==> you
+ 838:    1  ->  that's ==> i
+ 839:    1  ->  that's ==> o.
+ 840:    1  ->  that's ==> to
+ 841:    1  ->  that's ==> yes
+ 842:    1  ->  the ==> be
+ 843:    1  ->  the ==> energy
+ 844:    1  ->  the ==> factors
+ 845:    1  ->  the ==> had
+ 846:    1  ->  the ==> have
+ 847:    1  ->  the ==> is
+ 848:    1  ->  the ==> it
+ 849:    1  ->  the ==> it's
+ 850:    1  ->  the ==> our
+ 851:    1  ->  the ==> so
+ 852:    1  ->  the ==> sort
+ 853:    1  ->  the ==> to
+ 854:    1  ->  the ==> too
+ 855:    1  ->  the ==> use
+ 856:    1  ->  the ==> was
+ 857:    1  ->  the ==> will
+ 858:    1  ->  the ==> working
+ 859:    1  ->  their ==> yeah
+ 860:    1  ->  them ==> yeah
+ 861:    1  ->  there ==> %bcack
+ 862:    1  ->  there ==> but
+ 863:    1  ->  there ==> k.
+ 864:    1  ->  there ==> was
+ 865:    1  ->  there ==> well
+ 866:    1  ->  there ==> with
+ 867:    1  ->  there ==> yeah
+ 868:    1  ->  there's ==> but
+ 869:    1  ->  they ==> a
+ 870:    1  ->  they ==> it
+ 871:    1  ->  they ==> last
+ 872:    1  ->  they ==> that
+ 873:    1  ->  they ==> use
+ 874:    1  ->  thing ==> %bcack
+ 875:    1  ->  thing ==> except
+ 876:    1  ->  thing ==> it
+ 877:    1  ->  thing ==> k.
+ 878:    1  ->  thing ==> this
+ 879:    1  ->  things ==> is
+ 880:    1  ->  things ==> o.
+ 881:    1  ->  things ==> oh
+ 882:    1  ->  things ==> that
+ 883:    1  ->  think ==> and
+ 884:    1  ->  think ==> for
+ 885:    1  ->  think ==> that
+ 886:    1  ->  think ==> the
+ 887:    1  ->  this ==> all
+ 888:    1  ->  this ==> last
+ 889:    1  ->  this ==> real
+ 890:    1  ->  this ==> two
+ 891:    1  ->  this ==> with
+ 892:    1  ->  this ==> you
+ 893:    1  ->  those ==> yes
+ 894:    1  ->  three ==> k.
+ 895:    1  ->  thrilling ==> really
+ 896:    1  ->  time ==> tar
+ 897:    1  ->  titanium ==> time
+ 898:    1  ->  titanium ==> yeah
+ 899:    1  ->  to ==> %bcack
+ 900:    1  ->  to ==> a
+ 901:    1  ->  to ==> am
+ 902:    1  ->  to ==> cache
+ 903:    1  ->  to ==> canine
+ 904:    1  ->  to ==> five
+ 905:    1  ->  to ==> for
+ 906:    1  ->  to ==> i
+ 907:    1  ->  to ==> it's
+ 908:    1  ->  to ==> know
+ 909:    1  ->  to ==> oh
+ 910:    1  ->  to ==> tents
+ 911:    1  ->  to ==> too
+ 912:    1  ->  to ==> wait
+ 913:    1  ->  to ==> what
+ 914:    1  ->  to ==> you
+ 915:    1  ->  today ==> displayed
+ 916:    1  ->  too ==> k.
+ 917:    1  ->  too ==> the
+ 918:    1  ->  too ==> yeah
+ 919:    1  ->  tool ==> two
+ 920:    1  ->  trend ==> or
+ 921:    1  ->  trend ==> so
+ 922:    1  ->  triangulation ==> relation
+ 923:    1  ->  tried ==> try
+ 924:    1  ->  triple ==> or
+ 925:    1  ->  try ==> have
+ 926:    1  ->  try ==> yeah
+ 927:    1  ->  turn ==> last
+ 928:    1  ->  twenty ==> or
+ 929:    1  ->  type ==> been
+ 930:    1  ->  type ==> have
+ 931:    1  ->  typing ==> we
+ 932:    1  ->  u. ==> doing
+ 933:    1  ->  u. ==> had
+ 934:    1  ->  u. ==> too
+ 935:    1  ->  underlined ==> fine
+ 936:    1  ->  understand ==> k.
+ 937:    1  ->  undo ==> but
+ 938:    1  ->  universally ==> they
+ 939:    1  ->  up ==> be
+ 940:    1  ->  up ==> like
+ 941:    1  ->  up ==> oh
+ 942:    1  ->  up ==> that
+ 943:    1  ->  up ==> then
+ 944:    1  ->  urine ==> in
+ 945:    1  ->  us ==> like
+ 946:    1  ->  us ==> or
+ 947:    1  ->  us ==> sense
+ 948:    1  ->  use ==> some
+ 949:    1  ->  use ==> this
+ 950:    1  ->  use ==> will
+ 951:    1  ->  useable ==> user
+ 952:    1  ->  used ==> you
+ 953:    1  ->  user ==> i
+ 954:    1  ->  users ==> expect
+ 955:    1  ->  usually ==> you
+ 956:    1  ->  v. ==> be
+ 957:    1  ->  very ==> first
+ 958:    1  ->  very ==> use
+ 959:    1  ->  very ==> yeah
+ 960:    1  ->  vicious ==> so
+ 961:    1  ->  volume ==> channel
+ 962:    1  ->  vomit ==> bye
+ 963:    1  ->  w ==> that
+ 964:    1  ->  wanker ==> or
+ 965:    1  ->  want ==> every
+ 966:    1  ->  want ==> is
+ 967:    1  ->  want ==> like
+ 968:    1  ->  want ==> one
+ 969:    1  ->  was ==> one
+ 970:    1  ->  was ==> or
+ 971:    1  ->  wave ==> or
+ 972:    1  ->  wave ==> will
+ 973:    1  ->  way ==> whether
+ 974:    1  ->  we ==> could
+ 975:    1  ->  we ==> just
+ 976:    1  ->  we ==> the
+ 977:    1  ->  we ==> yeah
+ 978:    1  ->  weird ==> k.
+ 979:    1  ->  well ==> all
+ 980:    1  ->  well ==> or
+ 981:    1  ->  well ==> yeah
+ 982:    1  ->  went ==> want
+ 983:    1  ->  went ==> with
+ 984:    1  ->  wh ==> you
+ 985:    1  ->  what ==> and
+ 986:    1  ->  what ==> job
+ 987:    1  ->  what ==> oh
+ 988:    1  ->  what ==> right
+ 989:    1  ->  what ==> six
+ 990:    1  ->  wheel ==> yes
+ 991:    1  ->  when ==> true
+ 992:    1  ->  which ==> option
+ 993:    1  ->  who ==> to
+ 994:    1  ->  why ==> yeah
+ 995:    1  ->  widths ==> o.
+ 996:    1  ->  will ==> and
+ 997:    1  ->  will ==> o.
+ 998:    1  ->  will ==> that's
+ 999:    1  ->  will ==> use
+1000:    1  ->  will ==> well
+1001:    1  ->  will ==> you
+1002:    1  ->  window ==> go
+1003:    1  ->  window ==> straight
+1004:    1  ->  window ==> we
+1005:    1  ->  with ==> are
+1006:    1  ->  with ==> of
+1007:    1  ->  with ==> the
+1008:    1  ->  with ==> use
+1009:    1  ->  with ==> we
+1010:    1  ->  within ==> like
+1011:    1  ->  work ==> k.
+1012:    1  ->  work ==> or
+1013:    1  ->  works ==> well
+1014:    1  ->  worlds ==> right
+1015:    1  ->  would ==> maybe
+1016:    1  ->  would ==> not
+1017:    1  ->  would ==> oh
+1018:    1  ->  would ==> you
+1019:    1  ->  wow ==> what
+1020:    1  ->  wrong ==> right
+1021:    1  ->  yeah ==> %bcack
+1022:    1  ->  yeah ==> action
+1023:    1  ->  yeah ==> different
+1024:    1  ->  yeah ==> fancy
+1025:    1  ->  yeah ==> four
+1026:    1  ->  yeah ==> have
+1027:    1  ->  yeah ==> it's
+1028:    1  ->  yeah ==> just
+1029:    1  ->  yeah ==> k.
+1030:    1  ->  yeah ==> like
+1031:    1  ->  yeah ==> maybe
+1032:    1  ->  yeah ==> oh
+1033:    1  ->  yeah ==> process
+1034:    1  ->  yeah ==> reaction
+1035:    1  ->  yeah ==> right
+1036:    1  ->  yeah ==> should
+1037:    1  ->  yeah ==> that
+1038:    1  ->  yeah ==> then
+1039:    1  ->  yeah ==> to
+1040:    1  ->  yeah ==> was
+1041:    1  ->  yeah ==> well
+1042:    1  ->  yep ==> yeah
+1043:    1  ->  yes ==> so
+1044:    1  ->  yes ==> yeah
+1045:    1  ->  yet ==> no
+1046:    1  ->  yet ==> wait
+1047:    1  ->  you ==> am
+1048:    1  ->  you ==> by
+1049:    1  ->  you ==> c.
+1050:    1  ->  you ==> do
+1051:    1  ->  you ==> i
+1052:    1  ->  you ==> iffy
+1053:    1  ->  you ==> in
+1054:    1  ->  you ==> jury
+1055:    1  ->  you ==> know
+1056:    1  ->  you ==> needed
+1057:    1  ->  you ==> on
+1058:    1  ->  you ==> pass
+1059:    1  ->  you ==> right
+1060:    1  ->  you ==> same
+1061:    1  ->  you ==> that
+1062:    1  ->  you ==> two
+1063:    1  ->  you ==> yeah
+1064:    1  ->  young ==> what
+1065:    1  ->  your ==> target
+1066:    1  ->  yourself ==> for
+1067:    1  ->  zillions ==> have
+     -------
+      1157
+
+
+
+INSERTIONS                       Total                 (55)
+                                 With >=  1 occurances (55)
+
+   1:   14  ->  yeah
+   2:    6  ->  %bcack
+   3:    5  ->  but
+   4:    5  ->  i
+   5:    5  ->  o.
+   6:    5  ->  you
+   7:    4  ->  that
+   8:    4  ->  the
+   9:    4  ->  we
+  10:    3  ->  is
+  11:    3  ->  it's
+  12:    3  ->  no
+  13:    3  ->  yes
+  14:    2  ->  are
+  15:    2  ->  do
+  16:    2  ->  for
+  17:    2  ->  not
+  18:    2  ->  oh
+  19:    2  ->  some
+  20:    2  ->  sure
+  21:    2  ->  that's
+  22:    2  ->  there
+  23:    2  ->  well
+  24:    2  ->  with
+  25:    1  ->  all
+  26:    1  ->  and
+  27:    1  ->  because
+  28:    1  ->  central
+  29:    1  ->  colours
+  30:    1  ->  e.
+  31:    1  ->  each
+  32:    1  ->  get
+  33:    1  ->  had
+  34:    1  ->  if
+  35:    1  ->  in
+  36:    1  ->  interest
+  37:    1  ->  just
+  38:    1  ->  like
+  39:    1  ->  line
+  40:    1  ->  main
+  41:    1  ->  makes
+  42:    1  ->  one
+  43:    1  ->  or
+  44:    1  ->  out
+  45:    1  ->  really
+  46:    1  ->  should
+  47:    1  ->  so
+  48:    1  ->  something
+  49:    1  ->  then
+  50:    1  ->  to
+  51:    1  ->  try
+  52:    1  ->  twenty
+  53:    1  ->  use
+  54:    1  ->  very
+  55:    1  ->  what
+     -------
+       117
+
+
+
+DELETIONS                        Total                 (765)
+                                 With >=  1 occurances (765)
+
+   1:  150  ->  the
+   2:  149  ->  i
+   3:  107  ->  we
+   4:  105  ->  you
+   5:   97  ->  a
+   6:   94  ->  to
+   7:   87  ->  and
+   8:   80  ->  it
+   9:   71  ->  not
+  10:   59  ->  it's
+  11:   57  ->  of
+  12:   55  ->  are
+  13:   55  ->  have
+  14:   54  ->  do
+  15:   53  ->  that
+  16:   53  ->  yeah
+  17:   47  ->  is
+  18:   42  ->  like
+  19:   38  ->  o.
+  20:   37  ->  but
+  21:   35  ->  they
+  22:   33  ->  if
+  23:   33  ->  will
+  24:   32  ->  can
+  25:   32  ->  so
+  26:   28  ->  in
+  27:   28  ->  k.
+  28:   27  ->  be
+  29:   26  ->  on
+  30:   26  ->  that's
+  31:   25  ->  going
+  32:   24  ->  am
+  33:   23  ->  what
+  34:   22  ->  oh
+  35:   22  ->  one
+  36:   22  ->  think
+  37:   21  ->  know
+  38:   21  ->  no
+  39:   20  ->  or
+  40:   18  ->  for
+  41:   18  ->  just
+  42:   16  ->  then
+  43:   16  ->  this
+  44:   16  ->  with
+  45:   15  ->  really
+  46:   14  ->  all
+  47:   14  ->  because
+  48:   13  ->  at
+  49:   13  ->  c.
+  50:   13  ->  go
+  51:   13  ->  where
+  52:   12  ->  an
+  53:   12  ->  d.
+  54:   12  ->  got
+  55:   12  ->  right
+  56:   12  ->  very
+  57:   12  ->  want
+  58:   12  ->  your
+  59:   11  ->  how
+  60:   11  ->  l.
+  61:   11  ->  some
+  62:   10  ->  as
+  63:   10  ->  f.
+  64:   10  ->  maybe
+  65:    9  ->  does
+  66:    9  ->  get
+  67:    9  ->  kind
+  68:    9  ->  line
+  69:    9  ->  make
+  70:    9  ->  mean
+  71:    9  ->  more
+  72:    9  ->  now
+  73:    9  ->  out
+  74:    9  ->  s
+  75:    9  ->  than
+  76:    9  ->  them
+  77:    9  ->  there
+  78:    9  ->  us
+  79:    9  ->  well
+  80:    9  ->  would
+  81:    8  ->  %bcack
+  82:    8  ->  about
+  83:    8  ->  cannot
+  84:    8  ->  draw
+  85:    8  ->  my
+  86:    8  ->  put
+  87:    8  ->  r.
+  88:    8  ->  remote
+  89:    8  ->  say
+  90:    8  ->  should
+  91:    8  ->  t
+  92:    8  ->  t.
+  93:    8  ->  thing
+  94:    8  ->  titanium
+  95:    8  ->  yes
+  96:    7  ->  give
+  97:    7  ->  only
+  98:    7  ->  our
+  99:    7  ->  people
+ 100:    7  ->  still
+ 101:    7  ->  th
+ 102:    7  ->  their
+ 103:    7  ->  up
+ 104:    6  ->  again
+ 105:    6  ->  button
+ 106:    6  ->  control
+ 107:    6  ->  could
+ 108:    6  ->  dog
+ 109:    6  ->  good
+ 110:    6  ->  guys
+ 111:    6  ->  let
+ 112:    6  ->  looks
+ 113:    6  ->  there's
+ 114:    6  ->  true
+ 115:    6  ->  write
+ 116:    5  ->  also
+ 117:    5  ->  basically
+ 118:    5  ->  before
+ 119:    5  ->  buttons
+ 120:    5  ->  down
+ 121:    5  ->  dunno
+ 122:    5  ->  feature
+ 123:    5  ->  guess
+ 124:    5  ->  here
+ 125:    5  ->  into
+ 126:    5  ->  nice
+ 127:    5  ->  other
+ 128:    5  ->  quite
+ 129:    5  ->  something
+ 130:    5  ->  sure
+ 131:    5  ->  three
+ 132:    5  ->  triple
+ 133:    5  ->  try
+ 134:    5  ->  two
+ 135:    5  ->  v.
+ 136:    5  ->  w
+ 137:    5  ->  way
+ 138:    5  ->  why
+ 139:    4  ->  a.
+ 140:    4  ->  actually
+ 141:    4  ->  after
+ 142:    4  ->  always
+ 143:    4  ->  anything
+ 144:    4  ->  around
+ 145:    4  ->  been
+ 146:    4  ->  by
+ 147:    4  ->  colour
+ 148:    4  ->  course
+ 149:    4  ->  design
+ 150:    4  ->  did
+ 151:    4  ->  dogs
+ 152:    4  ->  every
+ 153:    4  ->  find
+ 154:    4  ->  front
+ 155:    4  ->  look
+ 156:    4  ->  might
+ 157:    4  ->  much
+ 158:    4  ->  off
+ 159:    4  ->  pen
+ 160:    4  ->  press
+ 161:    4  ->  question
+ 162:    4  ->  see
+ 163:    4  ->  star
+ 164:    4  ->  taking
+ 165:    4  ->  too
+ 166:    4  ->  u.
+ 167:    4  ->  use
+ 168:    4  ->  who
+ 169:    4  ->  y
+ 170:    3  ->  ask
+ 171:    3  ->  beginning
+ 172:    3  ->  better
+ 173:    3  ->  bottom
+ 174:    3  ->  burst
+ 175:    3  ->  colours
+ 176:    3  ->  d
+ 177:    3  ->  desert
+ 178:    3  ->  ever
+ 179:    3  ->  first
+ 180:    3  ->  g
+ 181:    3  ->  had
+ 182:    3  ->  i.
+ 183:    3  ->  learn
+ 184:    3  ->  little
+ 185:    3  ->  logo
+ 186:    3  ->  lot
+ 187:    3  ->  lower
+ 188:    3  ->  me
+ 189:    3  ->  menu
+ 190:    3  ->  name
+ 191:    3  ->  obviously
+ 192:    3  ->  project
+ 193:    3  ->  r
+ 194:    3  ->  same
+ 195:    3  ->  seems
+ 196:    3  ->  sell
+ 197:    3  ->  shall
+ 198:    3  ->  signal
+ 199:    3  ->  sixteen
+ 200:    3  ->  sort
+ 201:    3  ->  stage
+ 202:    3  ->  such
+ 203:    3  ->  take
+ 204:    3  ->  thank
+ 205:    3  ->  though
+ 206:    3  ->  wave
+ 207:    3  ->  were
+ 208:    3  ->  which
+ 209:    3  ->  x.
+ 210:    2  ->  'kay
+ 211:    2  ->  's
+ 212:    2  ->  add
+ 213:    2  ->  any
+ 214:    2  ->  basic
+ 215:    2  ->  big
+ 216:    2  ->  bit
+ 217:    2  ->  british
+ 218:    2  ->  broad
+ 219:    2  ->  cartoon
+ 220:    2  ->  cats
+ 221:    2  ->  change
+ 222:    2  ->  class
+ 223:    2  ->  classical
+ 224:    2  ->  concept
+ 225:    2  ->  cool
+ 226:    2  ->  copper
+ 227:    2  ->  corporate
+ 228:    2  ->  costs
+ 229:    2  ->  couple
+ 230:    2  ->  currently
+ 231:    2  ->  decide
+ 232:    2  ->  definitely
+ 233:    2  ->  depending
+ 234:    2  ->  different
+ 235:    2  ->  discs
+ 236:    2  ->  document
+ 237:    2  ->  dots
+ 238:    2  ->  e
+ 239:    2  ->  easy
+ 240:    2  ->  end
+ 241:    2  ->  even
+ 242:    2  ->  example
+ 243:    2  ->  eye
+ 244:    2  ->  finder
+ 245:    2  ->  fine
+ 246:    2  ->  form
+ 247:    2  ->  frame
+ 248:    2  ->  fruit
+ 249:    2  ->  g.
+ 250:    2  ->  general
+ 251:    2  ->  generally
+ 252:    2  ->  green
+ 253:    2  ->  h
+ 254:    2  ->  half
+ 255:    2  ->  happen
+ 256:    2  ->  has
+ 257:    2  ->  he
+ 258:    2  ->  hear
+ 259:    2  ->  hi
+ 260:    2  ->  house
+ 261:    2  ->  huge
+ 262:    2  ->  idea
+ 263:    2  ->  ideas
+ 264:    2  ->  industrial
+ 265:    2  ->  information
+ 266:    2  ->  island
+ 267:    2  ->  jeff
+ 268:    2  ->  low
+ 269:    2  ->  made
+ 270:    2  ->  main
+ 271:    2  ->  makes
+ 272:    2  ->  many
+ 273:    2  ->  means
+ 274:    2  ->  microphone
+ 275:    2  ->  millisecond
+ 276:    2  ->  music
+ 277:    2  ->  n.
+ 278:    2  ->  need
+ 279:    2  ->  negative
+ 280:    2  ->  never
+ 281:    2  ->  new
+ 282:    2  ->  non
+ 283:    2  ->  novelty
+ 284:    2  ->  ones
+ 285:    2  ->  onto
+ 286:    2  ->  paper
+ 287:    2  ->  phase
+ 288:    2  ->  pity
+ 289:    2  ->  point
+ 290:    2  ->  positive
+ 291:    2  ->  power
+ 292:    2  ->  pressing
+ 293:    2  ->  probably
+ 294:    2  ->  product
+ 295:    2  ->  questions
+ 296:    2  ->  quickly
+ 297:    2  ->  remember
+ 298:    2  ->  remotes
+ 299:    2  ->  removable
+ 300:    2  ->  room
+ 301:    2  ->  rubber
+ 302:    2  ->  scroll
+ 303:    2  ->  seem
+ 304:    2  ->  selling
+ 305:    2  ->  setting
+ 306:    2  ->  slightly
+ 307:    2  ->  somewhere
+ 308:    2  ->  sources
+ 309:    2  ->  special
+ 310:    2  ->  start
+ 311:    2  ->  stuff
+ 312:    2  ->  suggest
+ 313:    2  ->  suppose
+ 314:    2  ->  talk
+ 315:    2  ->  these
+ 316:    2  ->  together
+ 317:    2  ->  totally
+ 318:    2  ->  twenty
+ 319:    2  ->  understand
+ 320:    2  ->  uni
+ 321:    2  ->  used
+ 322:    2  ->  using
+ 323:    2  ->  volume
+ 324:    2  ->  wants
+ 325:    2  ->  watch
+ 326:    2  ->  went
+ 327:    2  ->  when
+ 328:    2  ->  whole
+ 329:    2  ->  width
+ 330:    2  ->  window
+ 331:    2  ->  word
+ 332:    2  ->  work
+ 333:    2  ->  working
+ 334:    2  ->  wrong
+ 335:    2  ->  yep
+ 336:    2  ->  yous
+ 337:    1  ->  ability
+ 338:    1  ->  according
+ 339:    1  ->  activity
+ 340:    1  ->  advantage
+ 341:    1  ->  afford
+ 342:    1  ->  afro
+ 343:    1  ->  against
+ 344:    1  ->  agree
+ 345:    1  ->  aim
+ 346:    1  ->  allow
+ 347:    1  ->  alphas
+ 348:    1  ->  already
+ 349:    1  ->  ami
+ 350:    1  ->  animal
+ 351:    1  ->  animals
+ 352:    1  ->  answer
+ 353:    1  ->  answers
+ 354:    1  ->  anybody's
+ 355:    1  ->  anyway
+ 356:    1  ->  apply
+ 357:    1  ->  approach
+ 358:    1  ->  array
+ 359:    1  ->  assuming
+ 360:    1  ->  average
+ 361:    1  ->  avoiding
+ 362:    1  ->  away
+ 363:    1  ->  b
+ 364:    1  ->  b.
+ 365:    1  ->  ba
+ 366:    1  ->  backlight
+ 367:    1  ->  bad
+ 368:    1  ->  banana
+ 369:    1  ->  band
+ 370:    1  ->  barbara
+ 371:    1  ->  batteries
+ 372:    1  ->  beat
+ 373:    1  ->  bec
+ 374:    1  ->  being
+ 375:    1  ->  below
+ 376:    1  ->  best
+ 377:    1  ->  black
+ 378:    1  ->  boring
+ 379:    1  ->  box
+ 380:    1  ->  briefly
+ 381:    1  ->  brilliant
+ 382:    1  ->  bring
+ 383:    1  ->  brother
+ 384:    1  ->  buckley
+ 385:    1  ->  budget
+ 386:    1  ->  bulkier
+ 387:    1  ->  buy
+ 388:    1  ->  c
+ 389:    1  ->  cable
+ 390:    1  ->  called
+ 391:    1  ->  came
+ 392:    1  ->  camera
+ 393:    1  ->  catching
+ 394:    1  ->  cha
+ 395:    1  ->  channel
+ 396:    1  ->  channels
+ 397:    1  ->  cheap
+ 398:    1  ->  childish
+ 399:    1  ->  choose
+ 400:    1  ->  city
+ 401:    1  ->  claim
+ 402:    1  ->  coach
+ 403:    1  ->  come
+ 404:    1  ->  comfortable
+ 405:    1  ->  communication
+ 406:    1  ->  companion
+ 407:    1  ->  complex
+ 408:    1  ->  conclusion
+ 409:    1  ->  considering
+ 410:    1  ->  controlling
+ 411:    1  ->  controls
+ 412:    1  ->  cop
+ 413:    1  ->  copy
+ 414:    1  ->  corresponds
+ 415:    1  ->  count
+ 416:    1  ->  covers
+ 417:    1  ->  crappy
+ 418:    1  ->  create
+ 419:    1  ->  cross
+ 420:    1  ->  current
+ 421:    1  ->  curves
+ 422:    1  ->  cute
+ 423:    1  ->  cutting
+ 424:    1  ->  damp
+ 425:    1  ->  debenham's
+ 426:    1  ->  decisi
+ 427:    1  ->  decision
+ 428:    1  ->  deluxe
+ 429:    1  ->  department
+ 430:    1  ->  designed
+ 431:    1  ->  designer
+ 432:    1  ->  developed
+ 433:    1  ->  device
+ 434:    1  ->  devise
+ 435:    1  ->  digital
+ 436:    1  ->  direct
+ 437:    1  ->  direction
+ 438:    1  ->  dissing
+ 439:    1  ->  doing
+ 440:    1  ->  done
+ 441:    1  ->  downloading
+ 442:    1  ->  drawn
+ 443:    1  ->  e.
+ 444:    1  ->  each
+ 445:    1  ->  earlier
+ 446:    1  ->  easily
+ 447:    1  ->  eight
+ 448:    1  ->  either
+ 449:    1  ->  elements
+ 450:    1  ->  else
+ 451:    1  ->  emission
+ 452:    1  ->  enjoy
+ 453:    1  ->  enjoying
+ 454:    1  ->  enough
+ 455:    1  ->  ev
+ 456:    1  ->  evaluated
+ 457:    1  ->  evaluation
+ 458:    1  ->  everybody
+ 459:    1  ->  exactly
+ 460:    1  ->  excuse
+ 461:    1  ->  exotic
+ 462:    1  ->  expensive
+ 463:    1  ->  expert
+ 464:    1  ->  explain
+ 465:    1  ->  explore
+ 466:    1  ->  expressed
+ 467:    1  ->  f
+ 468:    1  ->  fact
+ 469:    1  ->  fair
+ 470:    1  ->  fan
+ 471:    1  ->  fancy
+ 472:    1  ->  fashion
+ 473:    1  ->  favourite
+ 474:    1  ->  feel
+ 475:    1  ->  few
+ 476:    1  ->  fi
+ 477:    1  ->  fifteen
+ 478:    1  ->  final
+ 479:    1  ->  finish
+ 480:    1  ->  five
+ 481:    1  ->  flat
+ 482:    1  ->  food
+ 483:    1  ->  forward
+ 484:    1  ->  four
+ 485:    1  ->  friendly
+ 486:    1  ->  from
+ 487:    1  ->  fruity
+ 488:    1  ->  full
+ 489:    1  ->  fun
+ 490:    1  ->  funny
+ 491:    1  ->  galaxies
+ 492:    1  ->  galaxy
+ 493:    1  ->  genevieve
+ 494:    1  ->  geometry
+ 495:    1  ->  giving
+ 496:    1  ->  goes
+ 497:    1  ->  gone
+ 498:    1  ->  gosh
+ 499:    1  ->  greater
+ 500:    1  ->  group
+ 501:    1  ->  guide
+ 502:    1  ->  hand
+ 503:    1  ->  handwriting
+ 504:    1  ->  happy
+ 505:    1  ->  having
+ 506:    1  ->  he's
+ 507:    1  ->  heard
+ 508:    1  ->  hey
+ 509:    1  ->  higher
+ 510:    1  ->  highlighted
+ 511:    1  ->  home
+ 512:    1  ->  hope
+ 513:    1  ->  hunch
+ 514:    1  ->  hurt
+ 515:    1  ->  important
+ 516:    1  ->  include
+ 517:    1  ->  included
+ 518:    1  ->  indication
+ 519:    1  ->  inside
+ 520:    1  ->  integrate
+ 521:    1  ->  introductions
+ 522:    1  ->  issues
+ 523:    1  ->  its
+ 524:    1  ->  jack
+ 525:    1  ->  joystick
+ 526:    1  ->  keep
+ 527:    1  ->  knowledge
+ 528:    1  ->  l
+ 529:    1  ->  large
+ 530:    1  ->  larger
+ 531:    1  ->  last
+ 532:    1  ->  later
+ 533:    1  ->  leadership
+ 534:    1  ->  least
+ 535:    1  ->  length
+ 536:    1  ->  less
+ 537:    1  ->  lesser
+ 538:    1  ->  life
+ 539:    1  ->  lightening
+ 540:    1  ->  likes
+ 541:    1  ->  lines
+ 542:    1  ->  literally
+ 543:    1  ->  live
+ 544:    1  ->  lo
+ 545:    1  ->  loads
+ 546:    1  ->  lon
+ 547:    1  ->  longer
+ 548:    1  ->  looking
+ 549:    1  ->  love
+ 550:    1  ->  lyman
+ 551:    1  ->  ma
+ 552:    1  ->  mail
+ 553:    1  ->  maine
+ 554:    1  ->  making
+ 555:    1  ->  managed
+ 556:    1  ->  manual
+ 557:    1  ->  marked
+ 558:    1  ->  massively
+ 559:    1  ->  match
+ 560:    1  ->  matter
+ 561:    1  ->  maximum
+ 562:    1  ->  may
+ 563:    1  ->  meeting
+ 564:    1  ->  men
+ 565:    1  ->  messenger
+ 566:    1  ->  microphones
+ 567:    1  ->  millennium
+ 568:    1  ->  minutes
+ 569:    1  ->  missing
+ 570:    1  ->  model
+ 571:    1  ->  moose
+ 572:    1  ->  most
+ 573:    1  ->  move
+ 574:    1  ->  mud
+ 575:    1  ->  must
+ 576:    1  ->  n
+ 577:    1  ->  natural
+ 578:    1  ->  needed
+ 579:    1  ->  needs
+ 580:    1  ->  nei
+ 581:    1  ->  next
+ 582:    1  ->  nicer
+ 583:    1  ->  nobody
+ 584:    1  ->  noises
+ 585:    1  ->  number
+ 586:    1  ->  object
+ 587:    1  ->  obvi
+ 588:    1  ->  often
+ 589:    1  ->  olivier
+ 590:    1  ->  one's
+ 591:    1  ->  ooh
+ 592:    1  ->  opinions
+ 593:    1  ->  option
+ 594:    1  ->  options
+ 595:    1  ->  orange
+ 596:    1  ->  orchestra
+ 597:    1  ->  original
+ 598:    1  ->  others
+ 599:    1  ->  output
+ 600:    1  ->  outside
+ 601:    1  ->  ov
+ 602:    1  ->  over
+ 603:    1  ->  overlap
+ 604:    1  ->  override
+ 605:    1  ->  pad
+ 606:    1  ->  paint
+ 607:    1  ->  paper's
+ 608:    1  ->  participant
+ 609:    1  ->  participation
+ 610:    1  ->  parts
+ 611:    1  ->  paste
+ 612:    1  ->  pay
+ 613:    1  ->  pe
+ 614:    1  ->  perfect
+ 615:    1  ->  person
+ 616:    1  ->  personal
+ 617:    1  ->  pets
+ 618:    1  ->  phones
+ 619:    1  ->  pizza
+ 620:    1  ->  planar
+ 621:    1  ->  plastic
+ 622:    1  ->  playing
+ 623:    1  ->  pointless
+ 624:    1  ->  points
+ 625:    1  ->  police
+ 626:    1  ->  pop
+ 627:    1  ->  powerpoint
+ 628:    1  ->  prefer
+ 629:    1  ->  presentation
+ 630:    1  ->  prettiest
+ 631:    1  ->  price
+ 632:    1  ->  print
+ 633:    1  ->  problem
+ 634:    1  ->  provide
+ 635:    1  ->  purple
+ 636:    1  ->  radio
+ 637:    1  ->  radiohead
+ 638:    1  ->  ratios
+ 639:    1  ->  raw
+ 640:    1  ->  reaction
+ 641:    1  ->  real
+ 642:    1  ->  recei
+ 643:    1  ->  reckon
+ 644:    1  ->  recording
+ 645:    1  ->  reflect
+ 646:    1  ->  reinvent
+ 647:    1  ->  related
+ 648:    1  ->  relevant
+ 649:    1  ->  remultific
+ 650:    1  ->  represent
+ 651:    1  ->  requirement
+ 652:    1  ->  resistant
+ 653:    1  ->  respond
+ 654:    1  ->  rest
+ 655:    1  ->  ribbon
+ 656:    1  ->  robotic
+ 657:    1  ->  role
+ 658:    1  ->  roughly
+ 659:    1  ->  rub
+ 660:    1  ->  rubbish
+ 661:    1  ->  running
+ 662:    1  ->  s.
+ 663:    1  ->  said
+ 664:    1  ->  santa
+ 665:    1  ->  satisfied
+ 666:    1  ->  says
+ 667:    1  ->  scary
+ 668:    1  ->  score
+ 669:    1  ->  scores
+ 670:    1  ->  screen
+ 671:    1  ->  seeing
+ 672:    1  ->  seemed
+ 673:    1  ->  seen
+ 674:    1  ->  separate
+ 675:    1  ->  sh
+ 676:    1  ->  sheep
+ 677:    1  ->  shock
+ 678:    1  ->  show
+ 679:    1  ->  simple
+ 680:    1  ->  size
+ 681:    1  ->  small
+ 682:    1  ->  smallville
+ 683:    1  ->  snail
+ 684:    1  ->  solid
+ 685:    1  ->  source
+ 686:    1  ->  speaker
+ 687:    1  ->  specific
+ 688:    1  ->  specifically
+ 689:    1  ->  spectral
+ 690:    1  ->  st
+ 691:    1  ->  stay
+ 692:    1  ->  stick
+ 693:    1  ->  sticking
+ 694:    1  ->  story
+ 695:    1  ->  str
+ 696:    1  ->  strategy
+ 697:    1  ->  street
+ 698:    1  ->  strong
+ 699:    1  ->  sucks
+ 700:    1  ->  supposed
+ 701:    1  ->  switch
+ 702:    1  ->  taken
+ 703:    1  ->  talking
+ 704:    1  ->  tara
+ 705:    1  ->  teamwork
+ 706:    1  ->  television
+ 707:    1  ->  tell
+ 708:    1  ->  tells
+ 709:    1  ->  telly
+ 710:    1  ->  tempted
+ 711:    1  ->  terrible
+ 712:    1  ->  things
+ 713:    1  ->  thinks
+ 714:    1  ->  thirty
+ 715:    1  ->  tho
+ 716:    1  ->  those
+ 717:    1  ->  thought
+ 718:    1  ->  threes
+ 719:    1  ->  thresholding
+ 720:    1  ->  throw
+ 721:    1  ->  times
+ 722:    1  ->  titan
+ 723:    1  ->  today
+ 724:    1  ->  touch
+ 725:    1  ->  touchable
+ 726:    1  ->  touched
+ 727:    1  ->  towards
+ 728:    1  ->  toys
+ 729:    1  ->  tracking
+ 730:    1  ->  trade
+ 731:    1  ->  trained
+ 732:    1  ->  trapped
+ 733:    1  ->  trend
+ 734:    1  ->  tried
+ 735:    1  ->  turned
+ 736:    1  ->  type
+ 737:    1  ->  types
+ 738:    1  ->  u
+ 739:    1  ->  ugly
+ 740:    1  ->  unless
+ 741:    1  ->  until
+ 742:    1  ->  useful
+ 743:    1  ->  user's
+ 744:    1  ->  usual
+ 745:    1  ->  usually
+ 746:    1  ->  v
+ 747:    1  ->  value
+ 748:    1  ->  wall
+ 749:    1  ->  warm
+ 750:    1  ->  was
+ 751:    1  ->  weak
+ 752:    1  ->  where's
+ 753:    1  ->  whether
+ 754:    1  ->  whistling
+ 755:    1  ->  whoops
+ 756:    1  ->  wings
+ 757:    1  ->  within
+ 758:    1  ->  works
+ 759:    1  ->  writing
+ 760:    1  ->  y.
+ 761:    1  ->  yay
+ 762:    1  ->  years
+ 763:    1  ->  yellow
+ 764:    1  ->  younger
+ 765:    1  ->  zapping
+     -------
+      3750
+
+
+
+SUBSTITUTIONS                    Total                 (504)
+                                 With >=  1 occurances (504)
+
+   1:   36  ->  yeah
+   2:   35  ->  it
+   3:   29  ->  the
+   4:   22  ->  a
+   5:   19  ->  you
+   6:   18  ->  to
+   7:   17  ->  and
+   8:   17  ->  i
+   9:   16  ->  no
+  10:   15  ->  of
+  11:   15  ->  that
+  12:   13  ->  not
+  13:   12  ->  in
+  14:   12  ->  k.
+  15:   11  ->  are
+  16:   10  ->  be
+  17:   10  ->  have
+  18:   10  ->  right
+  19:   10  ->  this
+  20:    9  ->  but
+  21:    9  ->  is
+  22:    9  ->  it's
+  23:    9  ->  we
+  24:    8  ->  remote
+  25:    7  ->  dunno
+  26:    7  ->  go
+  27:    7  ->  know
+  28:    7  ->  there
+  29:    7  ->  think
+  30:    7  ->  up
+  31:    6  ->  c.
+  32:    6  ->  can
+  33:    6  ->  for
+  34:    6  ->  good
+  35:    6  ->  like
+  36:    6  ->  so
+  37:    6  ->  will
+  38:    5  ->  %bcack
+  39:    5  ->  as
+  40:    5  ->  banana
+  41:    5  ->  something
+  42:    5  ->  they
+  43:    5  ->  thing
+  44:    5  ->  use
+  45:    5  ->  what
+  46:    5  ->  with
+  47:    4  ->  again
+  48:    4  ->  am
+  49:    4  ->  colour
+  50:    4  ->  d.
+  51:    4  ->  do
+  52:    4  ->  end
+  53:    4  ->  here
+  54:    4  ->  maybe
+  55:    4  ->  now
+  56:    4  ->  oh
+  57:    4  ->  on
+  58:    4  ->  one
+  59:    4  ->  say
+  60:    4  ->  stuff
+  61:    4  ->  that's
+  62:    4  ->  things
+  63:    4  ->  want
+  64:    4  ->  would
+  65:    3  ->  an
+  66:    3  ->  asked
+  67:    3  ->  back
+  68:    3  ->  because
+  69:    3  ->  burst
+  70:    3  ->  cannot
+  71:    3  ->  costs
+  72:    3  ->  dog
+  73:    3  ->  had
+  74:    3  ->  just
+  75:    3  ->  line
+  76:    3  ->  look
+  77:    3  ->  market
+  78:    3  ->  more
+  79:    3  ->  much
+  80:    3  ->  nothing
+  81:    3  ->  only
+  82:    3  ->  or
+  83:    3  ->  shape
+  84:    3  ->  some
+  85:    3  ->  sorry
+  86:    3  ->  them
+  87:    3  ->  time
+  88:    3  ->  too
+  89:    3  ->  u.
+  90:    3  ->  us
+  91:    3  ->  very
+  92:    3  ->  well
+  93:    3  ->  window
+  94:    3  ->  your
+  95:    2  ->  absorption
+  96:    2  ->  also
+  97:    2  ->  anybody
+  98:    2  ->  anyway
+  99:    2  ->  apply
+ 100:    2  ->  artist
+ 101:    2  ->  been
+ 102:    2  ->  both
+ 103:    2  ->  brilliant
+ 104:    2  ->  cats
+ 105:    2  ->  check
+ 106:    2  ->  cool
+ 107:    2  ->  could
+ 108:    2  ->  course
+ 109:    2  ->  curved
+ 110:    2  ->  designer
+ 111:    2  ->  detailed
+ 112:    2  ->  details
+ 113:    2  ->  does
+ 114:    2  ->  down
+ 115:    2  ->  eight
+ 116:    2  ->  entire
+ 117:    2  ->  expensive
+ 118:    2  ->  fact
+ 119:    2  ->  family
+ 120:    2  ->  four
+ 121:    2  ->  fun
+ 122:    2  ->  get
+ 123:    2  ->  goes
+ 124:    2  ->  going
+ 125:    2  ->  got
+ 126:    2  ->  hard
+ 127:    2  ->  has
+ 128:    2  ->  he
+ 129:    2  ->  how
+ 130:    2  ->  i.
+ 131:    2  ->  idea
+ 132:    2  ->  if
+ 133:    2  ->  important
+ 134:    2  ->  interface
+ 135:    2  ->  later
+ 136:    2  ->  little
+ 137:    2  ->  local
+ 138:    2  ->  lost
+ 139:    2  ->  lot
+ 140:    2  ->  lump
+ 141:    2  ->  m.
+ 142:    2  ->  me
+ 143:    2  ->  millisecond
+ 144:    2  ->  most
+ 145:    2  ->  my
+ 146:    2  ->  name
+ 147:    2  ->  need
+ 148:    2  ->  new
+ 149:    2  ->  o.
+ 150:    2  ->  own
+ 151:    2  ->  people
+ 152:    2  ->  point
+ 153:    2  ->  possible
+ 154:    2  ->  r.
+ 155:    2  ->  real
+ 156:    2  ->  s
+ 157:    2  ->  s.
+ 158:    2  ->  says
+ 159:    2  ->  see
+ 160:    2  ->  seem
+ 161:    2  ->  should
+ 162:    2  ->  six
+ 163:    2  ->  sixteen
+ 164:    2  ->  star
+ 165:    2  ->  start
+ 166:    2  ->  suppose
+ 167:    2  ->  t.
+ 168:    2  ->  take
+ 169:    2  ->  than
+ 170:    2  ->  titanium
+ 171:    2  ->  trend
+ 172:    2  ->  try
+ 173:    2  ->  type
+ 174:    2  ->  was
+ 175:    2  ->  wave
+ 176:    2  ->  went
+ 177:    2  ->  work
+ 178:    2  ->  yes
+ 179:    2  ->  yet
+ 180:    1  ->  'kay
+ 181:    1  ->  about
+ 182:    1  ->  absorber
+ 183:    1  ->  accepted
+ 184:    1  ->  acne
+ 185:    1  ->  action
+ 186:    1  ->  actions
+ 187:    1  ->  actually
+ 188:    1  ->  after
+ 189:    1  ->  afterward
+ 190:    1  ->  agree
+ 191:    1  ->  alarm
+ 192:    1  ->  along
+ 193:    1  ->  alpha
+ 194:    1  ->  already
+ 195:    1  ->  always
+ 196:    1  ->  animals
+ 197:    1  ->  around
+ 198:    1  ->  at
+ 199:    1  ->  available
+ 200:    1  ->  avoid
+ 201:    1  ->  away
+ 202:    1  ->  backwards
+ 203:    1  ->  bad
+ 204:    1  ->  basically
+ 205:    1  ->  before
+ 206:    1  ->  better
+ 207:    1  ->  bit
+ 208:    1  ->  black
+ 209:    1  ->  blue
+ 210:    1  ->  book
+ 211:    1  ->  bottom
+ 212:    1  ->  bring
+ 213:    1  ->  buckley
+ 214:    1  ->  budget
+ 215:    1  ->  build
+ 216:    1  ->  button
+ 217:    1  ->  buttons
+ 218:    1  ->  buy
+ 219:    1  ->  by
+ 220:    1  ->  c
+ 221:    1  ->  call
+ 222:    1  ->  capable
+ 223:    1  ->  carry
+ 224:    1  ->  case
+ 225:    1  ->  cash
+ 226:    1  ->  centre
+ 227:    1  ->  changeable
+ 228:    1  ->  channel
+ 229:    1  ->  character
+ 230:    1  ->  checked
+ 231:    1  ->  coefficient
+ 232:    1  ->  colours
+ 233:    1  ->  complicated
+ 234:    1  ->  computers
+ 235:    1  ->  concept
+ 236:    1  ->  controlling
+ 237:    1  ->  controls
+ 238:    1  ->  converse
+ 239:    1  ->  convince
+ 240:    1  ->  covered
+ 241:    1  ->  creation
+ 242:    1  ->  criteria
+ 243:    1  ->  cube
+ 244:    1  ->  currently
+ 245:    1  ->  cut
+ 246:    1  ->  damn
+ 247:    1  ->  dark
+ 248:    1  ->  dash
+ 249:    1  ->  designers
+ 250:    1  ->  did
+ 251:    1  ->  different
+ 252:    1  ->  directly
+ 253:    1  ->  disagree
+ 254:    1  ->  display
+ 255:    1  ->  disposal
+ 256:    1  ->  document
+ 257:    1  ->  doh
+ 258:    1  ->  doing
+ 259:    1  ->  done
+ 260:    1  ->  drawing
+ 261:    1  ->  durable
+ 262:    1  ->  each
+ 263:    1  ->  easier
+ 264:    1  ->  edge
+ 265:    1  ->  either
+ 266:    1  ->  eleven
+ 267:    1  ->  elk
+ 268:    1  ->  emails
+ 269:    1  ->  enough
+ 270:    1  ->  evaluation
+ 271:    1  ->  even
+ 272:    1  ->  ever
+ 273:    1  ->  every
+ 274:    1  ->  excellent
+ 275:    1  ->  except
+ 276:    1  ->  expert
+ 277:    1  ->  explanation
+ 278:    1  ->  extent
+ 279:    1  ->  extreme
+ 280:    1  ->  f.
+ 281:    1  ->  factors
+ 282:    1  ->  fashion
+ 283:    1  ->  few
+ 284:    1  ->  find
+ 285:    1  ->  first
+ 286:    1  ->  folder
+ 287:    1  ->  format
+ 288:    1  ->  forming
+ 289:    1  ->  frame
+ 290:    1  ->  friendly
+ 291:    1  ->  from
+ 292:    1  ->  front
+ 293:    1  ->  fruity
+ 294:    1  ->  gadgets
+ 295:    1  ->  galactic
+ 296:    1  ->  galaxies
+ 297:    1  ->  galaxy
+ 298:    1  ->  geometry
+ 299:    1  ->  gets
+ 300:    1  ->  getting
+ 301:    1  ->  give
+ 302:    1  ->  god
+ 303:    1  ->  gosh
+ 304:    1  ->  guess
+ 305:    1  ->  guy
+ 306:    1  ->  guys
+ 307:    1  ->  h.
+ 308:    1  ->  hal
+ 309:    1  ->  hand
+ 310:    1  ->  hardware
+ 311:    1  ->  harvard
+ 312:    1  ->  having
+ 313:    1  ->  heading
+ 314:    1  ->  heavy
+ 315:    1  ->  hello
+ 316:    1  ->  hold
+ 317:    1  ->  hope
+ 318:    1  ->  horizontal's
+ 319:    1  ->  house
+ 320:    1  ->  humans
+ 321:    1  ->  ideas
+ 322:    1  ->  ignore
+ 323:    1  ->  including
+ 324:    1  ->  information
+ 325:    1  ->  into
+ 326:    1  ->  introductions
+ 327:    1  ->  involved
+ 328:    1  ->  j
+ 329:    1  ->  kind
+ 330:    1  ->  l.
+ 331:    1  ->  leadered
+ 332:    1  ->  logical
+ 333:    1  ->  looking
+ 334:    1  ->  love
+ 335:    1  ->  lunch
+ 336:    1  ->  lyman
+ 337:    1  ->  manually
+ 338:    1  ->  manufacturers
+ 339:    1  ->  marty
+ 340:    1  ->  match
+ 341:    1  ->  material
+ 342:    1  ->  matter
+ 343:    1  ->  maximising
+ 344:    1  ->  mean
+ 345:    1  ->  meet
+ 346:    1  ->  merge
+ 347:    1  ->  messenger
+ 348:    1  ->  mic
+ 349:    1  ->  microphone
+ 350:    1  ->  mind
+ 351:    1  ->  minging
+ 352:    1  ->  modifier
+ 353:    1  ->  must
+ 354:    1  ->  nasty
+ 355:    1  ->  nathan
+ 356:    1  ->  network
+ 357:    1  ->  nice
+ 358:    1  ->  nine
+ 359:    1  ->  nokia
+ 360:    1  ->  notes
+ 361:    1  ->  novelty
+ 362:    1  ->  number
+ 363:    1  ->  off
+ 364:    1  ->  often
+ 365:    1  ->  option
+ 366:    1  ->  ordinary
+ 367:    1  ->  other
+ 368:    1  ->  others
+ 369:    1  ->  our
+ 370:    1  ->  out
+ 371:    1  ->  outrageous
+ 372:    1  ->  overlap
+ 373:    1  ->  p.
+ 374:    1  ->  paint
+ 375:    1  ->  paints
+ 376:    1  ->  panels
+ 377:    1  ->  part
+ 378:    1  ->  pay
+ 379:    1  ->  peak
+ 380:    1  ->  perfect
+ 381:    1  ->  perhaps
+ 382:    1  ->  phone
+ 383:    1  ->  pinocchio
+ 384:    1  ->  play
+ 385:    1  ->  please
+ 386:    1  ->  presented
+ 387:    1  ->  pretend
+ 388:    1  ->  pretty
+ 389:    1  ->  problem
+ 390:    1  ->  product
+ 391:    1  ->  proto
+ 392:    1  ->  psychology
+ 393:    1  ->  purdy
+ 394:    1  ->  purple
+ 395:    1  ->  put
+ 396:    1  ->  putting
+ 397:    1  ->  questions
+ 398:    1  ->  quite
+ 399:    1  ->  radius
+ 400:    1  ->  random
+ 401:    1  ->  rather
+ 402:    1  ->  reaction
+ 403:    1  ->  really
+ 404:    1  ->  recognition
+ 405:    1  ->  red
+ 406:    1  ->  refers
+ 407:    1  ->  release
+ 408:    1  ->  remotes
+ 409:    1  ->  rep
+ 410:    1  ->  report
+ 411:    1  ->  represented
+ 412:    1  ->  rest
+ 413:    1  ->  results
+ 414:    1  ->  robots
+ 415:    1  ->  room
+ 416:    1  ->  round
+ 417:    1  ->  sadly
+ 418:    1  ->  said
+ 419:    1  ->  satisfied
+ 420:    1  ->  saying
+ 421:    1  ->  screws
+ 422:    1  ->  season
+ 423:    1  ->  seen
+ 424:    1  ->  sell
+ 425:    1  ->  set
+ 426:    1  ->  seventeen
+ 427:    1  ->  sh
+ 428:    1  ->  shapely
+ 429:    1  ->  shut
+ 430:    1  ->  side
+ 431:    1  ->  signal
+ 432:    1  ->  single
+ 433:    1  ->  skipped
+ 434:    1  ->  slightly
+ 435:    1  ->  smart
+ 436:    1  ->  solid
+ 437:    1  ->  solution
+ 438:    1  ->  somethings
+ 439:    1  ->  sorted
+ 440:    1  ->  source
+ 441:    1  ->  speaker
+ 442:    1  ->  spectrum
+ 443:    1  ->  speech
+ 444:    1  ->  splendid
+ 445:    1  ->  split
+ 446:    1  ->  strange
+ 447:    1  ->  subjects
+ 448:    1  ->  such
+ 449:    1  ->  suggest
+ 450:    1  ->  sunshine
+ 451:    1  ->  sure
+ 452:    1  ->  sweet
+ 453:    1  ->  t
+ 454:    1  ->  tara
+ 455:    1  ->  technological
+ 456:    1  ->  technologically
+ 457:    1  ->  ten
+ 458:    1  ->  their
+ 459:    1  ->  there's
+ 460:    1  ->  those
+ 461:    1  ->  three
+ 462:    1  ->  thrilling
+ 463:    1  ->  today
+ 464:    1  ->  tool
+ 465:    1  ->  triangulation
+ 466:    1  ->  tried
+ 467:    1  ->  triple
+ 468:    1  ->  turn
+ 469:    1  ->  twenty
+ 470:    1  ->  typing
+ 471:    1  ->  underlined
+ 472:    1  ->  understand
+ 473:    1  ->  undo
+ 474:    1  ->  universally
+ 475:    1  ->  urine
+ 476:    1  ->  useable
+ 477:    1  ->  used
+ 478:    1  ->  user
+ 479:    1  ->  users
+ 480:    1  ->  usually
+ 481:    1  ->  v.
+ 482:    1  ->  vicious
+ 483:    1  ->  volume
+ 484:    1  ->  vomit
+ 485:    1  ->  w
+ 486:    1  ->  wanker
+ 487:    1  ->  way
+ 488:    1  ->  weird
+ 489:    1  ->  wh
+ 490:    1  ->  wheel
+ 491:    1  ->  when
+ 492:    1  ->  which
+ 493:    1  ->  who
+ 494:    1  ->  why
+ 495:    1  ->  widths
+ 496:    1  ->  within
+ 497:    1  ->  works
+ 498:    1  ->  worlds
+ 499:    1  ->  wow
+ 500:    1  ->  wrong
+ 501:    1  ->  yep
+ 502:    1  ->  young
+ 503:    1  ->  yourself
+ 504:    1  ->  zillions
+     -------
+      1157
+
+
+* NOTE: The 'Substitution' words are those reference words
+        for which the recognizer supplied an incorrect word.
+
+
+FALSELY RECOGNIZED               Total                 (286)
+                                 With >=  1 occurances (286)
+
+   1:  121  ->  yeah
+   2:   39  ->  that
+   3:   35  ->  so
+   4:   34  ->  the
+   5:   33  ->  k.
+   6:   30  ->  oh
+   7:   28  ->  for
+   8:   28  ->  o.
+   9:   23  ->  you
+  10:   22  ->  well
+  11:   21  ->  is
+  12:   21  ->  it
+  13:   20  ->  i
+  14:   20  ->  right
+  15:   19  ->  a
+  16:   18  ->  but
+  17:   17  ->  or
+  18:   16  ->  and
+  19:   15  ->  like
+  20:   14  ->  this
+  21:   13  ->  to
+  22:   13  ->  yes
+  23:   12  ->  all
+  24:   11  ->  just
+  25:   11  ->  that's
+  26:   10  ->  have
+  27:   10  ->  it's
+  28:   10  ->  no
+  29:   10  ->  what
+  30:    9  ->  %bcack
+  31:    9  ->  are
+  32:    9  ->  be
+  33:    9  ->  one
+  34:    9  ->  use
+  35:    9  ->  we
+  36:    8  ->  am
+  37:    8  ->  of
+  38:    8  ->  on
+  39:    7  ->  five
+  40:    7  ->  not
+  41:    7  ->  two
+  42:    6  ->  then
+  43:    6  ->  us
+  44:    6  ->  was
+  45:    5  ->  know
+  46:    5  ->  my
+  47:    5  ->  will
+  48:    5  ->  with
+  49:    4  ->  by
+  50:    4  ->  do
+  51:    4  ->  easy
+  52:    4  ->  maybe
+  53:    4  ->  mean
+  54:    4  ->  our
+  55:    4  ->  say
+  56:    4  ->  see
+  57:    3  ->  as
+  58:    3  ->  can
+  59:    3  ->  cost
+  60:    3  ->  could
+  61:    3  ->  fifty
+  62:    3  ->  fine
+  63:    3  ->  four
+  64:    3  ->  if
+  65:    3  ->  in
+  66:    3  ->  kind
+  67:    3  ->  last
+  68:    3  ->  me
+  69:    3  ->  out
+  70:    3  ->  question
+  71:    3  ->  really
+  72:    3  ->  sense
+  73:    3  ->  shape
+  74:    3  ->  six
+  75:    3  ->  sure
+  76:    3  ->  they
+  77:    3  ->  time
+  78:    3  ->  too
+  79:    3  ->  want
+  80:    3  ->  wow
+  81:    2  ->  about
+  82:    2  ->  an
+  83:    2  ->  coffee
+  84:    2  ->  colour
+  85:    2  ->  control
+  86:    2  ->  cool
+  87:    2  ->  does
+  88:    2  ->  every
+  89:    2  ->  fancy
+  90:    2  ->  first
+  91:    2  ->  go
+  92:    2  ->  had
+  93:    2  ->  job
+  94:    2  ->  mine
+  95:    2  ->  more
+  96:    2  ->  most
+  97:    2  ->  part
+  98:    2  ->  phone
+  99:    2  ->  second
+ 100:    2  ->  seven
+ 101:    2  ->  should
+ 102:    2  ->  side
+ 103:    2  ->  slide
+ 104:    2  ->  some
+ 105:    2  ->  someone
+ 106:    2  ->  source
+ 107:    2  ->  thanks
+ 108:    2  ->  those
+ 109:    2  ->  try
+ 110:    2  ->  user
+ 111:    2  ->  wait
+ 112:    2  ->  which
+ 113:    2  ->  why
+ 114:    2  ->  would
+ 115:    2  ->  yep
+ 116:    2  ->  your
+ 117:    1  ->  absorption
+ 118:    1  ->  action
+ 119:    1  ->  aerial
+ 120:    1  ->  alpha
+ 121:    1  ->  assume
+ 122:    1  ->  badly
+ 123:    1  ->  because
+ 124:    1  ->  been
+ 125:    1  ->  both
+ 126:    1  ->  bye
+ 127:    1  ->  c.
+ 128:    1  ->  cache
+ 129:    1  ->  call
+ 130:    1  ->  canine
+ 131:    1  ->  cause
+ 132:    1  ->  caution
+ 133:    1  ->  cell
+ 134:    1  ->  cent
+ 135:    1  ->  centre
+ 136:    1  ->  channel
+ 137:    1  ->  check
+ 138:    1  ->  cold
+ 139:    1  ->  collided
+ 140:    1  ->  comma
+ 141:    1  ->  commit
+ 142:    1  ->  complex
+ 143:    1  ->  computer
+ 144:    1  ->  conceptual
+ 145:    1  ->  correct
+ 146:    1  ->  course
+ 147:    1  ->  cover
+ 148:    1  ->  covers
+ 149:    1  ->  crappy
+ 150:    1  ->  curve
+ 151:    1  ->  days
+ 152:    1  ->  decide
+ 153:    1  ->  design
+ 154:    1  ->  designer
+ 155:    1  ->  did
+ 156:    1  ->  diesel
+ 157:    1  ->  different
+ 158:    1  ->  display
+ 159:    1  ->  displayed
+ 160:    1  ->  doing
+ 161:    1  ->  done
+ 162:    1  ->  double
+ 163:    1  ->  down
+ 164:    1  ->  drop
+ 165:    1  ->  dunno
+ 166:    1  ->  e.
+ 167:    1  ->  eight
+ 168:    1  ->  emission
+ 169:    1  ->  energy
+ 170:    1  ->  ex
+ 171:    1  ->  except
+ 172:    1  ->  expect
+ 173:    1  ->  extra
+ 174:    1  ->  factors
+ 175:    1  ->  feature
+ 176:    1  ->  features
+ 177:    1  ->  finally
+ 178:    1  ->  find
+ 179:    1  ->  formation
+ 180:    1  ->  forty
+ 181:    1  ->  found
+ 182:    1  ->  fun
+ 183:    1  ->  future
+ 184:    1  ->  goes
+ 185:    1  ->  got
+ 186:    1  ->  half
+ 187:    1  ->  hard
+ 188:    1  ->  hire
+ 189:    1  ->  idea
+ 190:    1  ->  ideas
+ 191:    1  ->  iffy
+ 192:    1  ->  important
+ 193:    1  ->  information
+ 194:    1  ->  interactions
+ 195:    1  ->  interesting
+ 196:    1  ->  interface
+ 197:    1  ->  jury
+ 198:    1  ->  kate
+ 199:    1  ->  let
+ 200:    1  ->  line
+ 201:    1  ->  lines
+ 202:    1  ->  live
+ 203:    1  ->  logo
+ 204:    1  ->  lot
+ 205:    1  ->  mail
+ 206:    1  ->  make
+ 207:    1  ->  maximizing
+ 208:    1  ->  means
+ 209:    1  ->  menu
+ 210:    1  ->  might
+ 211:    1  ->  mikes
+ 212:    1  ->  modified
+ 213:    1  ->  need
+ 214:    1  ->  needed
+ 215:    1  ->  now
+ 216:    1  ->  only
+ 217:    1  ->  ooh
+ 218:    1  ->  option
+ 219:    1  ->  options
+ 220:    1  ->  otherwise
+ 221:    1  ->  pass
+ 222:    1  ->  per
+ 223:    1  ->  phrase
+ 224:    1  ->  pitch
+ 225:    1  ->  precise
+ 226:    1  ->  prefers
+ 227:    1  ->  process
+ 228:    1  ->  quarter
+ 229:    1  ->  raw
+ 230:    1  ->  reaction
+ 231:    1  ->  real
+ 232:    1  ->  relation
+ 233:    1  ->  said
+ 234:    1  ->  same
+ 235:    1  ->  saying
+ 236:    1  ->  says
+ 237:    1  ->  screeches
+ 238:    1  ->  send
+ 239:    1  ->  shell
+ 240:    1  ->  shop
+ 241:    1  ->  sides
+ 242:    1  ->  sixty
+ 243:    1  ->  small
+ 244:    1  ->  something
+ 245:    1  ->  sorry
+ 246:    1  ->  sort
+ 247:    1  ->  speak
+ 248:    1  ->  spot
+ 249:    1  ->  spots
+ 250:    1  ->  stable
+ 251:    1  ->  star
+ 252:    1  ->  start
+ 253:    1  ->  stay
+ 254:    1  ->  straight
+ 255:    1  ->  stu
+ 256:    1  ->  stuff
+ 257:    1  ->  systems
+ 258:    1  ->  table
+ 259:    1  ->  take
+ 260:    1  ->  taking
+ 261:    1  ->  tar
+ 262:    1  ->  target
+ 263:    1  ->  tell
+ 264:    1  ->  telling
+ 265:    1  ->  tents
+ 266:    1  ->  there
+ 267:    1  ->  there's
+ 268:    1  ->  thing
+ 269:    1  ->  think
+ 270:    1  ->  thinking
+ 271:    1  ->  tied
+ 272:    1  ->  trapped
+ 273:    1  ->  treats
+ 274:    1  ->  true
+ 275:    1  ->  trust
+ 276:    1  ->  twenty
+ 277:    1  ->  type
+ 278:    1  ->  useful
+ 279:    1  ->  very
+ 280:    1  ->  waiting
+ 281:    1  ->  were
+ 282:    1  ->  whether
+ 283:    1  ->  work
+ 284:    1  ->  working
+ 285:    1  ->  worried
+ 286:    1  ->  write
+     -------
+      1157
+
+
+* NOTE: The 'Falsely Recognized' words are those hypothesis words
+        which the recognizer incorrectly substituted for a reference word.
+
