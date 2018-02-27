@@ -1,0 +1,70 @@
+latgen-faster-mapped --max-active=7000 --beam=15 --lattice-beam=7 --acoustic-scale=0.1 --allow-partial=true --word-symbol-table=/data/sls/scratch/haotang/ami//exp/ihm/tri3-logmel-hires/graph_ami_fsh.o3g.kn.pr1-7/words.txt /data/sls/scratch/haotang/ami//exp/ihm/tri3-logmel-hires_ali/final.mdl /data/sls/scratch/haotang/ami//exp/ihm/tri3-logmel-hires/graph_ami_fsh.o3g.kn.pr1-7/HCLG.fst ark:- 'ark:|gzip -c > /data/sls/r/u/atitus5/meng/am/logs/ami-0.1/train_sdm1/augmented_src_ihm/frame-tdnn-450x7-step0.05/ENC_C_256_256_K_3_3_P_3_3_F_/LATENT_256/DEC_F__C_256_256_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/ae_ratio0.0/decode_ihm/lat.18.gz' 
+AMI_IS1001b_H01_MIO012_0014203_0014358 NO 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_IS1001b_H01_MIO012_0014203_0014358 is -0.112006 over 153 frames.
+AMI_IS1001b_H01_MIO012_0014358_0014421 MM 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_IS1001b_H01_MIO012_0014358_0014421 is -0.210745 over 61 frames.
+AMI_IS1001b_H01_MIO012_0015782_0016028 DO YOU THINK UH IN THE WRONG FOLDER 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_IS1001b_H01_MIO012_0015782_0016028 is -0.507819 over 244 frames.
+AMI_IS1001b_H01_MIO012_0016182_0016258 <unk> POSSIBLE 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_IS1001b_H01_MIO012_0016182_0016258 is -0.561666 over 74 frames.
+AMI_IS1001b_H01_MIO012_0016470_0016631 IT WAS SOMEWHERE AND SOMETHING LIKE THIS 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_IS1001b_H01_MIO012_0016470_0016631 is -0.475315 over 159 frames.
+AMI_IS1001b_H01_MIO012_0017127_0017161 CORP 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_IS1001b_H01_MIO012_0017127_0017161 is -0.788906 over 32 frames.
+AMI_IS1001b_H01_MIO012_0017380_0017440 <unk> 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_IS1001b_H01_MIO012_0017380_0017440 is -0.681427 over 58 frames.
+AMI_IS1001b_H01_MIO012_0017660_0017719 I CAN 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_IS1001b_H01_MIO012_0017660_0017719 is -0.544408 over 57 frames.
+AMI_IS1001b_H01_MIO012_0017867_0017946 NO 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_IS1001b_H01_MIO012_0017867_0017946 is -0.128395 over 77 frames.
+AMI_IS1001b_H01_MIO012_0017946_0017985 BUT 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_IS1001b_H01_MIO012_0017946_0017985 is -0.687278 over 37 frames.
+AMI_IS1001b_H01_MIO012_0018204_0018333 UH MAYBE MESSENGER AMI 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_IS1001b_H01_MIO012_0018204_0018333 is -0.525484 over 127 frames.
+AMI_IS1001b_H01_MIO012_0018517_0018557 BUT ON THE 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_IS1001b_H01_MIO012_0018517_0018557 is -0.805073 over 38 frames.
+AMI_IS1001b_H01_MIO012_0019012_0019044 NO 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_IS1001b_H01_MIO012_0019012_0019044 is -0.306654 over 30 frames.
+AMI_IS1001b_H01_MIO012_0019044_0019103 THAT'S NOTHING 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_IS1001b_H01_MIO012_0019044_0019103 is -0.592365 over 57 frames.
+AMI_IS1001b_H01_MIO012_0019809_0020005 IT'S GONNA TALK 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_IS1001b_H01_MIO012_0019809_0020005 is -0.244069 over 194 frames.
+AMI_IS1001b_H01_MIO012_0020005_0020093 UH 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_IS1001b_H01_MIO012_0020005_0020093 is -0.404338 over 86 frames.
+AMI_IS1001b_H01_MIO012_0020430_0020460 OKAY 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_IS1001b_H01_MIO012_0020430_0020460 is -0.509197 over 28 frames.
+AMI_IS1001b_H01_MIO012_0020644_0020675 YEAH 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_IS1001b_H01_MIO012_0020644_0020675 is -0.331833 over 29 frames.
+AMI_IS1001b_H01_MIO012_0020818_0020911 YEAH 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_IS1001b_H01_MIO012_0020818_0020911 is -0.140655 over 91 frames.
+AMI_IS1001b_H01_MIO012_0020911_0021006 SO UH 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_IS1001b_H01_MIO012_0020911_0021006 is -0.583987 over 93 frames.
+AMI_IS1001b_H01_MIO012_0021006_0021468 BASICALLY ONE ONE REMOTE CONTROL RIGHT 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_IS1001b_H01_MIO012_0021006_0021468 is -0.36378 over 460 frames.
+AMI_IS1001b_H01_MIO012_0021468_0021760 SO UM <unk> OR TO CONTROL 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_IS1001b_H01_MIO012_0021468_0021760 is -0.480791 over 290 frames.
+AMI_IS1001b_H01_MIO012_0021760_0022418 SO MOST PEOPLE WANT HARD UH REMOTE FOR THEIR HI-FI INTO AND STUFF LIKE THAT 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_IS1001b_H01_MIO012_0021760_0022418 is -0.423255 over 656 frames.
+AMI_IS1001b_H01_MIO012_0022418_0023952 UH AND BUT I OPEN ONE ALSO REMOTES FOR A CONTROLLING UH AND LIKE ABOUT PETS AND STUFF AND I ALSO WANT HAVE REMOTES FOR CONTROLLING UH FORM HOUSE 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_IS1001b_H01_MIO012_0022418_0023952 is -0.415841 over 1532 frames.
+AMI_IS1001b_H01_MIO012_0024060_0024933 YEAH SO THERE'S A PROJECT I THINK CORTEX OR SOMETHING LIKE THAT THAT DOES THAT UH YOU CAN INTEGRATE REMOTE WITH THE COMPUTERS STUFF 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_IS1001b_H01_MIO012_0024060_0024933 is -0.427313 over 871 frames.
+AMI_IS1001b_H01_MIO012_0024933_0025184 SO ONE AT ONE THING 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_IS1001b_H01_MIO012_0024933_0025184 is -0.45371 over 249 frames.
+AMI_IS1001b_H01_MIO012_0025184_0025441 NO NOTHING IT'S UH 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_IS1001b_H01_MIO012_0025184_0025441 is -0.311587 over 255 frames.
+AMI_IS1001b_H01_MIO012_0025596_0025920 THE FINDER FEATURE BY WHISTLING 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_IS1001b_H01_MIO012_0025596_0025920 is -0.383159 over 322 frames.
+AMI_IS1001b_H01_MIO012_0025920_0026237 UH IF YOU HOW TO FIND A FUTURE THEN YOU CAN ALSO HARD 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_IS1001b_H01_MIO012_0025920_0026237 is -0.511714 over 315 frames.
+AMI_IS1006c_H03_MIO008_0166692_0167186 NO WE DON'T HAVE TO SAY IT'S THE TREND 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_IS1006c_H03_MIO008_0166692_0167186 is -0.308232 over 492 frames.
+AMI_IS1006c_H03_MIO008_0167186_0167669 HOW CAN I SAID WE CAN ALSO TRY TO MAKE IT A TREE 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_IS1006c_H03_MIO008_0167186_0167669 is -0.397174 over 481 frames.
+AMI_IS1006c_H03_MIO008_0167669_0167763 SO THE WHOLE 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_IS1006c_H03_MIO008_0167669_0167763 is -0.516073 over 92 frames.
+AMI_IS1006c_H03_MIO008_0168092_0168396 WELL THAT'S YOU CAN TRY TO COMMONSENSE 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_IS1006c_H03_MIO008_0168092_0168396 is -0.366325 over 302 frames.
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:main():latgen-faster-mapped.cc:164) Time taken 126.959s: real-time factor assuming 100 frames/sec is 1.57869
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:main():latgen-faster-mapped.cc:167) Done 33 utterances, failed for 0
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:main():latgen-faster-mapped.cc:169) Overall log-likelihood per frame is -0.408734 over 8042 frames.

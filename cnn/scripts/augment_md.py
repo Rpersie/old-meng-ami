@@ -64,10 +64,10 @@ enc_kernel_sizes = []
 for res_str in os.environ["ENC_KERNELS_DELIM"].split("_"):
     if len(res_str) > 0:
         enc_kernel_sizes.append(int(res_str))
-enc_pool_sizes = []
-for res_str in os.environ["ENC_POOLS_DELIM"].split("_"):
+enc_downsample_sizes = []
+for res_str in os.environ["ENC_DOWNSAMPLES_DELIM"].split("_"):
     if len(res_str) > 0:
-        enc_pool_sizes.append(int(res_str))
+        enc_downsample_sizes.append(int(res_str))
 enc_fc_sizes = []
 for res_str in os.environ["ENC_FC_DELIM"].split("_"):
     if len(res_str) > 0:
@@ -87,10 +87,10 @@ dec_kernel_sizes = []
 for res_str in os.environ["DEC_KERNELS_DELIM"].split("_"):
     if len(res_str) > 0:
         dec_kernel_sizes.append(int(res_str))
-dec_pool_sizes = []
-for res_str in os.environ["DEC_POOLS_DELIM"].split("_"):
+dec_upsample_sizes = []
+for res_str in os.environ["DEC_UPSAMPLES_DELIM"].split("_"):
     if len(res_str) > 0:
-        dec_pool_sizes.append(int(res_str))
+        dec_upsample_sizes.append(int(res_str))
 
 activation = os.environ["ACTIVATION_FUNC"]
 decoder_classes = []
@@ -99,6 +99,8 @@ for res_str in os.environ["DECODER_CLASSES_DELIM"].split("_"):
         decoder_classes.append(res_str)
 use_batch_norm = True if os.environ["USE_BATCH_NORM"] == "true" else False
 weight_init = os.environ["WEIGHT_INIT"]
+
+strided = True if os.environ["STRIDED"] == "true" else False
     
 if domain_adversarial:
     domain_adv_fc_sizes = []
@@ -151,19 +153,20 @@ random.seed(1)
 print("Constructing model...", flush=True)
 if run_mode == "ae":
     if domain_adversarial:
-        model = CNNAdversarialMultidecoder(freq_dim=freq_dim,
+        model = CNNDomainAdversarialMultidecoder(freq_dim=freq_dim,
                                 splicing=[left_context, right_context], 
                                 enc_channel_sizes=enc_channel_sizes,
                                 enc_kernel_sizes=enc_kernel_sizes,
-                                enc_pool_sizes=enc_pool_sizes,
+                                enc_downsample_sizes=enc_downsample_sizes,
                                 enc_fc_sizes=enc_fc_sizes,
                                 latent_dim=latent_dim,
                                 dec_fc_sizes=dec_fc_sizes,
                                 dec_channel_sizes=dec_channel_sizes,
                                 dec_kernel_sizes=dec_kernel_sizes,
-                                dec_pool_sizes=dec_pool_sizes,
+                                dec_upsample_sizes=dec_upsample_sizes,
                                 activation=activation,
                                 use_batch_norm=use_batch_norm,
+                                strided=strided,
                                 decoder_classes=decoder_classes,
                                 weight_init=weight_init,
                                 domain_adv_fc_sizes=domain_adv_fc_sizes,
@@ -173,15 +176,16 @@ if run_mode == "ae":
                                 splicing=[left_context, right_context], 
                                 enc_channel_sizes=enc_channel_sizes,
                                 enc_kernel_sizes=enc_kernel_sizes,
-                                enc_pool_sizes=enc_pool_sizes,
+                                enc_downsample_sizes=enc_downsample_sizes,
                                 enc_fc_sizes=enc_fc_sizes,
                                 latent_dim=latent_dim,
                                 dec_fc_sizes=dec_fc_sizes,
                                 dec_channel_sizes=dec_channel_sizes,
                                 dec_kernel_sizes=dec_kernel_sizes,
-                                dec_pool_sizes=dec_pool_sizes,
+                                dec_upsample_sizes=dec_upsample_sizes,
                                 activation=activation,
                                 use_batch_norm=use_batch_norm,
+                                strided=strided,
                                 decoder_classes=decoder_classes,
                                 weight_init=weight_init,
                                 gan_fc_sizes=gan_fc_sizes,
@@ -191,15 +195,16 @@ if run_mode == "ae":
                                 splicing=[left_context, right_context], 
                                 enc_channel_sizes=enc_channel_sizes,
                                 enc_kernel_sizes=enc_kernel_sizes,
-                                enc_pool_sizes=enc_pool_sizes,
+                                enc_downsample_sizes=enc_downsample_sizes,
                                 enc_fc_sizes=enc_fc_sizes,
                                 latent_dim=latent_dim,
                                 dec_fc_sizes=dec_fc_sizes,
                                 dec_channel_sizes=dec_channel_sizes,
                                 dec_kernel_sizes=dec_kernel_sizes,
-                                dec_pool_sizes=dec_pool_sizes,
+                                dec_upsample_sizes=dec_upsample_sizes,
                                 activation=activation,
                                 use_batch_norm=use_batch_norm,
+                                strided=strided,
                                 decoder_classes=decoder_classes,
                                 weight_init=weight_init)
 elif run_mode == "vae":
@@ -214,15 +219,16 @@ elif run_mode == "vae":
                                 splicing=[left_context, right_context], 
                                 enc_channel_sizes=enc_channel_sizes,
                                 enc_kernel_sizes=enc_kernel_sizes,
-                                enc_pool_sizes=enc_pool_sizes,
+                                enc_downsample_sizes=enc_downsample_sizes,
                                 enc_fc_sizes=enc_fc_sizes,
                                 latent_dim=latent_dim,
                                 dec_fc_sizes=dec_fc_sizes,
                                 dec_channel_sizes=dec_channel_sizes,
                                 dec_kernel_sizes=dec_kernel_sizes,
-                                dec_pool_sizes=dec_pool_sizes,
+                                dec_upsample_sizes=dec_upsample_sizes,
                                 activation=activation,
                                 use_batch_norm=use_batch_norm,
+                                strided=strided,
                                 decoder_classes=decoder_classes,
                                 weight_init=weight_init)
 else:

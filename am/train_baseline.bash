@@ -5,7 +5,7 @@
 #SBATCH -c 4
 #SBATCH --gres=gpu:1
 #SBATCH --mem=32768
-#SBATCH --time=48:00:00
+#SBATCH --time=72:00:00
 #SBATCH -J train_baseline
 #SBATCH --exclude=sls-sm-[5],sls-tesla-[0,1]
 
@@ -48,8 +48,8 @@ for epoch in $(seq $START_EPOCH $END_EPOCH); do
 
     # Always use IHM pdfids, even for SDM1 (data are parallel -- see Hao email from 1/17/18)
     OMP_NUM_THREADS=1 /data/sls/scratch/haotang/ami/dist/nn-20171213-4c6c341/nnbin/frame-tdnn-learn-gpu \
-        --frame-scp $DATASET/${train_domain}-train-logmel-hires-filt.blogmel.scp \
-        --label-scp $DATASET/ihm-train-logmel-hires-tri3.bali.scp \
+        --frame-scp $DATASET/${train_domain}-train-norm.blogmel.scp \
+        --label-scp $DATASET/ihm-train-tri3.bali.scp \
         --param $model_dir/param-$((epoch-1)) \
         --opt-data $model_dir/opt-data-$((epoch-1)) \
         --output-param $model_dir/param-$epoch \

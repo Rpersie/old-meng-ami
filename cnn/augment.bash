@@ -6,10 +6,10 @@
 #SBATCH --gres=gpu:1
 #SBATCH --mem=32768
 #SBATCH --time=48:00:00
-#SBATCH -J augment_cnn_md
+#SBATCH -J augment_md
 #SBATCH --exclude=sls-sm-[5]
 
-echo "STARTING CONVOLUTIONAL MULTIDECODER DATA AUGMENTATION JOB"
+echo "STARTING MULTIDECODER DATA AUGMENTATION JOB"
 
 . ./path.sh
 . ./cnn/job_config.sh
@@ -67,4 +67,4 @@ fi
 
 python3 cnn/scripts/augment_md.py ${run_mode} ${domain_adversarial} ${gan} > $augment_log
 
-echo "DONE CONVOLUTIONAL MULTIDECODER DATA AUGMENTATION JOB"
+echo "DONE MULTIDECODER DATA AUGMENTATION JOB"

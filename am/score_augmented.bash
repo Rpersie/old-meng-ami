@@ -56,7 +56,15 @@ score_log=$decode_dir/score.log
 num_jobs=30
 echo $num_jobs > $decode_dir/num_jobs
 
-data=$AMI/sls-data/ami-0.1/${predict_domain}-dev
+if [ "$DATASET" == "ami-0.1" ]; then
+    data=$AMI/sls-data/ami-0.1/${predict_domain}-dev
+elif [ "$DATASET" == "ami-full" ]; then
+    data=$AMI/data/${predict_domain}/dev-logmel-hires
+else
+    echo "Unknown dataset $DATASET"
+    exit 1
+fi
+
 lang=$AMI/exp/ihm/tri3-logmel-hires/graph_ami_fsh.o3g.kn.pr1-7
 model=$AMI/exp/ihm/tri3-logmel-hires_ali/final.mdl
 

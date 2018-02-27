@@ -47,10 +47,10 @@ def run_training(run_mode, domain_adversarial, gan):
     for res_str in os.environ["ENC_KERNELS_DELIM"].split("_"):
         if len(res_str) > 0:
             enc_kernel_sizes.append(int(res_str))
-    enc_pool_sizes = []
-    for res_str in os.environ["ENC_POOLS_DELIM"].split("_"):
+    enc_downsample_sizes = []
+    for res_str in os.environ["ENC_DOWNSAMPLES_DELIM"].split("_"):
         if len(res_str) > 0:
-            enc_pool_sizes.append(int(res_str))
+            enc_downsample_sizes.append(int(res_str))
     enc_fc_sizes = []
     for res_str in os.environ["ENC_FC_DELIM"].split("_"):
         if len(res_str) > 0:
@@ -70,10 +70,10 @@ def run_training(run_mode, domain_adversarial, gan):
     for res_str in os.environ["DEC_KERNELS_DELIM"].split("_"):
         if len(res_str) > 0:
             dec_kernel_sizes.append(int(res_str))
-    dec_pool_sizes = []
-    for res_str in os.environ["DEC_POOLS_DELIM"].split("_"):
+    dec_upsample_sizes = []
+    for res_str in os.environ["DEC_UPSAMPLES_DELIM"].split("_"):
         if len(res_str) > 0:
-            dec_pool_sizes.append(int(res_str))
+            dec_upsample_sizes.append(int(res_str))
 
     activation = os.environ["ACTIVATION_FUNC"]
     decoder_classes = []
@@ -84,6 +84,7 @@ def run_training(run_mode, domain_adversarial, gan):
     weight_init = os.environ["WEIGHT_INIT"]
     
     use_backtranslation = True if os.environ["USE_BACKTRANSLATION"] == "true" else False
+    strided = True if os.environ["STRIDED"] == "true" else False
    
     if domain_adversarial:
         domain_adv_fc_sizes = []
@@ -132,15 +133,16 @@ def run_training(run_mode, domain_adversarial, gan):
                                     splicing=[left_context, right_context], 
                                     enc_channel_sizes=enc_channel_sizes,
                                     enc_kernel_sizes=enc_kernel_sizes,
-                                    enc_pool_sizes=enc_pool_sizes,
+                                    enc_downsample_sizes=enc_downsample_sizes,
                                     enc_fc_sizes=enc_fc_sizes,
                                     latent_dim=latent_dim,
                                     dec_fc_sizes=dec_fc_sizes,
                                     dec_channel_sizes=dec_channel_sizes,
                                     dec_kernel_sizes=dec_kernel_sizes,
-                                    dec_pool_sizes=dec_pool_sizes,
+                                    dec_upsample_sizes=dec_upsample_sizes,
                                     activation=activation,
                                     use_batch_norm=use_batch_norm,
+                                    strided=strided,
                                     decoder_classes=decoder_classes,
                                     weight_init=weight_init,
                                     domain_adv_fc_sizes=domain_adv_fc_sizes,
@@ -150,15 +152,16 @@ def run_training(run_mode, domain_adversarial, gan):
                                        splicing=[left_context, right_context], 
                                        enc_channel_sizes=enc_channel_sizes,
                                        enc_kernel_sizes=enc_kernel_sizes,
-                                       enc_pool_sizes=enc_pool_sizes,
+                                       enc_downsample_sizes=enc_downsample_sizes,
                                        enc_fc_sizes=enc_fc_sizes,
                                        latent_dim=latent_dim,
                                        dec_fc_sizes=dec_fc_sizes,
                                        dec_channel_sizes=dec_channel_sizes,
                                        dec_kernel_sizes=dec_kernel_sizes,
-                                       dec_pool_sizes=dec_pool_sizes,
+                                       dec_upsample_sizes=dec_upsample_sizes,
                                        activation=activation,
                                        use_batch_norm=use_batch_norm,
+                                       strided=strided,
                                        decoder_classes=decoder_classes,
                                        weight_init=weight_init,
                                        gan_fc_sizes=gan_fc_sizes,
@@ -168,15 +171,16 @@ def run_training(run_mode, domain_adversarial, gan):
                                     splicing=[left_context, right_context], 
                                     enc_channel_sizes=enc_channel_sizes,
                                     enc_kernel_sizes=enc_kernel_sizes,
-                                    enc_pool_sizes=enc_pool_sizes,
+                                    enc_downsample_sizes=enc_downsample_sizes,
                                     enc_fc_sizes=enc_fc_sizes,
                                     latent_dim=latent_dim,
                                     dec_fc_sizes=dec_fc_sizes,
                                     dec_channel_sizes=dec_channel_sizes,
                                     dec_kernel_sizes=dec_kernel_sizes,
-                                    dec_pool_sizes=dec_pool_sizes,
+                                    dec_upsample_sizes=dec_upsample_sizes,
                                     activation=activation,
                                     use_batch_norm=use_batch_norm,
+                                    strided=strided,
                                     decoder_classes=decoder_classes,
                                     weight_init=weight_init)
     elif run_mode == "vae":
@@ -191,15 +195,16 @@ def run_training(run_mode, domain_adversarial, gan):
                                     splicing=[left_context, right_context], 
                                     enc_channel_sizes=enc_channel_sizes,
                                     enc_kernel_sizes=enc_kernel_sizes,
-                                    enc_pool_sizes=enc_pool_sizes,
+                                    enc_downsample_sizes=enc_downsample_sizes,
                                     enc_fc_sizes=enc_fc_sizes,
                                     latent_dim=latent_dim,
                                     dec_fc_sizes=dec_fc_sizes,
                                     dec_channel_sizes=dec_channel_sizes,
                                     dec_kernel_sizes=dec_kernel_sizes,
-                                    dec_pool_sizes=dec_pool_sizes,
+                                    dec_upsample_sizes=dec_upsample_sizes,
                                     activation=activation,
                                     use_batch_norm=use_batch_norm,
+                                    strided=strided,
                                     decoder_classes=decoder_classes,
                                     weight_init=weight_init)
     else:
@@ -247,8 +252,14 @@ def run_training(run_mode, domain_adversarial, gan):
 
         return KLD
     
+    '''
     def discriminative_loss(guess_class, truth_class):
         return nn.BCELoss(size_average=False)(guess_class, truth_class)
+    '''
+
+    # Use BCEWithLogitsLoss to get better numerical stability
+    def discriminative_loss(guess_output, truth_class):
+        return nn.BCEWithLogitsLoss(size_average=False)(guess_output, truth_class)
 
 
 
@@ -521,10 +532,16 @@ def run_training(run_mode, domain_adversarial, gan):
                     feats = feat_dict[decoder_class]
 
                     if run_mode == "ae":
-                        latent, fc_input_size, unpool_sizes, pooling_indices = model.encode(feats.view(-1,
-                                                                                                       1,
-                                                                                                       time_dim,
-                                                                                                       freq_dim))
+                        if strided:
+                            latent, fc_input_size = model.encode(feats.view(-1,
+                                                                            1,
+                                                                            time_dim,
+                                                                            freq_dim))
+                        else:
+                            latent, fc_input_size, unpool_sizes, pooling_indices = model.encode(feats.view(-1,
+                                                                                                           1,
+                                                                                                           time_dim,
+                                                                                                           freq_dim))
                     elif run_mode == "vae":
                         print("Domain adversarial VAEs not supported yet", flush=True)
                         sys.exit(1)
@@ -758,10 +775,16 @@ def run_training(run_mode, domain_adversarial, gan):
                 if domain_adversarial and not recon_only:
                     # Domain adversarial loss
                     if run_mode == "ae":
-                        latent, fc_input_size, unpool_sizes, pooling_indices = model.encode(feats.view(-1,
-                                                                                                       1,
-                                                                                                       time_dim,
-                                                                                                       freq_dim))
+                        if strided:
+                            latent, fc_input_size = model.encode(feats.view(-1,
+                                                                            1,
+                                                                            time_dim,
+                                                                            freq_dim))
+                        else:
+                            latent, fc_input_size, unpool_sizes, pooling_indices = model.encode(feats.view(-1,
+                                                                                                           1,
+                                                                                                           time_dim,
+                                                                                                           freq_dim))
                     elif run_mode == "vae":
                         print("Domain adversarial VAEs not supported yet", flush=True)
                         sys.exit(1)

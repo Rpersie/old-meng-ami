@@ -1,0 +1,2341 @@
+Running training with mode ae
+Using generative adversarial loss
+Noising 0.000% of input features
+Constructing model...
+Done constructing model.
+CNNGANMultidecoder(
+  (encoder_conv): Sequential(
+    (conv2d_0): Conv2d (1, 256, kernel_size=(3, 3), stride=(1, 1))
+    (ReLU_0): ReLU()
+    (maxpool2d_0): MaxPool2d(kernel_size=(1, 3), stride=(1, 3), dilation=(1, 1))
+    (conv2d_1): Conv2d (256, 256, kernel_size=(3, 3), stride=(1, 1))
+    (ReLU_1): ReLU()
+    (maxpool2d_1): MaxPool2d(kernel_size=(1, 3), stride=(1, 3), dilation=(1, 1))
+  )
+  (encoder_fc): Sequential(
+    (lin_final): Linear(in_features=14336, out_features=256)
+    (ReLU_final): ReLU()
+  )
+  (decoder_fc_ihm): Sequential(
+    (ReLU_final): ReLU()
+    (lin_final): Linear(in_features=256, out_features=14336)
+  )
+  (decoder_deconv_ihm): Sequential(
+    (ReLU_0): ReLU()
+    (maxunpool2d_0): MaxUnpool2d(kernel_size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_0): Conv2d (256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (ReLU_1): ReLU()
+    (maxunpool2d_1): MaxUnpool2d(kernel_size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_1): Conv2d (256, 1, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+  )
+  (decoder_fc_sdm1): Sequential(
+    (ReLU_final): ReLU()
+    (lin_final): Linear(in_features=256, out_features=14336)
+  )
+  (decoder_deconv_sdm1): Sequential(
+    (ReLU_0): ReLU()
+    (maxunpool2d_0): MaxUnpool2d(kernel_size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_0): Conv2d (256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (ReLU_1): ReLU()
+    (maxunpool2d_1): MaxUnpool2d(kernel_size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_1): Conv2d (256, 1, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+  )
+  (gan_ihm): Sequential(
+    (lin_0): Linear(in_features=880, out_features=512)
+    (Sigmoid_0): Sigmoid()
+    (lin_1): Linear(in_features=512, out_features=512)
+    (Sigmoid_1): Sigmoid()
+    (lin_final): Linear(in_features=512, out_features=1)
+  )
+  (gan_sdm1): Sequential(
+    (lin_0): Linear(in_features=880, out_features=512)
+    (Sigmoid_0): Sigmoid()
+    (lin_1): Linear(in_features=512, out_features=512)
+    (Sigmoid_1): Sigmoid()
+    (lin_final): Linear(in_features=512, out_features=1)
+  )
+)
+Model has 14244868 trainable parameters
+Setting up data...
+Setting up training datasets...
+Using 2407138 training features (75224 batches) for class ihm
+Using 2407138 training features (75224 batches) for class sdm1
+Setting up dev datasets...
+Using 249565 dev features (7799 batches) for class ihm
+Using 249565 dev features (7799 batches) for class sdm1
+Setting up minibatch shuffling for training...
+75224 total batches: {'ihm': 75224, 'sdm1': 75224}
+Done setting up data.
+Completed setup in 145.898 seconds
+Starting training!
+
+STARTING EPOCH 1
+GENERATOR Train epoch 1: [500/75224 (0.7%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 822.327
+===> real_gan_loss: -0.625
+===> fake_gan_loss: -0.715
+===> Total for class ihm: 820.987
+=> Class sdm1
+===> autoencoding_recon_loss: 863.589
+===> real_gan_loss: -0.715
+===> fake_gan_loss: -0.625
+===> Total for class sdm1: 862.249
+TOTAL: 1683.236
+GENERATOR Train epoch 1: [1000/75224 (1.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 802.980
+===> real_gan_loss: -0.655
+===> fake_gan_loss: -0.704
+===> Total for class ihm: 801.620
+=> Class sdm1
+===> autoencoding_recon_loss: 860.386
+===> real_gan_loss: -0.704
+===> fake_gan_loss: -0.655
+===> Total for class sdm1: 859.026
+TOTAL: 1660.646
+GENERATOR Train epoch 1: [1500/75224 (2.0%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 771.208
+===> real_gan_loss: -0.669
+===> fake_gan_loss: -0.700
+===> Total for class ihm: 769.839
+=> Class sdm1
+===> autoencoding_recon_loss: 776.471
+===> real_gan_loss: -0.700
+===> fake_gan_loss: -0.669
+===> Total for class sdm1: 775.101
+TOTAL: 1544.940
+GENERATOR Train epoch 1: [2000/75224 (2.7%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 734.687
+===> real_gan_loss: -0.675
+===> fake_gan_loss: -0.698
+===> Total for class ihm: 733.314
+=> Class sdm1
+===> autoencoding_recon_loss: 726.731
+===> real_gan_loss: -0.698
+===> fake_gan_loss: -0.675
+===> Total for class sdm1: 725.358
+TOTAL: 1458.672
+GENERATOR Train epoch 1: [2500/75224 (3.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 699.480
+===> real_gan_loss: -0.679
+===> fake_gan_loss: -0.697
+===> Total for class ihm: 698.105
+=> Class sdm1
+===> autoencoding_recon_loss: 678.142
+===> real_gan_loss: -0.697
+===> fake_gan_loss: -0.679
+===> Total for class sdm1: 676.767
+TOTAL: 1374.872
+GENERATOR Train epoch 1: [3000/75224 (4.0%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 670.180
+===> real_gan_loss: -0.681
+===> fake_gan_loss: -0.696
+===> Total for class ihm: 668.803
+=> Class sdm1
+===> autoencoding_recon_loss: 652.998
+===> real_gan_loss: -0.696
+===> fake_gan_loss: -0.681
+===> Total for class sdm1: 651.620
+TOTAL: 1320.423
+GENERATOR Train epoch 1: [3500/75224 (4.7%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 648.782
+===> real_gan_loss: -0.683
+===> fake_gan_loss: -0.696
+===> Total for class ihm: 647.404
+=> Class sdm1
+===> autoencoding_recon_loss: 620.283
+===> real_gan_loss: -0.696
+===> fake_gan_loss: -0.683
+===> Total for class sdm1: 618.905
+TOTAL: 1266.308
+GENERATOR Train epoch 1: [4000/75224 (5.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 635.263
+===> real_gan_loss: -0.684
+===> fake_gan_loss: -0.695
+===> Total for class ihm: 633.883
+=> Class sdm1
+===> autoencoding_recon_loss: 597.911
+===> real_gan_loss: -0.695
+===> fake_gan_loss: -0.684
+===> Total for class sdm1: 596.532
+TOTAL: 1230.416
+GENERATOR Train epoch 1: [4500/75224 (6.0%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 615.802
+===> real_gan_loss: -0.685
+===> fake_gan_loss: -0.695
+===> Total for class ihm: 614.422
+=> Class sdm1
+===> autoencoding_recon_loss: 575.977
+===> real_gan_loss: -0.695
+===> fake_gan_loss: -0.685
+===> Total for class sdm1: 574.597
+TOTAL: 1189.019
+GENERATOR Train epoch 1: [5000/75224 (6.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 602.471
+===> real_gan_loss: -0.685
+===> fake_gan_loss: -0.694
+===> Total for class ihm: 601.091
+=> Class sdm1
+===> autoencoding_recon_loss: 558.981
+===> real_gan_loss: -0.694
+===> fake_gan_loss: -0.685
+===> Total for class sdm1: 557.602
+TOTAL: 1158.693
+GENERATOR Train epoch 1: [5500/75224 (7.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 589.244
+===> real_gan_loss: -0.686
+===> fake_gan_loss: -0.694
+===> Total for class ihm: 587.863
+=> Class sdm1
+===> autoencoding_recon_loss: 548.961
+===> real_gan_loss: -0.694
+===> fake_gan_loss: -0.686
+===> Total for class sdm1: 547.581
+TOTAL: 1135.444
+GENERATOR Train epoch 1: [6000/75224 (8.0%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 580.285
+===> real_gan_loss: -0.687
+===> fake_gan_loss: -0.694
+===> Total for class ihm: 578.904
+=> Class sdm1
+===> autoencoding_recon_loss: 532.157
+===> real_gan_loss: -0.694
+===> fake_gan_loss: -0.687
+===> Total for class sdm1: 530.777
+TOTAL: 1109.681
+GENERATOR Train epoch 1: [6500/75224 (8.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 572.057
+===> real_gan_loss: -0.687
+===> fake_gan_loss: -0.694
+===> Total for class ihm: 570.676
+=> Class sdm1
+===> autoencoding_recon_loss: 520.428
+===> real_gan_loss: -0.694
+===> fake_gan_loss: -0.687
+===> Total for class sdm1: 519.047
+TOTAL: 1089.722
+GENERATOR Train epoch 1: [7000/75224 (9.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 563.406
+===> real_gan_loss: -0.688
+===> fake_gan_loss: -0.694
+===> Total for class ihm: 562.025
+=> Class sdm1
+===> autoencoding_recon_loss: 510.532
+===> real_gan_loss: -0.694
+===> fake_gan_loss: -0.688
+===> Total for class sdm1: 509.150
+TOTAL: 1071.175
+GENERATOR Train epoch 1: [7500/75224 (10.0%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 552.677
+===> real_gan_loss: -0.688
+===> fake_gan_loss: -0.694
+===> Total for class ihm: 551.296
+=> Class sdm1
+===> autoencoding_recon_loss: 498.294
+===> real_gan_loss: -0.694
+===> fake_gan_loss: -0.688
+===> Total for class sdm1: 496.912
+TOTAL: 1048.208
+GENERATOR Train epoch 1: [8000/75224 (10.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 543.732
+===> real_gan_loss: -0.688
+===> fake_gan_loss: -0.694
+===> Total for class ihm: 542.351
+=> Class sdm1
+===> autoencoding_recon_loss: 488.611
+===> real_gan_loss: -0.694
+===> fake_gan_loss: -0.688
+===> Total for class sdm1: 487.229
+TOTAL: 1029.580
+GENERATOR Train epoch 1: [8500/75224 (11.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 537.164
+===> real_gan_loss: -0.688
+===> fake_gan_loss: -0.694
+===> Total for class ihm: 535.782
+=> Class sdm1
+===> autoencoding_recon_loss: 479.613
+===> real_gan_loss: -0.694
+===> fake_gan_loss: -0.688
+===> Total for class sdm1: 478.231
+TOTAL: 1014.013
+GENERATOR Train epoch 1: [9000/75224 (12.0%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 528.774
+===> real_gan_loss: -0.688
+===> fake_gan_loss: -0.693
+===> Total for class ihm: 527.393
+=> Class sdm1
+===> autoencoding_recon_loss: 471.523
+===> real_gan_loss: -0.693
+===> fake_gan_loss: -0.688
+===> Total for class sdm1: 470.141
+TOTAL: 997.534
+GENERATOR Train epoch 1: [9500/75224 (12.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 519.940
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.693
+===> Total for class ihm: 518.558
+=> Class sdm1
+===> autoencoding_recon_loss: 463.304
+===> real_gan_loss: -0.693
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 461.922
+TOTAL: 980.480
+GENERATOR Train epoch 1: [10000/75224 (13.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 512.493
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.693
+===> Total for class ihm: 511.111
+=> Class sdm1
+===> autoencoding_recon_loss: 454.474
+===> real_gan_loss: -0.693
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 453.091
+TOTAL: 964.202
+GENERATOR Train epoch 1: [10500/75224 (14.0%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 504.599
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.693
+===> Total for class ihm: 503.217
+=> Class sdm1
+===> autoencoding_recon_loss: 445.861
+===> real_gan_loss: -0.693
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 444.479
+TOTAL: 947.696
+GENERATOR Train epoch 1: [11000/75224 (14.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 496.697
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.693
+===> Total for class ihm: 495.315
+=> Class sdm1
+===> autoencoding_recon_loss: 438.626
+===> real_gan_loss: -0.693
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 437.244
+TOTAL: 932.559
+GENERATOR Train epoch 1: [11500/75224 (15.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 487.475
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.693
+===> Total for class ihm: 486.093
+=> Class sdm1
+===> autoencoding_recon_loss: 431.563
+===> real_gan_loss: -0.693
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 430.181
+TOTAL: 916.274
+GENERATOR Train epoch 1: [12000/75224 (16.0%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 478.972
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.693
+===> Total for class ihm: 477.590
+=> Class sdm1
+===> autoencoding_recon_loss: 424.484
+===> real_gan_loss: -0.693
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 423.102
+TOTAL: 900.692
+GENERATOR Train epoch 1: [12500/75224 (16.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 470.241
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.693
+===> Total for class ihm: 468.858
+=> Class sdm1
+===> autoencoding_recon_loss: 416.889
+===> real_gan_loss: -0.693
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 415.506
+TOTAL: 884.365
+GENERATOR Train epoch 1: [13000/75224 (17.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 462.052
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.693
+===> Total for class ihm: 460.669
+=> Class sdm1
+===> autoencoding_recon_loss: 410.393
+===> real_gan_loss: -0.693
+===> fake_gan_loss: -0.690
+===> Total for class sdm1: 409.010
+TOTAL: 869.680
+GENERATOR Train epoch 1: [13500/75224 (17.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 453.778
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.693
+===> Total for class ihm: 452.395
+=> Class sdm1
+===> autoencoding_recon_loss: 402.864
+===> real_gan_loss: -0.693
+===> fake_gan_loss: -0.690
+===> Total for class sdm1: 401.481
+TOTAL: 853.876
+GENERATOR Train epoch 1: [14000/75224 (18.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 445.976
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.693
+===> Total for class ihm: 444.593
+=> Class sdm1
+===> autoencoding_recon_loss: 396.737
+===> real_gan_loss: -0.693
+===> fake_gan_loss: -0.690
+===> Total for class sdm1: 395.355
+TOTAL: 839.948
+GENERATOR Train epoch 1: [14500/75224 (19.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 437.758
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.693
+===> Total for class ihm: 436.375
+=> Class sdm1
+===> autoencoding_recon_loss: 389.700
+===> real_gan_loss: -0.693
+===> fake_gan_loss: -0.690
+===> Total for class sdm1: 388.317
+TOTAL: 824.692
+GENERATOR Train epoch 1: [15000/75224 (19.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 429.952
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.693
+===> Total for class ihm: 428.570
+=> Class sdm1
+===> autoencoding_recon_loss: 383.636
+===> real_gan_loss: -0.693
+===> fake_gan_loss: -0.690
+===> Total for class sdm1: 382.253
+TOTAL: 810.823
+GENERATOR Train epoch 1: [15500/75224 (20.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 422.572
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.693
+===> Total for class ihm: 421.189
+=> Class sdm1
+===> autoencoding_recon_loss: 377.377
+===> real_gan_loss: -0.693
+===> fake_gan_loss: -0.690
+===> Total for class sdm1: 375.994
+TOTAL: 797.184
+GENERATOR Train epoch 1: [16000/75224 (21.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 415.526
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.693
+===> Total for class ihm: 414.143
+=> Class sdm1
+===> autoencoding_recon_loss: 371.659
+===> real_gan_loss: -0.693
+===> fake_gan_loss: -0.690
+===> Total for class sdm1: 370.277
+TOTAL: 784.420
+GENERATOR Train epoch 1: [16500/75224 (21.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 408.834
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.693
+===> Total for class ihm: 407.452
+=> Class sdm1
+===> autoencoding_recon_loss: 365.994
+===> real_gan_loss: -0.693
+===> fake_gan_loss: -0.690
+===> Total for class sdm1: 364.612
+TOTAL: 772.063
+GENERATOR Train epoch 1: [17000/75224 (22.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 402.391
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.692
+===> Total for class ihm: 401.009
+=> Class sdm1
+===> autoencoding_recon_loss: 360.730
+===> real_gan_loss: -0.692
+===> fake_gan_loss: -0.690
+===> Total for class sdm1: 359.348
+TOTAL: 760.356
+GENERATOR Train epoch 1: [17500/75224 (23.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 395.601
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.692
+===> Total for class ihm: 394.219
+=> Class sdm1
+===> autoencoding_recon_loss: 354.842
+===> real_gan_loss: -0.692
+===> fake_gan_loss: -0.690
+===> Total for class sdm1: 353.459
+TOTAL: 747.679
+GENERATOR Train epoch 1: [18000/75224 (23.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 389.331
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.692
+===> Total for class ihm: 387.949
+=> Class sdm1
+===> autoencoding_recon_loss: 349.887
+===> real_gan_loss: -0.692
+===> fake_gan_loss: -0.690
+===> Total for class sdm1: 348.505
+TOTAL: 736.453
+GENERATOR Train epoch 1: [18500/75224 (24.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 383.342
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.692
+===> Total for class ihm: 381.960
+=> Class sdm1
+===> autoencoding_recon_loss: 344.600
+===> real_gan_loss: -0.692
+===> fake_gan_loss: -0.690
+===> Total for class sdm1: 343.218
+TOTAL: 725.178
+GENERATOR Train epoch 1: [19000/75224 (25.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 377.782
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.692
+===> Total for class ihm: 376.400
+=> Class sdm1
+===> autoencoding_recon_loss: 339.899
+===> real_gan_loss: -0.692
+===> fake_gan_loss: -0.690
+===> Total for class sdm1: 338.517
+TOTAL: 714.917
+GENERATOR Train epoch 1: [19500/75224 (25.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 371.897
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.692
+===> Total for class ihm: 370.515
+=> Class sdm1
+===> autoencoding_recon_loss: 335.291
+===> real_gan_loss: -0.692
+===> fake_gan_loss: -0.690
+===> Total for class sdm1: 333.910
+TOTAL: 704.425
+GENERATOR Train epoch 1: [20000/75224 (26.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 366.587
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.692
+===> Total for class ihm: 365.205
+=> Class sdm1
+===> autoencoding_recon_loss: 330.559
+===> real_gan_loss: -0.692
+===> fake_gan_loss: -0.690
+===> Total for class sdm1: 329.178
+TOTAL: 694.383
+GENERATOR Train epoch 1: [20500/75224 (27.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 361.141
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.691
+===> Total for class ihm: 359.760
+=> Class sdm1
+===> autoencoding_recon_loss: 326.256
+===> real_gan_loss: -0.691
+===> fake_gan_loss: -0.690
+===> Total for class sdm1: 324.875
+TOTAL: 684.635
+GENERATOR Train epoch 1: [21000/75224 (27.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 356.302
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.692
+===> Total for class ihm: 354.920
+=> Class sdm1
+===> autoencoding_recon_loss: 321.834
+===> real_gan_loss: -0.692
+===> fake_gan_loss: -0.690
+===> Total for class sdm1: 320.453
+TOTAL: 675.374
+GENERATOR Train epoch 1: [21500/75224 (28.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 351.538
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.692
+===> Total for class ihm: 350.157
+=> Class sdm1
+===> autoencoding_recon_loss: 317.916
+===> real_gan_loss: -0.692
+===> fake_gan_loss: -0.690
+===> Total for class sdm1: 316.535
+TOTAL: 666.691
+GENERATOR Train epoch 1: [22000/75224 (29.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 346.911
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.692
+===> Total for class ihm: 345.530
+=> Class sdm1
+===> autoencoding_recon_loss: 313.931
+===> real_gan_loss: -0.692
+===> fake_gan_loss: -0.690
+===> Total for class sdm1: 312.550
+TOTAL: 658.080
+GENERATOR Train epoch 1: [22500/75224 (29.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 342.217
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.691
+===> Total for class ihm: 340.835
+=> Class sdm1
+===> autoencoding_recon_loss: 310.423
+===> real_gan_loss: -0.691
+===> fake_gan_loss: -0.690
+===> Total for class sdm1: 309.042
+TOTAL: 649.877
+GENERATOR Train epoch 1: [23000/75224 (30.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 337.555
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.692
+===> Total for class ihm: 336.173
+=> Class sdm1
+===> autoencoding_recon_loss: 306.811
+===> real_gan_loss: -0.692
+===> fake_gan_loss: -0.690
+===> Total for class sdm1: 305.429
+TOTAL: 641.602
+GENERATOR Train epoch 1: [23500/75224 (31.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 333.057
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.692
+===> Total for class ihm: 331.675
+=> Class sdm1
+===> autoencoding_recon_loss: 302.782
+===> real_gan_loss: -0.692
+===> fake_gan_loss: -0.690
+===> Total for class sdm1: 301.400
+TOTAL: 633.076
+GENERATOR Train epoch 1: [24000/75224 (31.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 328.524
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.692
+===> Total for class ihm: 327.143
+=> Class sdm1
+===> autoencoding_recon_loss: 299.105
+===> real_gan_loss: -0.692
+===> fake_gan_loss: -0.690
+===> Total for class sdm1: 297.724
+TOTAL: 624.867
+GENERATOR Train epoch 1: [24500/75224 (32.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 324.100
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.692
+===> Total for class ihm: 322.718
+=> Class sdm1
+===> autoencoding_recon_loss: 295.623
+===> real_gan_loss: -0.692
+===> fake_gan_loss: -0.690
+===> Total for class sdm1: 294.242
+TOTAL: 616.960
+GENERATOR Train epoch 1: [25000/75224 (33.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 319.802
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.692
+===> Total for class ihm: 318.421
+=> Class sdm1
+===> autoencoding_recon_loss: 292.093
+===> real_gan_loss: -0.692
+===> fake_gan_loss: -0.690
+===> Total for class sdm1: 290.711
+TOTAL: 609.132
+GENERATOR Train epoch 1: [25500/75224 (33.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 315.415
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.691
+===> Total for class ihm: 314.034
+=> Class sdm1
+===> autoencoding_recon_loss: 288.713
+===> real_gan_loss: -0.691
+===> fake_gan_loss: -0.690
+===> Total for class sdm1: 287.332
+TOTAL: 601.365
+GENERATOR Train epoch 1: [26000/75224 (34.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 311.180
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.691
+===> Total for class ihm: 309.799
+=> Class sdm1
+===> autoencoding_recon_loss: 285.097
+===> real_gan_loss: -0.691
+===> fake_gan_loss: -0.690
+===> Total for class sdm1: 283.716
+TOTAL: 593.515
+GENERATOR Train epoch 1: [26500/75224 (35.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 306.974
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.691
+===> Total for class ihm: 305.594
+=> Class sdm1
+===> autoencoding_recon_loss: 281.626
+===> real_gan_loss: -0.691
+===> fake_gan_loss: -0.690
+===> Total for class sdm1: 280.246
+TOTAL: 585.840
+GENERATOR Train epoch 1: [27000/75224 (35.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 302.929
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.691
+===> Total for class ihm: 301.548
+=> Class sdm1
+===> autoencoding_recon_loss: 278.319
+===> real_gan_loss: -0.691
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 276.938
+TOTAL: 578.486
+GENERATOR Train epoch 1: [27500/75224 (36.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 299.005
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.691
+===> Total for class ihm: 297.625
+=> Class sdm1
+===> autoencoding_recon_loss: 275.018
+===> real_gan_loss: -0.691
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 273.638
+TOTAL: 571.263
+GENERATOR Train epoch 1: [28000/75224 (37.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 295.234
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.691
+===> Total for class ihm: 293.854
+=> Class sdm1
+===> autoencoding_recon_loss: 271.785
+===> real_gan_loss: -0.691
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 270.405
+TOTAL: 564.258
+GENERATOR Train epoch 1: [28500/75224 (37.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 291.513
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.691
+===> Total for class ihm: 290.133
+=> Class sdm1
+===> autoencoding_recon_loss: 268.763
+===> real_gan_loss: -0.691
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 267.383
+TOTAL: 557.516
+GENERATOR Train epoch 1: [29000/75224 (38.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 287.894
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.691
+===> Total for class ihm: 286.513
+=> Class sdm1
+===> autoencoding_recon_loss: 265.767
+===> real_gan_loss: -0.691
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 264.387
+TOTAL: 550.900
+GENERATOR Train epoch 1: [29500/75224 (39.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 284.340
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.691
+===> Total for class ihm: 282.959
+=> Class sdm1
+===> autoencoding_recon_loss: 262.829
+===> real_gan_loss: -0.691
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 261.449
+TOTAL: 544.408
+GENERATOR Train epoch 1: [30000/75224 (39.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 280.993
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.690
+===> Total for class ihm: 279.613
+=> Class sdm1
+===> autoencoding_recon_loss: 259.968
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 258.588
+TOTAL: 538.201
+GENERATOR Train epoch 1: [30500/75224 (40.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 277.669
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.690
+===> Total for class ihm: 276.289
+=> Class sdm1
+===> autoencoding_recon_loss: 257.212
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 255.832
+TOTAL: 532.121
+GENERATOR Train epoch 1: [31000/75224 (41.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 274.465
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.691
+===> Total for class ihm: 273.085
+=> Class sdm1
+===> autoencoding_recon_loss: 254.469
+===> real_gan_loss: -0.691
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 253.089
+TOTAL: 526.174
+GENERATOR Train epoch 1: [31500/75224 (41.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 271.290
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.690
+===> Total for class ihm: 269.911
+=> Class sdm1
+===> autoencoding_recon_loss: 251.874
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 250.494
+TOTAL: 520.405
+GENERATOR Train epoch 1: [32000/75224 (42.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 268.208
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.690
+===> Total for class ihm: 266.828
+=> Class sdm1
+===> autoencoding_recon_loss: 249.370
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 247.991
+TOTAL: 514.819
+GENERATOR Train epoch 1: [32500/75224 (43.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 265.223
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.690
+===> Total for class ihm: 263.843
+=> Class sdm1
+===> autoencoding_recon_loss: 246.728
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 245.348
+TOTAL: 509.192
+GENERATOR Train epoch 1: [33000/75224 (43.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 262.333
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.690
+===> Total for class ihm: 260.953
+=> Class sdm1
+===> autoencoding_recon_loss: 244.248
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 242.869
+TOTAL: 503.822
+GENERATOR Train epoch 1: [33500/75224 (44.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 259.427
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.690
+===> Total for class ihm: 258.047
+=> Class sdm1
+===> autoencoding_recon_loss: 241.873
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 240.493
+TOTAL: 498.540
+GENERATOR Train epoch 1: [34000/75224 (45.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 256.584
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.690
+===> Total for class ihm: 255.204
+=> Class sdm1
+===> autoencoding_recon_loss: 239.420
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 238.040
+TOTAL: 493.245
+GENERATOR Train epoch 1: [34500/75224 (45.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 253.801
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.690
+===> Total for class ihm: 252.421
+=> Class sdm1
+===> autoencoding_recon_loss: 237.044
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 235.665
+TOTAL: 488.086
+GENERATOR Train epoch 1: [35000/75224 (46.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 251.108
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.690
+===> Total for class ihm: 249.729
+=> Class sdm1
+===> autoencoding_recon_loss: 234.710
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 233.331
+TOTAL: 483.060
+GENERATOR Train epoch 1: [35500/75224 (47.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 248.523
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.690
+===> Total for class ihm: 247.144
+=> Class sdm1
+===> autoencoding_recon_loss: 232.468
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 231.089
+TOTAL: 478.232
+GENERATOR Train epoch 1: [36000/75224 (47.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 245.977
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.690
+===> Total for class ihm: 244.598
+=> Class sdm1
+===> autoencoding_recon_loss: 230.342
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 228.962
+TOTAL: 473.560
+GENERATOR Train epoch 1: [36500/75224 (48.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 243.479
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.690
+===> Total for class ihm: 242.099
+=> Class sdm1
+===> autoencoding_recon_loss: 228.230
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 226.850
+TOTAL: 468.950
+GENERATOR Train epoch 1: [37000/75224 (49.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 241.030
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.690
+===> Total for class ihm: 239.651
+=> Class sdm1
+===> autoencoding_recon_loss: 226.108
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 224.729
+TOTAL: 464.380
+GENERATOR Train epoch 1: [37500/75224 (49.9%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 238.628
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.690
+===> Total for class ihm: 237.249
+=> Class sdm1
+===> autoencoding_recon_loss: 224.011
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 222.632
+TOTAL: 459.881
+GENERATOR Train epoch 1: [38000/75224 (50.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 236.269
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.690
+===> Total for class ihm: 234.890
+=> Class sdm1
+===> autoencoding_recon_loss: 221.977
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 220.598
+TOTAL: 455.488
+GENERATOR Train epoch 1: [38500/75224 (51.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 233.966
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.690
+===> Total for class ihm: 232.587
+=> Class sdm1
+===> autoencoding_recon_loss: 220.035
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 218.657
+TOTAL: 451.244
+GENERATOR Train epoch 1: [39000/75224 (51.8%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 231.684
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.690
+===> Total for class ihm: 230.305
+=> Class sdm1
+===> autoencoding_recon_loss: 218.138
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 216.760
+TOTAL: 447.065
+GENERATOR Train epoch 1: [39500/75224 (52.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 229.475
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.690
+===> Total for class ihm: 228.096
+=> Class sdm1
+===> autoencoding_recon_loss: 216.210
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 214.831
+TOTAL: 442.928
+GENERATOR Train epoch 1: [40000/75224 (53.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 227.269
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.690
+===> Total for class ihm: 225.891
+=> Class sdm1
+===> autoencoding_recon_loss: 214.312
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 212.934
+TOTAL: 438.825
+GENERATOR Train epoch 1: [40500/75224 (53.8%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 225.132
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.690
+===> Total for class ihm: 223.754
+=> Class sdm1
+===> autoencoding_recon_loss: 212.499
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 211.120
+TOTAL: 434.874
+GENERATOR Train epoch 1: [41000/75224 (54.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 223.058
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.690
+===> Total for class ihm: 221.679
+=> Class sdm1
+===> autoencoding_recon_loss: 210.661
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 209.283
+TOTAL: 430.962
+GENERATOR Train epoch 1: [41500/75224 (55.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 221.011
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.690
+===> Total for class ihm: 219.633
+=> Class sdm1
+===> autoencoding_recon_loss: 208.908
+===> real_gan_loss: -0.690
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 207.530
+TOTAL: 427.164
+GENERATOR Train epoch 1: [42000/75224 (55.8%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 219.010
+===> real_gan_loss: -0.688
+===> fake_gan_loss: -0.689
+===> Total for class ihm: 217.632
+=> Class sdm1
+===> autoencoding_recon_loss: 207.180
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.688
+===> Total for class sdm1: 205.802
+TOTAL: 423.434
+GENERATOR Train epoch 1: [42500/75224 (56.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 217.041
+===> real_gan_loss: -0.688
+===> fake_gan_loss: -0.689
+===> Total for class ihm: 215.663
+=> Class sdm1
+===> autoencoding_recon_loss: 205.485
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.688
+===> Total for class sdm1: 204.107
+TOTAL: 419.770
+GENERATOR Train epoch 1: [43000/75224 (57.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 215.106
+===> real_gan_loss: -0.688
+===> fake_gan_loss: -0.689
+===> Total for class ihm: 213.729
+=> Class sdm1
+===> autoencoding_recon_loss: 203.800
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.688
+===> Total for class sdm1: 202.423
+TOTAL: 416.152
+GENERATOR Train epoch 1: [43500/75224 (57.8%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 213.251
+===> real_gan_loss: -0.688
+===> fake_gan_loss: -0.689
+===> Total for class ihm: 211.874
+=> Class sdm1
+===> autoencoding_recon_loss: 202.118
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.688
+===> Total for class sdm1: 200.741
+TOTAL: 412.615
+GENERATOR Train epoch 1: [44000/75224 (58.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 211.357
+===> real_gan_loss: -0.688
+===> fake_gan_loss: -0.689
+===> Total for class ihm: 209.980
+=> Class sdm1
+===> autoencoding_recon_loss: 200.561
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.688
+===> Total for class sdm1: 199.184
+TOTAL: 409.164
+GENERATOR Train epoch 1: [44500/75224 (59.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 209.538
+===> real_gan_loss: -0.688
+===> fake_gan_loss: -0.689
+===> Total for class ihm: 208.161
+=> Class sdm1
+===> autoencoding_recon_loss: 198.987
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.688
+===> Total for class sdm1: 197.609
+TOTAL: 405.770
+GENERATOR Train epoch 1: [45000/75224 (59.8%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 207.780
+===> real_gan_loss: -0.688
+===> fake_gan_loss: -0.689
+===> Total for class ihm: 206.403
+=> Class sdm1
+===> autoencoding_recon_loss: 197.427
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.688
+===> Total for class sdm1: 196.050
+TOTAL: 402.453
+GENERATOR Train epoch 1: [45500/75224 (60.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 206.000
+===> real_gan_loss: -0.688
+===> fake_gan_loss: -0.689
+===> Total for class ihm: 204.623
+=> Class sdm1
+===> autoencoding_recon_loss: 195.896
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.688
+===> Total for class sdm1: 194.519
+TOTAL: 399.142
+GENERATOR Train epoch 1: [46000/75224 (61.2%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 204.300
+===> real_gan_loss: -0.688
+===> fake_gan_loss: -0.689
+===> Total for class ihm: 202.923
+=> Class sdm1
+===> autoencoding_recon_loss: 194.435
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.688
+===> Total for class sdm1: 193.058
+TOTAL: 395.981
+GENERATOR Train epoch 1: [46500/75224 (61.8%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 202.582
+===> real_gan_loss: -0.688
+===> fake_gan_loss: -0.689
+===> Total for class ihm: 201.205
+=> Class sdm1
+===> autoencoding_recon_loss: 192.987
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.688
+===> Total for class sdm1: 191.610
+TOTAL: 392.815
+GENERATOR Train epoch 1: [47000/75224 (62.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 200.949
+===> real_gan_loss: -0.688
+===> fake_gan_loss: -0.689
+===> Total for class ihm: 199.572
+=> Class sdm1
+===> autoencoding_recon_loss: 191.602
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.688
+===> Total for class sdm1: 190.225
+TOTAL: 389.798
+GENERATOR Train epoch 1: [47500/75224 (63.1%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 199.336
+===> real_gan_loss: -0.688
+===> fake_gan_loss: -0.689
+===> Total for class ihm: 197.960
+=> Class sdm1
+===> autoencoding_recon_loss: 190.226
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.688
+===> Total for class sdm1: 188.850
+TOTAL: 386.810
+GENERATOR Train epoch 1: [48000/75224 (63.8%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 197.714
+===> real_gan_loss: -0.687
+===> fake_gan_loss: -0.689
+===> Total for class ihm: 196.338
+=> Class sdm1
+===> autoencoding_recon_loss: 188.828
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.687
+===> Total for class sdm1: 187.452
+TOTAL: 383.790
+GENERATOR Train epoch 1: [48500/75224 (64.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 196.169
+===> real_gan_loss: -0.687
+===> fake_gan_loss: -0.688
+===> Total for class ihm: 194.793
+=> Class sdm1
+===> autoencoding_recon_loss: 187.481
+===> real_gan_loss: -0.688
+===> fake_gan_loss: -0.687
+===> Total for class sdm1: 186.105
+TOTAL: 380.897
+GENERATOR Train epoch 1: [49000/75224 (65.1%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 194.632
+===> real_gan_loss: -0.687
+===> fake_gan_loss: -0.689
+===> Total for class ihm: 193.256
+=> Class sdm1
+===> autoencoding_recon_loss: 186.163
+===> real_gan_loss: -0.689
+===> fake_gan_loss: -0.687
+===> Total for class sdm1: 184.787
+TOTAL: 378.043
+GENERATOR Train epoch 1: [49500/75224 (65.8%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 193.123
+===> real_gan_loss: -0.687
+===> fake_gan_loss: -0.688
+===> Total for class ihm: 191.748
+=> Class sdm1
+===> autoencoding_recon_loss: 184.868
+===> real_gan_loss: -0.688
+===> fake_gan_loss: -0.687
+===> Total for class sdm1: 183.492
+TOTAL: 375.240
+GENERATOR Train epoch 1: [50000/75224 (66.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 191.658
+===> real_gan_loss: -0.687
+===> fake_gan_loss: -0.688
+===> Total for class ihm: 190.283
+=> Class sdm1
+===> autoencoding_recon_loss: 183.546
+===> real_gan_loss: -0.688
+===> fake_gan_loss: -0.687
+===> Total for class sdm1: 182.171
+TOTAL: 372.453
+GENERATOR Train epoch 1: [50500/75224 (67.1%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 190.192
+===> real_gan_loss: -0.687
+===> fake_gan_loss: -0.688
+===> Total for class ihm: 188.817
+=> Class sdm1
+===> autoencoding_recon_loss: 182.328
+===> real_gan_loss: -0.688
+===> fake_gan_loss: -0.687
+===> Total for class sdm1: 180.953
+TOTAL: 369.770
+GENERATOR Train epoch 1: [51000/75224 (67.8%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 188.732
+===> real_gan_loss: -0.687
+===> fake_gan_loss: -0.688
+===> Total for class ihm: 187.357
+=> Class sdm1
+===> autoencoding_recon_loss: 181.090
+===> real_gan_loss: -0.688
+===> fake_gan_loss: -0.687
+===> Total for class sdm1: 179.715
+TOTAL: 367.072
+GENERATOR Train epoch 1: [51500/75224 (68.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 187.303
+===> real_gan_loss: -0.687
+===> fake_gan_loss: -0.688
+===> Total for class ihm: 185.928
+=> Class sdm1
+===> autoencoding_recon_loss: 179.857
+===> real_gan_loss: -0.688
+===> fake_gan_loss: -0.687
+===> Total for class sdm1: 178.483
+TOTAL: 364.411
+GENERATOR Train epoch 1: [52000/75224 (69.1%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 185.896
+===> real_gan_loss: -0.687
+===> fake_gan_loss: -0.688
+===> Total for class ihm: 184.521
+=> Class sdm1
+===> autoencoding_recon_loss: 178.634
+===> real_gan_loss: -0.688
+===> fake_gan_loss: -0.687
+===> Total for class sdm1: 177.259
+TOTAL: 361.781
+GENERATOR Train epoch 1: [52500/75224 (69.8%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 184.534
+===> real_gan_loss: -0.687
+===> fake_gan_loss: -0.688
+===> Total for class ihm: 183.159
+=> Class sdm1
+===> autoencoding_recon_loss: 177.449
+===> real_gan_loss: -0.688
+===> fake_gan_loss: -0.687
+===> Total for class sdm1: 176.075
+TOTAL: 359.234
+GENERATOR Train epoch 1: [53000/75224 (70.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 183.216
+===> real_gan_loss: -0.687
+===> fake_gan_loss: -0.688
+===> Total for class ihm: 181.841
+=> Class sdm1
+===> autoencoding_recon_loss: 176.265
+===> real_gan_loss: -0.688
+===> fake_gan_loss: -0.687
+===> Total for class sdm1: 174.891
+TOTAL: 356.733
+GENERATOR Train epoch 1: [53500/75224 (71.1%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 181.895
+===> real_gan_loss: -0.686
+===> fake_gan_loss: -0.688
+===> Total for class ihm: 180.521
+=> Class sdm1
+===> autoencoding_recon_loss: 175.129
+===> real_gan_loss: -0.688
+===> fake_gan_loss: -0.686
+===> Total for class sdm1: 173.755
+TOTAL: 354.276
+GENERATOR Train epoch 1: [54000/75224 (71.8%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 180.587
+===> real_gan_loss: -0.686
+===> fake_gan_loss: -0.688
+===> Total for class ihm: 179.214
+=> Class sdm1
+===> autoencoding_recon_loss: 173.998
+===> real_gan_loss: -0.688
+===> fake_gan_loss: -0.686
+===> Total for class sdm1: 172.624
+TOTAL: 351.838
+GENERATOR Train epoch 1: [54500/75224 (72.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 179.298
+===> real_gan_loss: -0.686
+===> fake_gan_loss: -0.687
+===> Total for class ihm: 177.925
+=> Class sdm1
+===> autoencoding_recon_loss: 172.883
+===> real_gan_loss: -0.687
+===> fake_gan_loss: -0.686
+===> Total for class sdm1: 171.510
+TOTAL: 349.435
+GENERATOR Train epoch 1: [55000/75224 (73.1%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 178.043
+===> real_gan_loss: -0.686
+===> fake_gan_loss: -0.687
+===> Total for class ihm: 176.670
+=> Class sdm1
+===> autoencoding_recon_loss: 171.763
+===> real_gan_loss: -0.687
+===> fake_gan_loss: -0.686
+===> Total for class sdm1: 170.390
+TOTAL: 347.059
+GENERATOR Train epoch 1: [55500/75224 (73.8%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 176.798
+===> real_gan_loss: -0.686
+===> fake_gan_loss: -0.687
+===> Total for class ihm: 175.425
+=> Class sdm1
+===> autoencoding_recon_loss: 170.676
+===> real_gan_loss: -0.687
+===> fake_gan_loss: -0.686
+===> Total for class sdm1: 169.303
+TOTAL: 344.728
+GENERATOR Train epoch 1: [56000/75224 (74.4%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 175.598
+===> real_gan_loss: -0.686
+===> fake_gan_loss: -0.687
+===> Total for class ihm: 174.225
+=> Class sdm1
+===> autoencoding_recon_loss: 169.572
+===> real_gan_loss: -0.687
+===> fake_gan_loss: -0.686
+===> Total for class sdm1: 168.199
+TOTAL: 342.423
+GENERATOR Train epoch 1: [56500/75224 (75.1%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 174.385
+===> real_gan_loss: -0.686
+===> fake_gan_loss: -0.687
+===> Total for class ihm: 173.011
+=> Class sdm1
+===> autoencoding_recon_loss: 168.454
+===> real_gan_loss: -0.687
+===> fake_gan_loss: -0.686
+===> Total for class sdm1: 167.081
+TOTAL: 340.093
+GENERATOR Train epoch 1: [57000/75224 (75.8%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 173.194
+===> real_gan_loss: -0.686
+===> fake_gan_loss: -0.687
+===> Total for class ihm: 171.822
+=> Class sdm1
+===> autoencoding_recon_loss: 167.399
+===> real_gan_loss: -0.687
+===> fake_gan_loss: -0.686
+===> Total for class sdm1: 166.026
+TOTAL: 337.847
+GENERATOR Train epoch 1: [57500/75224 (76.4%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 172.029
+===> real_gan_loss: -0.686
+===> fake_gan_loss: -0.687
+===> Total for class ihm: 170.657
+=> Class sdm1
+===> autoencoding_recon_loss: 166.384
+===> real_gan_loss: -0.687
+===> fake_gan_loss: -0.686
+===> Total for class sdm1: 165.011
+TOTAL: 335.668
+GENERATOR Train epoch 1: [58000/75224 (77.1%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 170.889
+===> real_gan_loss: -0.686
+===> fake_gan_loss: -0.687
+===> Total for class ihm: 169.516
+=> Class sdm1
+===> autoencoding_recon_loss: 165.403
+===> real_gan_loss: -0.687
+===> fake_gan_loss: -0.686
+===> Total for class sdm1: 164.030
+TOTAL: 333.546
+GENERATOR Train epoch 1: [58500/75224 (77.8%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 169.759
+===> real_gan_loss: -0.686
+===> fake_gan_loss: -0.687
+===> Total for class ihm: 168.387
+=> Class sdm1
+===> autoencoding_recon_loss: 164.397
+===> real_gan_loss: -0.687
+===> fake_gan_loss: -0.686
+===> Total for class sdm1: 163.024
+TOTAL: 331.411
+GENERATOR Train epoch 1: [59000/75224 (78.4%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 168.655
+===> real_gan_loss: -0.686
+===> fake_gan_loss: -0.687
+===> Total for class ihm: 167.282
+=> Class sdm1
+===> autoencoding_recon_loss: 163.449
+===> real_gan_loss: -0.687
+===> fake_gan_loss: -0.686
+===> Total for class sdm1: 162.076
+TOTAL: 329.358
+GENERATOR Train epoch 1: [59500/75224 (79.1%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 167.540
+===> real_gan_loss: -0.686
+===> fake_gan_loss: -0.687
+===> Total for class ihm: 166.168
+=> Class sdm1
+===> autoencoding_recon_loss: 162.469
+===> real_gan_loss: -0.687
+===> fake_gan_loss: -0.686
+===> Total for class sdm1: 161.096
+TOTAL: 327.264
+GENERATOR Train epoch 1: [60000/75224 (79.8%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 166.446
+===> real_gan_loss: -0.686
+===> fake_gan_loss: -0.687
+===> Total for class ihm: 165.074
+=> Class sdm1
+===> autoencoding_recon_loss: 161.475
+===> real_gan_loss: -0.687
+===> fake_gan_loss: -0.686
+===> Total for class sdm1: 160.103
+TOTAL: 325.176
+GENERATOR Train epoch 1: [60500/75224 (80.4%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 165.395
+===> real_gan_loss: -0.685
+===> fake_gan_loss: -0.686
+===> Total for class ihm: 164.023
+=> Class sdm1
+===> autoencoding_recon_loss: 160.530
+===> real_gan_loss: -0.686
+===> fake_gan_loss: -0.685
+===> Total for class sdm1: 159.158
+TOTAL: 323.181
+GENERATOR Train epoch 1: [61000/75224 (81.1%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 164.349
+===> real_gan_loss: -0.685
+===> fake_gan_loss: -0.686
+===> Total for class ihm: 162.977
+=> Class sdm1
+===> autoencoding_recon_loss: 159.592
+===> real_gan_loss: -0.686
+===> fake_gan_loss: -0.685
+===> Total for class sdm1: 158.221
+TOTAL: 321.198
+GENERATOR Train epoch 1: [61500/75224 (81.8%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 163.320
+===> real_gan_loss: -0.685
+===> fake_gan_loss: -0.687
+===> Total for class ihm: 161.948
+=> Class sdm1
+===> autoencoding_recon_loss: 158.678
+===> real_gan_loss: -0.687
+===> fake_gan_loss: -0.685
+===> Total for class sdm1: 157.306
+TOTAL: 319.254
+GENERATOR Train epoch 1: [62000/75224 (82.4%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 162.291
+===> real_gan_loss: -0.685
+===> fake_gan_loss: -0.686
+===> Total for class ihm: 160.920
+=> Class sdm1
+===> autoencoding_recon_loss: 157.790
+===> real_gan_loss: -0.686
+===> fake_gan_loss: -0.685
+===> Total for class sdm1: 156.419
+TOTAL: 317.338
+GENERATOR Train epoch 1: [62500/75224 (83.1%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 161.287
+===> real_gan_loss: -0.685
+===> fake_gan_loss: -0.686
+===> Total for class ihm: 159.916
+=> Class sdm1
+===> autoencoding_recon_loss: 156.877
+===> real_gan_loss: -0.686
+===> fake_gan_loss: -0.685
+===> Total for class sdm1: 155.506
+TOTAL: 315.421
+GENERATOR Train epoch 1: [63000/75224 (83.7%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 160.301
+===> real_gan_loss: -0.685
+===> fake_gan_loss: -0.686
+===> Total for class ihm: 158.930
+=> Class sdm1
+===> autoencoding_recon_loss: 155.995
+===> real_gan_loss: -0.686
+===> fake_gan_loss: -0.685
+===> Total for class sdm1: 154.624
+TOTAL: 313.554
+GENERATOR Train epoch 1: [63500/75224 (84.4%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 159.314
+===> real_gan_loss: -0.685
+===> fake_gan_loss: -0.686
+===> Total for class ihm: 157.943
+=> Class sdm1
+===> autoencoding_recon_loss: 155.146
+===> real_gan_loss: -0.686
+===> fake_gan_loss: -0.685
+===> Total for class sdm1: 153.775
+TOTAL: 311.719
+GENERATOR Train epoch 1: [64000/75224 (85.1%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 158.356
+===> real_gan_loss: -0.685
+===> fake_gan_loss: -0.686
+===> Total for class ihm: 156.985
+=> Class sdm1
+===> autoencoding_recon_loss: 154.289
+===> real_gan_loss: -0.686
+===> fake_gan_loss: -0.685
+===> Total for class sdm1: 152.918
+TOTAL: 309.904
+GENERATOR Train epoch 1: [64500/75224 (85.7%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 157.413
+===> real_gan_loss: -0.685
+===> fake_gan_loss: -0.686
+===> Total for class ihm: 156.042
+=> Class sdm1
+===> autoencoding_recon_loss: 153.455
+===> real_gan_loss: -0.686
+===> fake_gan_loss: -0.685
+===> Total for class sdm1: 152.084
+TOTAL: 308.127
+GENERATOR Train epoch 1: [65000/75224 (86.4%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 156.476
+===> real_gan_loss: -0.685
+===> fake_gan_loss: -0.686
+===> Total for class ihm: 155.105
+=> Class sdm1
+===> autoencoding_recon_loss: 152.639
+===> real_gan_loss: -0.686
+===> fake_gan_loss: -0.685
+===> Total for class sdm1: 151.268
+TOTAL: 306.374
+GENERATOR Train epoch 1: [65500/75224 (87.1%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 155.557
+===> real_gan_loss: -0.684
+===> fake_gan_loss: -0.686
+===> Total for class ihm: 154.187
+=> Class sdm1
+===> autoencoding_recon_loss: 151.842
+===> real_gan_loss: -0.686
+===> fake_gan_loss: -0.684
+===> Total for class sdm1: 150.472
+TOTAL: 304.659
+GENERATOR Train epoch 1: [66000/75224 (87.7%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 154.636
+===> real_gan_loss: -0.684
+===> fake_gan_loss: -0.686
+===> Total for class ihm: 153.266
+=> Class sdm1
+===> autoencoding_recon_loss: 151.017
+===> real_gan_loss: -0.686
+===> fake_gan_loss: -0.684
+===> Total for class sdm1: 149.647
+TOTAL: 302.913
+GENERATOR Train epoch 1: [66500/75224 (88.4%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 153.737
+===> real_gan_loss: -0.684
+===> fake_gan_loss: -0.685
+===> Total for class ihm: 152.368
+=> Class sdm1
+===> autoencoding_recon_loss: 150.208
+===> real_gan_loss: -0.685
+===> fake_gan_loss: -0.684
+===> Total for class sdm1: 148.839
+TOTAL: 301.206
+GENERATOR Train epoch 1: [67000/75224 (89.1%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 152.844
+===> real_gan_loss: -0.684
+===> fake_gan_loss: -0.685
+===> Total for class ihm: 151.475
+=> Class sdm1
+===> autoencoding_recon_loss: 149.425
+===> real_gan_loss: -0.685
+===> fake_gan_loss: -0.684
+===> Total for class sdm1: 148.055
+TOTAL: 299.530
+GENERATOR Train epoch 1: [67500/75224 (89.7%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 151.967
+===> real_gan_loss: -0.684
+===> fake_gan_loss: -0.685
+===> Total for class ihm: 150.598
+=> Class sdm1
+===> autoencoding_recon_loss: 148.632
+===> real_gan_loss: -0.685
+===> fake_gan_loss: -0.684
+===> Total for class sdm1: 147.263
+TOTAL: 297.861
+GENERATOR Train epoch 1: [68000/75224 (90.4%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 151.095
+===> real_gan_loss: -0.684
+===> fake_gan_loss: -0.686
+===> Total for class ihm: 149.725
+=> Class sdm1
+===> autoencoding_recon_loss: 147.871
+===> real_gan_loss: -0.686
+===> fake_gan_loss: -0.684
+===> Total for class sdm1: 146.502
+TOTAL: 296.227
+GENERATOR Train epoch 1: [68500/75224 (91.1%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 150.248
+===> real_gan_loss: -0.684
+===> fake_gan_loss: -0.686
+===> Total for class ihm: 148.878
+=> Class sdm1
+===> autoencoding_recon_loss: 147.140
+===> real_gan_loss: -0.686
+===> fake_gan_loss: -0.684
+===> Total for class sdm1: 145.771
+TOTAL: 294.649
+GENERATOR Train epoch 1: [69000/75224 (91.7%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 149.396
+===> real_gan_loss: -0.684
+===> fake_gan_loss: -0.685
+===> Total for class ihm: 148.026
+=> Class sdm1
+===> autoencoding_recon_loss: 146.401
+===> real_gan_loss: -0.685
+===> fake_gan_loss: -0.684
+===> Total for class sdm1: 145.032
+TOTAL: 293.058
+GENERATOR Train epoch 1: [69500/75224 (92.4%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 148.592
+===> real_gan_loss: -0.684
+===> fake_gan_loss: -0.685
+===> Total for class ihm: 147.223
+=> Class sdm1
+===> autoencoding_recon_loss: 145.669
+===> real_gan_loss: -0.685
+===> fake_gan_loss: -0.684
+===> Total for class sdm1: 144.300
+TOTAL: 291.523
+GENERATOR Train epoch 1: [70000/75224 (93.1%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 147.760
+===> real_gan_loss: -0.684
+===> fake_gan_loss: -0.685
+===> Total for class ihm: 146.391
+=> Class sdm1
+===> autoencoding_recon_loss: 144.954
+===> real_gan_loss: -0.685
+===> fake_gan_loss: -0.684
+===> Total for class sdm1: 143.585
+TOTAL: 289.975
+GENERATOR Train epoch 1: [70500/75224 (93.7%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 146.942
+===> real_gan_loss: -0.684
+===> fake_gan_loss: -0.685
+===> Total for class ihm: 145.572
+=> Class sdm1
+===> autoencoding_recon_loss: 144.216
+===> real_gan_loss: -0.685
+===> fake_gan_loss: -0.684
+===> Total for class sdm1: 142.846
+TOTAL: 288.419
+GENERATOR Train epoch 1: [71000/75224 (94.4%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 146.144
+===> real_gan_loss: -0.684
+===> fake_gan_loss: -0.685
+===> Total for class ihm: 144.775
+=> Class sdm1
+===> autoencoding_recon_loss: 143.490
+===> real_gan_loss: -0.685
+===> fake_gan_loss: -0.684
+===> Total for class sdm1: 142.120
+TOTAL: 286.895
+GENERATOR Train epoch 1: [71500/75224 (95.0%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 145.343
+===> real_gan_loss: -0.684
+===> fake_gan_loss: -0.685
+===> Total for class ihm: 143.973
+=> Class sdm1
+===> autoencoding_recon_loss: 142.763
+===> real_gan_loss: -0.685
+===> fake_gan_loss: -0.684
+===> Total for class sdm1: 141.394
+TOTAL: 285.367
+GENERATOR Train epoch 1: [72000/75224 (95.7%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 144.562
+===> real_gan_loss: -0.684
+===> fake_gan_loss: -0.685
+===> Total for class ihm: 143.192
+=> Class sdm1
+===> autoencoding_recon_loss: 142.053
+===> real_gan_loss: -0.685
+===> fake_gan_loss: -0.684
+===> Total for class sdm1: 140.683
+TOTAL: 283.876
+GENERATOR Train epoch 1: [72500/75224 (96.4%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 143.804
+===> real_gan_loss: -0.684
+===> fake_gan_loss: -0.685
+===> Total for class ihm: 142.435
+=> Class sdm1
+===> autoencoding_recon_loss: 141.369
+===> real_gan_loss: -0.685
+===> fake_gan_loss: -0.684
+===> Total for class sdm1: 139.999
+TOTAL: 282.434
+GENERATOR Train epoch 1: [73000/75224 (97.0%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 143.043
+===> real_gan_loss: -0.684
+===> fake_gan_loss: -0.685
+===> Total for class ihm: 141.674
+=> Class sdm1
+===> autoencoding_recon_loss: 140.666
+===> real_gan_loss: -0.685
+===> fake_gan_loss: -0.684
+===> Total for class sdm1: 139.296
+TOTAL: 280.970
+GENERATOR Train epoch 1: [73500/75224 (97.7%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 142.284
+===> real_gan_loss: -0.684
+===> fake_gan_loss: -0.685
+===> Total for class ihm: 140.915
+=> Class sdm1
+===> autoencoding_recon_loss: 140.005
+===> real_gan_loss: -0.685
+===> fake_gan_loss: -0.684
+===> Total for class sdm1: 138.636
+TOTAL: 279.551
+GENERATOR Train epoch 1: [74000/75224 (98.4%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 141.545
+===> real_gan_loss: -0.684
+===> fake_gan_loss: -0.685
+===> Total for class ihm: 140.176
+=> Class sdm1
+===> autoencoding_recon_loss: 139.335
+===> real_gan_loss: -0.685
+===> fake_gan_loss: -0.684
+===> Total for class sdm1: 137.966
+TOTAL: 278.142
+GENERATOR Train epoch 1: [74500/75224 (99.0%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 140.808
+===> real_gan_loss: -0.684
+===> fake_gan_loss: -0.685
+===> Total for class ihm: 139.439
+=> Class sdm1
+===> autoencoding_recon_loss: 138.653
+===> real_gan_loss: -0.685
+===> fake_gan_loss: -0.684
+===> Total for class sdm1: 137.284
+TOTAL: 276.723
+GENERATOR Train epoch 1: [75000/75224 (99.7%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 140.076
+===> real_gan_loss: -0.684
+===> fake_gan_loss: -0.685
+===> Total for class ihm: 138.707
+=> Class sdm1
+===> autoencoding_recon_loss: 138.011
+===> real_gan_loss: -0.685
+===> fake_gan_loss: -0.684
+===> Total for class sdm1: 136.642
+TOTAL: 275.350
+
+EPOCH 1 TRAIN (5249.433s)
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 139.756
+===> real_gan_loss: -0.684
+===> fake_gan_loss: -0.685
+===> Total for class ihm: 138.387
+=> Class sdm1
+===> autoencoding_recon_loss: 137.717
+===> real_gan_loss: -0.685
+===> fake_gan_loss: -0.684
+===> Total for class sdm1: 136.348
+TOTAL: 274.735
+
+EPOCH 1 DEV (163.498s)
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 33.826
+===> real_gan_loss: -0.691
+===> fake_gan_loss: -0.682
+===> Total for class ihm: 32.453
+=> Class sdm1
+===> autoencoding_recon_loss: 40.240
+===> real_gan_loss: -0.682
+===> fake_gan_loss: -0.689
+===> Total for class sdm1: 38.869
+TOTAL: 71.322
+
+New best dev set loss: 71.321711
+Saved checkpoint for model
+
+STARTING EPOCH 2
+GENERATOR Train epoch 2: [500/75224 (0.7%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 30.169
+===> real_gan_loss: -0.686
+===> fake_gan_loss: -0.701
+===> Total for class ihm: 28.782
+=> Class sdm1
+===> autoencoding_recon_loss: 40.728
+===> real_gan_loss: -0.701
+===> fake_gan_loss: -0.686
+===> Total for class sdm1: 39.341
+TOTAL: 68.123
+GENERATOR Train epoch 2: [1000/75224 (1.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 30.393
+===> real_gan_loss: -0.683
+===> fake_gan_loss: -0.684
+===> Total for class ihm: 29.027
+=> Class sdm1
+===> autoencoding_recon_loss: 40.684
+===> real_gan_loss: -0.684
+===> fake_gan_loss: -0.683
+===> Total for class sdm1: 39.317
+TOTAL: 68.344
+GENERATOR Train epoch 2: [1500/75224 (2.0%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 30.819
+===> real_gan_loss: -0.676
+===> fake_gan_loss: -0.688
+===> Total for class ihm: 29.455
+=> Class sdm1
+===> autoencoding_recon_loss: 39.184
+===> real_gan_loss: -0.688
+===> fake_gan_loss: -0.676
+===> Total for class sdm1: 37.821
+TOTAL: 67.276
+GENERATOR Train epoch 2: [2000/75224 (2.7%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 30.983
+===> real_gan_loss: -0.677
+===> fake_gan_loss: -0.679
+===> Total for class ihm: 29.628
+=> Class sdm1
+===> autoencoding_recon_loss: 39.955
+===> real_gan_loss: -0.679
+===> fake_gan_loss: -0.677
+===> Total for class sdm1: 38.600
+TOTAL: 68.228
+GENERATOR Train epoch 2: [2500/75224 (3.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 30.984
+===> real_gan_loss: -0.674
+===> fake_gan_loss: -0.675
+===> Total for class ihm: 29.635
+=> Class sdm1
+===> autoencoding_recon_loss: 39.757
+===> real_gan_loss: -0.675
+===> fake_gan_loss: -0.674
+===> Total for class sdm1: 38.408
+TOTAL: 68.043
+GENERATOR Train epoch 2: [3000/75224 (4.0%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 30.846
+===> real_gan_loss: -0.669
+===> fake_gan_loss: -0.672
+===> Total for class ihm: 29.504
+=> Class sdm1
+===> autoencoding_recon_loss: 40.287
+===> real_gan_loss: -0.672
+===> fake_gan_loss: -0.669
+===> Total for class sdm1: 38.945
+TOTAL: 68.449
+GENERATOR Train epoch 2: [3500/75224 (4.7%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 30.726
+===> real_gan_loss: -0.670
+===> fake_gan_loss: -0.670
+===> Total for class ihm: 29.386
+=> Class sdm1
+===> autoencoding_recon_loss: 39.849
+===> real_gan_loss: -0.670
+===> fake_gan_loss: -0.670
+===> Total for class sdm1: 38.509
+TOTAL: 67.896
+GENERATOR Train epoch 2: [4000/75224 (5.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 31.037
+===> real_gan_loss: -0.670
+===> fake_gan_loss: -0.673
+===> Total for class ihm: 29.693
+=> Class sdm1
+===> autoencoding_recon_loss: 39.866
+===> real_gan_loss: -0.673
+===> fake_gan_loss: -0.670
+===> Total for class sdm1: 38.522
+TOTAL: 68.216
+GENERATOR Train epoch 2: [4500/75224 (6.0%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 30.687
+===> real_gan_loss: -0.671
+===> fake_gan_loss: -0.674
+===> Total for class ihm: 29.342
+=> Class sdm1
+===> autoencoding_recon_loss: 39.552
+===> real_gan_loss: -0.674
+===> fake_gan_loss: -0.671
+===> Total for class sdm1: 38.206
+TOTAL: 67.548
+GENERATOR Train epoch 2: [5000/75224 (6.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 30.626
+===> real_gan_loss: -0.671
+===> fake_gan_loss: -0.674
+===> Total for class ihm: 29.280
+=> Class sdm1
+===> autoencoding_recon_loss: 39.521
+===> real_gan_loss: -0.674
+===> fake_gan_loss: -0.671
+===> Total for class sdm1: 38.175
+TOTAL: 67.456
+GENERATOR Train epoch 2: [5500/75224 (7.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 30.618
+===> real_gan_loss: -0.669
+===> fake_gan_loss: -0.674
+===> Total for class ihm: 29.275
+=> Class sdm1
+===> autoencoding_recon_loss: 39.705
+===> real_gan_loss: -0.674
+===> fake_gan_loss: -0.669
+===> Total for class sdm1: 38.362
+TOTAL: 67.638
+GENERATOR Train epoch 2: [6000/75224 (8.0%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 30.615
+===> real_gan_loss: -0.672
+===> fake_gan_loss: -0.675
+===> Total for class ihm: 29.267
+=> Class sdm1
+===> autoencoding_recon_loss: 39.505
+===> real_gan_loss: -0.675
+===> fake_gan_loss: -0.672
+===> Total for class sdm1: 38.158
+TOTAL: 67.425
+GENERATOR Train epoch 2: [6500/75224 (8.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 30.671
+===> real_gan_loss: -0.673
+===> fake_gan_loss: -0.678
+===> Total for class ihm: 29.320
+=> Class sdm1
+===> autoencoding_recon_loss: 39.297
+===> real_gan_loss: -0.678
+===> fake_gan_loss: -0.673
+===> Total for class sdm1: 37.946
+TOTAL: 67.266
+GENERATOR Train epoch 2: [7000/75224 (9.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 30.619
+===> real_gan_loss: -0.675
+===> fake_gan_loss: -0.679
+===> Total for class ihm: 29.265
+=> Class sdm1
+===> autoencoding_recon_loss: 39.374
+===> real_gan_loss: -0.679
+===> fake_gan_loss: -0.675
+===> Total for class sdm1: 38.020
+TOTAL: 67.284
+GENERATOR Train epoch 2: [7500/75224 (10.0%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 30.551
+===> real_gan_loss: -0.675
+===> fake_gan_loss: -0.679
+===> Total for class ihm: 29.197
+=> Class sdm1
+===> autoencoding_recon_loss: 39.073
+===> real_gan_loss: -0.679
+===> fake_gan_loss: -0.675
+===> Total for class sdm1: 37.719
+TOTAL: 66.915
+GENERATOR Train epoch 2: [8000/75224 (10.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 30.462
+===> real_gan_loss: -0.675
+===> fake_gan_loss: -0.679
+===> Total for class ihm: 29.108
+=> Class sdm1
+===> autoencoding_recon_loss: 38.988
+===> real_gan_loss: -0.679
+===> fake_gan_loss: -0.675
+===> Total for class sdm1: 37.633
+TOTAL: 66.741
+GENERATOR Train epoch 2: [8500/75224 (11.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 30.511
+===> real_gan_loss: -0.675
+===> fake_gan_loss: -0.679
+===> Total for class ihm: 29.157
+=> Class sdm1
+===> autoencoding_recon_loss: 38.886
+===> real_gan_loss: -0.679
+===> fake_gan_loss: -0.675
+===> Total for class sdm1: 37.532
+TOTAL: 66.689
+GENERATOR Train epoch 2: [9000/75224 (12.0%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 30.452
+===> real_gan_loss: -0.676
+===> fake_gan_loss: -0.679
+===> Total for class ihm: 29.097
+=> Class sdm1
+===> autoencoding_recon_loss: 38.715
+===> real_gan_loss: -0.679
+===> fake_gan_loss: -0.676
+===> Total for class sdm1: 37.360
+TOTAL: 66.456
+GENERATOR Train epoch 2: [9500/75224 (12.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 30.374
+===> real_gan_loss: -0.675
+===> fake_gan_loss: -0.678
+===> Total for class ihm: 29.022
+=> Class sdm1
+===> autoencoding_recon_loss: 38.593
+===> real_gan_loss: -0.678
+===> fake_gan_loss: -0.675
+===> Total for class sdm1: 37.240
+TOTAL: 66.262
+GENERATOR Train epoch 2: [10000/75224 (13.3%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 30.320
+===> real_gan_loss: -0.675
+===> fake_gan_loss: -0.679
+===> Total for class ihm: 28.966
+=> Class sdm1
+===> autoencoding_recon_loss: 38.446
+===> real_gan_loss: -0.679
+===> fake_gan_loss: -0.675
+===> Total for class sdm1: 37.092
+TOTAL: 66.058
+GENERATOR Train epoch 2: [10500/75224 (14.0%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 30.323
+===> real_gan_loss: -0.675
+===> fake_gan_loss: -0.678
+===> Total for class ihm: 28.970
+=> Class sdm1
+===> autoencoding_recon_loss: 38.286
+===> real_gan_loss: -0.678
+===> fake_gan_loss: -0.675
+===> Total for class sdm1: 36.932
+TOTAL: 65.902
+GENERATOR Train epoch 2: [11000/75224 (14.6%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 30.332
+===> real_gan_loss: -0.674
+===> fake_gan_loss: -0.678
+===> Total for class ihm: 28.981
+=> Class sdm1
+===> autoencoding_recon_loss: 38.180
+===> real_gan_loss: -0.678
+===> fake_gan_loss: -0.674
+===> Total for class sdm1: 36.829
+TOTAL: 65.809

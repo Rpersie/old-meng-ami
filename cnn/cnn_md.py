@@ -19,16 +19,17 @@ class CNNMultidecoder(nn.Module):
                        splicing=[5,5],
                        enc_channel_sizes=[],
                        enc_kernel_sizes=[],
-                       enc_pool_sizes=[],
+                       enc_downsample_sizes=[],
                        enc_fc_sizes=[],
                        latent_dim=512,
                        dec_fc_sizes=[],
                        dec_channel_sizes=[],
                        dec_kernel_sizes=[],
-                       dec_pool_sizes=[],
+                       dec_upsample_sizes=[],
                        activation="ReLU",
                        decoder_classes=[""],
                        use_batch_norm=False,
+                       strided=False,
                        weight_init="xavier_uniform"):
         super(CNNMultidecoder, self).__init__()
 
@@ -39,7 +40,7 @@ class CNNMultidecoder(nn.Module):
 
         self.enc_channel_sizes = enc_channel_sizes
         self.enc_kernel_sizes = enc_kernel_sizes
-        self.enc_pool_sizes = enc_pool_sizes
+        self.enc_downsample_sizes = enc_downsample_sizes
         self.enc_fc_sizes = enc_fc_sizes
 
         self.latent_dim = latent_dim
@@ -47,12 +48,16 @@ class CNNMultidecoder(nn.Module):
         self.dec_fc_sizes = dec_fc_sizes
         self.dec_channel_sizes = dec_channel_sizes
         self.dec_kernel_sizes = dec_kernel_sizes
-        self.dec_pool_sizes = dec_pool_sizes
+        self.dec_upsample_sizes = dec_upsample_sizes
 
         self.activation = activation
         self.decoder_classes = decoder_classes
         self.use_batch_norm = use_batch_norm
         self.weight_init = weight_init
+
+        # Replace pools with strided convolutions
+        # See https://arxiv.org/pdf/1412.6806.pdf
+        self.strided = strided
 
 
         # STEP 1: Construct encoder
@@ -67,35 +72,54 @@ class CNNMultidecoder(nn.Module):
         for idx in range(len(enc_channel_sizes)):
             enc_channel_size = enc_channel_sizes[idx]
             enc_kernel_size = enc_kernel_sizes[idx]
-            enc_pool_size = enc_pool_sizes[idx]
+            enc_downsample_size = enc_downsample_sizes[idx]
 
-            self.encoder_conv_layers["conv2d_%d" % idx] = nn.Conv2d(current_channels,
-                                                                    enc_channel_size,
-                                                                    enc_kernel_size)
-            self.init_weights(self.encoder_conv_layers["conv2d_%d" % idx], "conv2d")
-            current_channels = enc_channel_size
+            if self.strided:
+                # >1 stride only in frequency direction (i.e. stride 1 in time dimension)
+                self.encoder_conv_layers["conv2d_%d" % idx] = nn.Conv2d(current_channels,
+                                                                        enc_channel_size,
+                                                                        enc_kernel_size,
+                                                                        stride=(1, enc_downsample_size))
+                self.init_weights(self.encoder_conv_layers["conv2d_%d" % idx], "conv2d")
+                current_channels = enc_channel_size
 
-            # Formula from http://pytorch.org/docs/master/nn.html#conv2d
-            # Assumes stride = 1, padding = 0, dilation = 1
-            current_height = (current_height - (enc_kernel_size - 1) - 1) + 1
-            current_width = (current_width - (enc_kernel_size - 1) - 1) + 1
-            
-            if self.use_batch_norm:
-                self.encoder_conv_layers["batchnorm2d_%d" % idx] = nn.BatchNorm2d(enc_channel_size)
-
-            self.encoder_conv_layers["%s_%d" % (self.activation, idx)] = getattr(nn, self.activation)()
-            
-            if enc_pool_size > 0:
-                # Pool only in frequency direction (i.e. kernel and stride 1 in time dimension)
-                # Return indices as well (useful for unpooling: see
-                #   http://pytorch.org/docs/master/nn.html#maxunpool2d)
-                self.encoder_conv_layers["maxpool2d_%d" % idx] = nn.MaxPool2d((1, enc_pool_size),
-                                                                              return_indices=True)
+                # Formula from http://pytorch.org/docs/master/nn.html#conv2d
+                # Assumes padding = 0, dilation = 1
+                current_height = (current_height - (enc_kernel_size - 1) - 1) + 1
+                current_width = (current_width - (enc_kernel_size - 1) - 1) // enc_downsample_size + 1
                 
-                # Formula from http://pytorch.org/docs/master/nn.html#maxpool2d 
-                # Assumes stride = enc_pool_size (default), padding = 0, dilation = 1
-                current_height = current_height     # No change in time dimension!
-                current_width = int((current_width - (enc_pool_size - 1) - 1) / enc_pool_size) + 1
+                if self.use_batch_norm:
+                    self.encoder_conv_layers["batchnorm2d_%d" % idx] = nn.BatchNorm2d(enc_channel_size)
+
+                self.encoder_conv_layers["%s_%d" % (self.activation, idx)] = getattr(nn, self.activation)()
+            else:
+                self.encoder_conv_layers["conv2d_%d" % idx] = nn.Conv2d(current_channels,
+                                                                        enc_channel_size,
+                                                                        enc_kernel_size)
+                self.init_weights(self.encoder_conv_layers["conv2d_%d" % idx], "conv2d")
+                current_channels = enc_channel_size
+
+                # Formula from http://pytorch.org/docs/master/nn.html#conv2d
+                # Assumes stride = 1, padding = 0, dilation = 1
+                current_height = (current_height - (enc_kernel_size - 1) - 1) + 1
+                current_width = (current_width - (enc_kernel_size - 1) - 1) + 1
+                
+                if self.use_batch_norm:
+                    self.encoder_conv_layers["batchnorm2d_%d" % idx] = nn.BatchNorm2d(enc_channel_size)
+
+                self.encoder_conv_layers["%s_%d" % (self.activation, idx)] = getattr(nn, self.activation)()
+                
+                if enc_downsample_size > 0:
+                    # Pool only in frequency direction (i.e. kernel and stride 1 in time dimension)
+                    # Return indices as well (useful for unpooling: see
+                    #   http://pytorch.org/docs/master/nn.html#maxunpool2d)
+                    self.encoder_conv_layers["maxpool2d_%d" % idx] = nn.MaxPool2d((1, enc_downsample_size),
+                                                                                  return_indices=True)
+                    
+                    # Formula from http://pytorch.org/docs/master/nn.html#maxpool2d 
+                    # Assumes stride = enc_downsample_size (default), padding = 0, dilation = 1
+                    current_height = current_height     # No change in time dimension!
+                    current_width = int((current_width - (enc_downsample_size - 1) - 1) / enc_downsample_size) + 1
 
         self.encoder_conv = nn.Sequential(self.encoder_conv_layers)
         
@@ -166,37 +190,55 @@ class CNNMultidecoder(nn.Module):
             for idx in range(len(dec_channel_sizes)):
                 dec_channel_size = dec_channel_sizes[idx]
                 dec_kernel_size = dec_kernel_sizes[idx]
-                dec_pool_size = dec_pool_sizes[idx]
+                dec_upsample_size = dec_upsample_sizes[idx]
                 
                 self.decoder_deconv_layers[decoder_class]["%s_%d" % (self.activation, idx)] = getattr(nn, self.activation)()
 
-                if dec_pool_size > 0:
-                    # Un-pool only in frequency direction (i.e. kernel and stride 1 in time dimension)
-                    self.decoder_deconv_layers[decoder_class]["maxunpool2d_%d" % idx] = nn.MaxUnpool2d((1, dec_pool_size))
-                    
-                    # Formula from http://pytorch.org/docs/master/nn.html#maxunpool2d 
-                    # Assumes stride = dec_pool_size (default), padding = 0, dilation = 1
-                    current_height = current_height     # No change in time dimension!
-                    current_width = current_width * dec_pool_size 
+                if self.strided:
+                    # Perform "fractional striding" to upsample
+                    output_channels = 1 if idx == len(dec_channel_sizes) - 1 else dec_channel_sizes[idx + 1]
+                    self.decoder_deconv_layers[decoder_class]["conv2d_%d" % idx] = nn.ConvTranspose2d(dec_channel_size,
+                                                                            output_channels,
+                                                                            dec_kernel_size,
+                                                                            stride=(1, dec_upsample_size))
+                    self.init_weights(self.decoder_deconv_layers[decoder_class]["conv2d_%d" % idx], "conv2d")
 
-                # Re-pad signal to "de-convolve"
-                # https://pgaleone.eu/neural-networks/2016/11/24/convolutional-autoencoders/
-                padding = dec_kernel_size - 1 
-                output_channels = 1 if idx == len(dec_channel_sizes) - 1 else dec_channel_sizes[idx + 1]
-                self.decoder_deconv_layers[decoder_class]["conv2d_%d" % idx] = nn.Conv2d(dec_channel_size,
-                                                                        output_channels,
-                                                                        dec_kernel_size,
-                                                                        padding=padding)
-                self.init_weights(self.decoder_deconv_layers[decoder_class]["conv2d_%d" % idx], "conv2d")
+                    # Formula for length from http://pytorch.org/docs/master/nn.html#torch.nn.ConvTranspose2d
+                    # Assumes padding = 0, dilation = 1
+                    current_height = (current_height - 1) + dec_kernel_size
+                    current_width = (current_width - 1) * dec_upsample_size + dec_kernel_size
 
-                # Formula for length from http://pytorch.org/docs/master/nn.html#conv2d
-                # Assumes stride = 1, dilation = 1
-                current_height = current_height + padding
-                current_width = current_width + padding
+                    if self.use_batch_norm and idx != len(dec_channel_sizes) - 1:
+                        # Don't normalize if it's the output layer!
+                        self.decoder_deconv_layers[decoder_class]["batchnorm2d_%d" % idx] = nn.BatchNorm2d(output_channels)
+                else:
+                    if dec_upsample_size > 0:
+                        # Un-pool only in frequency direction (i.e. kernel and stride 1 in time dimension)
+                        self.decoder_deconv_layers[decoder_class]["maxunpool2d_%d" % idx] = nn.MaxUnpool2d((1, dec_upsample_size))
+                        
+                        # Formula from http://pytorch.org/docs/master/nn.html#maxunpool2d 
+                        # Assumes stride = dec_upsample_size (default), padding = 0, dilation = 1
+                        current_height = current_height     # No change in time dimension!
+                        current_width = current_width * dec_upsample_size 
 
-                if self.use_batch_norm and idx != len(dec_channel_sizes) - 1:
-                    # Don't normalize if it's the output layer!
-                    self.decoder_deconv_layers[decoder_class]["batchnorm2d_%d" % idx] = nn.BatchNorm2d(output_channels)
+                    # Re-pad signal to "de-convolve"
+                    # https://pgaleone.eu/neural-networks/2016/11/24/convolutional-autoencoders/
+                    padding = dec_kernel_size - 1 
+                    output_channels = 1 if idx == len(dec_channel_sizes) - 1 else dec_channel_sizes[idx + 1]
+                    self.decoder_deconv_layers[decoder_class]["conv2d_%d" % idx] = nn.Conv2d(dec_channel_size,
+                                                                            output_channels,
+                                                                            dec_kernel_size,
+                                                                            padding=padding)
+                    self.init_weights(self.decoder_deconv_layers[decoder_class]["conv2d_%d" % idx], "conv2d")
+
+                    # Formula for length from http://pytorch.org/docs/master/nn.html#conv2d
+                    # Assumes stride = 1, dilation = 1
+                    current_height = current_height + padding
+                    current_width = current_width + padding
+
+                    if self.use_batch_norm and idx != len(dec_channel_sizes) - 1:
+                        # Don't normalize if it's the output layer!
+                        self.decoder_deconv_layers[decoder_class]["batchnorm2d_%d" % idx] = nn.BatchNorm2d(output_channels)
 
             self.decoder_deconv[decoder_class] = nn.Sequential(self.decoder_deconv_layers[decoder_class])
             self.add_module("decoder_deconv_%s" % decoder_class, self.decoder_deconv[decoder_class])
@@ -212,22 +254,6 @@ class CNNMultidecoder(nn.Module):
         else:
             getattr(nn_init, self.weight_init)(layer.weight)
 
-    def encoder_conv_activation_layers(self):
-        return list(filter(lambda layer_name: self.activation in layer_name, self.encoder_conv_layers.keys()))
-
-    def get_encoder_conv_activations(self, feats):
-        conv_encoded = feats
-        activations = {}
-        for i, (encoder_conv_layer_name, encoder_conv_layer) in enumerate(self.encoder_conv_layers.items()):
-            if "maxpool2d" in encoder_conv_layer_name:
-                conv_encoded, new_pooling_indices = encoder_conv_layer(conv_encoded)
-            else:
-                conv_encoded = encoder_conv_layer(conv_encoded)
-
-            if self.activation in encoder_conv_layer_name:
-                activations[encoder_conv_layer_name] = conv_encoded
-        return activations
-    
     def decoder_parameters(self, decoder_class):
         # Get parameters for just a specific decoder
         if decoder_class not in self.decoder_classes:
@@ -264,32 +290,46 @@ class CNNMultidecoder(nn.Module):
                 conv_encoded = encoder_conv_layer(conv_encoded)
         fc_input_size = conv_encoded.size()
         conv_encoded_vec = conv_encoded.view(conv_encoded.size()[0], -1)
-        return (self.encoder_fc(conv_encoded_vec), fc_input_size, unpool_sizes, pooling_indices)
 
-    def decode(self, z, decoder_class, fc_input_size, unpool_sizes, pooling_indices):
+        if self.strided:
+            return (self.encoder_fc(conv_encoded_vec), fc_input_size)
+        else:
+            return (self.encoder_fc(conv_encoded_vec), fc_input_size, unpool_sizes, pooling_indices)
+
+    def decode(self, z, decoder_class, fc_input_size, unpool_sizes=None, pooling_indices=None):
         fc_decoded = self.decoder_fc[decoder_class](z)
         fc_decoded_mat = fc_decoded.view(fc_input_size) 
 
-        # Need to go layer-by-layer to insert pooling indices into unpooling layers
-        output = fc_decoded_mat
-        for i, (decoder_deconv_layer_name, decoder_deconv_layer) in enumerate(self.decoder_deconv_layers[decoder_class].items()):
-            if "maxunpool2d" in decoder_deconv_layer_name:
-                current_pooling_indices = pooling_indices.pop()
-                current_unpool_size = unpool_sizes.pop()
-                output = decoder_deconv_layer(output,
-                                              current_pooling_indices,
-                                              output_size=current_unpool_size)
-            else:
-                output = decoder_deconv_layer(output)
+        if self.strided:
+            return self.decoder_deconv[decoder_class](fc_decoded_mat)
+        else:
+            # Need to go layer-by-layer to insert pooling indices into unpooling layers
+            output = fc_decoded_mat
+            for i, (decoder_deconv_layer_name, decoder_deconv_layer) in enumerate(self.decoder_deconv_layers[decoder_class].items()):
+                if "maxunpool2d" in decoder_deconv_layer_name:
+                    current_pooling_indices = pooling_indices.pop()
+                    current_unpool_size = unpool_sizes.pop()
+                    output = decoder_deconv_layer(output,
+                                                  current_pooling_indices,
+                                                  output_size=current_unpool_size)
+                else:
+                    output = decoder_deconv_layer(output)
 
-        return output
+            return output
     
     def forward_decoder(self, feats, decoder_class):
-        latent, fc_input_size, unpool_sizes, pooling_indices = self.encode(feats.view(-1,
-                                                                           1,
-                                                                           self.time_dim,
-                                                                           self.freq_dim))
-        return self.decode(latent, decoder_class, fc_input_size, unpool_sizes, pooling_indices)
+        if self.strided:
+            latent, fc_input_size = self.encode(feats.view(-1,
+                                                           1,
+                                                           self.time_dim,
+                                                           self.freq_dim))
+            return self.decode(latent, decoder_class, fc_input_size)
+        else:
+            latent, fc_input_size, unpool_sizes, pooling_indices = self.encode(feats.view(-1,
+                                                                               1,
+                                                                               self.time_dim,
+                                                                               self.freq_dim))
+            return self.decode(latent, decoder_class, fc_input_size, unpool_sizes=unpool_sizes, pooling_indices=pooling_indices)
 
 
 
@@ -300,31 +340,33 @@ class CNNVariationalMultidecoder(CNNMultidecoder):
                        splicing=[5,5],
                        enc_channel_sizes=[],
                        enc_kernel_sizes=[],
-                       enc_pool_sizes=[],
+                       enc_downsample_sizes=[],
                        enc_fc_sizes=[],
                        latent_dim=512,
                        dec_fc_sizes=[],
                        dec_channel_sizes=[],
                        dec_kernel_sizes=[],
-                       dec_pool_sizes=[],
+                       dec_upsample_sizes=[],
                        activation="ReLU",
                        decoder_classes=[""],
                        use_batch_norm=False,
+                       strided=False,
                        weight_init="xavier_uniform"):
         super(CNNVariationalMultidecoder, self).__init__(freq_dim=freq_dim,
                                                          splicing=splicing,
                                                          enc_channel_sizes=enc_channel_sizes,
                                                          enc_kernel_sizes=enc_kernel_sizes,
-                                                         enc_pool_sizes=enc_pool_sizes,
+                                                         enc_downsample_sizes=enc_downsample_sizes,
                                                          enc_fc_sizes=enc_fc_sizes,
                                                          latent_dim=latent_dim,
                                                          dec_fc_sizes=dec_fc_sizes,
                                                          dec_channel_sizes=dec_channel_sizes,
                                                          dec_kernel_sizes=dec_kernel_sizes,
-                                                         dec_pool_sizes=dec_pool_sizes,
+                                                         dec_upsample_sizes=dec_upsample_sizes,
                                                          activation=activation,
                                                          decoder_classes=decoder_classes,
                                                          use_batch_norm=use_batch_norm,
+                                                         strided=strided,
                                                          weight_init=weight_init)
 
 
@@ -368,8 +410,11 @@ class CNNVariationalMultidecoder(CNNMultidecoder):
 
         mu = self.latent_mu(pre_latent)
         logvar = self.latent_logvar(pre_latent)
-
-        return (mu, logvar, fc_input_size, unpool_sizes, pooling_indices)
+        
+        if self.strided:
+            return (mu, logvar, fc_input_size)
+        else:
+            return (mu, logvar, fc_input_size, unpool_sizes, pooling_indices)
 
     def reparameterize(self, mu, logvar):
         # Reparameterization trick from VAE paper
@@ -381,33 +426,46 @@ class CNNVariationalMultidecoder(CNNMultidecoder):
         else:
             return mu
 
-    def decode(self, z, decoder_class, fc_input_size, unpool_sizes, pooling_indices):
+    def decode(self, z, decoder_class, fc_input_size, unpool_sizes=[], pooling_indices=[]):
         fc_decoded = self.decoder_fc[decoder_class](z)
         fc_decoded_mat = fc_decoded.view(fc_input_size) 
 
-        # Need to go layer-by-layer to insert pooling indices into unpooling layers
-        output = fc_decoded_mat
-        for i, (decoder_deconv_layer_name, decoder_deconv_layer) in enumerate(self.decoder_deconv_layers[decoder_class].items()):
-            if "maxunpool2d" in decoder_deconv_layer_name:
-                current_pooling_indices = pooling_indices.pop()
-                current_unpool_size = unpool_sizes.pop()
-                output = decoder_deconv_layer(output,
-                                              current_pooling_indices,
-                                              output_size=current_unpool_size)
-            else:
-                output = decoder_deconv_layer(output)
+        if self.strided:
+            return self.decoder_deconv[decoder_class](fc_decoded_mat)
+        else:
+            # Need to go layer-by-layer to insert pooling indices into unpooling layers
+            output = fc_decoded_mat
+            for i, (decoder_deconv_layer_name, decoder_deconv_layer) in enumerate(self.decoder_deconv_layers[decoder_class].items()):
+                if "maxunpool2d" in decoder_deconv_layer_name:
+                    current_pooling_indices = pooling_indices.pop()
+                    current_unpool_size = unpool_sizes.pop()
+                    output = decoder_deconv_layer(output,
+                                                  current_pooling_indices,
+                                                  output_size=current_unpool_size)
+                else:
+                    output = decoder_deconv_layer(output)
 
-        return output
+            return output
     
     def forward_decoder(self, feats, decoder_class):
-        mu, logvar, fc_input_size, unpool_sizes, pooling_indices = self.encode(feats.view(-1,
-                                                                               1,
-                                                                               self.time_dim,
-                                                                               self.freq_dim))
-        z = self.reparameterize(mu, logvar) 
-        return (self.decode(z, decoder_class, fc_input_size, unpool_sizes, pooling_indices),
-                mu,
-                logvar)
+        if self.strided:
+            mu, logvar, fc_input_size = self.encode(feats.view(-1,
+                                                               1,
+                                                               self.time_dim,
+                                                               self.freq_dim))
+            z = self.reparameterize(mu, logvar) 
+            return (self.decode(z, decoder_class, fc_input_size),
+                    mu,
+                    logvar)
+        else:
+            mu, logvar, fc_input_size, unpool_sizes, pooling_indices = self.encode(feats.view(-1,
+                                                                                   1,
+                                                                                   self.time_dim,
+                                                                                   self.freq_dim))
+            z = self.reparameterize(mu, logvar) 
+            return (self.decode(z, decoder_class, fc_input_size, unpool_sizes=unpool_sizes, pooling_indices=pooling_indices),
+                    mu,
+                    logvar)
 
 
 
@@ -417,16 +475,17 @@ class CNNDomainAdversarialMultidecoder(CNNMultidecoder):
                        splicing=[5,5],
                        enc_channel_sizes=[],
                        enc_kernel_sizes=[],
-                       enc_pool_sizes=[],
+                       enc_downsample_sizes=[],
                        enc_fc_sizes=[],
                        latent_dim=512,
                        dec_fc_sizes=[],
                        dec_channel_sizes=[],
                        dec_kernel_sizes=[],
-                       dec_pool_sizes=[],
+                       dec_upsample_sizes=[],
                        activation="ReLU",
                        decoder_classes=[""],
                        use_batch_norm=False,
+                       strided=False,
                        weight_init="xavier_uniform",
                        domain_adv_fc_sizes=[],
                        domain_adv_activation="Sigmoid"):
@@ -434,16 +493,17 @@ class CNNDomainAdversarialMultidecoder(CNNMultidecoder):
                                                          splicing=splicing,
                                                          enc_channel_sizes=enc_channel_sizes,
                                                          enc_kernel_sizes=enc_kernel_sizes,
-                                                         enc_pool_sizes=enc_pool_sizes,
+                                                         enc_downsample_sizes=enc_downsample_sizes,
                                                          enc_fc_sizes=enc_fc_sizes,
                                                          latent_dim=latent_dim,
                                                          dec_fc_sizes=dec_fc_sizes,
                                                          dec_channel_sizes=dec_channel_sizes,
                                                          dec_kernel_sizes=dec_kernel_sizes,
-                                                         dec_pool_sizes=dec_pool_sizes,
+                                                         dec_upsample_sizes=dec_upsample_sizes,
                                                          activation=activation,
                                                          decoder_classes=decoder_classes,
                                                          use_batch_norm=use_batch_norm,
+                                                         strided=strided,
                                                          weight_init=weight_init)
         
         self.domain_adv_fc_sizes = domain_adv_fc_sizes
@@ -476,16 +536,17 @@ class CNNGANMultidecoder(CNNMultidecoder):
                        splicing=[5,5],
                        enc_channel_sizes=[],
                        enc_kernel_sizes=[],
-                       enc_pool_sizes=[],
+                       enc_downsample_sizes=[],
                        enc_fc_sizes=[],
                        latent_dim=512,
                        dec_fc_sizes=[],
                        dec_channel_sizes=[],
                        dec_kernel_sizes=[],
-                       dec_pool_sizes=[],
+                       dec_upsample_sizes=[],
                        activation="ReLU",
                        decoder_classes=[""],
                        use_batch_norm=False,
+                       strided=False,
                        weight_init="xavier_uniform",
                        gan_fc_sizes=[],
                        gan_activation="Sigmoid"):
@@ -493,16 +554,17 @@ class CNNGANMultidecoder(CNNMultidecoder):
                                                  splicing=splicing,
                                                  enc_channel_sizes=enc_channel_sizes,
                                                  enc_kernel_sizes=enc_kernel_sizes,
-                                                 enc_pool_sizes=enc_pool_sizes,
+                                                 enc_downsample_sizes=enc_downsample_sizes,
                                                  enc_fc_sizes=enc_fc_sizes,
                                                  latent_dim=latent_dim,
                                                  dec_fc_sizes=dec_fc_sizes,
                                                  dec_channel_sizes=dec_channel_sizes,
                                                  dec_kernel_sizes=dec_kernel_sizes,
-                                                 dec_pool_sizes=dec_pool_sizes,
+                                                 dec_upsample_sizes=dec_upsample_sizes,
                                                  activation=activation,
                                                  decoder_classes=decoder_classes,
                                                  use_batch_norm=use_batch_norm,
+                                                 strided=strided,
                                                  weight_init=weight_init)
         
         self.gan_fc_sizes = gan_fc_sizes
@@ -521,7 +583,7 @@ class CNNGANMultidecoder(CNNMultidecoder):
                 self.gan_layers[decoder_class]["%s_%d" % (self.gan_activation, i)] = getattr(nn, self.gan_activation)()
                 current_dim = next_dim
             self.gan_layers[decoder_class]["lin_final"] = nn.Linear(current_dim, 1)
-            self.gan_layers[decoder_class]["%s_final" % self.gan_activation] = getattr(nn, self.gan_activation)() 
+            self.gan_layers[decoder_class]["Sigmoid_final" % self.gan_activation] = nn.Sigmoid() 
             self.gans[decoder_class] = nn.Sequential(self.gan_layers[decoder_class])
             self.add_module("gan_%s" % decoder_class, self.gans[decoder_class])
 

@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -p cpu
+#SBATCH -p 630
 #SBATCH -n1
 #SBATCH -N1-1
 #SBATCH -c 4
@@ -33,11 +33,19 @@ decode_dir=$LOGS/$expt_name/decode_${predict_domain}
 mkdir -p $decode_dir
 decode_log=$decode_dir/decode_${split}.log
 
+if [ "$DATASET" == "ami-full" ]; then
+    # Didn't bother copying all of these SCPs over
+    frame_split_dir=$AMI/split30/${predict_domain}-dev-norm-$((split - 1)).blogmel.scp
+else
+    frame_split_dir=$DATASET/split30/${predict_domain}-dev-norm-$((split - 1)).blogmel.scp
+fi
+
 echo "Predicting log probabilities for split ${split}..."
 # Always use IHM pdfids, even for SDM1 (data are parallel -- see Hao email from 1/17/18)
+# Only use these environment variables if on 630 or 520 machines -- 510s don't work with them!
 # OPENBLAS_CORETYPE=Sandybridge OMP_NUM_THREADS=4 /data/sls/scratch/haotang/ami/dist/nn-20171210-4c6c341-openblas/nnbin/frame-tdnn-predict \
 /data/sls/scratch/haotang/ami/dist/nn-20171210-4c6c341-openblas/nnbin/frame-tdnn-predict \
-    --frame-scp $DATASET/split30/${predict_domain}-dev-norm-$((split - 1)).blogmel.scp \
+    --frame-scp $frame_split_dir/${predict_domain}-dev-norm-$((split - 1)).blogmel.scp \
     --param $model_dir/param-$MODEL_EPOCH \
     --label $DATASET/ihm-pdfids.txt \
     --print-logprob > $decode_dir/logprobs.$split.log

@@ -15,8 +15,5 @@ Baseline:
 
 ENC_C_256_256_K_3_3_P_3_3_F_/LATENT_256/DEC_F__C_256_256_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/ae_ratio0.0
 - IHM -> SDM1
-    - IHM:
-    - SDM1:
-- IHM baseline + IHM->SDM1:
-    - IHM:
-    - SDM1:
+    - IHM: 38.2% (LM weight: 11)        11.4% relative WORSE
+    - SDM1: 86.6% (LM weight: 7)        0.3% relative BETTER (2.4% of improvement range)

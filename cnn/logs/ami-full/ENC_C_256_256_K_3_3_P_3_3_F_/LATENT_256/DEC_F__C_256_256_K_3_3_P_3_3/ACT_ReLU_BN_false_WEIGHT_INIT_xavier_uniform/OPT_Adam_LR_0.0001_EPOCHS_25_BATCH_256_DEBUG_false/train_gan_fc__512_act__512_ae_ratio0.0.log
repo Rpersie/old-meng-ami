@@ -1,0 +1,85 @@
+Running training with mode ae
+Using generative adversarial loss
+Noising 0.000% of input features
+Constructing model...
+Done constructing model.
+CNNGANMultidecoder(
+  (encoder_conv): Sequential(
+    (conv2d_0): Conv2d (1, 256, kernel_size=(3, 3), stride=(1, 1))
+    (ReLU_0): ReLU()
+    (maxpool2d_0): MaxPool2d(kernel_size=(1, 3), stride=(1, 3), dilation=(1, 1))
+    (conv2d_1): Conv2d (256, 256, kernel_size=(3, 3), stride=(1, 1))
+    (ReLU_1): ReLU()
+    (maxpool2d_1): MaxPool2d(kernel_size=(1, 3), stride=(1, 3), dilation=(1, 1))
+  )
+  (encoder_fc): Sequential(
+    (lin_final): Linear(in_features=14336, out_features=256)
+    (ReLU_final): ReLU()
+  )
+  (decoder_fc_ihm): Sequential(
+    (ReLU_final): ReLU()
+    (lin_final): Linear(in_features=256, out_features=14336)
+  )
+  (decoder_deconv_ihm): Sequential(
+    (ReLU_0): ReLU()
+    (maxunpool2d_0): MaxUnpool2d(kernel_size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_0): Conv2d (256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (ReLU_1): ReLU()
+    (maxunpool2d_1): MaxUnpool2d(kernel_size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_1): Conv2d (256, 1, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+  )
+  (decoder_fc_sdm1): Sequential(
+    (ReLU_final): ReLU()
+    (lin_final): Linear(in_features=256, out_features=14336)
+  )
+  (decoder_deconv_sdm1): Sequential(
+    (ReLU_0): ReLU()
+    (maxunpool2d_0): MaxUnpool2d(kernel_size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_0): Conv2d (256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+    (ReLU_1): ReLU()
+    (maxunpool2d_1): MaxUnpool2d(kernel_size=(1, 3), stride=(1, 3), padding=(0, 0))
+    (conv2d_1): Conv2d (256, 1, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2))
+  )
+  (gan_ihm): Sequential(
+    (lin_0): Linear(in_features=880, out_features=512)
+    (Sigmoid_0): Sigmoid()
+    (lin_final): Linear(in_features=512, out_features=1)
+    (Sigmoid_final): Sigmoid()
+  )
+  (gan_sdm1): Sequential(
+    (lin_0): Linear(in_features=880, out_features=512)
+    (Sigmoid_0): Sigmoid()
+    (lin_final): Linear(in_features=512, out_features=1)
+    (Sigmoid_final): Sigmoid()
+  )
+)
+Model has 13719556 trainable parameters
+Setting up data...
+Setting up training datasets...
+Using 27332431 training features (106768 batches) for class ihm
+Using 27332431 training features (106768 batches) for class sdm1
+Setting up dev datasets...
+Using 3192603 dev features (12472 batches) for class ihm
+Using 3192554 dev features (12471 batches) for class sdm1
+Setting up minibatch shuffling for training...
+106768 total batches: {'ihm': 106768, 'sdm1': 106768}
+Done setting up data.
+Completed setup in 2033.521 seconds
+Starting training!
+
+STARTING EPOCH 1
+GENERATOR Train epoch 1: [500/106768 (0.5%)]
+Losses:
+=> Class ihm
+===> autoencoding_recon_loss: 446.806
+===> backtranslation_recon_loss: 517.668
+===> real_gan_loss: -0.713
+===> fake_gan_loss: -0.713
+===> Total for class ihm: 963.049
+=> Class sdm1
+===> autoencoding_recon_loss: 386.960
+===> backtranslation_recon_loss: 473.871
+===> real_gan_loss: -0.713
+===> fake_gan_loss: -0.713
+===> Total for class sdm1: 859.405
+TOTAL: 1822.454

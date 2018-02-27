@@ -1,0 +1,72 @@
+latgen-faster-mapped --max-active=7000 --beam=15 --lattice-beam=7 --acoustic-scale=0.1 --allow-partial=true --word-symbol-table=/data/sls/scratch/haotang/ami//exp/ihm/tri3-logmel-hires/graph_ami_fsh.o3g.kn.pr1-7/words.txt /data/sls/scratch/haotang/ami//exp/ihm/tri3-logmel-hires_ali/final.mdl /data/sls/scratch/haotang/ami//exp/ihm/tri3-logmel-hires/graph_ami_fsh.o3g.kn.pr1-7/HCLG.fst ark:- 'ark:|gzip -c > /data/sls/r/u/atitus5/meng/am/logs/ami-0.1/train_sdm1/augmented_src_ihm/frame-tdnn-450x7-step0.05/ENC_C_256_256_K_3_3_P_3_3_F_/LATENT_256/DEC_F__C_256_256_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false/ae_ratio0.0/decode_sdm1/lat.9.gz' 
+AMI_ES2009a_SDM_MEE033_0051392_0051429 NOT 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_ES2009a_SDM_MEE033_0051392_0051429 is -0.728344 over 35 frames.
+AMI_ES2009a_SDM_MEE033_0051588_0051625 NICE 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_ES2009a_SDM_MEE033_0051588_0051625 is -0.444812 over 35 frames.
+AMI_ES2009a_SDM_MEE033_0052357_0052454 YEAH 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_ES2009a_SDM_MEE033_0052357_0052454 is -0.630332 over 95 frames.
+AMI_ES2009a_SDM_MEE033_0052998_0053150 <unk> 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_ES2009a_SDM_MEE033_0052998_0053150 is -0.453386 over 150 frames.
+AMI_ES2009a_SDM_MEE033_0053150_0053286 WELL YEAH 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_ES2009a_SDM_MEE033_0053150_0053286 is -0.456 over 134 frames.
+AMI_ES2009a_SDM_MEE033_0053286_0053458 THIS IS 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_ES2009a_SDM_MEE033_0053286_0053458 is -0.525891 over 170 frames.
+AMI_ES2009a_SDM_MEE033_0053745_0053953 <unk> 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_ES2009a_SDM_MEE033_0053745_0053953 is -0.491811 over 206 frames.
+AMI_ES2009a_SDM_MEE033_0056436_0056484 <unk> 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_ES2009a_SDM_MEE033_0056436_0056484 is -0.480679 over 46 frames.
+AMI_ES2009a_SDM_MEE033_0056745_0056890 OR 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_ES2009a_SDM_MEE033_0056745_0056890 is -0.296641 over 143 frames.
+AMI_ES2009a_SDM_MEE033_0056890_0056966 <unk> 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_ES2009a_SDM_MEE033_0056890_0056966 is -0.466541 over 74 frames.
+AMI_ES2009a_SDM_MEE033_0056966_0056985 <unk> 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_ES2009a_SDM_MEE033_0056966_0056985 is -0.725725 over 17 frames.
+AMI_ES2009a_SDM_MEE033_0057655_0057711 WOW 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_ES2009a_SDM_MEE033_0057655_0057711 is -0.42814 over 54 frames.
+AMI_ES2009a_SDM_MEE033_0058684_0058852 OR 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_ES2009a_SDM_MEE033_0058684_0058852 is -0.403993 over 166 frames.
+AMI_ES2009a_SDM_MEE033_0058852_0059071 AH 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_ES2009a_SDM_MEE033_0058852_0059071 is -0.424311 over 217 frames.
+AMI_ES2009a_SDM_MEE033_0059071_0059191 <unk> 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_ES2009a_SDM_MEE033_0059071_0059191 is -0.481801 over 118 frames.
+AMI_ES2009a_SDM_MEE033_0059457_0059745 UH I IS THIS 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_ES2009a_SDM_MEE033_0059457_0059745 is -0.283178 over 286 frames.
+AMI_ES2009a_SDM_MEE033_0059745_0059786 <unk> 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_ES2009a_SDM_MEE033_0059745_0059786 is -0.60818 over 39 frames.
+AMI_ES2009a_SDM_MEE033_0059786_0059900 I I 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_ES2009a_SDM_MEE033_0059786_0059900 is -0.424297 over 112 frames.
+AMI_ES2009a_SDM_MEE033_0059900_0059994 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_ES2009a_SDM_MEE033_0059900_0059994 is -0.232646 over 92 frames.
+AMI_ES2009a_SDM_MEE033_0059994_0060104 YEAH 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_ES2009a_SDM_MEE033_0059994_0060104 is -0.421127 over 108 frames.
+AMI_ES2009a_SDM_MEE033_0060270_0060650 OR YOU REALLY THIS OR 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_ES2009a_SDM_MEE033_0060270_0060650 is -0.430761 over 378 frames.
+AMI_ES2009a_SDM_MEE033_0061440_0061571 IT'S 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_ES2009a_SDM_MEE033_0061440_0061571 is -0.427584 over 129 frames.
+AMI_ES2009a_SDM_MEE033_0061695_0061766 OH 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_ES2009a_SDM_MEE033_0061695_0061766 is -0.363853 over 69 frames.
+AMI_ES2009a_SDM_MEE033_0062697_0062825 <unk> THERE 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_ES2009a_SDM_MEE033_0062697_0062825 is -0.637412 over 126 frames.
+AMI_ES2009a_SDM_MEE033_0062825_0062883 YOU KNOW 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_ES2009a_SDM_MEE033_0062825_0062883 is -0.584894 over 56 frames.
+AMI_ES2009a_SDM_MEE033_0062883_0063179 I <unk> RIGHT 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_ES2009a_SDM_MEE033_0062883_0063179 is -0.603186 over 294 frames.
+AMI_ES2009a_SDM_MEE033_0063690_0063887 <unk> NO 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_ES2009a_SDM_MEE033_0063690_0063887 is -0.532504 over 195 frames.
+AMI_ES2009a_SDM_MEE033_0063887_0064510 THAT WE LIKE RATIO <unk> ARE ALL <unk> INTERESTING 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_ES2009a_SDM_MEE033_0063887_0064510 is -0.519799 over 621 frames.
+AMI_ES2015a_SDM_FEE058_0060872_0061325 MM 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_ES2015a_SDM_FEE058_0060872_0061325 is -0.229554 over 451 frames.
+AMI_ES2015a_SDM_FEE058_0061325_0062479 <unk> 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_ES2015a_SDM_FEE058_0061325_0062479 is -0.135306 over 1152 frames.
+AMI_ES2015a_SDM_FEE058_0062479_0062754 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_ES2015a_SDM_FEE058_0062479_0062754 is -0.172391 over 273 frames.
+AMI_ES2015a_SDM_FEE058_0062754_0062941 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_ES2015a_SDM_FEE058_0062754_0062941 is -0.0943283 over 185 frames.
+AMI_ES2015a_SDM_FEE058_0062941_0063135 IN 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_ES2015a_SDM_FEE058_0062941_0063135 is -0.167052 over 192 frames.
+AMI_ES2015a_SDM_FEE058_0063232_0063470 
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:DecodeUtteranceLatticeFaster():decoder-wrappers.cc:286) Log-like per frame for utterance AMI_ES2015a_SDM_FEE058_0063232_0063470 is -0.114749 over 236 frames.
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:main():latgen-faster-mapped.cc:164) Time taken 118.438s: real-time factor assuming 100 frames/sec is 1.77995
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:main():latgen-faster-mapped.cc:167) Done 34 utterances, failed for 0
+LOG (latgen-faster-mapped[5.2.134~1-ecd4]:main():latgen-faster-mapped.cc:169) Overall log-likelihood per frame is -0.350704 over 6654 frames.

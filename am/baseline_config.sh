@@ -1,17 +1,17 @@
 # For training
 export START_EPOCH=1
-export END_EPOCH=20
+export END_EPOCH=15
 
 # For prediction
-export MODEL_EPOCH=20
+export MODEL_EPOCH=15
 
 export DEBUG_MODEL=false
 if [ "$DEBUG_MODEL" = true ] ; then
     export DATASET_NAME=debug
     export DATASET=$TEST_FEATS
 else
-    export DATASET_NAME=ami-0.1
-    # export DATASET_NAME=ami-full
+    # export DATASET_NAME=ami-0.1
+    export DATASET_NAME=ami-full
     export DATASET=$MENG_ROOT/${DATASET_NAME}
 fi
 

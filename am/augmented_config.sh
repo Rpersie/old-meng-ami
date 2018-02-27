@@ -1,18 +1,19 @@
 # For training
 export START_EPOCH=1
-export END_EPOCH=20
+export END_EPOCH=15
 
 # For prediction
-export MODEL_EPOCH=20
+export MODEL_EPOCH=15
 
 export NOISE_RATIO=0.0
-export DATASET_NAME=ami-0.1
+# export DATASET_NAME=ami-0.1
+export DATASET_NAME=ami-full
 export DATASET=$MENG_ROOT/${DATASET_NAME}
 
 # For adversarial multidecoders
-export ADV_FC=( 512 512 )
-export ADV_ACTIVATION=Sigmoid
-export ADV_FC_DELIM=$(printf "_%s" "${ADV_FC[@]}")
+export DOMAIN_ADV_FC=( 512 512 )
+export DOMAIN_ADV_ACTIVATION=Sigmoid
+export DOMAIN_ADV_FC_DELIM=$(printf "_%s" "${DOMAIN_ADV_FC[@]}")
 
 # For generative adversarial multidecoders
 export GAN_FC=( 512 512 )

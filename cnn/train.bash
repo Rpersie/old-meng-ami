@@ -5,11 +5,11 @@
 #SBATCH -c 4
 #SBATCH --gres=gpu:1
 #SBATCH --mem=32768
-#SBATCH --time=96:00:00
-#SBATCH -J train_cnn_md
+#SBATCH --time=72:00:00
+#SBATCH -J train_md
 #SBATCH --exclude=sls-sm-[5],sls-tesla-[0,1]
 
-echo "STARTING CONVOLUTIONAL MULTIDECODER TRAINING JOB"
+echo "STARTING MULTIDECODER TRAINING JOB"
 
 . ./path.sh
 . ./cnn/job_config.sh
@@ -71,4 +71,4 @@ else
     python3 cnn/scripts/train_md.py ${run_mode} ${domain_adversarial} ${gan} > $train_log
 fi
 
-echo "DONE CONVOLUTIONAL MULTIDECODER TRAINING JOB"
+echo "DONE MULTIDECODER TRAINING JOB"
