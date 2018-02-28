@@ -61,7 +61,7 @@ def write_kaldi_hao_scp(hao_scp_fd, hao_ark_filepath):
 # Dataset class to support loading just features from Hao files
 # Do not use Pytorch's built-in shuffle in DataLoader -- use the optional arguments here instead
 class HaoDataset(Dataset):
-    def __init__(self, scp_path, left_context=0, right_context=0, shuffle_utts=False, shuffle_feats=False):
+    def __init__(self, scp_path, left_context=0, right_context=0, shuffle_utts=False, shuffle_feats=False, include_lookup=False):
         super(HaoDataset, self).__init__()
 
         self.left_context = left_context
@@ -70,19 +70,40 @@ class HaoDataset(Dataset):
         # Load in Hao files
         self.scp_path = scp_path
 
+        self.include_lookup = include_lookup
+        if self.include_lookup:
+            # Not great performance-wise; only include if using for analysis
+            self.uttid_2_scpline = dict()
+
         # Determine how many utterances and features are included
-        self.num_utts = 0
         self.num_feats = 0
         self.hao_ark_fd = None
         self.scp_lines = []
-        self.uttid_2_scpline = dict()
         with open(self.scp_path, 'r') as scp_file:
             for scp_line in scp_file:
-                self.num_utts += 1
-                utt_id, feats, self.hao_ark_fd = read_next_utt(scp_line, hao_ark_fd=self.hao_ark_fd)
-                self.num_feats += feats.shape[0]
+                utt_id, path_pos = scp_line.replace('\n','').split(' ')
+                path, pos = path_pos.split(':')
+
+                if self.hao_ark_fd is not None:
+                    if self.hao_ark_fd.name != path.split(os.sep)[-1]:
+                        # New hao_ark file now -- close and get new descriptor
+                        self.hao_ark_fd.close()
+                        self.hao_ark_fd = open(path, 'r')
+                else:
+                    self.hao_ark_fd = open(path, 'r')
+                self.hao_ark_fd.seek(int(pos),0)
+
+                utt_id = self.hao_ark_fd.readline().rstrip('\n')
+
+                current_line = self.hao_ark_fd.readline().rstrip('\n')
+                while current_line != ".":
+                    self.num_feats += 1
+                    current_line = self.hao_ark_fd.readline().rstrip('\n')
+
                 self.scp_lines.append(scp_line)
-                self.uttid_2_scpline[utt_id] = scp_line
+
+                if self.include_lookup:
+                    self.uttid_2_scpline[utt_id] = scp_line
         self.hao_ark_fd.close()
         self.hao_ark_fd = None
         
@@ -152,6 +173,9 @@ class HaoDataset(Dataset):
 
     # Get specific utterance 
     def feats_for_uttid(self, utt_id):
+        if not self.include_lookup:
+            raise RuntimeError("Lookup table not built for this dataset; initialize with include_lookup=True to do so")
+
         utt_id, feat_mat, hao_ark_fd = read_next_utt(self.uttid_2_scpline[utt_id])
         return feat_mat
 
