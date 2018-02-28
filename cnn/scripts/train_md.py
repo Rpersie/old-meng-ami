@@ -533,10 +533,10 @@ def run_training(run_mode, domain_adversarial, gan):
 
                     if run_mode == "ae":
                         if strided:
-                            latent, fc_input_size = model.encode(feats.view(-1,
-                                                                            1,
-                                                                            time_dim,
-                                                                            freq_dim))
+                            latent, fc_input_size, conv_input_sizes = model.encode(feats.view(-1,
+                                                                                   1,
+                                                                                   time_dim,
+                                                                                   freq_dim))
                         else:
                             latent, fc_input_size, unpool_sizes, pooling_indices = model.encode(feats.view(-1,
                                                                                                            1,
@@ -776,10 +776,10 @@ def run_training(run_mode, domain_adversarial, gan):
                     # Domain adversarial loss
                     if run_mode == "ae":
                         if strided:
-                            latent, fc_input_size = model.encode(feats.view(-1,
-                                                                            1,
-                                                                            time_dim,
-                                                                            freq_dim))
+                            latent, fc_input_size, conv_input_sizes = model.encode(feats.view(-1,
+                                                                                   1,
+                                                                                   time_dim,
+                                                                                   freq_dim))
                         else:
                             latent, fc_input_size, unpool_sizes, pooling_indices = model.encode(feats.view(-1,
                                                                                                            1,

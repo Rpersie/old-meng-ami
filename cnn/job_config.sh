@@ -2,11 +2,9 @@ export FEAT_DIM=80      # 80 log-Mel
 export LEFT_CONTEXT=5
 export RIGHT_CONTEXT=5 
 export OPTIMIZER=Adam
-# export OPTIMIZER=SGD
-# export LEARNING_RATE=0.0001
-export LEARNING_RATE=0.000001
+export LEARNING_RATE=0.0001
 export EPOCHS=25
-export BATCH_SIZE=32
+export BATCH_SIZE=128
 
 export ENC_CHANNELS=( 256 256 )
 export ENC_KERNELS=( 3 3 )        # Assume square kernels (AxA)
@@ -36,7 +34,7 @@ export DEC_UPSAMPLES_DELIM=$(printf "_%s" "${DEC_UPSAMPLES[@]}")
 export DECODER_CLASSES=( ihm sdm1 )
 export DECODER_CLASSES_DELIM=$(printf "_%s" "${DECODER_CLASSES[@]}")
 
-export DEBUG_MODEL=true
+export DEBUG_MODEL=false
 export DATASET_NAME=ami-0.1
 # export DATASET_NAME=ami-full
 if [ "$DEBUG_MODEL" = true ] ; then
