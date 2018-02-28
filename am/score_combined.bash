@@ -38,13 +38,13 @@ if [ "$#" -ge 3 ]; then
     fi
 fi
 
-mkdir -p $LOGS/$EXPT_NAME
+mkdir -p $LOG_DIR/$EXPT_NAME
 if [ "$domain_adversarial" == true ]; then
-    log_dir=$LOGS/$EXPT_NAME/domain_adversarial_fc_${DOMAIN_ADV_FC_DELIM}_act_${DOMAIN_ADV_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}
+    log_dir=$LOG_DIR/$EXPT_NAME/domain_adversarial_fc_${DOMAIN_ADV_FC_DELIM}_act_${DOMAIN_ADV_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}
 elif [ "$gan" == true ]; then
-    log_dir=$LOGS/$EXPT_NAME/gan_fc_${GAN_FC_DELIM}_act_${GAN_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}
+    log_dir=$LOG_DIR/$EXPT_NAME/gan_fc_${GAN_FC_DELIM}_act_${GAN_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}
 else
-    log_dir=$LOGS/$EXPT_NAME/${run_mode}_ratio${NOISE_RATIO}
+    log_dir=$LOG_DIR/$EXPT_NAME/${run_mode}_ratio${NOISE_RATIO}
 fi
 
 decode_dir=$log_dir/decode_${predict_domain}

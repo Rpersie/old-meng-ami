@@ -41,24 +41,23 @@ if [ "$#" -ge 2 ]; then
     fi
 fi
 
-mkdir -p $LOGS/$EXPT_NAME
 if [ "$domain_adversarial" == true ]; then
-    train_log=$LOGS/$EXPT_NAME/train_domain_adversarial_fc_${DOMAIN_ADV_FC_DELIM}_act_${DOMAIN_ADV_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}.log
+    train_log=$LOG_DIR/train_domain_adversarial_fc_${DOMAIN_ADV_FC_DELIM}_act_${DOMAIN_ADV_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}.log
     if [ -f $train_log ]; then
         # Move old log
-        mv $train_log $LOGS/$EXPT_NAME/train_domain_adversarial_fc_${DOMAIN_ADV_FC_DELIM}_act_${DOMAIN_ADV_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}-$(date +"%F_%T%z").log
+        mv $train_log $LOG_DIR/train_domain_adversarial_fc_${DOMAIN_ADV_FC_DELIM}_act_${DOMAIN_ADV_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}-$(date +"%F_%T%z").log
     fi
 elif [ "$gan" == true ]; then
-    train_log=$LOGS/$EXPT_NAME/train_gan_fc_${GAN_FC_DELIM}_act_${GAN_FC_DELIM}_${run_mode}_ratio${NOISE_RATIO}.log
+    train_log=$LOG_DIR/train_gan_fc_${GAN_FC_DELIM}_act_${GAN_ACT}_${run_mode}_ratio${NOISE_RATIO}.log
     if [ -f $train_log ]; then
         # Move old log
-        mv $train_log $LOGS/$EXPT_NAME/train_gan_fc_${GAN_FC_DELIM}_act_${GAN_FC_DELIM}_${run_mode}_ratio${NOISE_RATIO}-$(date +"%F_%T%z").log
+        mv $train_log $LOG_DIR/train_gan_fc_${GAN_FC_DELIM}_act_${GAN_ACT}_${run_mode}_ratio${NOISE_RATIO}-$(date +"%F_%T%z").log
     fi
 else
-    train_log=$LOGS/$EXPT_NAME/train_${run_mode}_ratio${NOISE_RATIO}.log
+    train_log=$LOG_DIR/train_${run_mode}_ratio${NOISE_RATIO}.log
     if [ -f $train_log ]; then
         # Move old log
-        mv $train_log $LOGS/$EXPT_NAME/train_${run_mode}_ratio${NOISE_RATIO}-$(date +"%F_%T%z").log
+        mv $train_log $LOG_DIR/train_${run_mode}_ratio${NOISE_RATIO}-$(date +"%F_%T%z").log
     fi
 fi
 
@@ -66,7 +65,7 @@ if [ "$PROFILE_RUN" = true ] ; then
     echo "Profiling..."
     python3 cnn/scripts/train_md.py ${run_mode} ${domain_adversarial} ${gan} profile > $train_log
     echo "Profiling done"
-    # echo "Profiling done -- please run 'snakeviz --port=8890 --server $LOGS/$EXPT_NAME/train_${run_mode}.prof' to view the results in browser"
+    # echo "Profiling done -- please run 'snakeviz --port=8890 --server $LOG_DIR/train_${run_mode}.prof' to view the results in browser"
 else
     python3 cnn/scripts/train_md.py ${run_mode} ${domain_adversarial} ${gan} > $train_log
 fi

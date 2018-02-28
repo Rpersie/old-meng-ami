@@ -26,8 +26,8 @@ echo "Train domain ${train_domain}, predict domain ${predict_domain}"
 
 expt_name="train_${train_domain}/baseline/${ARCH_NAME}"
 
-mkdir -p $LOGS/$expt_name/predict_${predict_domain}
-predict_log=$LOGS/$expt_name/predict_${predict_domain}/predictions.log
+mkdir -p $LOG_DIR/$expt_name/predict_${predict_domain}
+predict_log=$LOG_DIR/$expt_name/predict_${predict_domain}/predictions.log
 
 model_dir=$MODEL_DIR/$expt_name
 
@@ -44,6 +44,6 @@ echo "Done predicting using TDNN."
 python $MENG_ROOT/am/eval-frames.py $predict_log $GOLD_DIR/ihm-dev-tri3.bali
 
 # Evaluate errors
-python $MENG_ROOT/am/err_analysis.py $predict_log $GOLD_DIR/ihm-dev-tri3.bali $LOGS/$expt_name/predict_${predict_domain}
+python $MENG_ROOT/am/err_analysis.py $predict_log $GOLD_DIR/ihm-dev-tri3.bali $LOG_DIR/$expt_name/predict_${predict_domain}
 
 echo "DONE BASELINE ACOUSTIC MODEL PREDICTION JOB"

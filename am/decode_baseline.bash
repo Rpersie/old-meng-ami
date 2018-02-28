@@ -29,29 +29,25 @@ expt_name="train_${train_domain}/baseline/${ARCH_NAME}"
 
 model_dir=$MODEL_DIR/$expt_name
 
-decode_dir=$LOGS/$expt_name/decode_${predict_domain}
+decode_dir=$LOG_DIR/$expt_name/decode_${predict_domain}
 mkdir -p $decode_dir
 decode_log=$decode_dir/decode_${split}.log
 
-if [ "$DATASET" == "ami-full" ]; then
-    # Didn't bother copying all of these SCPs over
-    frame_split_dir=$AMI/split30/${predict_domain}-dev-norm-$((split - 1)).blogmel.scp
+if [ "$DATASET_NAME" == "ami-full" ]; then
+    frame_split_file=$DATASET/split30/${predict_domain}-dev-logmel-hires-$((split - 1)).blogmel.scp
 else
-    frame_split_dir=$DATASET/split30/${predict_domain}-dev-norm-$((split - 1)).blogmel.scp
+    frame_split_file=$DATASET/split30/${predict_domain}-dev-norm-$((split - 1)).blogmel.scp
 fi
 
 echo "Predicting log probabilities for split ${split}..."
 # Always use IHM pdfids, even for SDM1 (data are parallel -- see Hao email from 1/17/18)
 # Only use these environment variables if on 630 or 520 machines -- 510s don't work with them!
-# OPENBLAS_CORETYPE=Sandybridge OMP_NUM_THREADS=4 /data/sls/scratch/haotang/ami/dist/nn-20171210-4c6c341-openblas/nnbin/frame-tdnn-predict \
-/data/sls/scratch/haotang/ami/dist/nn-20171210-4c6c341-openblas/nnbin/frame-tdnn-predict \
-    --frame-scp $frame_split_dir/${predict_domain}-dev-norm-$((split - 1)).blogmel.scp \
+OPENBLAS_CORETYPE=Sandybridge OMP_NUM_THREADS=4 /data/sls/scratch/haotang/ami/dist/nn-20171210-4c6c341-openblas/nnbin/frame-tdnn-predict \
+    --frame-scp $frame_split_file \
     --param $model_dir/param-$MODEL_EPOCH \
     --label $DATASET/ihm-pdfids.txt \
-    --print-logprob > $decode_dir/logprobs.$split.log
-
-echo "Generating lattice..."
-tail -n+2 $decode_dir/logprobs.$split.log \
+    --print-logprob \
+    | tail -n+2 \
     | python3 $UTILS/batch2ark.py \
     | latgen-faster-mapped \
     --max-active=7000 \

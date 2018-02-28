@@ -26,5 +26,5 @@ export ARCH_NAME="frame-tdnn-450x7-step0.05"
 export MODEL_DIR=$MODELS/am/$DATASET_NAME
 mkdir -p $MODEL_DIR
 
-export LOGS=${MENG_ROOT}/am/logs/$DATASET_NAME
-mkdir -p $LOGS
+export LOG_DIR=${LOGS}/am/$DATASET_NAME
+mkdir -p $LOG_DIR

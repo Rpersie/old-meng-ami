@@ -41,26 +41,25 @@ if [ "$#" -ge 2 ]; then
     fi
 fi
 
-mkdir -p $LOGS/$EXPT_NAME
 if [ "$domain_adversarial" == true ]; then
-    augment_log=$LOGS/$EXPT_NAME/augment_domain_adversarial_fc_${DOMAIN_ADV_FC_DELIM}_act_${DOMAIN_ADV_ACTIVATION}_${run_mode}.log
+    augment_log=$LOG_DIR/augment_domain_adversarial_fc_${DOMAIN_ADV_FC_DELIM}_act_${DOMAIN_ADV_ACTIVATION}_${run_mode}.log
     if [ -f $augment_log ]; then
         # Move old log
-        mv $augment_log $LOGS/$EXPT_NAME/augment_domain_adversarial_fc_${DOMAIN_ADV_FC_DELIM}_act_${DOMAIN_ADV_ACTIVATION}_${run_mode}-$(date +"%F_%T%z").log
+        mv $augment_log $LOG_DIR/augment_domain_adversarial_fc_${DOMAIN_ADV_FC_DELIM}_act_${DOMAIN_ADV_ACTIVATION}_${run_mode}-$(date +"%F_%T%z").log
     fi
     mkdir -p $AUGMENTED_DATA_DIR/domain_adversarial_fc_${DOMAIN_ADV_FC_DELIM}_act_${DOMAIN_ADV_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}
 elif [ "$gan" == true ]; then
-    augment_log=$LOGS/$EXPT_NAME/augment_gan_fc_${GAN_FC_DELIM}_act_${GAN_FC_DELIM}_${run_mode}_ratio${NOISE_RATIO}.log
+    augment_log=$LOG_DIR/augment_gan_fc_${GAN_FC_DELIM}_act_${GAN_FC_DELIM}_${run_mode}_ratio${NOISE_RATIO}.log
     if [ -f $augment_log ]; then
         # Move old log
-        mv $augment_log $LOGS/$EXPT_NAME/augment_gan_fc_${GAN_FC_DELIM}_act_${GAN_FC_DELIM}_${run_mode}_ratio${NOISE_RATIO}-$(date +"%F_%T%z").log
+        mv $augment_log $LOG_DIR/augment_gan_fc_${GAN_FC_DELIM}_act_${GAN_FC_DELIM}_${run_mode}_ratio${NOISE_RATIO}-$(date +"%F_%T%z").log
     fi
     mkdir -p $AUGMENTED_DATA_DIR/gan_fc_${GAN_FC_DELIM}_act_${GAN_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}
 else
-    augment_log=$LOGS/$EXPT_NAME/augment_${run_mode}_ratio${NOISE_RATIO}.log
+    augment_log=$LOG_DIR/augment_${run_mode}_ratio${NOISE_RATIO}.log
     if [ -f $augment_log ]; then
         # Move old log
-        mv $augment_log $LOGS/$EXPT_NAME/augment_${run_mode}_ratio${NOISE_RATIO}-$(date +"%F_%T%z").log
+        mv $augment_log $LOG_DIR/augment_${run_mode}_ratio${NOISE_RATIO}-$(date +"%F_%T%z").log
     fi
     mkdir -p $AUGMENTED_DATA_DIR/${run_mode}_ratio${NOISE_RATIO}
 fi

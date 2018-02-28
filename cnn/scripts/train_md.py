@@ -978,7 +978,7 @@ if profile:
     print("Profiling code using cProfile", flush=True)
 
     import cProfile
-    profile_output_dir = os.path.join(os.environ["LOGS"], os.environ["EXPT_NAME"])
+    profile_output_dir = os.path.join(os.environ["LOG_DIR"], os.environ["EXPT_NAME"])
     profile_output_path = os.path.join(profile_output_dir, "train_%s.prof" % run_mode)
     cProfile.run('run_training(run_mode, domain_adversarial, gan)', profile_output_path) 
 else:

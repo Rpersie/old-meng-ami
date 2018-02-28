@@ -24,7 +24,7 @@ train_domain=$1
 echo "Train domain ${train_domain}"
 
 expt_name="train_${train_domain}/baseline/${ARCH_NAME}"
-mkdir -p $LOGS/$expt_name
+mkdir -p $LOG_DIR/$expt_name
 
 model_dir=$MODEL_DIR/$expt_name
 mkdir -p $model_dir
@@ -32,7 +32,7 @@ mkdir -p $model_dir
 for epoch in $(seq $START_EPOCH $END_EPOCH); do
     echo "========== EPOCH $epoch =========="
 
-    epoch_log=$LOGS/$expt_name/train_baseline-epoch${epoch}.log
+    epoch_log=$LOG_DIR/$expt_name/train_baseline-epoch${epoch}.log
 
     if [ ! -f $model_dir/param-$((epoch-1)) ]; then
         # Parameter file doesn't exist -- only generate if we're just starting

@@ -1,5 +1,5 @@
 # For training
-export START_EPOCH=1
+export START_EPOCH=8
 export END_EPOCH=15
 
 # For prediction
@@ -21,7 +21,7 @@ export GAN_ACTIVATION=Sigmoid
 export GAN_FC_DELIM=$(printf "_%s" "${GAN_FC[@]}")
 
 export CNN_NAME=ENC_C_256_256_K_3_3_P_3_3_F_/LATENT_256/DEC_F__C_256_256_K_3_3_P_3_3/ACT_ReLU_BN_false_WEIGHT_INIT_xavier_uniform/OPT_Adam_LR_0.0001_EPOCHS_25_BATCH_256_DEBUG_false
-export AUGMENTED_DATA_BASE_DIR=${SCRATCH}/augmented_data/cnn/$DATASET_NAME/$CNN_NAME
+export AUGMENTED_DATA_BASE_DIR=${AUGMENTED_DATA}/cnn/$DATASET_NAME/$CNN_NAME
 
 export GOLD_DIR=/data/sls/scratch/haotang/ami/sls-data/${DATASET_NAME}
 
@@ -33,5 +33,5 @@ export ARCH_NAME="frame-tdnn-450x7-step0.05"
 export MODEL_DIR=$MODELS/am/$DATASET_NAME
 mkdir -p $MODEL_DIR
 
-export LOGS=${MENG_ROOT}/am/logs/$DATASET_NAME
-mkdir -p $LOGS
+export LOG_DIR=${LOGS}/am/$DATASET_NAME
+mkdir -p $LOG_DIR

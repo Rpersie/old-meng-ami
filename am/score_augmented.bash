@@ -43,11 +43,11 @@ fi
 expt_name="train_${tar_domain}/augmented_src_${src_domain}/${ARCH_NAME}/${CNN_NAME}"
 
 if [ "$domain_adversarial" == true ]; then
-    log_dir=$LOGS/$expt_name/domain_adversarial_fc_${DOMAIN_ADV_FC_DELIM}_act_${DOMAIN_ADV_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}
+    log_dir=$LOG_DIR/$expt_name/domain_adversarial_fc_${DOMAIN_ADV_FC_DELIM}_act_${DOMAIN_ADV_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}
 elif [ "$gan" == true ]; then
-    log_dir=$LOGS/$expt_name/gan_fc_${GAN_FC_DELIM}_act_${GAN_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}
+    log_dir=$LOG_DIR/$expt_name/gan_fc_${GAN_FC_DELIM}_act_${GAN_ACTIVATION}_${run_mode}_ratio${NOISE_RATIO}
 else
-    log_dir=$LOGS/$expt_name/${run_mode}_ratio${NOISE_RATIO}
+    log_dir=$LOG_DIR/$expt_name/${run_mode}_ratio${NOISE_RATIO}
 fi
 
 decode_dir=$log_dir/decode_${predict_domain}
