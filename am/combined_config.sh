@@ -31,7 +31,8 @@ export GOLD_DIR=/data/sls/scratch/haotang/ami/sls-data/${DATASET_NAME}
 # Always use IHM pdfids! (See Hao email from 1/17/18)
 export NPRED=3984
 
-export EXPT_NAME="combined/frame-tdnn-450x7-step0.05/${CNN_NAME}"
+# export ARCH_NAME="frame-tdnn-450x7-step0.05"
+export ARCH_NAME="frame-tdnn-450x7-step0.05-decay"
 
 export MODEL_DIR=$MODELS/am/$DATASET_NAME/$EXPT_NAME
 mkdir -p $MODEL_DIR

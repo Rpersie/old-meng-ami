@@ -66,6 +66,9 @@ cat $DATASET/ihm-train-tri3.bali.scp $augmented_data_dir/src_ihm_tar_sdm1-train-
 for epoch in $(seq $START_EPOCH $END_EPOCH); do
     echo "========== EPOCH $epoch =========="
 
+    step_size=$(echo "scale=10; 0.05 * 0.75 ^ ($epoch - 1)" | bc)
+    echo "Step size now $step_size"
+
     epoch_log=$log_dir/train_combined-epoch${epoch}.log
 
     if [ ! -f $model_dir/param-$((epoch-1)) ]; then
@@ -92,7 +95,7 @@ for epoch in $(seq $START_EPOCH $END_EPOCH); do
         --seed $epoch \
         --shuffle \
         --opt const-step \
-        --step-size 0.05 \
+        --step-size $step_size \
         --clip 5 \
         > $epoch_log
 done

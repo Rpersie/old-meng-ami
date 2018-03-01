@@ -1,9 +1,6 @@
 #!/bin/bash
 #SBATCH -p cpu
-#SBATCH -n1
-#SBATCH -N1-1
-#SBATCH -c 30
-#SBATCH --mem=32768
+#SBATCH -n1 #SBATCH -N1-1 #SBATCH -c 30 #SBATCH --mem=32768
 #SBATCH --time=24:00:00
 #SBATCH -J score_augmented
 
@@ -56,9 +53,9 @@ score_log=$decode_dir/score.log
 num_jobs=30
 echo $num_jobs > $decode_dir/num_jobs
 
-if [ "$DATASET" == "ami-0.1" ]; then
+if [ "$DATASET_NAME" == "ami-0.1" ]; then
     data=$AMI/sls-data/ami-0.1/${predict_domain}-dev
-elif [ "$DATASET" == "ami-full" ]; then
+elif [ "$DATASET_NAME" == "ami-full" ]; then
     data=$AMI/data/${predict_domain}/dev-logmel-hires
 else
     echo "Unknown dataset $DATASET"
