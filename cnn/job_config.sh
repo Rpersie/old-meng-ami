@@ -6,16 +6,20 @@ export LEARNING_RATE=0.0001
 export EPOCHS=25
 export BATCH_SIZE=128
 
+# Full AMI dataset is too large to check dev data once per epoch
+# Use (potentially smaller) validation dataset and check once per this many batches
+export VAL_BATCH_COUNT=10000
+
 export ENC_CHANNELS=( 256 256 )
-export ENC_KERNELS=( 5 5 )        # Assume square kernels (AxA)
-export ENC_DOWNSAMPLES=( 2 2 )          # Pool only in frequency; no overlap. Use 0 to indicate no pooling
+export ENC_KERNELS=( 3 3 )        # Assume square kernels (AxA)
+export ENC_DOWNSAMPLES=( 3 3 )          # Pool only in frequency; no overlap. Use 0 to indicate no pooling
 export ENC_FC=( )     # Fully-connected layers following conv layers
 
 export LATENT_DIM=256 
 export DEC_FC=( )     # Fully-connected layers before conv layers
 export DEC_CHANNELS=( 256 256 )
-export DEC_KERNELS=( 5 5 )        # Assume square kernels (AxA)
-export DEC_UPSAMPLES=( 2 2 )          # Pool only in frequency; no overlap. Use 0 to indicate no pooling
+export DEC_KERNELS=( 3 3 )        # Assume square kernels (AxA)
+export DEC_UPSAMPLES=( 3 3 )          # Pool only in frequency; no overlap. Use 0 to indicate no pooling
 
 export USE_BATCH_NORM=false
 export ACTIVATION_FUNC=ReLU
