@@ -879,6 +879,8 @@ def run_training(run_mode, domain_adversarial, gan):
     # 1-indexed for pretty printing
     print("Starting training!", flush=True)
     for epoch in range(1, epochs + 1):
+        stopped = False
+
         print("\nSTARTING EPOCH %d" % epoch, flush=True)
         train_start_t = time.clock()
 
@@ -906,6 +908,7 @@ def run_training(run_mode, domain_adversarial, gan):
                       flush=True)
                 if iterations_since_improvement >= max_patience:
                     print("STOPPING EARLY", flush=True)
+                    stopped = True
                     break
 
             if not save_best_only or (save_best_only and is_best):
@@ -932,6 +935,10 @@ def run_training(run_mode, domain_adversarial, gan):
         print("\nEPOCH %d (%.3fs)" % (epoch,
                                       train_end_t - train_start_t),
               flush=True)
+
+        if stopped:
+            # Need to break out of outer loop as well
+            break
 
     # Once done, load best checkpoint and determine reconstruction loss alone
     print("Computing reconstruction loss...", flush=True)

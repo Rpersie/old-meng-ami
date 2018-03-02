@@ -27,6 +27,7 @@ expt_name="train_${train_domain}/baseline/${ARCH_NAME}"
 model_dir=$MODEL_DIR/$expt_name
 
 decode_dir=$LOG_DIR/$expt_name/decode_${predict_domain}
+mkdir -p $decode_dir
 score_log=$decode_dir/score.log
 
 num_jobs=30

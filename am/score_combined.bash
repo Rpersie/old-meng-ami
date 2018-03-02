@@ -48,6 +48,7 @@ else
 fi
 
 decode_dir=$log_dir/decode_${predict_domain}
+mkdir -p $decode_dir
 score_log=$decode_dir/score.log
 
 num_jobs=30

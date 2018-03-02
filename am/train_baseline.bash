@@ -64,6 +64,9 @@ for epoch in $(seq $START_EPOCH $END_EPOCH); do
         --step-size $step_size \
         --clip 5 \
         > $epoch_log
+
+    # Show average E at end to make sure training progresses correctly
+    $MENG_ROOT/am/avg-e.py 100 < $epoch_log
 done
 
 echo "DONE BASELINE ACOUSTIC MODEL TRAINING JOB"
