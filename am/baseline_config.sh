@@ -1,5 +1,5 @@
 # For training
-export START_EPOCH=1
+export START_EPOCH=9
 export END_EPOCH=15
 
 # For prediction
